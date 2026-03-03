@@ -8,9 +8,5 @@
 | Total                     | 18         |
 
 ---
-
-![[Requisitos Funcionais (RF)]]
-
----
-
-![[Requisitos Não Funcionais (RNF)]]
+- [Requisitos Funcionais (RF)](docs/requisitos-funcionais.md)
+- [Requisitos Não Funcionais (RNF)](docs/requisitos-nao-funcionais.md)
