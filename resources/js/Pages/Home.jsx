@@ -1,3 +1,7 @@
+import { useTranslation } from 'react-i18next'; // Importing the useTranslation hook from react-i18next, which allows us to translate
+
 export default function Home() {
-    return <h1>Hello from React + Inertia 🚀</h1>;
+    const { t } = useTranslation();
+
+    return <h1>{ t('test') }</h1>;
 }

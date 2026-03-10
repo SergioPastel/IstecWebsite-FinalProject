@@ -7,6 +7,8 @@ use Inertia\Inertia;
 //     return view('welcome');
 // });
 
+// Inertia routes, which will render our React components instead of Blade views.
+
 Route::get('/', function () {
     return Inertia::render('Home');
 });
