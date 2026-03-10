@@ -1,3 +1,4 @@
 {
-  "test": "Hello world!"
+    "test": "Hello world!",
+    "switchLang": "Switch to Portuguese"
 }
