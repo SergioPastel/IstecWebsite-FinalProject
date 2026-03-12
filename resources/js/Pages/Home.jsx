@@ -1,3 +1,18 @@
+import { useTranslation } from 'react-i18next'; // Importing the useTranslation hook from react-i18next, which allows us to translate
+
 export default function Home() {
-    return <h1>Hello from React + Inertia 🚀</h1>;
+    {/* This will be used on our partial views (header) to translate content */}
+    const { t, i18n } = useTranslation();
+
+    const changeLanguage = (lang) => {
+        i18n.changeLanguage(lang);
+    };
+
+    return <>
+        <div>
+            <h1>{t("test")}</h1>
+            <button onClick={() => changeLanguage("en")}>English</button>
+            <button onClick={() => changeLanguage("pt")}>Portuguese</button>
+        </div>
+    </>;
 }
