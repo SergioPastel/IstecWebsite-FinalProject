@@ -20,7 +20,7 @@ return new class extends Migration
          * type
          */
         Schema::create('subjects', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->tinyInteger('ects');
             $table->string('file_path');

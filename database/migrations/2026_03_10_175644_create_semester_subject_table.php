@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,13 +12,16 @@ return new class extends Migration
     {
         /**
          * This is the pivot table for the many to many relationship
-         * between semesters and subjects
+         * between semesters and subjects.
          */
-        Schema::create('semester_subject', function (Blueprint $table){
-            $table->foreignUuid('semester_uuid');
-            $table->foreignUuid('subject_uuid');
+        Schema::create('semester_subject', function (Blueprint $table) {
+            $table->foreignUuid('semester_id')->references('id')->on('semesters');
+            $table->foreignUuid('subject_id')->references('id')->on('subjects');
 
-            $table->primary(['semester_uuid', 'subject_uuid']);
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->primary(['semester_id', 'subject_id']);
         });
     }
 
