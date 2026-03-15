@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next'; // Importing the useTranslation hook from react-i18next, which allows us to translate
 
 export default function Dashboard() {
@@ -14,6 +15,7 @@ export default function Dashboard() {
             <label>back/pages/Dashboard</label><br />
             <button onClick={() => changeLanguage("en")}>English</button>
             <button onClick={() => changeLanguage("pt")}>Portuguese</button>
+            <Link href={route('home')}>{t('click')}</Link>
         </div>
     </>;
 }
