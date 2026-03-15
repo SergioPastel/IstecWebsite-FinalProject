@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next'; // Importing the useTranslation hook from react-i18next, which allows us to translate
 
+
 export default function Dashboard() {
     {/* This will be used on our partial views (header) to translate content */}
     const { t, i18n } = useTranslation();

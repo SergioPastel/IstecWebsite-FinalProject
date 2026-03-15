@@ -18,6 +18,6 @@ export default function Home() {
             <button onClick={() => changeLanguage("pt")}>Portuguese</button>
             <Link href={route('dashboard')}>{t('click')}</Link>
         </div>
-        
+
     </>;
 }
