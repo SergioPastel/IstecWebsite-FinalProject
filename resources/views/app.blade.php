@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    @routes
     @viteReactRefresh
     @vite('resources/js/app.jsx')
     @inertiaHead
