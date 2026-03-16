@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'; // Importing the useTranslation 
 
 export default function Navbar() {
     const { t, i18n } = useTranslation();
-
+  
     const changeLanguage = (lang) => {
         i18n.changeLanguage(lang);
     };

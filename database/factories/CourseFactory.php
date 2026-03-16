@@ -18,11 +18,21 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         $duration = fake()->numberBetween(1, 5);
+
         return [
             'course_category_id' => CourseCategory::inRandomOrder()->first()->id,
-            'title' => fake()->jobTitle(),
-            'description' => fake()->paragraph(),
-            'professional_outcomes' => fake()->paragraph(),
+            'title' => [
+                'pt' => fake()->jobTitle(),
+                'en' => fake()->jobTitle()
+            ],
+            'description' => [
+                'pt' => fake()->paragraph(),
+                'en' => fake()->paragraph()
+            ],
+            'professional_outcomes' => [
+                'pt' => fake()->paragraph(),
+                'en' => fake()->paragraph()
+            ],
             'duration_years' => $duration,
             'study_regime' => fake()->boolean(),
             'tuition_monthly_pay' => fake()->randomFloat(2, 200, 700),

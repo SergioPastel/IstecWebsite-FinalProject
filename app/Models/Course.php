@@ -5,12 +5,30 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+use Spatie\Translatable\HasTranslations;
+
 
 class Course extends Model
 {
-    use HasUuids, HasFactory;
+    use HasUuids, HasFactory, HasTranslations;
     public $incrementing = false;
     protected $keyType = 'string';
+
+    protected $fillable = [
+        'title',
+        'course_category_id',
+        'description',
+        'duration_years',
+        'study_regime',
+        'tuition_monthly_pay',
+        'tuition_months'
+    ];
+    public $translatable = [
+        'title',
+        'professional_outcomes',
+        'description',
+    ];
 
     /**
      * Eloquent mapping of CourseCategory
@@ -28,5 +46,13 @@ class Course extends Model
     function semesters()
     {
         return $this->hasMany(Semester::class);
+    }
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->id = Str::uuid();
+        });
     }
 }

@@ -38,7 +38,7 @@ class CourseSeeder extends Seeder
                 $subjectCount = fake()->numberBetween(5, 8);
 
                 $semester->subjects()->attach(
-                    $subjects->random($subjectCount)->pluck('id')
+                    $subjects->random($subjectCount)->pluck('id')->toArray()
                 );
             }
         }

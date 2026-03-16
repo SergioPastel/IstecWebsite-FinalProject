@@ -17,7 +17,9 @@ class SubjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->word(),
+            'name' => [
+                'pt' => fake()->word(),
+                'en' => fake()->word()],
             'ects' => fake()->numberBetween(6, 90),
             'file_path' => fake()->filePath(),
         ];

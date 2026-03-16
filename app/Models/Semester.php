@@ -5,10 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+use Spatie\Translatable\HasTranslations;
+
 
 class Semester extends Model
 {
-    use HasUuids, HasFactory;
+    use HasUuids, HasFactory, HasTranslations;
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -32,5 +35,12 @@ class Semester extends Model
         return $this->belongsToMany(Subject::class)
             ->withTimestamps();
     }
+    public static function boot()
+    {
+        parent::boot();
 
+        static::creating(function ($model) {
+            $model->id = Str::uuid();
+        });
+    }
 }

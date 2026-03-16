@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('course_categories', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('title');
-            $table->text('description');
+            $table->json('title');
+            $table->json('description');
 
             $table->timestamps();
             $table->softDeletes();

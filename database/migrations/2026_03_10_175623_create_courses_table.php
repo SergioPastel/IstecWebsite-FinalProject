@@ -20,10 +20,10 @@ return new class extends Migration
             $table->uuid('id')->primary();
 
             $table->foreignUuid('course_category_id')->references('id')->on('course_categories');
-            $table->mediumText('professional_outcomes');
+            $table->json('professional_outcomes');
 
-            $table->string('title');
-            $table->text('description');
+            $table->json('title');
+            $table->json('description');
             $table->unsignedTinyInteger('duration_years');
             $table->boolean('study_regime'); // 0 - working hours | 1 - after-working hours
 

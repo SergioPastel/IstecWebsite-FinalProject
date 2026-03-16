@@ -15,13 +15,14 @@ return new class extends Migration {
          * between semesters and subjects.
          */
         Schema::create('semester_subject', function (Blueprint $table) {
+            $table->uuid('id')->primary();
             $table->foreignUuid('semester_id')->references('id')->on('semesters');
             $table->foreignUuid('subject_id')->references('id')->on('subjects');
 
             $table->timestamps();
             $table->softDeletes();
 
-            $table->primary(['semester_id', 'subject_id']);
+            $table->unique(['semester_id', 'subject_id']);
         });
     }
 
