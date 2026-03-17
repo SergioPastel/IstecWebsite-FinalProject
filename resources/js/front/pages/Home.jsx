@@ -1,5 +1,5 @@
-import Layout from './layouts/layout';
 import { useTranslation } from 'react-i18next'; // needed in EVERY view to use the translated text
+import Layout from '../layouts/layout';
 
 export default function Home() {
     const { t } = useTranslation(); // needed in EVERY view to use the translated text
