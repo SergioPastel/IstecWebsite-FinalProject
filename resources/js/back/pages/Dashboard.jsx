@@ -14,7 +14,6 @@ export default function Dashboard() {
     return <>
         <div>
             <h1>{t("test")}</h1>
-            <label>front/pages/Home</label><br />
             <label>back/pages/Dashboard</label><br />
             <p>User: {user.name}</p>
 

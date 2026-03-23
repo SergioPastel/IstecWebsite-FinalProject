@@ -2,7 +2,12 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Fortify;
@@ -64,11 +69,26 @@ Route::middleware('guest')->group(function () {
     })->name('login');
 });
 
-// Public routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/courses', [CourseController::class, 'index'])->name('courses');
 
 // Auth protected routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 });
+
+Route::get('/courses', [CourseController::class, 'index'])->name('courses');
+Route::get('/courses/{course:slug}', [CourseController::class, 'show'])->name('courses.show');
+
+route::get('/events', [EventController::class, 'index'])->name('events');
+route::get('/events/{event:slug}', [EventController::class, 'show'])->name('events.show');
+
+route::get('/news', [NewsController::class, 'index'])->name('news');
+route::get('/news/{news:slug}', [NewsController::class, 'show'])->name('news.show');
+
+Route::get('/search', [SearchController::class, 'index'])->name('search');
+
+Route::get('/applications/create/{course:slug}', [ApplicationController::class, 'create'])->name('applications.create');
+Route::post('/applications', [ApplicationController::class, 'store'])->name('applications.store');
+
+Route::get('/contacts', [ContactController::class, 'create'])->name('contacts.create');
+Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');

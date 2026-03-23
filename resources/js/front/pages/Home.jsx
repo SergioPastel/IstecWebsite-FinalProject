@@ -1,24 +1,18 @@
+import Layout from './../layouts/layout';
 import { useTranslation } from 'react-i18next'; // needed in EVERY view to use the translated text
-import Layout from '../layouts/layout';
 import { Link } from '@inertiajs/react';
 
-
 export default function Home() {
-    {/* This will be used on our partial views (header) to translate content */}
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation(); // needed in EVERY view to use the translated text
+    return (
+        <Layout>
+            <div>
+                <h1>{t("language")}</h1>
 
-    const changeLanguage = (lang) => {
-        i18n.changeLanguage(lang);
-    };
-
-    return <>
-        <div>
-            <h1>{t("test")}</h1>
-            <label>front/pages/Home</label><br />
-            <button onClick={() => changeLanguage("en")}>English</button>
-            <button onClick={() => changeLanguage("pt")}>Portuguese</button>
-            <Link href={route('dashboard')}>{t('click')}</Link>
-        </div>
-        
-    </>;
+                <h1>{t("test")}</h1>
+                <label>front/pages/Home</label><br />
+                <Link href={route('dashboard')}>{t('click')}</Link>              
+            </div>
+        </Layout>
+    );
 }
