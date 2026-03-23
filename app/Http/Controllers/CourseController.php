@@ -6,6 +6,7 @@ use App\Http\Resources\CourseResource;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use Inertia\Inertia;
+use Str;
 
 use function Termwind\render;
 
