@@ -1,6 +1,6 @@
 {
     "test": "Hello world!",
+    "language": "English",
     "switchLang": "Switch to Portuguese",
-    "click": "Click me!",
-    "language": "English"
+    "click": "Click me!"
 }

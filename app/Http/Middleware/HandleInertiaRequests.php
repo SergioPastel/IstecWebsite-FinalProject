@@ -37,7 +37,10 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
-            //
+
+            // these key:value pairs are shared in pages' props
+            'locale' => app()->getLocale(),
+            'languages' => config('app.available_locales'),
         ];
     }
 }

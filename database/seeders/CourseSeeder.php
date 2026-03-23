@@ -21,8 +21,9 @@ class CourseSeeder extends Seeder
     public function run(): void
     {
         $courses = Course::factory()->count(30)->create();
+        // echo("debug");
         $subjects = Subject::factory()->count(60)->create();
-
+        // dd(Subject::factory()->count(60)->make()->toArray());
         foreach ($courses as $course) {
             $semesterCount = 2 * $course->duration_years;
 

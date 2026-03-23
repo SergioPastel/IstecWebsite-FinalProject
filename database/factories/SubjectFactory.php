@@ -19,9 +19,10 @@ class SubjectFactory extends Factory
         return [
             'name' => [
                 'pt' => fake()->word(),
-                'en' => fake()->word()],
+                'en' => fake()->word()
+            ],
             'ects' => fake()->numberBetween(6, 90),
-            'file_path' => fake()->filePath(),
+            'file_path' => 'factory/mock/file/path',
         ];
     }
 }

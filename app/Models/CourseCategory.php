@@ -19,6 +19,14 @@ class CourseCategory extends Model
         'title',
         'description',
     ];
+    /**
+     * Summary of translatable attributes.
+     * These values are stored in mySql database as
+     * json collumns, with a key representing the
+     * locale ('pt', 'en') and the value representing
+     * the translated text
+     * @var array
+     */
     public $translatable = [
         'title',
         'description',

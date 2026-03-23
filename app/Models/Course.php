@@ -24,6 +24,14 @@ class Course extends Model
         'tuition_monthly_pay',
         'tuition_months'
     ];
+    /**
+     * Summary of translatable attributes.
+     * These values are stored in mySql database as
+     * json collumns, with a key representing the
+     * locale ('pt', 'en') and the value representing
+     * the translated text
+     * @var array
+     */
     public $translatable = [
         'title',
         'professional_outcomes',
@@ -34,7 +42,7 @@ class Course extends Model
      * Eloquent mapping of CourseCategory
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Course, Course>
      */
-    function courseCategory()
+    function category()
     {
         return $this->belongsTo(Course::class);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CourseResource;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use Inertia\Inertia;
@@ -15,6 +16,6 @@ class CourseController extends Controller
     {
         $courses = Course::all();
 
-        return Inertia('front/pages/courses/index', ['courses' => $courses]);
+        return Inertia('front/pages/courses/index', ['courses' => CourseResource::collection($courses)]);
     }
 }
