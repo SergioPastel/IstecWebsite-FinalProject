@@ -11,6 +11,7 @@ use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Fortify;
+use Illuminate\Http\Request;
 
 // Route::get('/', function () {
 //     return view('welcome');

@@ -5,16 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use App\Models\Course;
+use App\Models\Event;
+use App\Models\News;
 
 class HomeController extends Controller
 {
     // GET / - This method will render the home page of our application.
     public function index()
     {
-         return Inertia::render('Home', [
+         return Inertia('front/pages/Home', [
             'courses' => Course::latest()->take(6)->get(),
-            'events' => Event::orderBy('event_date', 'asc')->take(3)->get(),
-            'news' => News::latest()->take(3)->get(),
+            // Finish the migrations and then uncomment
+            // 'events' => Event::orderBy('event_date', 'asc')->take(3)->get(),
+            // 'news' => News::latest()->take(3)->get(),
         ]);
     }
 

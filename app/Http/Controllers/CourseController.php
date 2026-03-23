@@ -17,8 +17,8 @@ class CourseController extends Controller
 
     public function index()
     {
-        return Inertia::render('Courses/Index', [
-            'courses' => Course::latest()->get()
+        return Inertia('front/pages/courses/index', [
+            'courses' => CourseResource::collection(Course::latest()->get())
         ]);
     }
 
