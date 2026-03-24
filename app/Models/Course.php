@@ -18,6 +18,7 @@ class Course extends Model
     protected $fillable = [
         'title',
         'course_category_id',
+        'media_id',
         'description',
         'duration_years',
         'study_regime',
@@ -38,6 +39,14 @@ class Course extends Model
         'description',
     ];
 
+    /**
+     * Summary of media
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Media, Course>
+     */
+    function media()
+    {
+        return $this->hasOne(Media::class);
+    }
     /**
      * Eloquent mapping of CourseCategory
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Course, Course>
