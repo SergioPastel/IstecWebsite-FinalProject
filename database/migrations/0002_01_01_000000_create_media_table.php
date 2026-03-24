@@ -4,22 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('media', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->foreignUuid('media_id')->references('id')->on('media');
-            $table->date('start_date');
-            $table->date('end_date')->nullable();
-            $table->string('location');
-            $table->json('title');
-            $table->json('description');
+            $table->string('type');
+            $table->string('file_path');
+            $table->string('thumbnail_path')->nullable();
+            $table->json('alt_text');
 
             $table->timestamps();
             $table->softDeletes();
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('media');
     }
 };

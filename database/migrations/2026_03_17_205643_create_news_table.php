@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('news', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+
+            $table->foreignUuid('media_id')->references('id')->on('media');
+            $table->json('title');
+            $table->json('description');
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }
