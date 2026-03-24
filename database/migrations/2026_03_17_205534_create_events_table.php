@@ -15,8 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
 
             $table->foreignUuid('media_id')->references('id')->on('media');
-            $table->date('start_date');
-            $table->date('end_date')->nullable();
+            $table->dateTime('start_date');
+            $table->dateTime('end_date')->nullable();
             $table->string('location');
             $table->json('title');
             $table->json('description');
