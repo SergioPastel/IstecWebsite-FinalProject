@@ -12,8 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('events', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+
+            $table->foreignUuid('media_id')->references('id')->on('media');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->string('location');
+            $table->json('title');
+            $table->json('description');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
