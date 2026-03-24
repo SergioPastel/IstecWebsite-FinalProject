@@ -8,6 +8,7 @@ use App\Models\Course;
 use Inertia\Inertia;
 use Str;
 
+use Str;
 use function Termwind\render;
 
 class CourseController extends Controller
@@ -26,7 +27,7 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         return Inertia::render('Courses/Show', [
-            'course' => $course
+            'course' => new CourseResource($course)
         ]);
     }
 
@@ -37,7 +38,7 @@ class CourseController extends Controller
     public function adminIndex()
     {
         return Inertia::render('Admin/Courses/Index', [
-            'courses' => Course::latest()->get()
+            'courses' => new CourseResource(Course::latest()->get())
         ]);
     }
 
