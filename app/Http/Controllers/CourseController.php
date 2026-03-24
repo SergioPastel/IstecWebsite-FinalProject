@@ -8,7 +8,6 @@ use App\Models\Course;
 use Inertia\Inertia;
 use Str;
 
-use Str;
 use function Termwind\render;
 
 class CourseController extends Controller
