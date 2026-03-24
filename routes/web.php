@@ -72,13 +72,18 @@ Route::middleware('guest')->group(function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Auth protected routes
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+// Auth protected routes. Prefix allow for route separation
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard');
+
+    Route::get('/courses', [CourseController::class, 'adminIndex'])->name('adminCourses');
+    Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
+    Route::get('/courses/edit/{course:id}', [CourseController::class, 'edit'])->name('courses.edit');
+    Route::delete('/courses/{course:id}', [CourseController::class, 'destroy'])->name('courses.destroy');
 });
 
 Route::get('/courses', [CourseController::class, 'index'])->name('courses');
-Route::get('/courses/{course:slug}', [CourseController::class, 'show'])->name('courses.show');
+Route::get('/courses/{course:id}', [CourseController::class, 'show'])->name('courses.show');
 
 route::get('/events', [EventController::class, 'index'])->name('events');
 route::get('/events/{event:slug}', [EventController::class, 'show'])->name('events.show');

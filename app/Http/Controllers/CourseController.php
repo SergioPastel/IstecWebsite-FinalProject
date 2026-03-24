@@ -8,7 +8,6 @@ use App\Models\Course;
 use Inertia\Inertia;
 use Str;
 
-use Str;
 use function Termwind\render;
 
 class CourseController extends Controller
@@ -19,14 +18,16 @@ class CourseController extends Controller
 
     public function index()
     {
-        return Inertia('front/pages/courses/index', [
+        return Inertia('front/pages/courses/Index', [
+            // Wraps the data as a Laravel data resource, applying to all items with collection
             'courses' => CourseResource::collection(Course::latest()->get())
         ]);
     }
 
+    // Admin doesn't need show
     public function show(Course $course)
     {
-        return Inertia::render('Courses/Show', [
+        return Inertia::render('front/pages/courses/Show', [
             'course' => new CourseResource($course)
         ]);
     }
@@ -37,14 +38,14 @@ class CourseController extends Controller
 
     public function adminIndex()
     {
-        return Inertia::render('Admin/Courses/Index', [
-            'courses' => new CourseResource(Course::latest()->get())
+        return Inertia('back/pages/courses/Index', [
+            'courses' => CourseResource::collection(Course::latest()->get())
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Admin/Courses/Create');
+        return Inertia('back/pages/courses/Create');
     }
 
     public function store(Request $request)
@@ -71,8 +72,8 @@ class CourseController extends Controller
 
     public function edit(Course $course)
     {
-        return Inertia::render('Admin/Courses/Edit', [
-            'course' => $course
+        return Inertia('back/pages/courses/Edit', [
+            'course' => new CourseResource($course)
         ]);
     }
 
@@ -102,7 +103,7 @@ class CourseController extends Controller
     {
         $course->delete();
 
-        return redirect()->route('admin.courses.index')
+        return redirect()->route('adminCourses')
             ->with('success', 'Curso eliminado com sucesso.');
     }
 }

@@ -1,9 +1,16 @@
 import Layout from '../layouts/layout';
 import { useTranslation } from 'react-i18next';
 import { Link } from '@inertiajs/react';
+import { Inertia } from '@inertiajs/inertia';
 
-export default function CoursesIndex({ courses }) {
+export default function CoursesIndexBack({ courses }) {
   const { t } = useTranslation();
+
+  function handleDelete(courseId) {
+    if (confirm('Tem certeza que deseja deletar este curso?')) {
+        Inertia.delete(route('courses.destroy', { course: courseId }));
+    }
+  }
 
 /**
  * Component properties, when coming from the server, may be wraped with 'data'
@@ -15,7 +22,7 @@ export default function CoursesIndex({ courses }) {
  */
   return (
     <Layout>
-      <h1>{t("language")}</h1>
+      <h1>{t("language")} ADMIN</h1>
 
       <div className="container mx-auto p-6">
         <h1 className="text-3xl font-bold mb-6">Courses</h1>
@@ -40,7 +47,8 @@ export default function CoursesIndex({ courses }) {
                   ID: {course.id}
                 </div>
 
-                <Link href={route('courses.show', { course: course.id })}>Link do curso</Link>
+                <Link href={route('courses.edit', { course: course.id })}>Editar curso</Link><br />
+                <button type="button" onClick={() => handleDelete(course.id)}>DELETAR curso</button>
               </div>
             ))}
           </div>
