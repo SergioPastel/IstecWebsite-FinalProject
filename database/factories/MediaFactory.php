@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Media;
+use GuzzleHttp\Psr7\MimeType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\News>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Media>
  */
-class NewsFactory extends Factory
+class MediaFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,14 +18,12 @@ class NewsFactory extends Factory
     public function definition(): array
     {
         return [
-            'media_id' => Media::factory()->create(),
-            'title' => [
+            'type' => 'image',
+            'file_path' => fake()->imageUrl(),
+            'thumbnail_path' => null,
+            'alt_text' => [
                 'pt' => fake()->word(),
                 'en' => fake()->word(),
-            ],
-            'description' => [
-                'pt' => fake()->sentence(),
-                'en' => fake()->sentence(),
             ]
         ];
     }
