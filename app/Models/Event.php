@@ -15,15 +15,19 @@ class Event extends Model
     use HasUuids, HasFactory, HasTranslations, SoftDeletes;
     protected $fillable = [
         'media_id',
+        'title',
+        'description',
+        'location',
         'start_date',
         'end_date',
-        'location',
-        'title',
-        'description'
     ];
     public $translatable = [
         'title',
-        'description'
+        'description',
+    ];
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
     ];
 
     public function media()

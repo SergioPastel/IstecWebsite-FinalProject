@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Translatable\HasTranslations;
 use Str;
 
@@ -18,6 +19,13 @@ class Media extends Model
         'alt_text'
     ];
     public $translatable = ['alt_text'];
+
+    public static function getUrl($disk, $path)
+    {
+        /** @var \Illuminate\Filesystem\FilesystemAdapter*/
+        $disk = Storage::disk($disk);
+        return $disk->url($path);
+    }
 
     public static function boot()
     {
