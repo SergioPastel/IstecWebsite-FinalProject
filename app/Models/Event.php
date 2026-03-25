@@ -21,6 +21,14 @@ class Event extends Model
         'start_date',
         'end_date',
     ];
+    /**
+     * Summary of translatable attributes.
+     * These values are stored in mySql database as
+     * json collumns, with a key representing the
+     * locale ('pt', 'en') and the value representing
+     * the translated text
+     * @var array
+     */
     public $translatable = [
         'title',
         'description',
@@ -30,9 +38,13 @@ class Event extends Model
         'end_date' => 'datetime',
     ];
 
+    /**
+     * Summary of media
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Media, Event>
+     */
     public function media()
     {
-        return $this->hasOne(Media::class);
+        return $this->belongsTo(Media::class);
     }
 
     public static function boot()

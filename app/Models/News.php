@@ -17,15 +17,26 @@ class News extends Model
         'title',
         'description'
     ];
+    /**
+     * Summary of translatable attributes.
+     * These values are stored in mySql database as
+     * json collumns, with a key representing the
+     * locale ('pt', 'en') and the value representing
+     * the translated text
+     * @var array
+     */
     public $translatable = [
         'title',
         'description'
     ];
 
-
+    /**
+     * Summary of media
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Media, News>
+     */
     public function media()
     {
-        return $this->hasOne(Media::class);
+        return $this->belongsTo(Media::class);
     }
 
     public static function boot()

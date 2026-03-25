@@ -41,11 +41,11 @@ class Course extends Model
 
     /**
      * Summary of media
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Media, Course>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Media, Course>
      */
     function media()
     {
-        return $this->hasOne(Media::class);
+        return $this->belongsTo(Media::class);
     }
     /**
      * Eloquent mapping of CourseCategory
