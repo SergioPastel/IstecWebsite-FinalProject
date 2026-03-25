@@ -19,7 +19,7 @@ class NewsResource extends JsonResource
         $locale = app()->getLocale();
         return [
             'id' => $this->id,
-            'media' => $this->media_id ? new MediaResource($this->media_id) : null,
+            'media' => $this->media_id ? new MediaResource($this->media) : null,
             'title' => $this->getTranslation('title', $locale) ?: $this->getTranslation('title', $locale),
             'description' => $this->getTranslation('description', $locale) ?: $this->getTranslation('description', $locale),
         ];

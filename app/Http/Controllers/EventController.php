@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EventResource;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -15,14 +16,14 @@ class EventController extends Controller
     public function index()
     {
         return Inertia('front/pages/events/Index', [
-            'events' => Event::latest()->get()
+            'events' => EventResource::collection(Event::latest()->get())
         ]);
     }
 
     public function show(Event $event)
     {
         return Inertia('front/pages/events/Show', [
-            'event' => $event
+            'event' => new EventResource($event)
         ]);
     }
 
@@ -33,7 +34,7 @@ class EventController extends Controller
     public function adminIndex()
     {
         return Inertia('back/pages/events/Index', [
-            'events' => Event::latest()->get()
+            'events' => EventResource::collection(Event::latest()->get())
         ]);
     }
 
@@ -71,7 +72,7 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         return Inertia('back/pages/events/Edit', [
-            'event' => $event
+            'event' => new EventResource($event)
         ]);
     }
 
