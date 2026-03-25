@@ -13,10 +13,12 @@ return new class extends Migration {
         Schema::create('media', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('type');
+            $table->enum('type', ['image', 'video', 'gif']);
             $table->string('file_path');
+            $table->string('file_disk')->default('public');
+            $table->string('thumbnail_disk')->nullable();
             $table->string('thumbnail_path')->nullable();
-            $table->json('alt_text');
+            $table->json('alt_text')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
