@@ -73,20 +73,31 @@ Route::middleware('guest')->group(function () {
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Auth protected routes. Prefix allow for route separation
-Route::middleware(['auth'])->prefix('admin')->group(function () {
+Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard');
 
-    Route::get('/courses', [CourseController::class, 'adminIndex'])->name('adminCourses');
+    // Course Routes
+    Route::get('/courses', [CourseController::class, 'adminIndex'])->name('backoffice.courses');
     Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
-    Route::get('/courses/edit/{course:id}', [CourseController::class, 'edit'])->name('courses.edit');
+    Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
+    Route::get('/courses/{course:id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
+    Route::patch('/courses/{course:id}', [CourseController::class, 'update'])->name('courses.update');
     Route::delete('/courses/{course:id}', [CourseController::class, 'destroy'])->name('courses.destroy');
+
+    // Event routes
+    Route::get('/events', [EventController::class, 'adminIndex'])->name('backoffice.events');
+    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+    Route::post('/events', [EventController::class, 'store'])->name('events.store');
+    Route::get('/events/{event:id}/edit', [EventController::class, 'edit'])->name('events.edit');
+    Route::patch('/events/{event:id}', [EventController::class, 'update'])->name('events.update');
+    Route::delete('/events/{event:id}', [EventController::class, 'destroy'])->name('events.destroy');
 });
 
 Route::get('/courses', [CourseController::class, 'index'])->name('courses');
 Route::get('/courses/{course:id}', [CourseController::class, 'show'])->name('courses.show');
 
 route::get('/events', [EventController::class, 'index'])->name('events');
-route::get('/events/{event:slug}', [EventController::class, 'show'])->name('events.show');
+route::get('/events/{event:id}', [EventController::class, 'show'])->name('events.show');
 
 route::get('/news', [NewsController::class, 'index'])->name('news');
 route::get('/news/{news:slug}', [NewsController::class, 'show'])->name('news.show');

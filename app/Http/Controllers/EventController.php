@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use App\Http\Requests\StoreEventRequest;
-use App\Http\Requests\UpdateEventRequest;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class EventController extends Controller
@@ -15,14 +14,14 @@ class EventController extends Controller
 
     public function index()
     {
-        return Inertia::render('Events/Index', [
-            'events' => Event::orderBy('event_date', 'asc')->get()
+        return Inertia('front/pages/events/Index', [
+            'events' => Event::latest()->get()
         ]);
     }
 
     public function show(Event $event)
     {
-        return Inertia::render('Events/Show', [
+        return Inertia('front/pages/events/Show', [
             'event' => $event
         ]);
     }
@@ -33,14 +32,14 @@ class EventController extends Controller
 
     public function adminIndex()
     {
-        return Inertia::render('Admin/Events/Index', [
+        return Inertia('back/pages/events/Index', [
             'events' => Event::latest()->get()
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Admin/Events/Create');
+        return Inertia('back/pages/courses/Create');
     }
 
     public function store(Request $request)
@@ -48,26 +47,30 @@ class EventController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'event_date' => 'required|date',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
             'location' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        $validated['slug'] = Str::slug($validated['title']);
+        // Fix later to use images properly
+        /*if ($request->hasFile('image')) {
+            $media = Media::create([
+                'path' => $request->file('image')->store('courses', 'public')
+            ]);
 
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('events', 'public');
-        }
+            $validated['media_id'] = $media->id;
+        }*/
 
         Event::create($validated);
 
-        return redirect()->route('admin.events.index')
+        return redirect()->route('backoffice.events')
             ->with('success', 'Evento criado com sucesso.');
     }
 
     public function edit(Event $event)
     {
-        return Inertia::render('Admin/Events/Edit', [
+        return Inertia('back/pages/events/Edit', [
             'event' => $event
         ]);
     }
@@ -77,20 +80,24 @@ class EventController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'event_date' => 'required|date',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
             'location' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        $validated['slug'] = Str::slug($validated['title']);
+        // Fix later to use images properly
+        /*if ($request->hasFile('image')) {
+            $media = Media::create([
+                'path' => $request->file('image')->store('courses', 'public')
+            ]);
 
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('events', 'public');
-        }
+            $validated['media_id'] = $media->id;
+        }*/
 
         $event->update($validated);
 
-        return redirect()->route('admin.events.index')
+        return redirect()->route('backoffice.events')
             ->with('success', 'Evento atualizado com sucesso.');
     }
 
@@ -98,7 +105,7 @@ class EventController extends Controller
     {
         $event->delete();
 
-        return redirect()->route('admin.events.index')
+        return redirect()->route('backoffice.events')
             ->with('success', 'Evento eliminado com sucesso.');
     }
 }

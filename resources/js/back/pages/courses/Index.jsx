@@ -7,6 +7,7 @@ export default function CoursesIndexBack({ courses }) {
   const { t } = useTranslation();
 
   function handleDelete(courseId) {
+    // ADD I18N TRANSLATION TO THIS MESSAGE!!!
     if (confirm('Tem certeza que deseja deletar este curso?')) {
         Inertia.delete(route('courses.destroy', { course: courseId }));
     }

@@ -21,7 +21,7 @@ export default function Dashboard() {
 
                 <button onClick={() => changeLanguage("en")}>English</button>
                 <button onClick={() => changeLanguage("pt")}>Portuguese</button>
-                <Link href={route('adminCourses')}>{t('click')}</Link>
+                <Link href={route('backoffice.courses')}>{t('click')}</Link>
             </div>
         </Layout>
     </>;

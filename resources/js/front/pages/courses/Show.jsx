@@ -6,8 +6,9 @@ export default function CourseShow({ course }){
 
     return (
         <Layout>
+            Curso
             <p>id:{ course.id }</p>
-            <p>id:{ course.title }</p>
+            <p>titulo:{ course.title }</p>
         </Layout>
     );
 }

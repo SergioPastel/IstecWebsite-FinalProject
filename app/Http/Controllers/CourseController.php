@@ -6,7 +6,6 @@ use App\Http\Resources\CourseResource;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use Inertia\Inertia;
-use Str;
 
 use function Termwind\render;
 
@@ -27,7 +26,7 @@ class CourseController extends Controller
     // Admin doesn't need show
     public function show(Course $course)
     {
-        return Inertia::render('front/pages/courses/Show', [
+        return Inertia('front/pages/courses/Show', [
             'course' => new CourseResource($course)
         ]);
     }
@@ -51,22 +50,30 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'duration' => 'nullable|string|max:100',
-            'category' => 'nullable|string|max:100',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'title' => 'required|array', // for translations
+            'title.en' => 'required|string|max:255',
+            'title.pt' => 'required|string|max:255',
+
+            'description' => 'required|array',
+            'description.en' => 'required|string',
+            'description.pt' => 'required|string',
+
+            'course_category_id' => 'nullable|uuid|exists:course_categories,id',
+            'duration_years' => 'nullable|integer',
         ]);
 
-        $validated['slug'] = Str::slug($validated['title']);
+        // Fix later to use images properly
+        /*if ($request->hasFile('image')) {
+            $media = Media::create([
+                'path' => $request->file('image')->store('courses', 'public')
+            ]);
 
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('courses', 'public');
-        }
+            $validated['media_id'] = $media->id;
+        }*/
 
         Course::create($validated);
 
-        return redirect()->route('admin.courses.index')
+        return redirect()->route('backoffice.courses')
             ->with('success', 'Curso criado com sucesso.');
     }
 
@@ -80,22 +87,30 @@ class CourseController extends Controller
     public function update(Request $request, Course $course)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'duration' => 'nullable|string|max:100',
-            'category' => 'nullable|string|max:100',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'title' => 'required|array',
+            'title.en' => 'required|string|max:255',
+            'title.pt' => 'required|string|max:255',
+
+            'description' => 'required|array',
+            'description.en' => 'required|string',
+            'description.pt' => 'required|string',
+
+            'course_category_id' => 'nullable|uuid|exists:course_categories,id',
+            'duration_years' => 'nullable|integer',
         ]);
 
-        $validated['slug'] = Str::slug($validated['title']);
+        // Fix later to use images properly
+        /*if ($request->hasFile('image')) {
+            $media = Media::create([
+                'path' => $request->file('image')->store('courses', 'public')
+            ]);
 
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('courses', 'public');
-        }
+            $validated['media_id'] = $media->id;
+        }*/
 
         $course->update($validated);
 
-        return redirect()->route('admin.courses.index')
+        return redirect()->route('backoffice.courses')
             ->with('success', 'Curso atualizado com sucesso.');
     }
 
@@ -103,7 +118,7 @@ class CourseController extends Controller
     {
         $course->delete();
 
-        return redirect()->route('adminCourses')
+        return redirect()->route('backoffice.courses')
             ->with('success', 'Curso eliminado com sucesso.');
     }
 }
