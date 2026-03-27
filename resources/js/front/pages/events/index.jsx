@@ -1,4 +1,4 @@
-import Layout from "../layouts/layout";
+import Layout from "../layouts/Layout";
 import { useTranslation } from 'react-i18next';
 import { Link } from "@inertiajs/react";
 
@@ -17,7 +17,7 @@ export default function EventsIndex({ events }) {
                 <p>No events available.</p>
                 ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {events.map((event) => (
+                    {events.data.map((event) => (
                     <div
                         key={event.id}
                         className="border rounded-lg p-4 shadow-sm hover:shadow-md transition"

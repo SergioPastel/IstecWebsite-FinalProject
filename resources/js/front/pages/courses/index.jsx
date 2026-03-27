@@ -1,4 +1,4 @@
-import Layout from '../layouts/layout';
+import Layout from '../layouts/Layout';
 import { useTranslation } from 'react-i18next';
 import { Link } from '@inertiajs/react';
 

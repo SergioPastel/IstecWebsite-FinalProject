@@ -25,11 +25,11 @@ export default function EventsIndexBack({ events }) {
                 <p>No events available.</p>
                 ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {events.map((event) => (
+                    {events.data.map((event) => (
                     <div
                         key={event.id}
                         className="border rounded-lg p-4 shadow-sm hover:shadow-md transition"
-                    >                        
+                    >
                         <div className="mt-4 text-sm text-gray-500">
                         ID: {event.id}
                         </div>
