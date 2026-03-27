@@ -1,8 +1,8 @@
-import Layout from './../layouts/layout';
+import Layout from '../layouts/layout';
 import { useTranslation } from 'react-i18next'; // needed in EVERY view to use the translated text
 import { Link } from '@inertiajs/react';
 
-export default function Home() {
+export default function About() {
     const { t } = useTranslation(); // needed in EVERY view to use the translated text
     return (
         <Layout>
@@ -10,9 +10,7 @@ export default function Home() {
                 <h1>{t("language")}</h1>
 
                 <h1>{t("test")}</h1>
-                <label>front/pages/Home</label><br />
-                <Link href={route('dashboard')}>{t('click')}</Link><br />
-                <Link href={route('about')}>About us</Link>
+                <label>front/pages/About</label>
             </div>
         </Layout>
     );

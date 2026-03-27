@@ -22,6 +22,17 @@ class HomeController extends Controller
         ]);
     }
 
+    // GET /about - About us
+
+    public function about()
+    {
+        return Inertia("front/pages/About");
+    }
+
+    /*
+    ADMIN
+    */
+
     // GET /dashboard - Our admin dashboard, move this to another controller!
     public function dashboard()
     {
