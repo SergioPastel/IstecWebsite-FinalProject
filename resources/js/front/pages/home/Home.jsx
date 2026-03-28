@@ -415,7 +415,7 @@ export default function Home({
                       event.type,
                     )}`}
                   >
-                    {event.type}
+                    {event.category}
                   </span>
 
                   <h3 className="mt-[14px] mb-[10px] text-[1.2rem] leading-[1.3] font-semibold">
