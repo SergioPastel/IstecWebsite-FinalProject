@@ -1,7 +1,8 @@
 import Layout from '../layouts/layout';
 import { useTranslation } from 'react-i18next';
-import { Link, router } from '@inertiajs/react';
+import { Link, router, Head } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
+import Pagination from '../../components/common/Pagination';
 
 function getCourseText(value, lang) {
     if (value == null) return '';
@@ -10,33 +11,6 @@ function getCourseText(value, lang) {
     return String(value);
 }
 
-function Pagination({ links }) {
-    if (!links || links.length <= 3) return null;
-
-    return (
-        <nav className="flex flex-wrap items-center justify-center gap-2 pt-6">
-            {links.map((link) => {
-                const isDisabled = link.url == null;
-                const isActive = link.active;
-
-                return (
-                    <button
-                        key={link.label}
-                        type="button"
-                        disabled={isDisabled}
-                        onClick={() => link.url && router.visit(link.url, { preserveScroll: true })}
-                        className={[
-                            "min-w-9 rounded-md border px-3 py-2 text-sm transition",
-                            isActive ? "bg-[var(--color-brand-primary)] text-white border-[var(--color-brand-primary)]" : "bg-white text-gray-800 border-gray-200 hover:bg-gray-50",
-                            isDisabled ? "opacity-50 cursor-not-allowed" : "",
-                        ].join(' ')}
-                        dangerouslySetInnerHTML={{ __html: link.label }}
-                    />
-                );
-            })}
-        </nav>
-    );
-}
 
 export default function CoursesIndex({ courses, categories, filters }) {
     const { i18n } = useTranslation();
@@ -88,7 +62,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
     };
 
     return (
-        <Layout>
+        <Layout title={'Courses'}>
             <div className="w-full bg-slate-50/60">
                 <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 pb-12 pt-24 sm:px-6 lg:px-8">
                     {/* Header + search */}
@@ -364,7 +338,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                         })}
                                     </div>
 
-                                    <Pagination links={courses?.links} />
+                                    <Pagination links={courses?.meta.links} />
                                 </>
                             )}
                         </section>
