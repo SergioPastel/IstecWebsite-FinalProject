@@ -19,7 +19,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return Inertia('Admin/Dashboard/Index', [
+        return Inertia('back/pages/Dashboard', [
             'stats' =>[
                 'courses' => Course::count(),
                 'events' => Event::count(),

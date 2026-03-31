@@ -17,7 +17,7 @@ class ContactController extends Controller
 
     public function create()
     {
-        return Inertia::render('Contacts/Create');
+        return Inertia('front/pages/contacts/index');
     }
 
     public function store(Request $request)
@@ -41,14 +41,14 @@ class ContactController extends Controller
 
     public function adminIndex()
     {
-        return Inertia::render('Admin/Contacts/Index', [
+        return Inertia('back/pages/contacts/Index', [
             'contacts' => Contact::latest()->get()
         ]);
     }
 
     public function adminShow(Contact $contact)
     {
-        return Inertia::render('Admin/Contacts/Show', [
+        return Inertia('back/pages/contacts/Show', [
             'contact' => $contact
         ]);
     }

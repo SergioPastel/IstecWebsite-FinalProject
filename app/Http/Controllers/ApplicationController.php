@@ -17,7 +17,7 @@ class ApplicationController extends Controller
 
     public function create(Course $course)
     {
-        return Inertia::render('Applications/Create', [
+        return Inertia('front/pages/applications/create', [
             'course' => $course
         ]);
     }
@@ -55,7 +55,7 @@ class ApplicationController extends Controller
 
     public function adminIndex()
     {
-        return Inertia::render('Admin/Applications/Index', [
+        return Inertia('back/pages/applications/Index', [
             'applications' => Application::with('course')->latest()->get()
         ]);
     }
@@ -64,7 +64,7 @@ class ApplicationController extends Controller
     {
         $application->load('course');
 
-        return Inertia::render('Admin/Applications/Show', [
+        return Inertia('back/pages/applications/Show', [
             'application' => $application
         ]);
     }
