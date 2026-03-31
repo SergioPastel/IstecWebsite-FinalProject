@@ -30,6 +30,7 @@ class SiteInfoSeeder extends Seeder
                 'en' => 'Higher Institute of Advanced Technologies of Porto, focused on innovation, practical training and proximity to the market.',
             ],
             'site_name' => config('app.name'),
+            // TODO: adding spaces between icon and text does nothing as of now
             'phone_number' =>   '📞+351 225 193 220',
             'email' =>          '📧secretaria-porto@istec.pt',
             'address' =>        '📍R. de Silva Tapada 1154200-501 Porto',
