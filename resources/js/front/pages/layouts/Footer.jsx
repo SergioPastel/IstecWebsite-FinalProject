@@ -1,8 +1,11 @@
+import { usePage } from "@inertiajs/react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 export default function Footer() {
   const { t } = useTranslation();
+  const siteInfo = usePage().props.siteInfo;
+
   return (
     <footer className="mt-20 bg-black text-white">
       <div className="max-w-[1600px] mx-auto px-6 py-16">
@@ -16,7 +19,7 @@ export default function Footer() {
             </div>
 
             <p className="max-w-[320px] text-gray-400 leading-7">
-              {t('footer.description')}
+              {siteInfo.slogan}
             </p>
           </div>
 
@@ -66,16 +69,19 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-gray-400">
               <li className="flex items-start gap-3">
-                <span className="text-[#0d8fe8]">📍</span>
-                <span>{t('footer.location')}</span>
+                {/* <span role="img" className="text-[#0d8fe8]">📍</span> */}
+                {/* <span>{t('footer.location')}</span> */}
+                <span>{siteInfo.address}</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-[#0d8fe8]">📧</span>
-                <span>{t('footer.email')}</span>
+                {/* <span className="text-[#0d8fe8]">📧</span> */}
+                {/* <span>{t('footer.email')}</span> */}
+                <span>{siteInfo.email}</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-[#0d8fe8]">📞</span>
-                <span>{t('footer.phone')}</span>
+                {/* <span className="text-[#0d8fe8]">📞</span> */}
+                {/* <span>{t('footer.phone')}</span> */}
+                <span>{siteInfo.phone_number}</span>
               </li>
             </ul>
           </div>

@@ -6,6 +6,7 @@
 
     <meta charset="utf-8">
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/png">
 
     @routes
     @viteReactRefresh
