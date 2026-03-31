@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Media;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,15 @@ class NewsFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'media_id' => Media::factory()->create(),
+            'title' => [
+                'pt' => fake()->word(),
+                'en' => fake()->word(),
+            ],
+            'description' => [
+                'pt' => fake()->sentence(),
+                'en' => fake()->sentence(),
+            ]
         ];
     }
 }

@@ -2,5 +2,142 @@
     "test": "Hello world!",
     "language": "English",
     "switchLang": "Switch to Portuguese",
-    "click": "Click me!"
+    "click": "Click me!",
+    "home": {
+        "hero": {
+            "istecPorto": "ISTEC PORTO",
+            "buildFuture": "Build your future at ISTEC Porto",
+            "coursesEvents": "Courses, applications and events in one place, with a clearer and more intuitive experience.",
+            "viewCourses": "View courses",
+            "aboutIstec": "About ISTEC",
+            "trainingOffer": "TRAINING OFFER",
+            "exploreOffer": "Explore our training offer",
+            "discoverCourses": "Discover courses with a practical focus and market connection.",
+            "exploreCourses": "Explore courses",
+            "events": "EVENTS",
+            "participateEvents": "Participate in events and real projects",
+            "workshopsReal": "Workshops and real experiences to prepare you for the market.",
+            "viewEvents": "View events"
+        },        
+        "applications": {
+            "title": "Applications",
+            "description": "Submit application"
+        },
+        "events": {
+            "title": "Events",
+            "description": "View events"
+        },
+        "contacts": {
+            "title": "Contacts",
+            "description": "Talk to us"
+        },
+        "viewMore": "View more →",
+        "coursesSection": {
+            "trainingOffer": "Training Offer",
+            "findRightCourse": "Find the right course for you",
+            "viewAllOffer": "View all offer →",
+            "learnMore": "Learn more"
+        },
+        "eventsNewsSection": {
+            "eventsNews": "Events & News",
+            "stayUpdated": "Stay up to date with what's happening",
+            "viewAll": "View all →",
+            "readMore": "Read more"
+        },
+        "applicationsSection": {
+            "applications": "Applications",
+            "startApplication3Steps": "Start your application in 3 steps",
+            "futureStartsClick": "Your future starts with a click. Apply now and take the first step.",
+            "steps": {
+                "1": {
+                    "title": "Choose course",
+                    "description": "Check the offer and find the most suitable path."
+                },
+                "2": {
+                    "title": "Submit application",
+                    "description": "Fill out the form and send the necessary documents."
+                },
+                "3": {
+                    "title": "Confirm enrollment",
+                    "description": "Follow the process and complete the enrollment."
+                }
+            },
+            "startApplication": "Start application"
+        },
+        "contactsSection": {
+            "contacts": "Contacts",
+            "needHelp": "Need help or more information?",
+            "teamAvailable": "Our team is available to clarify doubts about courses, applications and ISTEC Porto operation.",
+            "location": "📍 Porto, Portugal",
+            "email": "📧 geral@istec.pt",
+            "phone": "📞 +351 222 000 000",
+            "goToContacts": "Go to contacts",
+            "requestInfo": "Request information"
+        }
+    },
+    "header": {
+        "aboutIstec": "About ISTEC",
+        "institutionContacts": "Institution Contacts",
+        "istecLisboa": "ISTEC Lisboa",
+        "privateArea": "Private Area",
+        "studentArea": "Student Area",
+        "teacherArea": "Teacher Area",
+        "administration": "Administration",
+        "languagePt": "PT",
+        "languageEn": "EN",
+        "searchPlaceholder": "Search...",
+        "home": "Home",
+        "courses": "Courses",
+        "events": "Events",
+        "news": "News",
+        "applications": "Applications"
+    },
+    "courses": {
+        "subtitle": "ISTEC Porto Training Offer",
+        "title": "Courses",
+        "description": "Explore our offer of CTeSP, Bachelor's and Postgraduate degrees and find the ideal course for you.",
+        "oneCourse": "course found",
+        "multipleCourses": "courses found",
+        "searchPlaceholder": "Search course, area, keyword...",
+        "searchButton": "Search",
+        "filters": "Filters",
+        "clearAll": "Clear all",
+        "courseType": "Course type",
+        "all": "All",
+        "modality": "Modality",
+        "laboral": "Laboral",
+        "posLaboral": "Post-laboral",
+        "sortBy": "Sort by",
+        "mostRecent": "Most recent",
+        "nameAsc": "Name (A–Z)",
+        "nameDesc": "Name (Z–A)",
+        "noCourses": "No courses found with the current filters. Try adjusting the search or clearing the filters.",
+        "defaultCategory": "Course",
+        "posLaboralLabel": "Post-laboral",
+        "laboralLabel": "Laboral",
+        "years": "years",
+        "perMonth": "€/month",
+        "months": "months",
+        "learnMore": "Learn +",
+        "enroll": "Enroll"
+    },
+    "footer": {
+        "istecPorto": "ISTEC Porto",
+        "description": "Higher Institute of Advanced Technologies of Porto, focused on innovation, practical training and proximity to the market.",
+        "navigation": "Navigation",
+        "home": "Home",
+        "courses": "Courses",
+        "events": "Events",
+        "applications": "Applications",
+        "contacts": "Contacts",
+        "location": "Porto, Portugal",
+        "email": "geral@istec.pt",
+        "phone": "+351 222 000 000",
+        "information": "Information",
+        "privacyPolicy": "Privacy Policy",
+        "termsConditions": "Terms and Conditions",
+        "requestInfo": "Request Information",
+        "copyright": "© {{ year }} ISTEC Porto. All rights reserved.",
+        "developed": "Developed for academic project"
+    }
 }

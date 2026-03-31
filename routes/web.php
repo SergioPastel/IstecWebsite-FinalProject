@@ -66,22 +66,49 @@ Route::post('/locale', function (Request $request) {
 // Guest routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', function () { // No controller for get views, instead just return the inertia pages
-        return Inertia::render('back/pages/auth/Login');
+        return Inertia('back/pages/auth/Login');
     })->name('login');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Auth protected routes
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+
+// Auth protected routes. Prefix allow for route separation
+Route::middleware(['auth'])->prefix('backoffice')->group(function () {
+    Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard');
+
+    // Course Routes
+    Route::get('/courses', [CourseController::class, 'adminIndex'])->name('backoffice.courses');
+    Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
+    Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
+    Route::get('/courses/{course:id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
+    Route::patch('/courses/{course:id}', [CourseController::class, 'update'])->name('courses.update');
+    Route::delete('/courses/{course:id}', [CourseController::class, 'destroy'])->name('courses.destroy');
+
+    // Event routes
+    Route::get('/events', [EventController::class, 'adminIndex'])->name('backoffice.events');
+    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+    Route::post('/events', [EventController::class, 'store'])->name('events.store');
+    Route::get('/events/{event:id}/edit', [EventController::class, 'edit'])->name('events.edit');
+    Route::patch('/events/{event:id}', [EventController::class, 'update'])->name('events.update');
+    Route::delete('/events/{event:id}', [EventController::class, 'destroy'])->name('events.destroy');
+
+    // News routes
+    Route::get('/news', [NewsController::class, 'adminIndex'])->name('backoffice.events');
+    Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
+    Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+    Route::get('/news/{news:id}/edit', [NewsController::class, 'edit'])->name('news.edit');
+    Route::patch('/news/{news:id}', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('/news/{news:id}', [NewsController::class, 'destroy'])->name('news.destroy');
 });
 
+// Public routes
 Route::get('/courses', [CourseController::class, 'index'])->name('courses');
-Route::get('/courses/{course:slug}', [CourseController::class, 'show'])->name('courses.show');
+Route::get('/courses/{course:id}', [CourseController::class, 'show'])->name('courses.show');
 
 route::get('/events', [EventController::class, 'index'])->name('events');
-route::get('/events/{event:slug}', [EventController::class, 'show'])->name('events.show');
+route::get('/events/{event:id}', [EventController::class, 'show'])->name('events.show');
 
 route::get('/news', [NewsController::class, 'index'])->name('news');
 route::get('/news/{news:slug}', [NewsController::class, 'show'])->name('news.show');

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,10 +17,10 @@ return new class extends Migration
          */
         Schema::create('courses', function (Blueprint $table) {
             $table->uuid('id')->primary();
-
             $table->foreignUuid('course_category_id')->references('id')->on('course_categories');
-            $table->json('professional_outcomes');
+            $table->foreignUuid('media_id')->nullable()->constrained('media');
 
+            $table->json('professional_outcomes');
             $table->json('title');
             $table->json('description');
             $table->unsignedTinyInteger('duration_years');

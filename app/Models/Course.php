@@ -5,19 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes as EloquentSoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\Translatable\HasTranslations;
 
-
 class Course extends Model
 {
-    use HasUuids, HasFactory, HasTranslations;
+    use HasUuids, HasFactory, HasTranslations, EloquentSoftDeletes;
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
         'title',
         'course_category_id',
+        'media_id',
         'description',
         'duration_years',
         'study_regime',
@@ -39,12 +40,20 @@ class Course extends Model
     ];
 
     /**
+     * Summary of media
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Media, Course>
+     */
+    function media()
+    {
+        return $this->belongsTo(Media::class);
+    }
+    /**
      * Eloquent mapping of CourseCategory
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Course, Course>
      */
     function category()
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(CourseCategory::class, 'course_category_id');
     }
 
     /**

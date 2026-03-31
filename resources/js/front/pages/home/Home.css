@@ -1,0 +1,20 @@
+.home-swiper .swiper-button-next,
+.home-swiper .swiper-button-prev {
+  color: white;
+}
+
+.home-swiper .swiper-pagination-bullet {
+  background: white;
+  opacity: 0.6;
+}
+
+.home-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .home-swiper .swiper-button-next,
+  .home-swiper .swiper-button-prev {
+    display: none;
+  }
+}
