@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\SiteInfoResource;
+use App\Models\SiteInfo;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -41,6 +43,7 @@ class HandleInertiaRequests extends Middleware
             // these key:value pairs are shared in pages' props
             'locale' => app()->getLocale(),
             'languages' => config('app.available_locales'),
+            'siteInfo' => new SiteInfoResource(SiteInfo::first()),
         ];
     }
 }

@@ -22,7 +22,7 @@ class MediaResource extends JsonResource
             'id' => $this->id,
             'type' => $this->type,
             'url' => Media::getUrl($this->file_disk, $this->file_path),
-            'thumbnail_url' => Media::getUrl($this->thumbnail_disk, $this->thumbnail_path),
+            'thumbnail_url' => $this->thumbnail_disk && $this->thumbnail_path ? Media::getUrl($this->thumbnail_disk, $this->thumbnail_path) : null,
             'alt_text' => $this->getTranslation('alt_text', $locale) ?: $this->getTranslation('alt_text', 'pt'),
         ];
     }

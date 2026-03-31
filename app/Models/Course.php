@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes as EloquentSoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\Translatable\HasTranslations;
 
 class Course extends Model
 {
-    use HasUuids, HasFactory, HasTranslations, EloquentSoftDeletes;
+    use HasUuids, HasFactory, HasTranslations, SoftDeletes;
     public $incrementing = false;
     protected $keyType = 'string';
 
