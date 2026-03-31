@@ -14,12 +14,12 @@ class CourseController extends Controller
     /*
     FRONT
     */
-
     public function index()
     {
+        $courses = Course::latest()->paginate(10)->onEachSide(1);
         return Inertia('front/pages/courses/Index', [
             // Wraps the data as a Laravel data resource, applying to all items with collection
-            'courses' => CourseResource::collection(Course::latest()->get())
+            'courses' => CourseResource::collection($courses)
         ]);
     }
 

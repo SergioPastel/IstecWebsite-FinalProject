@@ -2,6 +2,142 @@
     "test": "Ola mundo!",
     "switchLang": "Mudar para Inglês",
     "language": "Portugues",
-    "switchLang": "Mudar para Inglês",
-    "click": "Clica em mim!"
+    "click": "Clica em mim!",
+    "home": {
+        "hero": {
+            "istecPorto": "ISTEC PORTO",
+            "buildFuture": "Constrói o teu futuro no ISTEC Porto",
+            "coursesEvents": "Cursos, candidaturas e eventos num só lugar, com uma experiência mais clara e intuitiva.",
+            "viewCourses": "Ver cursos",
+            "aboutIstec": "Sobre ISTEC",
+            "trainingOffer": "OFERTA FORMATIVA",
+            "exploreOffer": "Explora a nossa oferta formativa",
+            "discoverCourses": "Descobre cursos com foco prático e ligação ao mercado.",
+            "exploreCourses": "Explorar cursos",
+            "events": "EVENTOS",
+            "participateEvents": "Participa em eventos e projetos reais",
+            "workshopsReal": "Workshops e experiências reais para te preparar para o mercado.",
+            "viewEvents": "Ver eventos"
+        },
+        "applications": {
+            "title": "Candidaturas",
+            "description": "Submeter candidatura"
+        },
+        "events": {
+            "title": "Eventos",
+            "description": "Ver eventos"
+        },
+        "contacts": {
+            "title": "Contactos",
+            "description": "Falar connosco"
+        },
+        "viewMore": "Ver mais →",
+        "coursesSection": {
+            "trainingOffer": "Oferta Formativa",
+            "findRightCourse": "Encontra o curso certo para ti",
+            "viewAllOffer": "Ver toda a oferta →",
+            "learnMore": "Saber mais"
+        },
+        "eventsNewsSection": {
+            "eventsNews": "Eventos & Notícias",
+            "stayUpdated": "Fica a par do que está a acontecer",
+            "viewAll": "Ver tudo →",
+            "readMore": "Ler mais"
+        },
+        "applicationsSection": {
+            "applications": "Candidaturas",
+            "startApplication3Steps": "Começa a tua candidatura em 3 passos",
+            "futureStartsClick": "O teu futuro começa com um clique. Candidata-te agora e dá o primeiro passo.",
+            "steps": {
+                "1": {
+                    "title": "Escolher curso",
+                    "description": "Consulta a oferta e encontra o percurso mais adequado."
+                },
+                "2": {
+                    "title": "Submeter candidatura",
+                    "description": "Preenche o formulário e envia os documentos necessários."
+                },
+                "3": {
+                    "title": "Confirmar inscrição",
+                    "description": "Acompanha o processo e conclui a inscrição."
+                }
+            },
+            "startApplication": "Começar candidatura"
+        },
+        "contactsSection": {
+            "contacts": "Contactos",
+            "needHelp": "Precisas de ajuda ou mais informações?",
+            "teamAvailable": "A nossa equipa está disponível para esclarecer dúvidas sobre cursos, candidaturas e funcionamento do ISTEC Porto.",
+            "location": "📍 Porto, Portugal",
+            "email": "📧 geral@istec.pt",
+            "phone": "📞 +351 222 000 000",
+            "goToContacts": "Ir para contactos",
+            "requestInfo": "Pedir informações"
+        }
+    },
+    "header": {
+        "aboutIstec": "Sobre ISTEC",
+        "institutionContacts": "Contactos Instituição",
+        "istecLisboa": "ISTEC Lisboa",
+        "privateArea": "Área Privada",
+        "studentArea": "Área do Aluno",
+        "teacherArea": "Área do Docente",
+        "administration": "Administração",
+        "languagePt": "PT",
+        "languageEn": "EN",
+        "searchPlaceholder": "Pesquisar...",
+        "home": "Início",
+        "courses": "Cursos",
+        "events": "Eventos",
+        "news": "Notícias",
+        "applications": "Candidaturas"
+    },
+    "courses": {
+        "subtitle": "Oferta formativa ISTEC Porto",
+        "title": "Cursos",
+        "description": "Explora a nossa oferta de CTeSP, Licenciaturas e Pós-Graduações e encontra o curso ideal para ti.",
+        "oneCourse": "curso encontrado",
+        "multipleCourses": "cursos encontrados",
+        "searchPlaceholder": "Pesquisar curso, área, palavra-chave...",
+        "searchButton": "Pesquisar",
+        "filters": "Filtros",
+        "clearAll": "Limpar tudo",
+        "courseType": "Tipo de curso",
+        "all": "Todos",
+        "modality": "Modalidade",
+        "laboral": "Laboral",
+        "posLaboral": "Pós-laboral",
+        "sortBy": "Ordenar por",
+        "mostRecent": "Mais recentes",
+        "nameAsc": "Nome (A–Z)",
+        "nameDesc": "Nome (Z–A)",
+        "noCourses": "Nenhum curso encontrado com os filtros atuais. Tenta ajustar a pesquisa ou limpar os filtros.",
+        "defaultCategory": "Curso",
+        "posLaboralLabel": "Pós-laboral",
+        "laboralLabel": "Laboral",
+        "years": "anos",
+        "perMonth": "€/mês",
+        "months": "meses",
+        "learnMore": "Saber +",
+        "enroll": "Inscrever"
+    },
+    "footer": {
+        "istecPorto": "ISTEC Porto",
+        "description": "Instituto Superior de Tecnologias Avançadas do Porto, com foco na inovação, formação prática e proximidade ao mercado.",
+        "navigation": "Navegação",
+        "home": "Início",
+        "courses": "Cursos",
+        "events": "Eventos",
+        "applications": "Candidaturas",
+        "contacts": "Contactos",
+        "location": "Porto, Portugal",
+        "email": "geral@istec.pt",
+        "phone": "+351 222 000 000",
+        "information": "Informações",
+        "privacyPolicy": "Política de Privacidade",
+        "termsConditions": "Termos e Condições",
+        "requestInfo": "Pedir Informações",
+        "copyright": "© {{ year }} ISTEC Porto. Todos os direitos reservados.",
+        "developed": "Desenvolvido para projeto académico"
+    }
 }

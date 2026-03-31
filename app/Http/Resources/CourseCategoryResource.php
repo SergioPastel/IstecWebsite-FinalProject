@@ -24,8 +24,9 @@ class CourseCategoryResource extends JsonResource
         $locale = $request->getLocale();
         return [
             'id' => $this->id,
-            'title' => $this->title[$locale] ?? $this->title['pt'] ?? null,
-            'description' => $this->title[$locale] ?? $this->title['pt'] ?? null,
+            'title' => $this->getTranslation('title', $locale) ?? $this->getTranslation('title', 'pt') ?? null,
+            'description' => $this->getTranslation('description', $locale) ?? $this->getTranslation('description', 'pt') ?? null,
+
         ];
     }
 }

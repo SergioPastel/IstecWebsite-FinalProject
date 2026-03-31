@@ -66,7 +66,7 @@ Route::post('/locale', function (Request $request) {
 // Guest routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', function () { // No controller for get views, instead just return the inertia pages
-        return Inertia::render('back/pages/auth/Login');
+        return Inertia('back/pages/auth/Login');
     })->name('login');
 });
 
@@ -93,8 +93,17 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::get('/events/{event:id}/edit', [EventController::class, 'edit'])->name('events.edit');
     Route::patch('/events/{event:id}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/events/{event:id}', [EventController::class, 'destroy'])->name('events.destroy');
+
+    // News routes
+    Route::get('/news', [NewsController::class, 'adminIndex'])->name('backoffice.events');
+    Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
+    Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+    Route::get('/news/{news:id}/edit', [NewsController::class, 'edit'])->name('news.edit');
+    Route::patch('/news/{news:id}', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('/news/{news:id}', [NewsController::class, 'destroy'])->name('news.destroy');
 });
 
+// Public routes
 Route::get('/courses', [CourseController::class, 'index'])->name('courses');
 Route::get('/courses/{course:id}', [CourseController::class, 'show'])->name('courses.show');
 

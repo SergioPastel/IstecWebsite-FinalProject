@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use App\Http\Requests\StoreNewsRequest;
 use App\Http\Requests\UpdateNewsRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class NewsController extends Controller
@@ -15,14 +17,14 @@ class NewsController extends Controller
 
     public function index()
     {
-        return Inertia::render('News/Index', [
+        return Inertia('front/pages/news/Index', [
             'news' => News::latest()->get()
         ]);
     }
 
     public function show(News $news)
     {
-        return Inertia::render('News/Show', [
+        return Inertia('front/pages/news/Show', [
             'newsItem' => $news
         ]);
     }
@@ -33,14 +35,14 @@ class NewsController extends Controller
 
     public function adminIndex()
     {
-        return Inertia::render('Admin/News/Index', [
+        return Inertia('back/pages/news/Index', [
             'news' => News::latest()->get()
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Admin/News/Create');
+        return Inertia('back/pages/news/Show');
     }
 
     public function store(Request $request)
@@ -52,8 +54,6 @@ class NewsController extends Controller
             'published_at' => 'nullable|date',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
-
-        $validated['slug'] = Str::slug($validated['title']);
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('news', 'public');
@@ -67,7 +67,7 @@ class NewsController extends Controller
 
     public function edit(News $news)
     {
-        return Inertia::render('Admin/News/Edit', [
+        return Inertia('back/pages/news/Edit', [
             'news' => $news
         ]);
     }
@@ -81,8 +81,6 @@ class NewsController extends Controller
             'published_at' => 'nullable|date',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
-
-        $validated['slug'] = Str::slug($validated['title']);
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('news', 'public');

@@ -30,9 +30,16 @@ class CourseResource extends JsonResource
         $locale = app()->getLocale();
         return [
             'id' => $this->id,
-            'category' => new CourseCategoryResource($this->category),
-            'title' => $this->getTranslation('title', $locale) ?: $this->getTranslation('title', 'pt'),
-            'description' => $this->getTranslation('description', $locale) ?: $this->getTranslation('description', 'pt'),
+            // 'category' => new CourseCategoryResource($this->category),
+            'category' =>
+                $this->category->getTranslation('title', $locale)
+                ?: $this->category->getTranslation('title', 'pt'),
+            'title' =>
+                $this->getTranslation('title', $locale)
+                ?: $this->getTranslation('title', 'pt'),
+            'description' =>
+                $this->getTranslation('description', $locale)
+                ?: $this->getTranslation('description', 'pt'),
             'duration_years' => $this->duration_years,
             'study_regime' => $this->study_regime,
             'tuition_monthly_pay' => $this->tuition_monthly_pay,

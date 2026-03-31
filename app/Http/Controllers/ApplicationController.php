@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Course;
 use App\Http\Requests\StoreApplicationRequest;
 use App\Http\Requests\UpdateApplicationRequest;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ApplicationController extends Controller
 {
