@@ -25,7 +25,7 @@ class NewsController extends Controller
     public function show(News $news)
     {
         return Inertia('front/pages/news/Show', [
-            'newsItem' => $news
+            'news' => $news
         ]);
     }
 
@@ -42,7 +42,7 @@ class NewsController extends Controller
 
     public function create()
     {
-        return Inertia('back/pages/news/Show');
+        return Inertia('back/pages/news/Create');
     }
 
     public function store(Request $request)
@@ -61,7 +61,7 @@ class NewsController extends Controller
 
         News::create($validated);
 
-        return redirect()->route('admin.news.index')
+        return redirect()->route('backoffice.news')
             ->with('success', 'Notícia criada com sucesso.');
     }
 
@@ -88,7 +88,7 @@ class NewsController extends Controller
 
         $news->update($validated);
 
-        return redirect()->route('admin.news.index')
+        return redirect()->route('backoffice.news')
             ->with('success', 'Notícia atualizada com sucesso.');
     }
 
@@ -96,7 +96,7 @@ class NewsController extends Controller
     {
         $news->delete();
 
-        return redirect()->route('admin.news.index')
+        return redirect()->route('backoffice.news')
             ->with('success', 'Notícia eliminada com sucesso.');
     }
 }

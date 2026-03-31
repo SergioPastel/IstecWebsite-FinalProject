@@ -2,7 +2,7 @@ import Layout from '../layouts/layout';
 import { useTranslation } from 'react-i18next';
 import { Link } from '@inertiajs/react';
 
-export default function CreateCourse({ course }) {
+export default function EditCourse({ course }) {
     const { t } = useTranslation();
     
     return(

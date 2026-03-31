@@ -95,7 +95,7 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::delete('/events/{event:id}', [EventController::class, 'destroy'])->name('events.destroy');
 
     // News routes
-    Route::get('/news', [NewsController::class, 'adminIndex'])->name('backoffice.events');
+    Route::get('/news', [NewsController::class, 'adminIndex'])->name('backoffice.news');
     Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
     Route::post('/news', [NewsController::class, 'store'])->name('news.store');
     Route::get('/news/{news:id}/edit', [NewsController::class, 'edit'])->name('news.edit');
@@ -111,7 +111,7 @@ route::get('/events', [EventController::class, 'index'])->name('events');
 route::get('/events/{event:id}', [EventController::class, 'show'])->name('events.show');
 
 route::get('/news', [NewsController::class, 'index'])->name('news');
-route::get('/news/{news:slug}', [NewsController::class, 'show'])->name('news.show');
+route::get('/news/{news:id}', [NewsController::class, 'show'])->name('news.show');
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
