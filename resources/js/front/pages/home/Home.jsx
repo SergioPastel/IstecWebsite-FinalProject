@@ -10,7 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Layout from "../layouts/layout.jsx";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function Home({
   courses,
@@ -179,8 +179,7 @@ export default function Home({
   };
 
   return (
-    <Layout title={'Home'}>
-
+    <Layout title={"Home"}>
       <Header language={language} setLanguage={setLanguage} setPage={setPage} />
 
       <main
@@ -312,7 +311,9 @@ export default function Home({
 
                   <p className="text-[#6b7280] mb-3">{item.description}</p>
 
-                  <span className="text-[#0d8fe8] font-bold">{t("home.quickLinks.viewMore")}</span>
+                  <span className="text-[#0d8fe8] font-bold">
+                    {t("home.quickLinks.viewMore")}
+                  </span>
                 </a>
               ))}
             </div>
