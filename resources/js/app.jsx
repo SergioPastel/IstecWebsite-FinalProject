@@ -44,14 +44,14 @@ createInertiaApp({
     return page;
   },
   setup({ el, App, props }) {
-    // Track Inertia navigation with Umami, apparently it needs to be in a hook
+    // Track Inertia navigation with Umami, apparently it needs to be in a hook. Check this later
     function AppWithTracking(props) {
         useUmamiPageTracking(); // call the hook here
         return <App {...props} />;
     }
 
     // Sets up the React application by rendering the App component into the DOM element provided by Inertia (el).
-    createRoot(el).render(<App {...props} />);
+    createRoot(el).render(<AppWithTracking {...props} />);
   },
   progress: {
     color: "#2da7df" // light blue brandcolor

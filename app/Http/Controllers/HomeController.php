@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CourseResource;
 use App\Http\Resources\EventNewsResource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Models\Course;
 use App\Models\Event;
 use App\Models\News;
+use App\Services\UmamiService;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -77,14 +78,6 @@ class HomeController extends Controller
     }
 
     /*
-    ADMIN
+        ADMIN DASHBOARD HAS IT'S OWN CONTROLLER
     */
-
-    // GET /dashboard - Our admin dashboard, move this to another controller!
-    public function dashboard()
-    {
-        $user = Auth::user();
-
-        return Inertia("back/pages/Dashboard", ['user' => $user]);
-    }
 }

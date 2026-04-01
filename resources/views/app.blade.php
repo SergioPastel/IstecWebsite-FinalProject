@@ -8,7 +8,7 @@
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/png">
 
-    <!-- FOR UMAMI ANALYTICS -->
+    <!-- FOR UMAMI ANALYTICS. It tracks the website's visits -->
     <script
         async 
         defer 

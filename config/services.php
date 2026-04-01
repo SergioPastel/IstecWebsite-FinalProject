@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    // Gets our cloud's information from env for our umami analytics service
+    'umami' => [
+        'url' => env('UMAMI_URL'),
+        'key' => env('UMAMI_API_KEY'),
+        'website_id' => env('UMAMI_WEBSITE_ID'),
+    ],
 ];

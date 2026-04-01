@@ -11,22 +11,44 @@ use App\Models\Contact;
 use App\Http\Requests\StoreDashboardRequest;
 use App\Http\Requests\UpdateDashboardRequest;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
+use App\Services\UmamiService;
+use Illuminate\Support\Facades\Cache;
+
+// Controller used for dashboard information
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    // GET /dashboard - Our admin dashboard
+    public function index(UmamiService $umami)
     {
+        $user = Auth::user();
+
+        // The analytics information is cached and refreshed so it doesn't do too many requests to the API
+        // Our general stats
+        $stats = Cache::remember('umami_stats', 300, function () use ($umami) {
+            return $umami->getStats();
+        });
+
+        // Custom events
+        $eventMetrics = Cache::remember('umami_events', 300, function () use ($umami) {
+            return $umami->getEventMetrics();
+        });
+
+        // If we want to keep count of a specific event, query it like this (saves the trouble of having to check on the parameter)
+        $courseCheckCount = collect($eventMetrics)
+            ->firstWhere('x', 'course_check_click')['y'] ?? 0;
+
+
         return Inertia('back/pages/Dashboard', [
-            'stats' =>[
-                'courses' => Course::count(),
-                'events' => Event::count(),
-                'news' => News::count(),
-                'applications' => Application::count(),
-                'contacts' => Contact::count(),
-            ]
+            'analytics' => [ // Analytics will have all our frontend statistics
+                // data_get is a "nicer" way to get specific data from an array
+                'visitors' => data_get($stats, 'visitors'),
+                'pageviews' => data_get($stats, 'pageviews'),
+                // The information is already stored, so you don't need to check the array
+                'course_check' => $courseCheckCount
+            ],
+            'user' => $user
         ]);
     }
 
