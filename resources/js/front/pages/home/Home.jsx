@@ -1,8 +1,6 @@
 import React from "react";
 import "./Home.css";
-import Header from "../../layouts/Header.jsx";
-import Footer from "../../layouts/Footer.jsx";
-import Layout from "../../layouts/Layout.jsx";
+import Layout from "../layouts/Layout";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -10,7 +8,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
 export default function Home({
   courses,
@@ -19,19 +17,84 @@ export default function Home({
   language = "pt",
   setLanguage = () => {},
 }) {
+
   const { t } = useTranslation();
 
   const quickLinks = [
-    { id: 1, title: "Cursos", description: "Explorar formação", link: "#" },
     {
-      id: 2,
-      title: "Candidaturas",
-      description: "Submeter candidatura",
+      id: 1,
+      title: t("home.quickLinks.courses.title"),
+      description: t("home.quickLinks.courses.description"),
       link: "#",
     },
-    { id: 3, title: "Eventos", description: "Ver eventos", link: "#" },
-    { id: 4, title: "Contactos", description: "Falar connosco", link: "#" },
+    {
+      id: 2,
+      title: t("home.quickLinks.applications.title"),
+      description: t("home.quickLinks.applications.description"),
+      link: "#",
+    },
+    {
+      id: 3,
+      title: t("home.quickLinks.events.title"),
+      description: t("home.quickLinks.events.description"),
+      link: "#",
+    },
+    {
+      id: 4,
+      title: t("home.quickLinks.contacts.title"),
+      description: t("home.quickLinks.contacts.description"),
+      link: "#",
+    },
   ];
+
+  // const courses = [
+  //   {
+  //     id: 1,
+  //     category: "CTeSP",
+  //     title: "Cibersegurança",
+  //     duration: "2 anos",
+  //     description: "Aprende segurança digital, proteção de redes e gestão de sistemas.",
+  //   },
+  //   {
+  //     id: 2,
+  //     category: "Licenciatura",
+  //     title: "Engenharia Informática",
+  //     duration: "3 anos",
+  //     description: "Desenvolvimento, software e sistemas com foco prático.",
+  //   },
+  //   {
+  //     id: 3,
+  //     category: "Pós-Graduação",
+  //     title: "Marketing Digital",
+  //     duration: "Especialização",
+  //     description: "Competências atuais em marketing, inovação e estratégia digital.",
+  //   },
+  // ];
+
+  // const events = [
+  //   {
+  //     id: 1,
+  //     category: "Evento",
+  //     title: "Hackathon IA",
+  //     date: "10 Maio 2026",
+  //     description: "Desafio tecnológico focado em inovação e colaboração.",
+  //   },
+  //   {
+  //     id: 2,
+  //     category: "Workshop",
+  //     title: "Workshop Cloud",
+  //     date: "22 Junho 2026",
+  //     description:
+  //       "Sessão prática sobre cloud computing e transformação digital.",
+  //   },
+  //   {
+  //     id: 3,
+  //     category: "Notícia",
+  //     title: "Jornadas Tecnológicas",
+  //     date: "Julho 2026",
+  //     description: "Iniciativa dedicada à tecnologia, ensino e investigação.",
+  //   },
+  // ];
 
   const steps = [
     {
