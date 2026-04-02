@@ -73,6 +73,9 @@
             "phone": "📞 +351 222 000 000",
             "goToContacts": "Go to contacts",
             "requestInfo": "Request information"
+        },
+        "quickLinks": {
+            "viewMore": "View more →"
         }
     },
     "header": {
