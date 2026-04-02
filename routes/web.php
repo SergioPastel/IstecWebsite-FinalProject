@@ -76,7 +76,7 @@ Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 // Auth protected routes. Prefix allow for route separation
 Route::middleware(['auth'])->prefix('backoffice')->group(function () {
-    Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // Course Routes
     Route::get('/courses', [CourseController::class, 'adminIndex'])->name('backoffice.courses');

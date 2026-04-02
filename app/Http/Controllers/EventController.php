@@ -41,7 +41,7 @@ class EventController extends Controller
 
     public function create()
     {
-        return Inertia('back/pages/courses/Create');
+        return Inertia('back/pages/events/Create');
     }
 
     public function store(Request $request)

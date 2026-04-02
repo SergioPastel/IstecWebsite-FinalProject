@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Course;
+use App\Models\SiteInfo;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -31,13 +32,12 @@ class DatabaseSeeder extends Seeder
                 'password'=> bcrypt('Secret')
             ]
         );
+        $this->call(SiteInfoSeeder::class);
 
         $this->call(EventSeeder::class);
         $this->call(NewsSeeder::class);
 
         $this->call(CourseCategorySeeder::class);
         $this->call(CourseSeeder::class);
-
-
     }
 }

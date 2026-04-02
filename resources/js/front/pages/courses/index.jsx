@@ -1,4 +1,4 @@
-import Layout from '../layouts/layout';
+import Layout from '../../layouts/Layout';
 import { useTranslation } from 'react-i18next';
 import { Link, router, Head } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
@@ -327,6 +327,11 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                                             <button
                                                                 type="button"
                                                                 className="flex-1 rounded-md border border-[var(--color-brand-primary)] px-3 py-2 text-sm font-medium text-[var(--color-brand-primary)] transition hover:bg-[color-mix(in_srgb,var(--color-brand-primary),white_92%)]"
+                                                                onClick={() =>
+                                                                    window.umami?.track('course_check_click', {
+                                                                        course_id: course.id
+                                                                    })
+                                                                }
                                                             >
                                                                 {t("courses.enroll")}
                                                             </button>
