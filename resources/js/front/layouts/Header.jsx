@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import logo from "../../assets/istec-logo.png";
+import logo from "../assets/istec-logo.png";
 import { Link, router, usePage } from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
 import { route } from "ziggy-js";

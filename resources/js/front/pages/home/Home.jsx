@@ -1,7 +1,8 @@
 import React from "react";
 import "./Home.css";
-import Header from "../layouts/Header.jsx";
-import Footer from "../layouts/Footer.jsx";
+import Header from "../../layouts/Header.jsx";
+import Footer from "../../layouts/Footer.jsx";
+import Layout from "../../layouts/Layout.jsx";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -9,7 +10,6 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import Layout from "../layouts/layout.jsx";
 import { useTranslation } from "react-i18next";
 
 export default function Home({
@@ -32,55 +32,6 @@ export default function Home({
     { id: 3, title: "Eventos", description: "Ver eventos", link: "#" },
     { id: 4, title: "Contactos", description: "Falar connosco", link: "#" },
   ];
-
-  // const courses = [
-  //   {
-  //     id: 1,
-  //     category: "CTeSP",
-  //     title: "Cibersegurança",
-  //     duration: "2 anos",
-  //     description: "Aprende segurança digital, proteção de redes e gestão de sistemas.",
-  //   },
-  //   {
-  //     id: 2,
-  //     category: "Licenciatura",
-  //     title: "Engenharia Informática",
-  //     duration: "3 anos",
-  //     description: "Desenvolvimento, software e sistemas com foco prático.",
-  //   },
-  //   {
-  //     id: 3,
-  //     category: "Pós-Graduação",
-  //     title: "Marketing Digital",
-  //     duration: "Especialização",
-  //     description: "Competências atuais em marketing, inovação e estratégia digital.",
-  //   },
-  // ];
-
-  // const events = [
-  //   {
-  //     id: 1,
-  //     category: "Evento",
-  //     title: "Hackathon IA",
-  //     date: "10 Maio 2026",
-  //     description: "Desafio tecnológico focado em inovação e colaboração.",
-  //   },
-  //   {
-  //     id: 2,
-  //     category: "Workshop",
-  //     title: "Workshop Cloud",
-  //     date: "22 Junho 2026",
-  //     description:
-  //       "Sessão prática sobre cloud computing e transformação digital.",
-  //   },
-  //   {
-  //     id: 3,
-  //     category: "Notícia",
-  //     title: "Jornadas Tecnológicas",
-  //     date: "Julho 2026",
-  //     description: "Iniciativa dedicada à tecnologia, ensino e investigação.",
-  //   },
-  // ];
 
   const steps = [
     {
@@ -180,7 +131,6 @@ export default function Home({
 
   return (
     <Layout title={"Home"}>
-      <Header language={language} setLanguage={setLanguage} setPage={setPage} />
 
       <main
         className="w-full overflow-x-hidden bg-[#f5f8fc] text-[#1f2937]"
