@@ -1,6 +1,6 @@
 // THIS IS NOT USED ANYMORE, USE IT AS AN EXAMPLE
 
-import Layout from './../layouts/layout';
+import Layout from './../layouts/Layout';
 import { useTranslation } from 'react-i18next'; // needed in EVERY view to use the translated text
 import { Link } from '@inertiajs/react';
 
