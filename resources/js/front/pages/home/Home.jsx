@@ -1,6 +1,6 @@
 import React from "react";
 import "./Home.css";
-import Header from "../layouts/layout";
+import Layout from "../layouts/Layout";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -21,15 +21,30 @@ export default function Home({
   const { t } = useTranslation();
 
   const quickLinks = [
-    { id: 1, title: "Cursos", description: "Explorar formação", link: "#" },
     {
-      id: 2,
-      title: "Candidaturas",
-      description: "Submeter candidatura",
+      id: 1,
+      title: t("home.quickLinks.courses.title"),
+      description: t("home.quickLinks.courses.description"),
       link: "#",
     },
-    { id: 3, title: "Eventos", description: "Ver eventos", link: "#" },
-    { id: 4, title: "Contactos", description: "Falar connosco", link: "#" },
+    {
+      id: 2,
+      title: t("home.quickLinks.applications.title"),
+      description: t("home.quickLinks.applications.description"),
+      link: "#",
+    },
+    {
+      id: 3,
+      title: t("home.quickLinks.events.title"),
+      description: t("home.quickLinks.events.description"),
+      link: "#",
+    },
+    {
+      id: 4,
+      title: t("home.quickLinks.contacts.title"),
+      description: t("home.quickLinks.contacts.description"),
+      link: "#",
+    },
   ];
 
   // const courses = [
