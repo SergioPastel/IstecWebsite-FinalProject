@@ -1,8 +1,7 @@
-import Layout from '../layouts/layout';
+import Layout from '../../layouts/layout';
 import { useTranslation } from 'react-i18next';
-import { Link, router, Head } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
-import Pagination from '../../components/common/Pagination';
 
 function getCourseText(value, lang) {
     if (value == null) return '';
@@ -11,9 +10,36 @@ function getCourseText(value, lang) {
     return String(value);
 }
 
+function Pagination({ links }) {
+    if (!links || links.length <= 3) return null;
+
+    return (
+        <nav className="flex flex-wrap items-center justify-center gap-2 pt-6">
+            {links.map((link) => {
+                const isDisabled = link.url == null;
+                const isActive = link.active;
+
+                return (
+                    <button
+                        key={link.label}
+                        type="button"
+                        disabled={isDisabled}
+                        onClick={() => link.url && router.visit(link.url, { preserveScroll: true })}
+                        className={[
+                            "min-w-9 rounded-md border px-3 py-2 text-sm transition",
+                            isActive ? "bg-[var(--color-brand-primary)] text-white border-[var(--color-brand-primary)]" : "bg-white text-gray-800 border-gray-200 hover:bg-gray-50",
+                            isDisabled ? "opacity-50 cursor-not-allowed" : "",
+                        ].join(' ')}
+                        dangerouslySetInnerHTML={{ __html: link.label }}
+                    />
+                );
+            })}
+        </nav>
+    );
+}
 
 export default function CoursesIndex({ courses, categories, filters }) {
-    const { i18n, t } = useTranslation();
+    const { i18n } = useTranslation();
     const lang = i18n.language?.startsWith('en') ? 'en' : 'pt';
 
     const [query, setQuery] = useState(filters?.q ?? '');
@@ -62,24 +88,24 @@ export default function CoursesIndex({ courses, categories, filters }) {
     };
 
     return (
-        <Layout title={t("courses.title")}>
-            <div className="w-full mt-20 bg-slate-50/60">
+        <Layout>
+            <div className="w-full bg-slate-50/60">
                 <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 pb-12 pt-24 sm:px-6 lg:px-8">
                     {/* Header + search */}
                     <header className="space-y-4">
                         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                             <div>
                                 <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-brand-primary)]">
-                                    {t("courses.subtitle")}
+                                    Oferta formativa ISTEC Porto
                                 </p>
-                                <h1 className="mt-1 text-2xl font-semibold text-gray-900 sm:text-3xl">{t("courses.title")}</h1>
+                                <h1 className="mt-1 text-2xl font-semibold text-gray-900 sm:text-3xl">Cursos</h1>
                                 <p className="mt-1 text-sm text-gray-600 max-w-2xl">
-                                    {t("courses.description")}
+                                    Explora a nossa oferta de CTeSP, Licenciaturas e Pós-Graduações e encontra o curso ideal para ti.
                                 </p>
                             </div>
                             <div className="text-sm text-gray-500">
                                 <span className="font-semibold text-gray-900">{resultsCount}</span>{' '}
-                                {resultsCount === 1 ? t("courses.oneCourse") : t("courses.multipleCourses")}
+                                {resultsCount === 1 ? 'curso encontrado' : 'cursos encontrados'}
                             </div>
                         </div>
 
@@ -103,7 +129,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter') applyFilters({ q: e.currentTarget.value });
                                 }}
-                                placeholder={t("courses.searchPlaceholder")}
+                                placeholder="Pesquisar curso, área, palavra-chave..."
                                 className="w-full rounded-xl border border-gray-200 bg-white px-10 py-3.5 pr-32 text-sm outline-none ring-[var(--color-brand-primary)] focus:ring-2"
                             />
                             <div className="absolute right-2 top-1/2 -translate-y-1/2">
@@ -123,7 +149,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
                         <aside className="lg:col-span-3">
                             <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
                                 <div className="mb-4 flex items-center justify-between">
-                                    <div className="text-sm font-semibold text-gray-900">{t("courses.filters")}</div>
+                                    <div className="text-sm font-semibold text-gray-900">Filtros</div>
                                     <button
                                         type="button"
                                         onClick={() => {
@@ -135,7 +161,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                         }}
                                         className="text-xs font-medium text-[var(--color-brand-primary)] hover:text-[var(--color-brand-secondary)]"
                                     >
-                                        {t("courses.clearAll")}
+                                        Limpar tudo
                                     </button>
                                 </div>
 
@@ -143,7 +169,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                     {/* Tipo / categoria */}
                                     <div>
                                         <div className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-gray-500">
-                                            {t("courses.courseType")}
+                                            Tipo de curso
                                         </div>
                                         <div className="flex flex-wrap gap-2">
                                             <button
@@ -159,7 +185,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                                         : 'border-gray-200 bg-white text-gray-700 hover:border-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)]',
                                                 ].join(' ')}
                                             >
-                                                {t("courses.all")}
+                                                Todos
                                             </button>
                                             {(categories ?? []).map((c) => {
                                                 const id = String(c.id);
@@ -190,7 +216,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                     {/* Modalidade / regime */}
                                     <div>
                                         <div className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-gray-500">
-                                            {t("courses.modality")}
+                                            Modalidade
                                         </div>
                                         <div className="space-y-2 text-sm text-gray-700">
                                             <label className="flex items-center gap-2">
@@ -205,7 +231,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                                     }}
                                                     className="h-4 w-4 text-[var(--color-brand-primary)] focus:ring-[var(--color-brand-primary)]"
                                                 />
-                                                <span>{t("courses.all")}</span>
+                                                <span>Todos</span>
                                             </label>
                                             <label className="flex items-center gap-2">
                                                 <input
@@ -219,7 +245,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                                     }}
                                                     className="h-4 w-4 text-[var(--color-brand-primary)] focus:ring-[var(--color-brand-primary)]"
                                                 />
-                                                <span>{t("courses.laboral")}</span>
+                                                <span>Laboral</span>
                                             </label>
                                             <label className="flex items-center gap-2">
                                                 <input
@@ -233,7 +259,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                                     }}
                                                     className="h-4 w-4 text-[var(--color-brand-primary)] focus:ring-[var(--color-brand-primary)]"
                                                 />
-                                                <span>{t("courses.posLaboral")}</span>
+                                                <span>Pós-laboral</span>
                                             </label>
                                         </div>
                                     </div>
@@ -241,16 +267,16 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                     {/* Ordenar */}
                                     <div>
                                         <div className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-gray-500">
-                                            {t("courses.sortBy")}
+                                            Ordenar por
                                         </div>
                                         <select
                                             value={sortBy}
                                             onChange={(e) => setSortBy(e.target.value)}
                                             className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm outline-none ring-[var(--color-brand-primary)] focus:ring-2"
                                         >
-                                            <option value="relevance">{t("courses.mostRecent")}</option>
-                                            <option value="name_asc">{t("courses.nameAsc")}</option>
-                                            <option value="name_desc">{t("courses.nameDesc")}</option>
+                                            <option value="relevance">Mais recentes</option>
+                                            <option value="name_asc">Nome (A–Z)</option>
+                                            <option value="name_desc">Nome (Z–A)</option>
                                         </select>
                                     </div>
                                 </div>
@@ -261,7 +287,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
                         <section className="lg:col-span-9">
                             {sortedCourseItems.length === 0 ? (
                                 <div className="rounded-2xl border border-dashed border-gray-200 bg-white/60 p-10 text-center text-sm text-gray-600 shadow-sm">
-                                    {t("courses.noCourses")}
+                                    Nenhum curso encontrado com os filtros atuais. Tenta ajustar a pesquisa ou limpar os filtros.
                                 </div>
                             ) : (
                                 <>
@@ -273,7 +299,8 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                                 course.course_category?.title ?? course.courseCategory?.title,
                                                 lang
                                             );
-                                            const duration = course.duration_years ? `${course.duration_years} ${t("courses.years")}` : null;
+                                            const schedule = course.study_regime ? 'Pós-laboral' : 'Laboral';
+                                            const duration = course.duration_years ? `${course.duration_years} anos` : null;
 
                                             return (
                                                 <article
@@ -282,7 +309,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                                 >
                                                     <div className="relative h-36 w-full bg-gradient-to-br from-slate-100 to-slate-200">
                                                         <div className="absolute left-4 top-4 rounded-md bg-[var(--color-brand-secondary)] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
-                                                            {categoryTitle || t("courses.defaultCategory")}
+                                                            {categoryTitle || 'Curso'}
                                                         </div>
                                                     </div>
 
@@ -299,20 +326,20 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                                         <div className="mt-4 space-y-1 text-xs text-gray-500">
                                                             <div className="flex flex-wrap items-center gap-2">
                                                                 <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-1">
-                                                                    {course.study_regime ? t("courses.posLaboralLabel") : t("courses.laboralLabel")}
+                                                                    {schedule}
                                                                 </span>
                                                                 {duration ? (
                                                                     <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-1">
-                                                                        {course.duration_years} {t("courses.years")}
+                                                                        {duration}
                                                                     </span>
                                                                 ) : null}
                                                             </div>
                                                             <div className="mt-1 flex items-center justify-between text-[11px]">
                                                                 <div className="font-medium text-gray-700">
-                                                                    {course.tuition_monthly_pay ? `${course.tuition_monthly_pay}${t("courses.perMonth")}` : ''}
+                                                                    {course.tuition_monthly_pay ? `${course.tuition_monthly_pay}€/mês` : ''}
                                                                 </div>
                                                                 <div className="text-gray-400">
-                                                                    {course.tuition_months ? `${course.tuition_months} ${t("courses.months")}` : ''}
+                                                                    {course.tuition_months ? `${course.tuition_months} meses` : ''}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -322,13 +349,13 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                                                 href={route('courses')}
                                                                 className="flex-1 rounded-md bg-[var(--color-brand-primary)] px-3 py-2 text-center text-sm font-medium text-white transition hover:brightness-95"
                                                             >
-                                                                {t("courses.learnMore")}
+                                                                Saber +
                                                             </Link>
                                                             <button
                                                                 type="button"
                                                                 className="flex-1 rounded-md border border-[var(--color-brand-primary)] px-3 py-2 text-sm font-medium text-[var(--color-brand-primary)] transition hover:bg-[color-mix(in_srgb,var(--color-brand-primary),white_92%)]"
                                                             >
-                                                                {t("courses.enroll")}
+                                                                Inscrever
                                                             </button>
                                                         </div>
                                                     </div>
@@ -337,7 +364,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                         })}
                                     </div>
 
-                                    <Pagination links={courses?.meta.links} />
+                                    <Pagination links={courses?.links} />
                                 </>
                             )}
                         </section>
