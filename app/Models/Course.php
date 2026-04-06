@@ -64,6 +64,15 @@ class Course extends Model
     {
         return $this->hasMany(Semester::class);
     }
+
+    /**
+     * Eloquent mapping of Applications
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Application, Course>
+     */
+    function applications(){
+        return $this->hasMany(Application::class);
+    }
+
     public static function boot()
     {
         parent::boot();

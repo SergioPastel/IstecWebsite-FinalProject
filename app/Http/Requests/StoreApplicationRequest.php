@@ -15,14 +15,17 @@ class StoreApplicationRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Validation rules for our course applications.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string'],
+            'email' => ['required', 'email'],
+            'course_id' => ['required', 'uuid', 'exists:courses,id'],
+            'cv' => ['nullable', 'file', 'mimes:pdf', 'max:2048'],
         ];
     }
 }

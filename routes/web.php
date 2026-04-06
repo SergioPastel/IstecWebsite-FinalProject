@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Fortify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -120,3 +121,14 @@ Route::post('/applications', [ApplicationController::class, 'store'])->name('app
 
 Route::get('/contacts', [ContactController::class, 'create'])->name('contacts.create');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
+
+
+// MAIL TESTER
+
+/* Route::get('/test-mail', function () {
+    Mail::raw('Test email', function ($msg) {
+        $msg->to('sergioclsantanna@gmail.com')->subject('Test');
+    });
+
+    return 'Sent';
+}); */

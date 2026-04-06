@@ -15,14 +15,17 @@ class StoreContactRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Validation rules for mails sent from our contact form.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:100'], // Arbitrary, names shouldn't be too long
+            'email' => ['required', 'email'],
+            'subject' => ['required', 'string', 'max:100'], // Arbitrary, subjects shouldn't be too long
+            'message' => ['required', 'string'],
         ];
     }
 }
