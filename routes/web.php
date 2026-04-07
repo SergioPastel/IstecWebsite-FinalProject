@@ -4,6 +4,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NewsController;
@@ -132,3 +133,7 @@ Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.st
 
     return 'Sent';
 }); */
+
+// DYNAMIC TESTING
+
+Route::get('/test-dynamic', [PageController::class, 'test'])->name('test.dynamic');
