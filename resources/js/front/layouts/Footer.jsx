@@ -1,8 +1,6 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 
-export default function Footer() {
-  const { t } = useTranslation();
+export default function Footer({ language = "pt" }) {
   return (
     <footer className="mt-20 bg-black text-white">
       <div className="max-w-[1600px] mx-auto px-6 py-16">
@@ -10,19 +8,20 @@ export default function Footer() {
           <div>
             <div className="mb-4">
               <h3 className="text-[1.4rem] font-bold tracking-[-0.4px]">
-                {t('footer.istecPorto')}
+                ISTEC Porto
               </h3>
               <div className="mt-3 h-[2px] w-14 bg-[#0d8fe8]" />
             </div>
 
             <p className="max-w-[320px] text-gray-400 leading-7">
-              {t('footer.description')}
+              Instituto Superior de Tecnologias Avançadas do Porto, com foco na
+              inovação, formação prática e proximidade ao mercado.
             </p>
           </div>
 
           <div>
             <h4 className="mb-4 text-[1rem] font-semibold text-white">
-              {t('footer.navigation')}
+              Navegação
             </h4>
             <ul className="space-y-3 text-gray-400">
               <li>
@@ -30,7 +29,7 @@ export default function Footer() {
                   href="#"
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
-                  {t('footer.home')}
+                  Início
                 </a>
               </li>
               <li>
@@ -38,7 +37,7 @@ export default function Footer() {
                   href="#"
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
-                  {t('footer.courses')}
+                  Cursos
                 </a>
               </li>
               <li>
@@ -46,7 +45,7 @@ export default function Footer() {
                   href="#"
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
-                  {t('footer.events')}
+                  Eventos
                 </a>
               </li>
               <li>
@@ -54,7 +53,7 @@ export default function Footer() {
                   href="#"
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
-                  {t('footer.applications')}
+                  Candidaturas
                 </a>
               </li>
             </ul>
@@ -62,27 +61,27 @@ export default function Footer() {
 
           <div>
             <h4 className="mb-4 text-[1rem] font-semibold text-white">
-              {t('footer.contacts')}
+              Contactos
             </h4>
             <ul className="space-y-3 text-gray-400">
               <li className="flex items-start gap-3">
                 <span className="text-[#0d8fe8]">📍</span>
-                <span>{t('footer.location')}</span>
+                <span>Porto, Portugal</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-[#0d8fe8]">📧</span>
-                <span>{t('footer.email')}</span>
+                <span>geral@istec.pt</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-[#0d8fe8]">📞</span>
-                <span>{t('footer.phone')}</span>
+                <span>+351 222 000 000</span>
               </li>
             </ul>
           </div>
 
           <div>
             <h4 className="mb-4 text-[1rem] font-semibold text-white">
-              {t('footer.information')}
+              Informações
             </h4>
             <ul className="space-y-3 text-gray-400">
               <li>
@@ -90,7 +89,7 @@ export default function Footer() {
                   href="#"
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
-                  {t('footer.privacyPolicy')}
+                  Política de Privacidade
                 </a>
               </li>
               <li>
@@ -98,7 +97,7 @@ export default function Footer() {
                   href="#"
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
-                  {t('footer.termsConditions')}
+                  Termos e Condições
                 </a>
               </li>
               <li>
@@ -106,7 +105,7 @@ export default function Footer() {
                   href="#"
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
-                  {t('footer.requestInfo')}
+                  Pedir Informações
                 </a>
               </li>
             </ul>
@@ -117,11 +116,13 @@ export default function Footer() {
       <div className="border-t border-white/5">
         <div className="max-w-[1600px] mx-auto px-6 py-5 flex items-center justify-between gap-3 text-sm text-gray-500 max-[640px]:flex-col max-[640px]:items-start">
           <span>
-            {t('footer.copyright', { year: new Date().getFullYear() })}
+            © {new Date().getFullYear()} ISTEC Porto. Todos os direitos reservados.
           </span>
 
           <span>
-            {t('footer.developed')}
+            {language === "pt"
+              ? "Desenvolvido para projeto académico"
+              : "Developed for academic project"}
           </span>
         </div>
       </div>
