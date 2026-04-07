@@ -16,14 +16,16 @@ return new class extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('course_id')
-                  ->constrained()
-                  ->references('id')
-                  ->on('course')
-                  ->nullOnDelete(); // courses should never be hard deleted, but if it somehow happens this will fire to keep the records
+                    ->nullable() // allow null in case of hard delete, but it's still a required field
+                    ->constrained('courses')                  
+                    ->nullOnDelete(); // courses should never be hard deleted, but if it somehow happens this will fire to keep the records
 
-            $table->string('name');
-            $table->string('email');            
-            $table->string('cv_path')->nullable();
+            $table->string('full_name');
+            $table->string('email');
+            $table->string('phone');
+            $table->date('birth_date');
+            $table->string('motivation'); 
+            $table->integer('academic_level');
             $table->timestamps();
         });
     }

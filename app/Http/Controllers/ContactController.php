@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
-use App\Http\Requests\StoreContactRequest;
-use App\Http\Requests\UpdateContactRequest;
-use Illuminate\Http\Request;
-use Inertia\Inertia;
+use App\Models\ContactMessage;
+use App\Http\Requests\StoreContactRequest; // Validation layer
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactReceived;
+use App\Mail\ContactAutoReply;
 
-
+// THIS CONTROLLER IS CURRENTLY BEING USED FOR CONTACT EMAILS RATHER THAN COMPANY CONTACTS, CHANGE IF NECESSARY
+// A lot of it does not currently make sense
 class ContactController extends Controller
 {
     /*
@@ -17,19 +18,20 @@ class ContactController extends Controller
 
     public function create()
     {
-        return Inertia('front/pages/contacts/index');
+        return Inertia('front/pages/contacts/Index');
     }
 
-    public function store(Request $request)
+    public function store(StoreContactRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'subject' => 'required|string|max:255',
-            'message' => 'required|string',
-        ]);
+        $validated = $request->validated();
 
-        Contact::create($validated);
+        $contact = ContactMessage::create($validated);
+
+        // Send notification to staff
+        Mail::to(config('mail.admin_email', 'admin@istec.pt'))->send(new ContactReceived($contact));
+
+        // Send auto-reply to user
+        Mail::to($contact->email)->send(new ContactAutoReply($contact));
 
         return redirect()->route('contacts.create')
             ->with('success', 'Mensagem enviada com sucesso.');
@@ -42,22 +44,22 @@ class ContactController extends Controller
     public function adminIndex()
     {
         return Inertia('back/pages/contacts/Index', [
-            'contacts' => Contact::latest()->get()
+            'contacts' => ContactMessage::latest()->get()
         ]);
     }
 
-    public function adminShow(Contact $contact)
+    public function adminShow(ContactMessage $contact)
     {
         return Inertia('back/pages/contacts/Show', [
             'contact' => $contact
         ]);
     }
 
-    public function destroy(Contact $contact)
+    public function destroy(ContactMessage $contact)
     {
-        $contact->delete();
+        /*$contact->delete();
 
         return redirect()->route('admin.contacts.index')
-            ->with('success', 'Mensagem eliminada com sucesso.');
+            ->with('success', 'Mensagem eliminada com sucesso.'); */ 
     }
 }

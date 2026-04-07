@@ -11,7 +11,7 @@ class StoreApplicationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,11 +21,16 @@ class StoreApplicationRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Add fields later
         return [
-            'name' => ['required', 'string'],
+            'course_id' => ['required', 'exists:courses,id'],
+            'full_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email'],
-            'course_id' => ['required', 'uuid', 'exists:courses,id'],
-            'cv' => ['nullable', 'file', 'mimes:pdf', 'max:2048'],
+            'phone' => ['required', 'string', 'max:30'],
+            'birth_date' => ['nullable', 'date'],
+            'academic_level' => ['nullable', 'string', 'max:255'],
+            'motivation' => ['nullable', 'string'],
+            'cv_file' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:4096'],
         ];
     }
 }
