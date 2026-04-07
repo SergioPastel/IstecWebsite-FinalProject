@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Application;
 use App\Models\Course;
 use App\Http\Requests\StoreApplicationRequest;
-use App\Http\Requests\UpdateApplicationRequest;
-use Illuminate\Http\Request;
-use Inertia\Inertia;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ApplicationReceived;
+use App\Mail\ApplicationAutoReply;
 
 class ApplicationController extends Controller
 {
@@ -22,31 +22,27 @@ class ApplicationController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreApplicationRequest $request)
     {
-        $validated = $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'full_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'required|string|max:30',
-            'birth_date' => 'nullable|date',
-            'academic_level' => 'nullable|string|max:255',
-            'motivation' => 'nullable|string',
-            'cv_file' => 'nullable|file|mimes:pdf,doc,docx|max:4096',
-        ]);
+        $validated = $request->validated();
 
+        $application = Application::create($validated);
+
+        // Send notification to staff
         if ($request->hasFile('cv_file')) {
-            $validated['cv_file'] = $request->file('cv_file')->store('applications/cvs', 'public');
+            $file = $request->file('cv_file');
+            $content = file_get_contents($file->getRealPath());
+            $mime = $file->getMimeType();
+            $name = $file->getClientOriginalName();
+            Mail::to(config('mail.admin_email', 'admin@istec.pt'))->send(new ApplicationReceived($application, $content, $mime, $name));
+        } else {
+            Mail::to(config('mail.admin_email', 'admin@istec.pt'))->send(new ApplicationReceived($application));
         }
 
-        $validated['status'] = 'pending';
-
-        Application::create($validated);
+        // Send auto-reply to applicant
+        Mail::to($application->email)->send(new ApplicationAutoReply($application));
 
         $course = Course::findOrFail($validated['course_id']);
-
-        return redirect()->route('courses.show', $course->slug)
-            ->with('success', 'Candidatura submetida com sucesso.');
     }
 
     /*

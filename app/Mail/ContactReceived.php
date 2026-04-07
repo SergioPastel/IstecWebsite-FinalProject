@@ -20,8 +20,8 @@ class ContactReceived extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'CONTACTO: ' . [$this->contact->subject],
-            replyTo: [$this->contact->email], // user's email in the contact form
+            subject: 'CONTACTO: ' . $this->contact->subject,
+            replyTo: $this->contact->email, // user's email in the contact form
         );
     }
 
