@@ -73,6 +73,25 @@
             "phone": "📞 +351 222 000 000",
             "goToContacts": "Go to contacts",
             "requestInfo": "Request information"
+        },
+        "quickLinks": {
+            "courses": {
+                "title": "Courses",
+                "description": "Explore training"
+            },
+            "applications": {
+                "title": "Applications",
+                "description": "Submit application"
+            },
+            "events": {
+                "title": "Events",
+                "description": "View events"
+            },
+            "contacts": {
+                "title": "Contacts",
+                "description": "Talk to us"
+            },
+            "viewMore": "View more →"
         }
     },
     "header": {
