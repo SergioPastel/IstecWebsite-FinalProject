@@ -109,62 +109,57 @@ function Header({}) {
   const mainNav = [
   {
     key: "/ISTEC Porto",
-    pt: "ISTEC Porto",
-    en: "ISTEC Porto",
+    titleKey: "istecPorto",
     children: [
-      { key: "/mission", pt: "Finalidade e Projeto Educativo", en: "Mission and Educational Project" },
-      { key: "/orgaos", pt: "Órgãos do Instituto", en: "Institute Bodies" },
-      { key: "/organograma", pt: "Organograma", en: "Organization Chart" },
-      { key: "/documentos", pt: "Documentos e Legislação", en: "Documents and Legislation" },
-      { key: "/docentes", pt: "Corpo Docente", en: "Faculty" },
-      { key: "/calendarios", pt: "Calendários 25/26", en: "Calendars 25/26" },
-      { key: "/qualidade", pt: "Sistema Interno de Garantia da Qualidade", en: "Quality Assurance System" },
-      { key: "/etica", pt: "Comissão de Ética", en: "Ethics Committee" },
+      { key: "/mission" },
+      { key: "/orgaos" },
+      { key: "/organograma" },
+      { key: "/documentos" },
+      { key: "/docentes" },
+      { key: "/calendarios" },
+      { key: "/qualidade" },
+      { key: "/etica" },
     ],
   },
   {
     key: "/courses",
-    pt: "Cursos",
-    en: "Courses",
+    titleKey: "courses",
     children: [
-    { key: "/ctesp", pt: "CTeSP", en: "CTeSP" },
-    { key: "/licenciatura", pt: "Licenciatura", en: "Bachelor" },
-    { key: "/pos-graduacao", pt: "Pós-Graduação", en: "Postgraduate" },
-    { key: "/plano-atividades", pt: "Plano de Atividades", en: "Activity Plan" },
-    { key: "/emolumentos", pt: "Emolumentos", en: "Fees" },
-    { key: "/bolsas-dges", pt: "Bolsas DGES", en: "DGES Scholarships" },
-    { key: "/protocolos", pt: "Protocolos", en: "Protocols" },
-    { key: "/editais-2526", pt: "Editais 25/26", en: "Notices 25/26" },
-    { key: "/applications", pt: "Candidatura Online", en: "Online Application" },
+    { key: "/ctesp" },
+    { key: "/licenciatura" },
+    { key: "/pos-graduacao" },
+    { key: "/plano-atividades" },
+    { key: "/emolumentos" },
+    { key: "/bolsas-dges" },
+    { key: "/protocolos" },
+    { key: "/editais-2526" },
+    { key: "/applications" },
   ],
   },
   {
     key: "/events-and-news",
-    pt: "Eventos e Notícias",
-    en: "Events and News",
+    titleKey: "eventsAndNews",
     children: [
-      { key: "/events-upcoming", pt: "Próximos Eventos", en: "Upcoming Events" },
-      { key: "/events-workshops", pt: "Workshops", en: "Workshops" },
-      { key: "/events-open-days", pt: "Open Days", en: "Open Days" },
-      { key: "/news-latest", pt: "Últimas Notícias", en: "Latest News" },
-      { key: "/news-interviews", pt: "Entrevistas", en: "Interviews" },
-      { key: "/news-press", pt: "Comunicados", en: "Press Releases" },
-      { key: "/applications-events", pt: "Candidaturas a Eventos", en: "Event Applications" },
+      { key: "/events-upcoming" },
+      { key: "/events-workshops" },
+      { key: "/events-open-days" },
+      { key: "/news-latest" },
+      { key: "/news-interviews" },
+      { key: "/news-press" },
+      { key: "/applications-events" },
       
     ],
   },
     {
     key: "/programa-de-mobilidade",
-    pt: "Programa de Mobilidade",
-    en: "Mobility Program",
+    titleKey: "mobilityProgram",
     children: [
-      { key: "/erasmus+", pt: "Erasmus +", en: "Erasmus +" },
+      { key: "/erasmus+" },
     ],
   },
     {
     key: "/pedagogia-xxi",
-    pt: "Pedagogia XXI",
-    en: "Pedagogy XXI",
+    titleKey: "pedagogyXXI",
   }
 ];
   return (
@@ -175,12 +170,12 @@ function Header({}) {
             scrolled ? "py-[10px]" : "py-[18px]"
           } flex-wrap`}
         >
-          <button
+          <Link
             onClick={() => {
               setPrivateOpen(false);
-              setSearchOpen(false);
-              setPage("home");
+              setSearchOpen(false);              
             }}
+            href={route('home')}           
             className="p-0 border-0 bg-transparent cursor-pointer"
           >
             <img
@@ -190,7 +185,7 @@ function Header({}) {
                 scrolled ? "h-[45px]" : "h-[60px]"
               }`}
             />
-          </button>
+          </Link>
 
           <button
             onClick={(e) => {
@@ -243,7 +238,7 @@ function Header({}) {
               }}
               className="text-[15px] text-[#1d1d1b] hover:text-[#0c73b7]"
             >
-              ISTEC Lisboa
+              {t("header.istecLisboa")}
             </Link>
 
             <Divider />
@@ -308,7 +303,7 @@ function Header({}) {
                   onClick={() => setPrivateOpen(false)}
                   className="block px-4 py-3 text-[14px] text-[#1d1d1b] hover:bg-[#f5f8fc] hover:text-[#0c73b7] transition"
                 >
-                  Moodle
+                  {t("header.moodle")}
                 </Link>
 
                 <Link
@@ -407,7 +402,7 @@ function Header({}) {
             }}
             className="flex w-full items-center justify-between border-r border-white/25 px-6 py-4 text-left text-[16px] font-bold text-white transition hover:bg-white/10 md:w-auto md:gap-2"
           >
-            <span>{props.locale === "pt" ? item.pt : item.en}</span>
+            <span>{t("header." + item.titleKey)}</span>
 
             {item.children && (
               <svg
@@ -443,7 +438,7 @@ function Header({}) {
                   onClick={() => goToPage(child.key)}
                   className="block w-full px-8 py-4 text-left text-[15px] text-white transition hover:bg-[#0f6fa9]"
                 >
-                  {props.locale === "pt" ? child.pt : child.en}
+                  {t("nav." + child.key.replace("/", ""))}
                 </button>
               ))}
             </div>
@@ -452,13 +447,13 @@ function Header({}) {
       ))}
 
 
-          {[
-            ["home", "Início", "Home"],
-            ["/courses", "Cursos", "Courses"],
-            ["/events", "Eventos", "Events"],
-            ["/news", "Notícias", "News"],
-            ["/applications", "Candidaturas", "Applications"],
-          ].map(([link, pt, en], i) =>
+          {/*[ This has been REPLACED, but the code might be relevant still. REMOVE LATER.
+            "home",
+            "/courses",
+            "/events",
+            "/news",
+            "/applications",
+          ].map((link, i) =>
             link === "home" ? (
               <button
                 key={i}
@@ -469,7 +464,7 @@ function Header({}) {
                 href={route("home")}
                 className="text-white font-bold text-[16px] px-6 py-4 border-r border-white/25 hover:bg-white/10 w-full md:w-auto text-left"
               >
-                {props.locale === "pt" ? pt : en}
+                {t("header." + link.replace("/", ""))}
               </button>
             ) : (
               <Link
@@ -481,10 +476,10 @@ function Header({}) {
                 }}
                 className="text-white font-bold text-[16px] px-6 py-4 border-r border-white/25 hover:bg-white/10 w-full md:w-auto"
               >
-                {props.locale === "pt" ? pt : en}
+                {t("header." + link.replace("/", ""))}
               </Link>
             ),
-          )}
+          )*/}
         </div>
       </div>
     </header>
