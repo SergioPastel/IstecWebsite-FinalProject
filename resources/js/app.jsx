@@ -33,14 +33,6 @@ createInertiaApp({
   title: (title) => `${title} - ${appName}`,
   resolve: (name) => {
     const page = resolvePageComponent(`./${name}.jsx`, pages);
-
-    // Auto-assign layouts
-    // if (name.startsWith("Back/")) {
-    //   page.default.layout ??= (p) => <AdminLayout>{p}</AdminLayout>;
-    // } else if (name.startsWith("Front/")) {
-    //   page.default.layout ??= (p) => <MainLayout>{p}</MainLayout>;
-    // }
-
     return page;
   },
   setup({ el, App, props }) {
