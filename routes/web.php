@@ -135,5 +135,5 @@ Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.st
 }); */
 
 // DYNAMIC TESTING
-
-Route::get('/test-dynamic', [PageController::class, 'test'])->name('test.dynamic');
+Route::get('/test-dynamic', [PageController::class, 'index']);
+Route::get('/test-dynamic/{page:slug}', [PageController::class, 'show']);

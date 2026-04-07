@@ -1,3 +1,5 @@
+import Card from "./Card";
+import CardGrid from "./CardGrid";
 import HeroSwiper from "./HeroSwiper";
 
 /**
@@ -8,6 +10,8 @@ import HeroSwiper from "./HeroSwiper";
 const componentMap = {
   // section.type: imported component
   hero: HeroSwiper,
+  card: Card,
+  card_grid: CardGrid
 };
 
 /**
@@ -15,6 +19,9 @@ const componentMap = {
  *  the dynamic pages.
  *  Admins will select from a list of component types, ex: Hero sections, Text sections, etc. and this
  *  will render the component type specified as section.type.
+ *
+ *  It may be possible to also "chain call" this method, if the first returned component has additional
+ *  options. Not tested
  *
  *  ### Section content:
  *  section = {
@@ -24,7 +31,7 @@ const componentMap = {
  *    }
  *  }
  */
-export default function SectionResolver({ section }) {
+export default function ComponentResolver({ section }) {
   const Component = componentMap[section.type];
 
   if (!Component) {

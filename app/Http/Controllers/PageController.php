@@ -7,44 +7,17 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    public function test(Page $page)
+    public function show(Page $page)
     {
-        $section = [
-            'id' => 1,
-            'type' => 'hero',
-            'content' => [
-                'slides' => [
-                    [
-                        'eyebrow' => 'Eyebrow',
-                        'title' => 'Title',
-                        'description' => 'Description',
-                    ],
-                ]
-            ]
-        ];
-        $page = [
-            'id' => 1,
-            'title' => 'Page Title',
-            'sections' => [$section]
-        ];
-
-
-        // $page->load('sections');
+        $page->load('sections');
         return Inertia('front/pages/dynamic/Template', ['page' => $page]);
     }
 
     // Fetch pages for admin view
-    public function index(string $slug)
+    public function index()
     {
-        // $page = Page::all();
-        return Inertia('front/pages/dynamic/Template');
-    }
-
-    // Fetch page for admin or front-end
-    public function show(string $slug)
-    {
-        $page = Page::where('slug', $slug)->firstOrFail();
-        return Inertia('');
+        $pages = Page::withCount('sections')->get();
+        return Inertia('front/pages/dynamic/Index', ['pages' => $pages]);
     }
 
     // Save or update a page from admin
