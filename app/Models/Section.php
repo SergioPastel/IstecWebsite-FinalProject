@@ -6,17 +6,19 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Str;
 
-class Page extends Model
+class Section extends Model
 {
     use HasUuids;
 
     protected $fillable = [
-        'title',
-        'slug',
+        'page_id',
+        'type',
+        'content'
     ];
 
-    public function sections(){
-        return $this->hasMany(Section::class);
+    public function pages()
+    {
+        return $this->hasMany(Page::class);
     }
 
     public static function boot()
