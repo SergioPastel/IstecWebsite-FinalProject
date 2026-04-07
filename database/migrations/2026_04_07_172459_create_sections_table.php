@@ -15,8 +15,9 @@ return new class extends Migration
             $table->uuid('id');
             $table->foreignUuid('page_id')->references('id')->on('pages');
 
-            $table->enum('type', ['hero']);
+            $table->enum('type', ['hero', 'card_grid']);
             $table->json('content');
+            $table->unsignedTinyInteger('order');
 
             $table->timestamps();
         });
