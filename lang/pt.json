@@ -114,7 +114,8 @@
         "eventsAndNews": "Eventos e Notícias",
         "mobilityProgram": "Programa de Mobilidade",
         "pedagogyXXI": "Pedagogia XXI",
-        "moodle": "Moodle"
+        "moodle": "Moodle",
+        "research": "Investigação"
     },
     "nav": {
         "mission": "Finalidade e Projeto Educativo",
@@ -142,6 +143,7 @@
         "news-press": "Comunicados",
         "applications-events": "Candidaturas a Eventos",
         "erasmus+": "Erasmus +"
+        
     },
     "courses": {
         "subtitle": "Oferta formativa ISTEC Porto",
