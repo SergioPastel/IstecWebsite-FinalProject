@@ -17,7 +17,7 @@ export default function CardGrid({
   };
 
   return (
-    <section className={`py-16 px-6 max-w-[1600px] mx-auto ${className}`}>
+    <section className={`py-16 px-6 max-w-400 mx-auto ${className}`}>
       {(title || subtitle) && (
         <div className="mb-10">
           {subtitle && (

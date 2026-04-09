@@ -10,10 +10,10 @@ class PageController extends Controller
     // Fetch pages for admin view
     public function index()
     {
-        $pages = Page::withCount('sections')->get();
-        return Inertia('front/pages/dynamic/Index', ['pages' => $pages]);
+        $pages = Page::get();
+        return Inertia('front/pages/dynamic/Index', ['pages' => $pages->load('sections')]);
     }
-    
+
     public function show(Page $page)
     {
         $page->load('sections');
