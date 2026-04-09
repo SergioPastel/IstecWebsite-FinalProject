@@ -162,10 +162,10 @@ function Header({}) {
       key: "events-and-news",
       titleKey: "eventsAndNews",
       children: [
-        { href: "/eventos", labelKey: "events-upcoming" },
+        { href: route("events"), labelKey: "events-upcoming" },
         { href: "/eventos", labelKey: "events-workshops" },
         { href: "/eventos", labelKey: "events-open-days" },
-        { href: "/noticias", labelKey: "news-latest" },
+        { href: route("news"), labelKey: "news-latest" },
         { href: "/noticias", labelKey: "news-interviews" },
         { href: "/noticias", labelKey: "news-press" },
         { href: "/candidaturas/evento", labelKey: "applications-events" },

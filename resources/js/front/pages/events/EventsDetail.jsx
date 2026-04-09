@@ -1,16 +1,14 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
-import Layout from "../../layouts/layout.jsx";
+import Layout from "../../layouts/Layout";
 
-export default function EventDetail({ event = null }) {
+export default function EventDetail({ event }) {
   const { t, i18n } = useTranslation();
 
-  if (!event) {
+  /* if (!event) { Should never happen due to how the route is used, save here for now
     return (
-      <>
-        <Layout language={i18n.language} />
-
+      <Layout title={t("events.detail.notFound")}>
         <main className="min-h-screen bg-[#f5f8fc] pt-32 pb-20 px-6">
           <div className="max-w-[1000px] mx-auto">
             <div className="rounded-[24px] border border-[#ddd6cc] bg-white p-10 text-center shadow-[0_8px_24px_rgba(15,23,42,0.06)]">
@@ -34,17 +32,12 @@ export default function EventDetail({ event = null }) {
             </div>
           </div>
         </main>
-
-        <Layout language={i18n.language} />
-      </>
+      </Layout>
     );
-  }
+  }*/
 
-  return (
-    
-    <>
-      <Layout language={i18n.language} />
-
+  return (  
+    <Layout title={event.title}>
       <main
         className="w-full overflow-x-hidden bg-[#f5f8fc] text-[#1f2937] pt-[120px] pb-20"
         onClick={() => {
@@ -114,8 +107,6 @@ export default function EventDetail({ event = null }) {
           </article>
         </section>
       </main>
-
-      <Layout language={i18n.language} />
-    </>
+    </Layout>
   );
 }

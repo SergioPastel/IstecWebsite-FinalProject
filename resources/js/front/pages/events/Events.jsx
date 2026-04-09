@@ -1,17 +1,16 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
-import Layout from "../../layouts/layout.jsx";
+import Layout from "../../layouts/Layout";
+import { route } from "ziggy-js";
 
 export default function Events({ events = [] }) {
   const { t, i18n } = useTranslation();
 
-  const featuredEvent = events.find((item) => item.featured) || events[0];
+  const featuredEvent = events.data.find((item) => item.featured) || events[0];
 
   return (
-    <>
-      <Layout language={i18n.language} />
-
+    <Layout title={"Events"}>
       <main
         className="w-full overflow-x-hidden bg-[#f5f8fc] text-[#1f2937]"
         onClick={() => {
@@ -86,7 +85,7 @@ export default function Events({ events = [] }) {
                       href={`/eventos/${featuredEvent.id}`}
                       className="inline-flex items-center justify-center rounded-full bg-[#0d8fe8] px-6 py-3 text-sm font-bold text-white shadow-[0_10px_30px_rgba(13,143,232,0.12)] hover:bg-[#0a78c4] hover:-translate-y-[2px] transition-all duration-300"
                     >
-                      {t("events.buttons.viewEvent", "Ver evento")}
+                      {t("events.buttons.viewEvent")}
                     </Link>
                   </div>
                 </div>
@@ -98,7 +97,7 @@ export default function Events({ events = [] }) {
         <section className="py-16">
           <div className="max-w-[1600px] mx-auto px-6">
             <div className="grid grid-cols-3 gap-[22px] max-[1100px]:grid-cols-2 max-[768px]:grid-cols-1">
-              {events.map((event) => (
+              {events.data.map((event) => (
                 <div
                   key={event.id}
                   className="min-h-full bg-white border border-[#ddd6cc] rounded-[20px] overflow-hidden shadow-[0_8px_24px_rgba(15,23,42,0.06)] hover:-translate-y-1 transition-all duration-300 flex flex-col"
@@ -129,10 +128,10 @@ export default function Events({ events = [] }) {
                     </p>
 
                     <Link
-                      href={`/eventos/${event.id}`}
+                      href={route("events.show", event.id)}
                       className="inline-block mt-auto pt-5 font-bold text-[#0d8fe8] hover:underline text-left"
                     >
-                      {t("events.buttons.viewDetails", "Ver detalhes")}
+                      {t("events.buttons.viewDetails")}
                     </Link>
                   </div>
                 </div>
@@ -141,6 +140,6 @@ export default function Events({ events = [] }) {
           </div>
         </section>
       </main>
-    </>
+    </Layout>
   );
 }

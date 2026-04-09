@@ -174,6 +174,21 @@
         "learnMore": "Saber +",
         "enroll": "Inscrever"
     },
+    "events": {
+        "title": "Eventos",
+        "description": "Ver eventos",
+        "buttons": {
+            "viewEvent": "Ver evento",
+            "viewDetails": "Ver detalhes"
+        },
+        "detail": {
+            "date": "Data",
+            "location": "Localização",
+            "description": "Descrição",
+            "backToEvents": "Voltar a eventos",
+            "notFound": "Evento não encontrado"
+        }
+    },
     "footer": {
         "istecPorto": "ISTEC Porto",
         "description": "Instituto Superior de Tecnologias Avançadas do Porto, com foco na inovação, formação prática e proximidade ao mercado.",

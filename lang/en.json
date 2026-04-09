@@ -25,7 +25,11 @@
         },
         "events": {
             "title": "Events",
-            "description": "View events"
+            "description": "View events",
+            "buttons": {
+                "viewEvent": "View event",
+                "viewDetails": "View details"
+            }
         },
         "contacts": {
             "title": "Contacts",
@@ -172,6 +176,21 @@
         "months": "months",
         "learnMore": "Learn +",
         "enroll": "Enroll"
+    },
+    "events": {
+        "title": "Events",
+        "description": "View events",
+        "buttons": {
+            "viewEvent": "View event",
+            "viewDetails": "View details"
+        },
+        "detail": {
+            "date": "Date",
+            "location": "Location",
+            "description": "Description",
+            "backToEvents": "Back to events",
+            "notFound": "Event not found"
+        }
     },
     "footer": {
         "istecPorto": "ISTEC Porto",

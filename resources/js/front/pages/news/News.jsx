@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
-import Layout from "../../layouts/layout.jsx";
+import Layout from "../../layouts/Layout";
 
 export default function News({ news = [] }) {
   const { t, i18n } = useTranslation();
@@ -25,9 +25,7 @@ export default function News({ news = [] }) {
   };
 
   return (
-    <Layout language={i18n.language}>
-      
-
+    <Layout title={"News"}>
       <main
         className="w-full overflow-x-hidden bg-[#f5f8fc] text-[#1f2937]"
         onClick={() => {
