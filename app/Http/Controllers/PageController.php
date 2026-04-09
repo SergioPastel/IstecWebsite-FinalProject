@@ -7,18 +7,19 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    public function show(Page $page)
-    {
-        $page->load('sections');
-        return Inertia('front/pages/dynamic/Template', ['page' => $page]);
-    }
-
     // Fetch pages for admin view
     public function index()
     {
         $pages = Page::withCount('sections')->get();
         return Inertia('front/pages/dynamic/Index', ['pages' => $pages]);
     }
+    
+    public function show(Page $page)
+    {
+        $page->load('sections');
+        return Inertia('front/pages/dynamic/Template', ['page' => $page]);
+    }
+
 
     // Save or update a page from admin
     public function store(Request $request)

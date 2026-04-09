@@ -1,6 +1,7 @@
 import Card from "./Card";
 import CardGrid from "./CardGrid";
 import HeroSwiper from "./HeroSwiper";
+import TextSection from "./TextSection/TextSection";
 
 /**
  * Import usable components at the top.
@@ -11,7 +12,8 @@ const componentMap = {
   // section.type: imported component
   hero: HeroSwiper,
   card: Card,
-  card_grid: CardGrid
+  card_grid: CardGrid,
+  text: TextSection
 };
 
 /**

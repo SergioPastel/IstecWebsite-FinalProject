@@ -4,7 +4,7 @@ import ComponentResolver from "../../components/dynamic/SectionResolver";
 export default function Template({ page }) {
   return (
     <Layout title={page.title}>
-      <div className="mt-10">
+      <div className="mt-50">
         {page.sections.map((section) => {
           return <ComponentResolver key={section.id} section={section} />;
         })}
