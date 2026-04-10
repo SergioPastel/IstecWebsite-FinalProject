@@ -47,55 +47,6 @@ export default function Home({
     },
   ];
 
-  // const courses = [
-  //   {
-  //     id: 1,
-  //     category: "CTeSP",
-  //     title: "Cibersegurança",
-  //     duration: "2 anos",
-  //     description: "Aprende segurança digital, proteção de redes e gestão de sistemas.",
-  //   },
-  //   {
-  //     id: 2,
-  //     category: "Licenciatura",
-  //     title: "Engenharia Informática",
-  //     duration: "3 anos",
-  //     description: "Desenvolvimento, software e sistemas com foco prático.",
-  //   },
-  //   {
-  //     id: 3,
-  //     category: "Pós-Graduação",
-  //     title: "Marketing Digital",
-  //     duration: "Especialização",
-  //     description: "Competências atuais em marketing, inovação e estratégia digital.",
-  //   },
-  // ];
-
-  // const events = [
-  //   {
-  //     id: 1,
-  //     category: "Evento",
-  //     title: "Hackathon IA",
-  //     date: "10 Maio 2026",
-  //     description: "Desafio tecnológico focado em inovação e colaboração.",
-  //   },
-  //   {
-  //     id: 2,
-  //     category: "Workshop",
-  //     title: "Workshop Cloud",
-  //     date: "22 Junho 2026",
-  //     description:
-  //       "Sessão prática sobre cloud computing e transformação digital.",
-  //   },
-  //   {
-  //     id: 3,
-  //     category: "Notícia",
-  //     title: "Jornadas Tecnológicas",
-  //     date: "Julho 2026",
-  //     description: "Iniciativa dedicada à tecnologia, ensino e investigação.",
-  //   },
-  // ];
-
   const steps = [
     {
       id: 1,

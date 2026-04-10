@@ -98,7 +98,7 @@ function Header({}) {
         preserveScroll: true,
       },
     );
-  }
+  };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -107,61 +107,58 @@ function Header({}) {
 
   // Blue Nav Links with Dropdowns
   const mainNav = [
-  {
-    key: "/ISTEC Porto",
-    titleKey: "istecPorto",
-    children: [
-      { key: "/mission" },
-      { key: "/orgaos" },
-      { key: "/organograma" },
-      { key: "/documentos" },
-      { key: "/docentes" },
-      { key: "/calendarios" },
-      { key: "/qualidade" },
-      { key: "/etica" },
-    ],
-  },
-  {
-    key: "/courses",
-    titleKey: "courses",
-    children: [
-    { key: "/ctesp" },
-    { key: "/licenciatura" },
-    { key: "/pos-graduacao" },
-    { key: "/plano-atividades" },
-    { key: "/emolumentos" },
-    { key: "/bolsas-dges" },
-    { key: "/protocolos" },
-    { key: "/editais-2526" },
-    { key: "/applications" },
-  ],
-  },
-  {
-    key: "/events-and-news",
-    titleKey: "eventsAndNews",
-    children: [
-      { key: "/events-upcoming" },
-      { key: "/events-workshops" },
-      { key: "/events-open-days" },
-      { key: "/news-latest" },
-      { key: "/news-interviews" },
-      { key: "/news-press" },
-      { key: "/applications-events" },
-      
-    ],
-  },
     {
-    key: "/programa-de-mobilidade",
-    titleKey: "mobilityProgram",
-    children: [
-      { key: "/erasmus+" },
-    ],
-  },
+      key: "/ISTEC Porto",
+      titleKey: "istecPorto",
+      children: [
+        { key: "/mission" },
+        { key: "/orgaos" },
+        { key: "/organograma" },
+        { key: "/documentos" },
+        { key: "/docentes" },
+        { key: "/calendarios" },
+        { key: "/qualidade" },
+        { key: "/etica" },
+      ],
+    },
     {
-    key: "/pedagogia-xxi",
-    titleKey: "pedagogyXXI",
-  }
-];
+      key: "/courses",
+      titleKey: "courses",
+      children: [
+        { key: "/ctesp" },
+        { key: "/licenciatura" },
+        { key: "/pos-graduacao" },
+        { key: "/plano-atividades" },
+        { key: "/emolumentos" },
+        { key: "/bolsas-dges" },
+        { key: "/protocolos" },
+        { key: "/editais-2526" },
+        { key: "/applications" },
+      ],
+    },
+    {
+      key: "/events-and-news",
+      titleKey: "eventsAndNews",
+      children: [
+        { key: "/events-upcoming" },
+        { key: "/events-workshops" },
+        { key: "/events-open-days" },
+        { key: "/news-latest" },
+        { key: "/news-interviews" },
+        { key: "/news-press" },
+        { key: "/applications-events" },
+      ],
+    },
+    {
+      key: "/programa-de-mobilidade",
+      titleKey: "mobilityProgram",
+      children: [{ key: "/erasmus+" }],
+    },
+    {
+      key: "/pedagogia-xxi",
+      titleKey: "pedagogyXXI",
+    },
+  ];
   return (
     <header className="fixed top-0 left-0 z-[1000] w-full bg-white font-sans shadow-sm transition-all duration-300">
       <div className="border-b border-[#e5eaf0] bg-[#f8f9fb]">
@@ -173,9 +170,9 @@ function Header({}) {
           <Link
             onClick={() => {
               setPrivateOpen(false);
-              setSearchOpen(false);              
+              setSearchOpen(false);
             }}
-            href={route('home')}           
+            href={route("home")}
             className="p-0 border-0 bg-transparent cursor-pointer"
           >
             <img
@@ -205,12 +202,12 @@ function Header({}) {
             <Link
               onClick={() => {
                 setPrivateOpen(false);
-                setSearchOpen(false);                
+                setSearchOpen(false);
               }}
               href={route("about")}
               className="text-[15px] text-[#1d1d1b] hover:text-[#0c73b7]"
             >
-              {t('header.aboutIstec')}
+              {t("header.aboutIstec")}
             </Link>
 
             <Divider />
@@ -307,7 +304,7 @@ function Header({}) {
                 </Link>
 
                 <Link
-                  href={route('dashboard')}
+                  href={route("dashboard")}
                   onClick={() => setPrivateOpen(false)}
                   className="block px-4 py-3 text-[14px] font-semibold text-[#1d1d1b] hover:bg-[#f5f8fc] hover:text-[#0c73b7] transition"
                 >
@@ -330,7 +327,7 @@ function Header({}) {
                   PT
                 </button>
 
-                  <Divider className="h-5 mx-1! inline-block! bg-gray-800 self-center"/>
+                <Divider className="h-5 mx-1! inline-block! bg-gray-800 self-center" />
 
                 <button
                   onClick={() => setLanguage("en")}
@@ -385,67 +382,68 @@ function Header({}) {
           } md:flex flex-col md:flex-row max-w-[1600px] mx-auto`}
         >
           {mainNav.map((item, index) => (
-        <div
-          key={index}
-          className="relative w-full md:w-auto"
-          onMouseEnter={() => item.children && setOpenDropdown(item.key)}
-          onMouseLeave={() => item.children && setOpenDropdown(null)}
-        >
-          <button
-            type="button"
-            onClick={() => {
-              if (item.children) {
-                setOpenDropdown(openDropdown === item.key ? null : item.key);
-              } else {
-                goToPage(item.key);
-              }
-            }}
-            className="flex w-full items-center justify-between border-r border-white/25 px-6 py-4 text-left text-[16px] font-bold text-white transition hover:bg-white/10 md:w-auto md:gap-2"
-          >
-            <span>{t("header." + item.titleKey)}</span>
-
-            {item.children && (
-              <svg
-                className={`h-4 w-4 transition-transform duration-300 ${
-                  openDropdown === item.key ? "rotate-180" : ""
-                }`}
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 9l6 6 6-6"
-                />
-              </svg>
-            )}
-          </button>
-
-          {item.children && (
             <div
-              className={`${
-                openDropdown === item.key
-                  ? "pointer-events-auto visible opacity-100 translate-y-0"
-                  : "pointer-events-none invisible opacity-0 -translate-y-2"
-              } absolute left-0 top-full z-[1200] min-w-[260px] overflow-hidden bg-[#1488c9] shadow-lg transition-all duration-200`}
+              key={index}
+              className="relative w-full md:w-auto"
+              onMouseEnter={() => item.children && setOpenDropdown(item.key)}
+              onMouseLeave={() => item.children && setOpenDropdown(null)}
             >
-              {item.children.map((child, childIndex) => (
-                <button
-                  key={childIndex}
-                  type="button"
-                  onClick={() => goToPage(child.key)}
-                  className="block w-full px-8 py-4 text-left text-[15px] text-white transition hover:bg-[#0f6fa9]"
-                >
-                  {t("nav." + child.key.replace("/", ""))}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
+              <button
+                type="button"
+                onClick={() => {
+                  if (item.children) {
+                    setOpenDropdown(
+                      openDropdown === item.key ? null : item.key,
+                    );
+                  } else {
+                    goToPage(item.key);
+                  }
+                }}
+                className="flex w-full items-center justify-between border-r border-white/25 px-6 py-4 text-left text-[16px] font-bold text-white transition hover:bg-white/10 md:w-auto md:gap-2"
+              >
+                <span>{t("header." + item.titleKey)}</span>
 
+                {item.children && (
+                  <svg
+                    className={`h-4 w-4 transition-transform duration-300 ${
+                      openDropdown === item.key ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 9l6 6 6-6"
+                    />
+                  </svg>
+                )}
+              </button>
+
+              {item.children && (
+                <div
+                  className={`${
+                    openDropdown === item.key
+                      ? "pointer-events-auto visible opacity-100 translate-y-0"
+                      : "pointer-events-none invisible opacity-0 -translate-y-2"
+                  } absolute left-0 top-full z-[1200] min-w-[260px] overflow-hidden bg-[#1488c9] shadow-lg transition-all duration-200`}
+                >
+                  {item.children.map((child, childIndex) => (
+                    <button
+                      key={childIndex}
+                      type="button"
+                      onClick={() => goToPage(child.key)}
+                      className="block w-full px-8 py-4 text-left text-[15px] text-white transition hover:bg-[#0f6fa9]"
+                    >
+                      {t("nav." + child.key.replace("/", ""))}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
 
           {/*[ This has been REPLACED, but the code might be relevant still. REMOVE LATER.
             "home",

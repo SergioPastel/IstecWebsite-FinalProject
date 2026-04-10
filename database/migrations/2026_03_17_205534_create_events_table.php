@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('location');
             $table->json('title');
             $table->json('description');
+            $table->json('category')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

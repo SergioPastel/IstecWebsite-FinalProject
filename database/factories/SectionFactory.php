@@ -12,7 +12,7 @@ class SectionFactory extends Factory
      */
     public function definition(): array
     {
-        $sectionType = $this->faker->randomElement(['hero', 'card_grid', 'text', '']);
+        $sectionType = $this->faker->randomElement(['hero', 'card_grid', 'text']);
         $content = [];
 
         // Using match keeps the definition() method concise
