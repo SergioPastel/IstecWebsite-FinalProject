@@ -4,18 +4,19 @@ import { Link, router, usePage } from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
 import { route } from "ziggy-js";
 
-function Header({ language = "pt"}) {
-  const { props } = usePage();
-  const { t, i18n } = useTranslation();
-
+function Header({}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [privateOpen, setPrivateOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   const searchRef = useRef(null);
   const privateRef = useRef(null);
+
+  const { props } = usePage();
+  const { t, i18n } = useTranslation();
 
   // Sync frontend locale (i18n.language) to backend locale (props.locale)
   useEffect(() => {
@@ -78,8 +79,16 @@ function Header({ language = "pt"}) {
     };
 
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const closeMenus = () => {
+    setMenuOpen(false);
+    setPrivateOpen(false);
+    setSearchOpen(false);
+    setOpenDropdown(null);
+  };
 
   const setLanguage = (lang) => {
     router.post(
@@ -89,27 +98,84 @@ function Header({ language = "pt"}) {
         preserveScroll: true,
       },
     );
-  };
+  }
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     console.log("Pesquisar:", search);
   };
 
+  // Blue Nav Links with Dropdowns
+  const mainNav = [
+  {
+    key: "/ISTEC Porto",
+    titleKey: "istecPorto",
+    children: [
+      { key: "/mission" },
+      { key: "/orgaos" },
+      { key: "/organograma" },
+      { key: "/documentos" },
+      { key: "/docentes" },
+      { key: "/calendarios" },
+      { key: "/qualidade" },
+      { key: "/etica" },
+    ],
+  },
+  {
+    key: "/courses",
+    titleKey: "courses",
+    children: [
+    { key: "/ctesp" },
+    { key: "/licenciatura" },
+    { key: "/pos-graduacao" },
+    { key: "/plano-atividades" },
+    { key: "/emolumentos" },
+    { key: "/bolsas-dges" },
+    { key: "/protocolos" },
+    { key: "/editais-2526" },
+    { key: "/applications" },
+  ],
+  },
+  {
+    key: "/events-and-news",
+    titleKey: "eventsAndNews",
+    children: [
+      { key: "/events-upcoming" },
+      { key: "/events-workshops" },
+      { key: "/events-open-days" },
+      { key: "/news-latest" },
+      { key: "/news-interviews" },
+      { key: "/news-press" },
+      { key: "/applications-events" },
+      
+    ],
+  },
+    {
+    key: "/programa-de-mobilidade",
+    titleKey: "mobilityProgram",
+    children: [
+      { key: "/erasmus+" },
+    ],
+  },
+    {
+    key: "/pedagogia-xxi",
+    titleKey: "pedagogyXXI",
+  }
+];
   return (
-    <header className="w-full fixed top-0 left-0 z-[1000] bg-white shadow-sm transition-all duration-300 font-sans">
-      <div className="bg-[#f8f9fb] border-b border-[#e5eaf0]">
+    <header className="fixed top-0 left-0 z-[1000] w-full bg-white font-sans shadow-sm transition-all duration-300">
+      <div className="border-b border-[#e5eaf0] bg-[#f8f9fb]">
         <div
-          className={`max-w-[1600px] mx-auto flex items-center justify-between transition-all duration-300 ${
+          className={`mx-auto flex max-w-[1600px] items-center justify-between px-4 transition-all duration-300 md:flex-nowrap ${
             scrolled ? "py-[10px]" : "py-[18px]"
-          } px-4 flex-wrap md:flex-nowrap`}
+          } flex-wrap`}
         >
           <Link
             onClick={() => {
               setPrivateOpen(false);
-              setSearchOpen(false);
+              setSearchOpen(false);              
             }}
-            href={route("home")}
+            href={route('home')}           
             className="p-0 border-0 bg-transparent cursor-pointer"
           >
             <img
@@ -134,17 +200,17 @@ function Header({ language = "pt"}) {
           <div
             className={`${
               menuOpen ? "flex" : "hidden"
-            } md:flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-[18px] w-full md:w-auto mt-2 md:mt-0`}
+            } mt-2 w-full flex-col items-start gap-4 md:mt-0 md:flex md:w-auto md:flex-row md:items-center md:gap-[18px]`}
           >
             <Link
               onClick={() => {
                 setPrivateOpen(false);
-                setSearchOpen(false);
+                setSearchOpen(false);                
               }}
               href={route("about")}
               className="text-[15px] text-[#1d1d1b] hover:text-[#0c73b7]"
             >
-              {t("header.aboutIstec")}
+              {t('header.aboutIstec')}
             </Link>
 
             <Divider />
@@ -172,7 +238,7 @@ function Header({ language = "pt"}) {
               }}
               className="text-[15px] text-[#1d1d1b] hover:text-[#0c73b7]"
             >
-              ISTEC Lisboa
+              {t("header.istecLisboa")}
             </Link>
 
             <Divider />
@@ -211,7 +277,9 @@ function Header({ language = "pt"}) {
                 }`}
               >
                 <Link
-                  // href="/student/login"
+                  href="https://aluno.istec-porto.pt/?_gl=1*1tahsiw*_ga*NTUwMTQ4MzkwLjE3Njk4MTk5MTM.*_ga_BPL2BYTWCM*czE3NzQ5NzkyNzgkbzE2JGcxJHQxNzc0OTgwMTIyJGozOCRsMCRoMA.."
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setPrivateOpen(false)}
                   className="block px-4 py-3 text-[14px] text-[#1d1d1b] hover:bg-[#f5f8fc] hover:text-[#0c73b7] transition"
                 >
@@ -219,7 +287,9 @@ function Header({ language = "pt"}) {
                 </Link>
 
                 <Link
-                  // href="/teacher/login"
+                  href="https://docente.istec-porto.pt/?_gl=1*1796j2f*_ga*NTUwMTQ4MzkwLjE3Njk4MTk5MTM.*_ga_BPL2BYTWCM*czE3NzQ5NzkyNzgkbzE2JGcxJHQxNzc0OTgwMTIyJGozOCRsMCRoMA.."
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setPrivateOpen(false)}
                   className="block px-4 py-3 text-[14px] text-[#1d1d1b] hover:bg-[#f5f8fc] hover:text-[#0c73b7] transition"
                 >
@@ -227,11 +297,13 @@ function Header({ language = "pt"}) {
                 </Link>
 
                 <Link
-                  href="/moodle"
+                  href="https://moodle.istec-porto.pt/?_gl=1*1796j2f*_ga*NTUwMTQ4MzkwLjE3Njk4MTk5MTM.*_ga_BPL2BYTWCM*czE3NzQ5NzkyNzgkbzE2JGcxJHQxNzc0OTgwMTIyJGozOCRsMCRoMA.."
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setPrivateOpen(false)}
                   className="block px-4 py-3 text-[14px] text-[#1d1d1b] hover:bg-[#f5f8fc] hover:text-[#0c73b7] transition"
                 >
-                  Moodle
+                  {t("header.moodle")}
                 </Link>
 
                 <Link
@@ -277,7 +349,7 @@ function Header({ language = "pt"}) {
                     setPrivateOpen(false);
                     setSearchOpen((prev) => !prev);
                   }}
-                  className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 hover:bg-[#0d8fe8] hover:text-white transition"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 transition hover:bg-[#0d8fe8] hover:text-white"
                 >
                   🔍
                 </button>
@@ -312,13 +384,76 @@ function Header({ language = "pt"}) {
             menuOpen ? "flex" : "hidden"
           } md:flex flex-col md:flex-row max-w-[1600px] mx-auto`}
         >
-          {[
-            ["home", "Início", "Home"],
-            ["/courses", "Cursos", "Courses"],
-            ["/events", "Eventos", "Events"],
-            ["/news", "Notícias", "News"],
-            ["/applications", "Candidaturas", "Applications"],
-          ].map(([link, pt, en], i) =>
+          {mainNav.map((item, index) => (
+        <div
+          key={index}
+          className="relative w-full md:w-auto"
+          onMouseEnter={() => item.children && setOpenDropdown(item.key)}
+          onMouseLeave={() => item.children && setOpenDropdown(null)}
+        >
+          <button
+            type="button"
+            onClick={() => {
+              if (item.children) {
+                setOpenDropdown(openDropdown === item.key ? null : item.key);
+              } else {
+                goToPage(item.key);
+              }
+            }}
+            className="flex w-full items-center justify-between border-r border-white/25 px-6 py-4 text-left text-[16px] font-bold text-white transition hover:bg-white/10 md:w-auto md:gap-2"
+          >
+            <span>{t("header." + item.titleKey)}</span>
+
+            {item.children && (
+              <svg
+                className={`h-4 w-4 transition-transform duration-300 ${
+                  openDropdown === item.key ? "rotate-180" : ""
+                }`}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 9l6 6 6-6"
+                />
+              </svg>
+            )}
+          </button>
+
+          {item.children && (
+            <div
+              className={`${
+                openDropdown === item.key
+                  ? "pointer-events-auto visible opacity-100 translate-y-0"
+                  : "pointer-events-none invisible opacity-0 -translate-y-2"
+              } absolute left-0 top-full z-[1200] min-w-[260px] overflow-hidden bg-[#1488c9] shadow-lg transition-all duration-200`}
+            >
+              {item.children.map((child, childIndex) => (
+                <button
+                  key={childIndex}
+                  type="button"
+                  onClick={() => goToPage(child.key)}
+                  className="block w-full px-8 py-4 text-left text-[15px] text-white transition hover:bg-[#0f6fa9]"
+                >
+                  {t("nav." + child.key.replace("/", ""))}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+
+
+          {/*[ This has been REPLACED, but the code might be relevant still. REMOVE LATER.
+            "home",
+            "/courses",
+            "/events",
+            "/news",
+            "/applications",
+          ].map((link, i) =>
             link === "home" ? (
               <button
                 key={i}
@@ -329,7 +464,7 @@ function Header({ language = "pt"}) {
                 href={route("home")}
                 className="text-white font-bold text-[16px] px-6 py-4 border-r border-white/25 hover:bg-white/10 w-full md:w-auto text-left"
               >
-                {language === "pt" ? pt : en}
+                {t("header." + link.replace("/", ""))}
               </button>
             ) : (
               <Link
@@ -341,18 +476,18 @@ function Header({ language = "pt"}) {
                 }}
                 className="text-white font-bold text-[16px] px-6 py-4 border-r border-white/25 hover:bg-white/10 w-full md:w-auto"
               >
-                {language === "pt" ? pt : en}
+                {t("header." + link.replace("/", ""))}
               </Link>
             ),
-          )}
+          )*/}
         </div>
       </div>
     </header>
   );
 }
 
-function Divider({ className = "h-4.5 bg-[#d6d6d6]" }) {
-  return <div className={`hidden md:block w-px ${className}`} />;
+function Divider() {
+  return <span className="hidden md:block w-[1px] h-[18px] bg-[#d6d6d6]" />;
 }
 
 export default Header;

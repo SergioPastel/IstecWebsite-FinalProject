@@ -1,4 +1,4 @@
-import Layout from "../layouts/Layout";
+import Layout from "../../layouts/layout";
 import { useTranslation } from 'react-i18next';
 import { Link } from "@inertiajs/react";
 
@@ -10,11 +10,11 @@ export default function EventsIndex({ events }) {
             <h1>{t("language")}</h1>
 
             <div className="container mx-auto p-6">
-                <h1 className="text-3xl font-bold mb-6">Events</h1>
+                <h1 className="text-3xl font-bold mb-6">{t("events.title")}</h1>
 
 
                 {events.length === 0 ? (
-                <p>No events available.</p>
+                <p>{t("events.noEvents")}</p>
                 ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {events.data.map((event) => (

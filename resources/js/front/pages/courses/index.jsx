@@ -1,4 +1,4 @@
-import Layout from '../layouts/Layout';
+import Layout from '../../layouts/layout';
 import { useTranslation } from 'react-i18next';
 import { Link, router, Head } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
@@ -63,7 +63,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
 
     return (
         <Layout title={t("courses.title")}>
-            <div className="w-full mt-20 bg-slate-50/60">
+            <div className="w-full bg-slate-50/60">
                 <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 pb-12 pt-24 sm:px-6 lg:px-8">
                     {/* Header + search */}
                     <header className="space-y-4">
@@ -72,7 +72,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                 <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-brand-primary)]">
                                     {t("courses.subtitle")}
                                 </p>
-                                <h1 className="mt-1 text-2xl font-semibold text-gray-900 sm:text-3xl">{t("courses.title")}</h1>
+                                <h1 className="mt-1 text-2xl font-semibold text-gray-900 sm:text-3xl">Cursos</h1>
                                 <p className="mt-1 text-sm text-gray-600 max-w-2xl">
                                     {t("courses.description")}
                                 </p>
@@ -273,6 +273,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                                 course.course_category?.title ?? course.courseCategory?.title,
                                                 lang
                                             );
+                                            const schedule = course.study_regime ? `${t("courses.posLaboral")}` : `${t("courses.laboral")}`;
                                             const duration = course.duration_years ? `${course.duration_years} ${t("courses.years")}` : null;
 
                                             return (
@@ -299,11 +300,11 @@ export default function CoursesIndex({ courses, categories, filters }) {
                                                         <div className="mt-4 space-y-1 text-xs text-gray-500">
                                                             <div className="flex flex-wrap items-center gap-2">
                                                                 <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-1">
-                                                                    {course.study_regime ? t("courses.posLaboralLabel") : t("courses.laboralLabel")}
+                                                                    {schedule}
                                                                 </span>
                                                                 {duration ? (
                                                                     <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-1">
-                                                                        {course.duration_years} {t("courses.years")}
+                                                                        {duration}
                                                                     </span>
                                                                 ) : null}
                                                             </div>

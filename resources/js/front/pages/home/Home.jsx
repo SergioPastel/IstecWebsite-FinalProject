@@ -1,6 +1,6 @@
 import React from "react";
 import "./Home.css";
-import Layout from "../layouts/Layout";
+import Layout from "../../layouts/layout";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -153,45 +153,17 @@ export default function Home({
     }
   };
 
-  const getEventBadgeClasses = (category) => {
-    switch (category) {
-      case "Evento":
-        return "bg-[#0d8fe8] text-white";
-      case "Workshop":
-        return "bg-[#16a34a] text-white";
-      case "Notícia":
-        return "bg-[#7c3aed] text-white";
-      default:
-        return "bg-[#0d8fe8] text-white";
-    }
+    const getEventBadgeClasses = () => {
+    return "bg-[#eae6df] text-[#3f3f3f]";
   };
 
-  const getEventCardHoverClasses = (category) => {
-    switch (category) {
-      case "Evento":
-        return "hover:border-[#0d8fe8]/20 hover:shadow-[0_14px_34px_rgba(13,143,232,0.10)]";
-      case "Workshop":
-        return "hover:border-[#16a34a]/20 hover:shadow-[0_14px_34px_rgba(22,163,74,0.10)]";
-      case "Notícia":
-        return "hover:border-[#7c3aed]/20 hover:shadow-[0_14px_34px_rgba(124,58,237,0.10)]";
-      default:
-        return "hover:border-[#0d8fe8]/20";
-    }
+  const getEventCardHoverClasses = () => {
+    return "hover:border-[#d6d1c7] hover:shadow-[0_14px_34px_rgba(0,0,0,0.06)]";
   };
 
-  const getEventLinkClasses = (category) => {
-    switch (category) {
-      case "Evento":
-        return "text-[#0d8fe8]";
-      case "Workshop":
-        return "text-[#16a34a]";
-      case "Notícia":
-        return "text-[#7c3aed]";
-      default:
-        return "text-[#0d8fe8]";
-    }
-  };
-
+  const getEventLinkClasses = () => {
+  return "text-[#6b6257]";
+};
   return (
     <Layout title={"Home"}>
 
