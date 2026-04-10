@@ -15,7 +15,8 @@ class News extends Model
     protected $fillable = [
         'media_id',
         'title',
-        'description'
+        'description',
+        'category'
     ];
     /**
      * Summary of translatable attributes.

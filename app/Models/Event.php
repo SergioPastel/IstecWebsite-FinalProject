@@ -20,6 +20,7 @@ class Event extends Model
         'location',
         'start_date',
         'end_date',
+        'category'
     ];
     /**
      * Summary of translatable attributes.
