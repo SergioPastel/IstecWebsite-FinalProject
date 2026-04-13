@@ -432,7 +432,7 @@ export default function Home({
           </div>
         </section>
 
-        <section className="bg-[#f5f8fc] py-20">
+        <section className="bg-white pt-20 pb-8">
           <div className="max-w-[1600px] mx-auto px-6">
             <div className="bg-white border border-[#dbe4ee] rounded-[26px] p-[34px] max-[768px]:p-5 shadow-[0_8px_24px_rgba(15,23,42,0.06)] flex items-center justify-between gap-7 max-[1100px]:flex-col max-[1100px]:items-start">
               <div>
