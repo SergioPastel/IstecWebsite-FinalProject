@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\CourseResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,11 +22,17 @@ class CourseCategoryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $locale = $request->getLocale();
+        $locale = app()->getLocale();
         return [
             'id' => $this->id,
-            'title' => $this->getTranslation('title', $locale) ?? $this->getTranslation('title', 'pt') ?? null,
-            'description' => $this->getTranslation('description', $locale) ?? $this->getTranslation('description', 'pt') ?? null,
+            'title' => $this->getTranslation('title', $locale) ?: $this->getTranslation('title', 'pt'),
+            'description' => $this->getTranslation('description', $locale) ?: $this->getTranslation('description', 'pt'),
+            'courses' => $this->courses ? $this->courses->map(function ($course) use ($locale) {
+                return [
+                    'id' => $course->id,
+                    'title' => $course->getTranslation('title', $locale) ?: $course->getTranslation('title', 'pt'),
+                ];
+            })->values()->toArray() : [],
 
         ];
     }

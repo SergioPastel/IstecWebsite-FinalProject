@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Application;
 use App\Models\Course;
+use App\Models\CourseCategory;
 use App\Models\Event;
+use App\Http\Resources\CourseCategoryResource;
+use App\Http\Resources\CourseResource;
+use App\Http\Resources\EventResource;
 use App\Http\Requests\StoreApplicationRequest;
 use App\Http\Requests\UpdateApplicationRequest;
 use Illuminate\Http\Request;
@@ -16,17 +20,25 @@ class ApplicationController extends Controller
     FRONT
     */
 
-    public function applyCourse(Course $course)
+    public function applyCourse(?Course $course = null) // Null by default so the same action can be shared regardless if the user has a pre-selected course
     {
-        return Inertia('front/pages/applications/ApplicationsCourses', [
-            'course' => $course
+        $courseCategories = CourseCategoryResource::collection(
+            CourseCategory::with('courses')->get()
+        )->resolve();
+
+        return Inertia('front/pages/applications/ApplicationsCourse', [
+            'course' => $course,
+            'courseCategories' => $courseCategories,
         ]);
     }
 
-    public function applyEvent(Event $event)
+    public function applyEvent(Event $event) // possibly nullable? Check later
     {
+        $events = EventResource::collection(Event::all())->resolve();
+
         return Inertia('front/pages/applications/ApplicationsEvents', [
-            'event' => $event
+            'event' => $event,
+            'events' => $events,
         ]);
     }
 

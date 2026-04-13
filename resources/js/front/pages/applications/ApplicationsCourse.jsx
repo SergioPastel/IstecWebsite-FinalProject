@@ -1,58 +1,24 @@
 import React, { useMemo, useState } from "react";
-import Layout from "../../layouts/layout.jsx";
-
-const steps = [
-  "Seleção e dados pessoais",
-  "Envio de arquivos",
-  "Revisão",
-  "Confirmação",
-];
-
-const courseLevels = [
-  {
-    id: "ctesp",
-    title: "CTeSP",
-    courses: [
-      { id: 1, title: "Desenvolvimento Web" },
-      { id: 2, title: "Redes e Sistemas Informáticos" },
-    ],
-  },
-  {
-    id: "licenciatura",
-    title: "Licenciatura",
-    courses: [
-      { id: 3, title: "Engenharia Informática" },
-      { id: 4, title: "Gestão" },
-    ],
-  },
-  {
-    id: "pos-graduacao",
-    title: "Pós-Graduação",
-    courses: [
-      { id: 5, title: "Cibersegurança" },
-      { id: 6, title: "Data Science" },
-    ],
-  },
-  {
-    id: "plano-atividades",
-    title: "Plano de Atividades",
-    courses: [
-      { id: 7, title: "Plano Anual 2025/2026" },
-      { id: 8, title: "Atividades Complementares" },
-    ],
-  },
-];
+import { useTranslation } from "react-i18next";
+import { Inertia } from "@inertiajs/inertia";
+import Layout from "../../layouts/Layout";
 
 export default function ApplicationsCourse({
-  setPage,
-  language,
-  setLanguage,
+  course,
+  courseCategories = [],
 }) {
+  const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState(1);
+  const steps = [
+    t("applicationsForm.course.steps.1"),
+    t("applicationsForm.course.steps.2"),
+    t("applicationsForm.course.steps.3"),
+    t("applicationsForm.course.steps.4"),
+  ];
   const [errors, setErrors] = useState({});
 
-  const pageTitle = "Candidatura a Curso";
-  const selectionLabel = "Curso desejado";
+  const pageTitle = t("applicationsForm.course.pageTitle");
+  const selectionLabel = t("applicationsForm.course.selectionLabel");
 
   const [formData, setFormData] = useState({
     course_level: "",
@@ -72,19 +38,19 @@ export default function ApplicationsCourse({
 
   const availableCourses = useMemo(() => {
     if (!formData.course_level) return [];
-    const selectedLevel = courseLevels.find(
-      (level) => level.id === formData.course_level
+    const selectedCategory = courseCategories.find(
+      (category) => category.id === formData.course_level
     );
-    return selectedLevel ? selectedLevel.courses : [];
-  }, [formData.course_level]);
+    return selectedCategory && Array.isArray(selectedCategory.courses) ? selectedCategory.courses : []; // double check this
+  }, [formData.course_level, courseCategories]);
 
   const selectedLevelName = useMemo(() => {
     if (!formData.course_level) return "";
-    const found = courseLevels.find(
-      (level) => level.id === formData.course_level
+    const selectedCategory = courseCategories.find(
+      (category) => category.id === formData.course_level
     );
-    return found?.title || "";
-  }, [formData.course_level]);
+    return selectedCategory?.title || "";
+  }, [formData.course_level, courseCategories]);
 
   const selectedName = useMemo(() => {
     if (!formData.applicable_id) return "";
@@ -109,38 +75,38 @@ export default function ApplicationsCourse({
     const newErrors = {};
 
     if (!formData.course_level) {
-      newErrors.course_level = "Campo obrigatório.";
+      newErrors.course_level = t("applicationsForm.common.requiredField");
     }
 
     if (!formData.applicable_id) {
-      newErrors.applicable_id = "Campo obrigatório.";
+      newErrors.applicable_id = t("applicationsForm.common.requiredField");
     }
 
     if (!formData.first_name) {
-      newErrors.first_name = "Campo obrigatório.";
+      newErrors.first_name = t("applicationsForm.common.requiredField");
     }
 
     if (!formData.last_name) {
-      newErrors.last_name = "Campo obrigatório.";
+      newErrors.last_name = t("applicationsForm.common.requiredField");
     }
 
     if (!formData.email) {
-      newErrors.email = "Campo obrigatório.";
+      newErrors.email = t("applicationsForm.common.requiredField");
     }
 
     if (!formData.phone) {
-      newErrors.phone = "Campo obrigatório.";
+      newErrors.phone = t("applicationsForm.common.requiredField");
     }
 
     if (!formData.birth_date) {
-      newErrors.birth_date = "Campo obrigatório.";
+      newErrors.birth_date = t("applicationsForm.common.requiredField");
     }
 
     if (!formData.identification_number) {
-      newErrors.identification_number = "Campo obrigatório.";
+      newErrors.identification_number = t("applicationsForm.common.requiredField");
     } else if (!isValidIdentificationNumber(formData.identification_number)) {
       newErrors.identification_number =
-        "O número de identificação deve ter 9 dígitos.";
+        t("applicationsForm.course.invalidIdentificationNumber");
     }
 
     setErrors((prev) => ({ ...prev, ...newErrors }));
@@ -151,7 +117,7 @@ export default function ApplicationsCourse({
     const newErrors = {};
 
     if (!formData.terms) {
-      newErrors.terms = "Tem de aceitar os termos.";
+      newErrors.terms = t("applicationsForm.common.acceptTerms");
     }
 
     setErrors((prev) => ({ ...prev, ...newErrors }));
@@ -177,13 +143,7 @@ export default function ApplicationsCourse({
   };
 
   return (
-    <>
-      <Layout
-        setPage={setPage}
-        language={language}
-        setLanguage={setLanguage}
-      />
-
+    <Layout title={pageTitle}>
       <main className="min-h-screen bg-[#f6f8fb] pt-[140px] pb-12">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -191,19 +151,21 @@ export default function ApplicationsCourse({
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0d8fe8]">
-                    Candidaturas
+                    {t("applicationsForm.common.sectionLabel")}
                   </p>
                   <h1 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
                     {pageTitle}
                   </h1>
                   <p className="mt-2 text-sm text-slate-500">
-                    Preencha a candidatura e associe-a diretamente a um curso.
+                    {t("applicationsForm.course.pageDescription")}
                   </p>
                 </div>
 
                 <div className="rounded-xl bg-[#eef7fe] px-4 py-3 text-sm text-slate-700">
-                  <span className="font-semibold text-slate-900">Tipo:</span>{" "}
-                  Curso
+                  <span className="font-semibold text-slate-900">
+                    {t("applicationsForm.common.typeLabel")}:
+                  </span>{" "}
+                  {t("applicationsForm.course.typeValue")}
                 </div>
               </div>
             </div>
@@ -253,17 +215,17 @@ export default function ApplicationsCourse({
                 <div className="space-y-6">
                   <div>
                     <h2 className="text-2xl font-bold text-slate-900">
-                      Seleção e Informações Pessoais
+                      {t("applicationsForm.course.sectionOneTitle")}
                     </h2>
                     <p className="mt-2 text-sm text-slate-500">
-                      Escolha o curso e preencha os seus dados.
+                      {t("applicationsForm.course.sectionOneDescription")}
                     </p>
                   </div>
 
                   <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
                     <div className="border-b border-slate-200 px-6 py-4">
                       <h3 className="text-base font-semibold text-slate-900">
-                        1. Seleção
+                        {t("applicationsForm.course.stepHeading")}
                       </h3>
                     </div>
 
@@ -281,8 +243,8 @@ export default function ApplicationsCourse({
                           }}
                           className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-[#0d8fe8]"
                         >
-                          <option value="">Selecione um nível</option>
-                          {courseLevels.map((level) => (
+                          <option value="">{t("applicationsForm.course.selectLevelOption")}</option>
+                          {courseCategories.map((level) => (
                             <option key={level.id} value={level.id}>
                               {level.title}
                             </option>
@@ -311,8 +273,8 @@ export default function ApplicationsCourse({
                         >
                           <option value="">
                             {formData.course_level
-                              ? "Selecione um curso"
-                              : "Selecione primeiro o nível"}
+                              ? t("applicationsForm.course.selectCourseOption")
+                              : t("applicationsForm.course.selectLevelFirstOption")}
                           </option>
 
                           {availableCourses.map((course) => (
@@ -334,27 +296,27 @@ export default function ApplicationsCourse({
                   <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
                     <div className="border-b border-slate-200 px-6 py-4">
                       <h3 className="text-base font-semibold text-slate-900">
-                        2. Informações pessoais
+                        {t("applicationsForm.course.personalInfoHeading")}
                       </h3>
                     </div>
 
                     <div className="grid grid-cols-1 gap-5 p-6 md:grid-cols-2">
                       <Input
-                        label="Primeiro nome"
+                        label={t("applicationsForm.common.firstName")}
                         value={formData.first_name}
                         onChange={(v) => updateField("first_name", v)}
                         error={errors.first_name}
                         required
                       />
                       <Input
-                        label="Sobrenome"
+                        label={t("applicationsForm.common.lastName")}
                         value={formData.last_name}
                         onChange={(v) => updateField("last_name", v)}
                         error={errors.last_name}
                         required
                       />
                       <Input
-                        label="Endereço de e-mail"
+                        label={t("applicationsForm.common.email")}
                         type="email"
                         value={formData.email}
                         onChange={(v) => updateField("email", v)}
@@ -362,14 +324,14 @@ export default function ApplicationsCourse({
                         required
                       />
                       <Input
-                        label="Número de telefone"
+                        label={t("applicationsForm.common.phone")}
                         value={formData.phone}
                         onChange={(v) => updateField("phone", v)}
                         error={errors.phone}
                         required
                       />
                       <Input
-                        label="Data de nascimento"
+                        label={t("applicationsForm.common.birthDate")}
                         type="date"
                         value={formData.birth_date}
                         onChange={(v) => {
@@ -381,7 +343,7 @@ export default function ApplicationsCourse({
                         required
                       />
                       <Input
-                        label="Número de identificação"
+                        label={t("applicationsForm.common.identificationNumber")}
                         value={formData.identification_number}
                         onChange={(v) =>
                           updateField(
@@ -403,22 +365,21 @@ export default function ApplicationsCourse({
                 <div className="space-y-6">
                   <div>
                     <h2 className="text-2xl font-bold text-slate-900">
-                      Envio de Arquivos
+                      {t("applicationsForm.course.sectionTwoTitle")}
                     </h2>
                     <p className="mt-2 text-sm text-slate-500">
-                      Faça upload dos documentos pedidos para concluir a
-                      candidatura.
+                      {t("applicationsForm.course.sectionTwoDescription")}
                     </p>
                   </div>
 
                   <div className="grid grid-cols-1 gap-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:grid-cols-2">
                     <FileInput
-                      label="CV"
+                      label={t("applicationsForm.common.cv")}
                       onChange={(file) => updateField("cv_file", file)}
                       error={errors.cv_file}
                     />
                     <FileInput
-                      label="Documento de identificação"
+                      label={t("applicationsForm.common.identityDocument")}
                       onChange={(file) =>
                         updateField("identification_file", file)
                       }
@@ -426,7 +387,7 @@ export default function ApplicationsCourse({
                     />
                     <div className="md:col-span-2">
                       <FileInput
-                        label="Certificado / comprovativo"
+                        label={t("applicationsForm.common.certificate")}
                         onChange={(file) =>
                           updateField("certificate_file", file)
                         }
@@ -441,10 +402,10 @@ export default function ApplicationsCourse({
                 <div className="space-y-6">
                   <div>
                     <h2 className="text-2xl font-bold text-slate-900">
-                      Revisão
+                      {t("applicationsForm.course.sectionThreeTitle")}
                     </h2>
                     <p className="mt-2 text-sm text-slate-500">
-                      Reveja os dados antes de submeter.
+                      {t("applicationsForm.course.sectionThreeDescription")}
                     </p>
                   </div>
 
@@ -487,10 +448,7 @@ export default function ApplicationsCourse({
                         onChange={(e) => updateField("terms", e.target.checked)}
                         className="mt-1"
                       />
-                      <span>
-                        Confirmo que os dados estão corretos e aceito os termos
-                        da candidatura.
-                      </span>
+                      <span>{t("applicationsForm.course.termsConfirmation")}</span>
                     </label>
 
                     {errors.terms && (
@@ -506,27 +464,26 @@ export default function ApplicationsCourse({
                 <div className="space-y-6">
                   <div>
                     <h2 className="text-2xl font-bold text-slate-900">
-                      Confirmação
+                      {t("applicationsForm.course.sectionFourTitle")}
                     </h2>
                     <p className="mt-2 text-sm text-slate-500">
-                      A sua candidatura foi submetida com sucesso.
+                      {t("applicationsForm.course.sectionFourDescription")}
                     </p>
                   </div>
 
                   <div className="rounded-2xl border border-[#d8ebfb] bg-[#f7fbff] p-6 shadow-sm">
                     <h3 className="text-lg font-bold text-slate-900">
-                      Resumo final
+                      {t("applicationsForm.course.finalSummaryTitle")}
                     </h3>
 
                     {selectedLevelName && (
                       <p className="mt-2 text-sm text-slate-600">
-                        Nível escolhido: <strong>{selectedLevelName}</strong>
+                        {t("applicationsForm.course.selectedLevelLabel")} <strong>{selectedLevelName}</strong>
                       </p>
                     )}
 
                     <p className="mt-2 text-sm text-slate-600">
-                      Submeteu uma candidatura para{" "}
-                      <strong>{selectedName || "uma opção por selecionar"}</strong>.
+                      {t("applicationsForm.course.submittedFor")} <strong>{selectedName || t("applicationsForm.common.noSelection")}</strong>.
                     </p>
                   </div>
                 </div>
@@ -539,11 +496,11 @@ export default function ApplicationsCourse({
                   disabled={currentStep === 1 || currentStep === 4}
                   className="rounded-xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
                 >
-                  Voltar
+                  {t("applicationsForm.common.back")}
                 </button>
 
                 <div className="text-center text-sm text-slate-500">
-                  Passo {currentStep} de 4
+                  {t("applicationsForm.common.stepCounter", { current: currentStep, total: 4 })}
                 </div>
 
                 {currentStep < 3 ? (
@@ -552,22 +509,22 @@ export default function ApplicationsCourse({
                     onClick={nextStep}
                     className="rounded-xl bg-[#0d8fe8] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                   >
-                    Próximo
+                    {t("applicationsForm.common.next")}
                   </button>
                 ) : currentStep === 3 ? (
                   <button
                     type="submit"
                     className="rounded-xl bg-[#0d8fe8] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                   >
-                    Submeter candidatura
+                    {t("applicationsForm.common.submitApplication")}
                   </button>
                 ) : (
                   <button
                     type="button"
-                    onClick={() => setPage("home")}
+                    onClick={() => Inertia.visit('/')}
                     className="rounded-xl bg-[#0d8fe8] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                   >
-                    Voltar ao início
+                    {t("applicationsForm.common.returnHome")}
                   </button>
                 )}
               </div>
@@ -575,9 +532,7 @@ export default function ApplicationsCourse({
           </div>
         </div>
       </main>
-
-      <Footer />
-    </>
+    </Layout>
   );
 }
 

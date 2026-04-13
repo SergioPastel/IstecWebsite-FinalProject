@@ -6,10 +6,21 @@ import Layout from "../../layouts/Layout";
 export default function News({ news = [] }) {
   const { t, i18n } = useTranslation();
 
-  const featuredNews = news.find((item) => item.featured) || news[0];
+  const featuredNews = news.data?.find((item) => item.featured) || news.data?.[0];
 
-  const getBadgeClasses = () => {
-    return "bg-[#eae6df] text-[#3f3f3f]";
+  const getBadgeClasses = (category) => {
+    switch (category) {
+      case "Notícia":
+        return "bg-blue-100 text-blue-800";
+      case "Entrevista":
+        return "bg-green-100 text-green-800";
+      case "Evento":
+        return "bg-yellow-100 text-yellow-800";
+      case "Parceria":
+        return "bg-purple-100 text-purple-800";
+      default:
+        return "bg-[#eae6df] text-[#3f3f3f]";
+    }
   };
 
   const getCardHoverClasses = (category) => {
@@ -135,7 +146,7 @@ export default function News({ news = [] }) {
             </div>
 
             <div className="grid grid-cols-3 gap-[22px] max-[1100px]:grid-cols-2 max-[768px]:grid-cols-1">
-              {news.map((item) => (
+              {news.data.map((item) => (
                 <div
                   key={item.id}
                   className={`min-h-full bg-white border border-[#dbe4ee] rounded-[20px] overflow-hidden shadow-[0_8px_24px_rgba(15,23,42,0.06)] hover:-translate-y-1 transition-all duration-300 flex flex-col ${getCardHoverClasses(

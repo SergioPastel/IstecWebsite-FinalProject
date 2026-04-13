@@ -1,44 +1,19 @@
 import React, { useMemo, useState } from "react";
-import Layout from "../../layouts/layout.jsx";
-
-const steps = [
-  "Seleção e dados pessoais",
-  "Revisão",
-  "Confirmação",
-];
-
-const eventCategories = [
-  {
-    id: "proximos-eventos",
-    title: "Próximos Eventos",
-    events: [
-      { id: 1, title: "Semana Aberta ISTEC Porto" },
-      { id: 2, title: "Feira Tecnológica 2025" },
-    ],
-  },
-  {
-    id: "workshops",
-    title: "Workshops",
-    events: [
-      { id: 3, title: "Workshop de React" },
-      { id: 4, title: "Workshop de Cibersegurança" },
-    ],
-  },
-  {
-    id: "open-days",
-    title: "Open Days",
-    events: [
-      { id: 5, title: "Open Day de Engenharia Informática" },
-      { id: 6, title: "Open Day de Gestão" },
-    ],
-  },
-];
+import { useTranslation } from "react-i18next";
+import Layout from "../../layouts/Layout";
 
 export default function ApplicationsEvents({
   setPage,
   language,
   setLanguage,
+  events = [],
 }) {
+  const { t } = useTranslation();
+  const steps = [
+    t("applicationsForm.event.steps.1"),
+    t("applicationsForm.event.steps.2"),
+    t("applicationsForm.event.steps.3"),
+  ];
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState({});
 
@@ -54,21 +29,32 @@ export default function ApplicationsEvents({
     terms: false,
   });
 
+  const eventCategories = useMemo(
+    () => [
+      {
+        id: "all-events",
+        title: t("applicationsForm.event.categoryAll"),
+        events,
+      },
+    ],
+    [events, t]
+  );
+
   const availableEvents = useMemo(() => {
     if (!formData.event_category) return [];
     const selectedCategory = eventCategories.find(
       (category) => category.id === formData.event_category
     );
     return selectedCategory ? selectedCategory.events : [];
-  }, [formData.event_category]);
+  }, [formData.event_category, eventCategories]);
 
   const selectedCategoryName = useMemo(() => {
     if (!formData.event_category) return "";
-    const found = eventCategories.find(
+    const selectedCategory = eventCategories.find(
       (category) => category.id === formData.event_category
     );
-    return found?.title || "";
-  }, [formData.event_category]);
+    return selectedCategory?.title || "";
+  }, [formData.event_category, eventCategories]);
 
   const selectedEventName = useMemo(() => {
     if (!formData.applicable_id) return "";
@@ -91,38 +77,38 @@ export default function ApplicationsEvents({
     const newErrors = {};
 
     if (!formData.event_category) {
-      newErrors.event_category = "Campo obrigatório.";
+      newErrors.event_category = t("applicationsForm.common.requiredField");
     }
 
     if (!formData.applicable_id) {
-      newErrors.applicable_id = "Campo obrigatório.";
+      newErrors.applicable_id = t("applicationsForm.common.requiredField");
     }
 
     if (!formData.first_name) {
-      newErrors.first_name = "Campo obrigatório.";
+      newErrors.first_name = t("applicationsForm.common.requiredField");
     }
 
     if (!formData.last_name) {
-      newErrors.last_name = "Campo obrigatório.";
+      newErrors.last_name = t("applicationsForm.common.requiredField");
     }
 
     if (!formData.email) {
-      newErrors.email = "Campo obrigatório.";
+      newErrors.email = t("applicationsForm.common.requiredField");
     }
 
     if (!formData.phone) {
-      newErrors.phone = "Campo obrigatório.";
+      newErrors.phone = t("applicationsForm.common.requiredField");
     }
 
     if (!formData.birth_date) {
-      newErrors.birth_date = "Campo obrigatório.";
+      newErrors.birth_date = t("applicationsForm.common.requiredField");
     }
 
     if (!formData.identification_number) {
-      newErrors.identification_number = "Campo obrigatório.";
+      newErrors.identification_number = t("applicationsForm.common.requiredField");
     } else if (!isValidIdentificationNumber(formData.identification_number)) {
       newErrors.identification_number =
-        "O número de identificação tem de ter exatamente 9 dígitos.";
+        t("applicationsForm.event.invalidIdentificationNumber");
     }
 
     setErrors((prev) => ({ ...prev, ...newErrors }));
@@ -133,7 +119,7 @@ export default function ApplicationsEvents({
     const newErrors = {};
 
     if (!formData.terms) {
-      newErrors.terms = "Tem de aceitar os termos.";
+      newErrors.terms = t("applicationsForm.common.acceptTerms");
     }
 
     setErrors((prev) => ({ ...prev, ...newErrors }));
@@ -158,10 +144,10 @@ export default function ApplicationsEvents({
     setCurrentStep(3);
   };
 
-  return (
-    <layout language={language}>
-      
+  const pageTitle = t("applicationsForm.event.pageTitle");
 
+  return (
+    <Layout title={pageTitle}>
       <main className="min-h-screen bg-[#f6f8fb] pt-[140px] pb-12">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -169,20 +155,21 @@ export default function ApplicationsEvents({
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#0d8fe8]">
-                    Candidaturas
+                    {t("applicationsForm.common.sectionLabel")}
                   </p>
                   <h1 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
-                    Candidatura a Evento
+                    {t("applicationsForm.event.pageTitle")}
                   </h1>
                   <p className="mt-2 text-sm text-slate-500">
-                    Escolha a categoria, selecione o evento e preencha os seus
-                    dados.
+                    {t("applicationsForm.event.pageDescription")}
                   </p>
                 </div>
 
                 <div className="rounded-xl bg-[#eef7fe] px-4 py-3 text-sm text-slate-700">
-                  <span className="font-semibold text-slate-900">Tipo:</span>{" "}
-                  Evento
+                  <span className="font-semibold text-slate-900">
+                    {t("applicationsForm.common.typeLabel")}:
+                  </span>{" "}
+                  {t("applicationsForm.event.typeValue")}
                 </div>
               </div>
             </div>
@@ -216,7 +203,7 @@ export default function ApplicationsEvents({
                       </div>
 
                       <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
-                        Passo {stepNumber}
+                        {t("applicationsForm.common.stepLabel")} {stepNumber}
                       </p>
                       <p className="mt-1 max-w-[150px] text-sm font-medium text-slate-700">
                         {step}
@@ -232,11 +219,10 @@ export default function ApplicationsEvents({
                 <div className="space-y-6">
                   <div>
                     <h2 className="text-2xl font-bold text-slate-900">
-                      Seleção e Dados Pessoais
+                      {t("applicationsForm.event.sectionOneTitle")}
                     </h2>
                     <p className="mt-2 text-sm text-slate-500">
-                      Escolha a categoria, selecione o evento e preencha os seus
-                      dados.
+                      {t("applicationsForm.event.sectionOneDescription")}
                     </p>
                   </div>
 
@@ -250,8 +236,7 @@ export default function ApplicationsEvents({
                     <div className="space-y-5 p-6">
                       <div>
                         <label className="mb-2 block text-sm font-semibold text-slate-700">
-                          Categoria do evento{" "}
-                          <span className="text-red-500">*</span>
+                          {t("applicationsForm.event.categoryLabel")} <span className="text-red-500">*</span>
                         </label>
 
                         <select
@@ -262,7 +247,7 @@ export default function ApplicationsEvents({
                           }}
                           className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-[#0d8fe8]"
                         >
-                          <option value="">Selecione uma categoria</option>
+                          <option value="">{t("applicationsForm.event.selectCategoryOption")}</option>
                           {eventCategories.map((category) => (
                             <option key={category.id} value={category.id}>
                               {category.title}
@@ -279,8 +264,7 @@ export default function ApplicationsEvents({
 
                       <div>
                         <label className="mb-2 block text-sm font-semibold text-slate-700">
-                          Evento desejado{" "}
-                          <span className="text-red-500">*</span>
+                          {t("applicationsForm.event.desiredEventLabel")} <span className="text-red-500">*</span>
                         </label>
 
                         <select
@@ -293,8 +277,8 @@ export default function ApplicationsEvents({
                         >
                           <option value="">
                             {formData.event_category
-                              ? "Selecione um evento"
-                              : "Selecione primeiro a categoria"}
+                              ? t("applicationsForm.event.selectEventOption")
+                              : t("applicationsForm.event.selectCategoryFirstOption")}
                           </option>
 
                           {availableEvents.map((event) => (
@@ -316,27 +300,27 @@ export default function ApplicationsEvents({
                   <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
                     <div className="border-b border-slate-200 px-6 py-4">
                       <h3 className="text-base font-semibold text-slate-900">
-                        2. Informações pessoais
+                        {t("applicationsForm.event.personalInfoHeading")}
                       </h3>
                     </div>
 
                     <div className="grid grid-cols-1 gap-5 p-6 md:grid-cols-2">
                       <Input
-                        label="Primeiro nome"
+                        label={t("applicationsForm.common.firstName")}
                         value={formData.first_name}
                         onChange={(v) => updateField("first_name", v)}
                         error={errors.first_name}
                         required
                       />
                       <Input
-                        label="Sobrenome"
+                        label={t("applicationsForm.common.lastName")}
                         value={formData.last_name}
                         onChange={(v) => updateField("last_name", v)}
                         error={errors.last_name}
                         required
                       />
                       <Input
-                        label="Endereço de e-mail"
+                        label={t("applicationsForm.common.email")}
                         type="email"
                         value={formData.email}
                         onChange={(v) => updateField("email", v)}
@@ -344,14 +328,14 @@ export default function ApplicationsEvents({
                         required
                       />
                       <Input
-                        label="Número de telefone"
+                        label={t("applicationsForm.common.phone")}
                         value={formData.phone}
                         onChange={(v) => updateField("phone", v)}
                         error={errors.phone}
                         required
                       />
                       <Input
-                        label="Data de nascimento"
+                        label={t("applicationsForm.common.birthDate")}
                         type="date"
                         value={formData.birth_date}
                         onChange={(v) => {
@@ -363,7 +347,7 @@ export default function ApplicationsEvents({
                         required
                       />
                       <Input
-                        label="Número de identificação"
+                        label={t("applicationsForm.common.identificationNumber")}
                         value={formData.identification_number}
                         onChange={(v) =>
                           updateField(
@@ -385,45 +369,45 @@ export default function ApplicationsEvents({
                 <div className="space-y-6">
                   <div>
                     <h2 className="text-2xl font-bold text-slate-900">
-                      Revisão
+                      {t("applicationsForm.event.sectionThreeTitle")}
                     </h2>
                     <p className="mt-2 text-sm text-slate-500">
-                      Reveja os dados antes de submeter.
+                      {t("applicationsForm.event.sectionThreeDescription")}
                     </p>
                   </div>
 
                   <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                       <ReviewItem
-                        label="Categoria do evento"
-                        value={selectedCategoryName || "Não selecionada"}
+                        label={t("applicationsForm.event.reviewCategory")}
+                        value={selectedCategoryName || t("applicationsForm.common.notSelected")}
                       />
                       <ReviewItem
-                        label="Evento desejado"
-                        value={selectedEventName || "Não selecionado"}
+                        label={t("applicationsForm.event.reviewEvent")}
+                        value={selectedEventName || t("applicationsForm.common.notSelected")}
                       />
                       <ReviewItem
-                        label="Nome"
+                        label={t("applicationsForm.common.name")}
                         value={
                           `${formData.first_name} ${formData.last_name}`.trim() ||
-                          "—"
+                          t("applicationsForm.common.noValue")
                         }
                       />
                       <ReviewItem
-                        label="Email"
-                        value={formData.email || "—"}
+                        label={t("applicationsForm.common.email")}
+                        value={formData.email || t("applicationsForm.common.noValue")}
                       />
                       <ReviewItem
-                        label="Telefone"
-                        value={formData.phone || "—"}
+                        label={t("applicationsForm.common.phone")}
+                        value={formData.phone || t("applicationsForm.common.noValue")}
                       />
                       <ReviewItem
-                        label="Data de nascimento"
-                        value={formData.birth_date || "—"}
+                        label={t("applicationsForm.common.birthDate")}
+                        value={formData.birth_date || t("applicationsForm.common.noValue")}
                       />
                       <ReviewItem
-                        label="Número de identificação"
-                        value={formData.identification_number || "—"}
+                        label={t("applicationsForm.common.identificationNumber")}
+                        value={formData.identification_number || t("applicationsForm.common.noValue")}
                       />
                     </div>
 
@@ -453,31 +437,26 @@ export default function ApplicationsEvents({
                 <div className="space-y-6">
                   <div>
                     <h2 className="text-2xl font-bold text-slate-900">
-                      Confirmação
+                      {t("applicationsForm.event.sectionFourTitle")}
                     </h2>
                     <p className="mt-2 text-sm text-slate-500">
-                      A sua candidatura foi submetida com sucesso.
+                      {t("applicationsForm.event.sectionFourDescription")}
                     </p>
                   </div>
 
                   <div className="rounded-2xl border border-[#d8ebfb] bg-[#f7fbff] p-6 shadow-sm">
                     <h3 className="text-lg font-bold text-slate-900">
-                      Resumo final
+                      {t("applicationsForm.event.finalSummaryTitle")}
                     </h3>
 
                     {selectedCategoryName && (
                       <p className="mt-2 text-sm text-slate-600">
-                        Categoria escolhida:{" "}
-                        <strong>{selectedCategoryName}</strong>
+                        {t("applicationsForm.event.selectedCategoryLabel")} <strong>{selectedCategoryName}</strong>
                       </p>
                     )}
 
                     <p className="mt-2 text-sm text-slate-600">
-                      Submeteu uma candidatura para{" "}
-                      <strong>
-                        {selectedEventName || "um evento por selecionar"}
-                      </strong>
-                      .
+                      {t("applicationsForm.event.submittedFor")} <strong>{selectedEventName || t("applicationsForm.common.noSelection")}</strong>.
                     </p>
                   </div>
                 </div>
@@ -490,11 +469,11 @@ export default function ApplicationsEvents({
                   disabled={currentStep === 1 || currentStep === 3}
                   className="rounded-xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
                 >
-                  Voltar
+                  {t("applicationsForm.common.back")}
                 </button>
 
                 <div className="text-center text-sm text-slate-500">
-                  Passo {currentStep} de 3
+                  {t("applicationsForm.common.stepCounter", { current: currentStep, total: 3 })}
                 </div>
 
                 {currentStep === 1 ? (
@@ -503,14 +482,14 @@ export default function ApplicationsEvents({
                     onClick={nextStep}
                     className="rounded-xl bg-[#0d8fe8] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                   >
-                    Próximo
+                    {t("applicationsForm.common.next")}
                   </button>
                 ) : currentStep === 2 ? (
                   <button
                     type="submit"
                     className="rounded-xl bg-[#0d8fe8] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                   >
-                    Submeter candidatura
+                    {t("applicationsForm.common.submitApplication")}
                   </button>
                 ) : (
                   <button
@@ -518,7 +497,7 @@ export default function ApplicationsEvents({
                     onClick={() => setPage("home")}
                     className="rounded-xl bg-[#0d8fe8] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                   >
-                    Voltar ao início
+                    {t("applicationsForm.common.returnHome")}
                   </button>
                 )}
               </div>
@@ -526,9 +505,7 @@ export default function ApplicationsEvents({
           </div>
         </div>
       </main>
-
-        <Layout language={language} />
-    </layout>
+    </Layout>
   );
 }
 

@@ -11,6 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useTranslation } from 'react-i18next';
 import { route } from "ziggy-js";
+import { Link } from "@inertiajs/react";
 
 export default function Home({
   courses,
@@ -273,12 +274,12 @@ export default function Home({
                 </h2>
               </div>
 
-              <a
-                href="#"
+              <Link
+                href={route("courses")}
                 className="text-[#0d8fe8] font-bold whitespace-nowrap hover:underline"
               >
                 {t("home.coursesSection.viewAllOffer")}
-              </a>
+              </Link>
             </div>
 
             <div className="grid grid-cols-3 gap-[22px] max-[1100px]:grid-cols-2 max-[768px]:grid-cols-1">
@@ -310,7 +311,7 @@ export default function Home({
                   </p>
 
                   <a
-                    href="#"
+                    href={route("courses.show", course.id)}
                     className={`inline-block mt-auto pt-4 font-bold hover:underline ${getCourseLinkClasses(
                       course.category,
                     )}`}
@@ -335,12 +336,12 @@ export default function Home({
                 </h2>
               </div>
 
-              <a
-                href="#"
+              <Link
+                href={route("events")}
                 className="text-[#0d8fe8] font-bold whitespace-nowrap hover:underline"
               >
                 {t("home.eventsNewsSection.viewAll")}
-              </a>
+              </Link>
             </div>
 
             <div className="grid grid-cols-3 gap-[22px] max-[1100px]:grid-cols-2 max-[768px]:grid-cols-1">
@@ -371,14 +372,14 @@ export default function Home({
                     {event.description}
                   </p>
 
-                  <a
-                    href="#"
+                  <Link
+                    href={route("events.show", event.id)}
                     className={`inline-block mt-auto pt-4 font-bold hover:underline ${getEventLinkClasses(
                       event.type,
                     )}`}
                   >
                     {t("home.eventsNewsSection.readMore")}
-                  </a>
+                  </Link>
                 </div>
               ))}
             </div>

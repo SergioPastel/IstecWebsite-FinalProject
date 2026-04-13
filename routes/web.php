@@ -115,9 +115,9 @@ route::get('/news/{news:id}', [NewsController::class, 'show'])->name('news.show'
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
-Route::get('/applications/applyCourse/{course:slug}', [ApplicationController::class, 'create'])->name('applications.applyCourse');
+Route::get('/applications/applyCourse', [ApplicationController::class, 'applyCourse'])->name('applications.applyCourse'); // Has no course id or slug, because the page is shared and thus the user may not have any course or may change mid-form
 Route::post('/applications/courses', [ApplicationController::class, 'storeCourse'])->name('applications.storeCourse');
-Route::get('/applications/applyEvent/{event:slug}', [ApplicationController::class, 'applyEvent'])->name('applications.applyEvent');
+Route::get('/applications/applyEvent', [ApplicationController::class, 'applyEvent'])->name('applications.applyEvent');
 Route::post('/applications/events', [ApplicationController::class, 'storeEvent'])->name('applications.storeEvent');
 
 Route::get('/contacts', [ContactController::class, 'create'])->name('contacts.create');
