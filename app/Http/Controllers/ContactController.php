@@ -18,7 +18,7 @@ class ContactController extends Controller
 
     public function create()
     {
-        return Inertia('front/pages/contacts/Index');
+        return Inertia('front/pages/contacts/Contacts');
     }
 
     public function store(StoreContactRequest $request)

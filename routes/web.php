@@ -126,7 +126,7 @@ Route::post('/applications/courses', [ApplicationController::class, 'storeCourse
 Route::get('/applications/applyEvent', [ApplicationController::class, 'applyEvent'])->name('applications.applyEvent');
 Route::post('/applications/events', [ApplicationController::class, 'storeEvent'])->name('applications.storeEvent');
 
-Route::get('/contacts', [ContactController::class, 'create'])->name('contacts.create');
+Route::get('/contacts', [ContactController::class, 'create'])->name('contacts');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
 
 

@@ -46,7 +46,7 @@ export default function Home({
       id: 4,
       title: t("home.quickLinks.contacts.title"),
       description: t("home.quickLinks.contacts.description"),
-      link: route("contacts.create"),
+      link: route("contacts"),
     },
   ];
 

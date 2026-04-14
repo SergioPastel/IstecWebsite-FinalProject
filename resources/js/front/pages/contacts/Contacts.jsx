@@ -1,4 +1,4 @@
-import Layout from "@/Layouts/Layout";
+import Layout from "../Layouts/Layout";
 import { useForm, usePage } from "@inertiajs/react";
 
 export default function Contacts({ language, infoCards, departmentContacts }) {
@@ -21,141 +21,143 @@ export default function Contacts({ language, infoCards, departmentContacts }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#f3f5f8]">
-      <main className="pt-28">
-        
-        {/* HERO */}
-        <section className="h-[500px] md:h-[600px] flex items-center bg-[#1697e6] text-white">
-          <div className="max-w-7xl mx-auto px-6 md:px-10">
-            <p className="uppercase tracking-[0.2em] text-sm text-white/80 mb-4">
-              ISTEC PORTO
-            </p>
+    <Layout>
+      <div className="min-h-screen bg-[#f3f5f8]">
+        <main className="pt-28">
+          
+          {/* HERO */}
+          <section className="h-[500px] md:h-[600px] flex items-center bg-[#1697e6] text-white">
+            <div className="max-w-7xl mx-auto px-6 md:px-10">
+              <p className="uppercase tracking-[0.2em] text-sm text-white/80 mb-4">
+                ISTEC PORTO
+              </p>
 
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Contactos
-            </h1>
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                Contactos
+              </h1>
 
-            <p className="text-lg md:text-xl text-white/90 max-w-2xl">
-              Estamos disponíveis para esclarecer todas as suas dúvidas.
-            </p>
-          </div>
-        </section>
+              <p className="text-lg md:text-xl text-white/90 max-w-2xl">
+                Estamos disponíveis para esclarecer todas as suas dúvidas.
+              </p>
+            </div>
+          </section>
 
-        {/* INFO CARDS */}
-        <section className="-mt-20 pb-16">
-          <div className="max-w-7xl mx-auto px-6 md:px-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-            {infoCards.map((item, i) => (
-              <div key={i} className="bg-white p-6 rounded-2xl shadow-md">
-                <h3 className="font-bold mb-2">{item.title}</h3>
-                <p className="text-gray-600 text-sm">{item.value}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+          {/* INFO CARDS */}
+          {/* {<section className="-mt-20 pb-16">
+            <div className="max-w-7xl mx-auto px-6 md:px-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+              {infoCards.map((item, i) => (
+                <div key={i} className="bg-white p-6 rounded-2xl shadow-md">
+                  <h3 className="font-bold mb-2">{item.title}</h3>
+                  <p className="text-gray-600 text-sm">{item.value}</p>
+                </div>
+              ))}
+            </div>
+          </section>} */}
 
-        {/* DEPARTAMENTOS */}
-        <section className="pb-16">
-          <div className="max-w-7xl mx-auto px-6 md:px-10 text-center mb-10">
-            <h2 className="text-3xl font-bold text-[#1697e6]">
-              Contactos por departamento
-            </h2>
-          </div>
-
-          <div className="max-w-7xl mx-auto px-6 md:px-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {departmentContacts.map((dept, i) => (
-              <div key={i} className="bg-white p-6 rounded-2xl shadow">
-                <h3 className="font-bold mb-4">{dept.title}</h3>
-                <p className="text-sm text-gray-600 mb-4">{dept.email}</p>
-
-                <a
-                  href={`mailto:${dept.email}`}
-                  className="bg-[#1697e6] text-white px-4 py-2 rounded-full text-sm"
-                >
-                  Enviar Email
-                </a>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* MAPA */}
-        <section className="pb-16 max-w-7xl mx-auto px-6 md:px-10">
-          <h2 className="text-3xl font-bold text-[#1697e6] mb-6 text-center">
-            Onde estamos
-          </h2>
-
-          <div className="rounded-2xl overflow-hidden shadow bg-white">
-            <iframe
-              src="https://www.google.com/maps?q=ISTEC%20Porto&output=embed"
-              width="100%"
-              height="400"
-              style={{ border: 0 }}
-              loading="lazy"
-              title="Mapa"
-            ></iframe>
-          </div>
-        </section>
-
-        {/* FORM */}
-        <section className="bg-[#1697e6] py-16">
-          <div className="max-w-3xl mx-auto px-6">
-            <div className="bg-white p-8 rounded-2xl shadow">
-              <h2 className="text-2xl font-bold text-[#1697e6] mb-6 text-center">
-                Envie-nos uma mensagem
+          {/* DEPARTAMENTOS */}
+          <section className="pb-16">
+            <div className="max-w-7xl mx-auto px-6 md:px-10 text-center mb-10">
+              <h2 className="text-3xl font-bold text-[#1697e6]">
+                Contactos por departamento
               </h2>
+            </div>
 
-              {flash?.success && (
-                <p className="text-green-600 mb-4 text-center">
-                  {flash.success}
-                </p>
-              )}
+            {/* {<div className="max-w-7xl mx-auto px-6 md:px-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+              {departmentContacts.map((dept, i) => (
+                <div key={i} className="bg-white p-6 rounded-2xl shadow">
+                  <h3 className="font-bold mb-4">{dept.title}</h3>
+                  <p className="text-sm text-gray-600 mb-4">{dept.email}</p>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <input
-                  value={data.nome}
-                  onChange={(e) => setData("nome", e.target.value)}
-                  placeholder="Nome"
-                  className="w-full border p-3 rounded"
-                />
-                {errors.nome && <p className="text-red-500">{errors.nome}</p>}
+                  <a
+                    href={`mailto:${dept.email}`}
+                    className="bg-[#1697e6] text-white px-4 py-2 rounded-full text-sm"
+                  >
+                    Enviar Email
+                  </a>
+                </div>
+              ))}
+            </div>} */}
+          </section>
 
-                <input
-                  value={data.email}
-                  onChange={(e) => setData("email", e.target.value)}
-                  placeholder="Email"
-                  className="w-full border p-3 rounded"
-                />
-                {errors.email && <p className="text-red-500">{errors.email}</p>}
+          {/* MAPA */}
+          <section className="pb-16 max-w-7xl mx-auto px-6 md:px-10">
+            <h2 className="text-3xl font-bold text-[#1697e6] mb-6 text-center">
+              Onde estamos
+            </h2>
 
-                <input
-                  value={data.assunto}
-                  onChange={(e) => setData("assunto", e.target.value)}
-                  placeholder="Assunto"
-                  className="w-full border p-3 rounded"
-                />
-                {errors.assunto && <p className="text-red-500">{errors.assunto}</p>}
+            <div className="rounded-2xl overflow-hidden shadow bg-white">
+              <iframe
+                src="https://www.google.com/maps?q=ISTEC%20Porto&output=embed"
+                width="100%"
+                height="400"
+                style={{ border: 0 }}
+                loading="lazy"
+                title="Mapa"
+              ></iframe>
+            </div>
+          </section>
 
-                <textarea
-                  value={data.mensagem}
-                  onChange={(e) => setData("mensagem", e.target.value)}
-                  placeholder="Mensagem"
-                  className="w-full border p-3 rounded"
-                />
-                {errors.mensagem && (
-                  <p className="text-red-500">{errors.mensagem}</p>
+          {/* FORM */}
+          <section className="bg-[#1697e6] py-16">
+            <div className="max-w-3xl mx-auto px-6">
+              <div className="bg-white p-8 rounded-2xl shadow">
+                <h2 className="text-2xl font-bold text-[#1697e6] mb-6 text-center">
+                  Envie-nos uma mensagem
+                </h2>
+
+                {flash?.success && (
+                  <p className="text-green-600 mb-4 text-center">
+                    {flash.success}
+                  </p>
                 )}
 
-                <button
-                  disabled={processing}
-                  className="bg-[#1697e6] text-white px-6 py-3 rounded-full"
-                >
-                  {processing ? "A enviar..." : "Enviar mensagem"}
-                </button>
-              </form>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <input
+                    value={data.nome}
+                    onChange={(e) => setData("nome", e.target.value)}
+                    placeholder="Nome"
+                    className="w-full border p-3 rounded"
+                  />
+                  {errors.nome && <p className="text-red-500">{errors.nome}</p>}
+
+                  <input
+                    value={data.email}
+                    onChange={(e) => setData("email", e.target.value)}
+                    placeholder="Email"
+                    className="w-full border p-3 rounded"
+                  />
+                  {errors.email && <p className="text-red-500">{errors.email}</p>}
+
+                  <input
+                    value={data.assunto}
+                    onChange={(e) => setData("assunto", e.target.value)}
+                    placeholder="Assunto"
+                    className="w-full border p-3 rounded"
+                  />
+                  {errors.assunto && <p className="text-red-500">{errors.assunto}</p>}
+
+                  <textarea
+                    value={data.mensagem}
+                    onChange={(e) => setData("mensagem", e.target.value)}
+                    placeholder="Mensagem"
+                    className="w-full border p-3 rounded"
+                  />
+                  {errors.mensagem && (
+                    <p className="text-red-500">{errors.mensagem}</p>
+                  )}
+
+                  <button
+                    disabled={processing}
+                    className="bg-[#1697e6] text-white px-6 py-3 rounded-full"
+                  >
+                    {processing ? "A enviar..." : "Enviar mensagem"}
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>
-        </section>
-      </main>
-    </div>
+          </section>
+        </main>
+      </div>
+    </Layout>
   );
 }

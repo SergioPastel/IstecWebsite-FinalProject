@@ -46,16 +46,6 @@ class ApplicationController extends Controller
         ]);
     }
 
-    public function storeCourse(Request $request)
-    {
-        $events = EventResource::collection(Event::all())->resolve();
-
-        return Inertia('front/pages/applications/ApplicationsEvents', [
-            'event' => $event,
-            'events' => $events,
-        ]);
-    }
-
     public function storeCourse(StoreApplicationRequest $request)
     {
         $validated = $request->validated();

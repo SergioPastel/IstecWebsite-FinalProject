@@ -115,7 +115,7 @@ function Header({}) {
     },
     {
       type: "page",
-      href: "/contactos",
+      href: route("contacts"),
       label: t("header.institutionContacts"),
     },
     {
