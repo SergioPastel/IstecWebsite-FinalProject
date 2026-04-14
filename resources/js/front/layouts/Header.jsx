@@ -147,8 +147,8 @@ function Header({}) {
       key: "courses",
       titleKey: "courses",
       children: [
-        { href: route('courses.ctesps'), labelKey: "ctesp" },
-        { href: route('courses.licenciaturas'), labelKey: "licenciatura" },
+        { href: route('courses.ctesp'), labelKey: "ctesp" },
+        { href: route('courses.licenciatura'), labelKey: "licenciatura" },
         { href: "/pos-graduacao", labelKey: "pos-graduacao" },
         { href: "/plano-atividades", labelKey: "plano-atividades" },
         { href: "/emolumentos", labelKey: "emolumentos" },

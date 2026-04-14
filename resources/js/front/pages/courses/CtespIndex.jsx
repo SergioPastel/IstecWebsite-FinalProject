@@ -1,4 +1,4 @@
-import Layout from '../layouts/Layout';
+import Layout from '../../layouts/Layout';
 import { useTranslation } from 'react-i18next';
 import { Link, router, Head } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
@@ -47,13 +47,13 @@ export default function CtespIndex({ courses, filters = {} }) {
     const resultsCount = courses?.total ?? sortedCourseItems.length;
 
     const applyFilters = (next = {}) => {
-        router.get(
-            route('courses.ctesp'),
-            {
-                q: next.q ?? query ?? undefined,
-            },
-            { preserveScroll: true, preserveState: true, replace: true }
-        );
+        // router.get(
+        //     route('courses.ctesp'),
+        //     {
+        //         q: next.q ?? query ?? undefined,
+        //     },
+        //     { preserveScroll: true, preserveState: true, replace: true }
+        // );
     };
 
     return (

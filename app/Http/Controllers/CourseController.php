@@ -34,7 +34,7 @@ class CourseController extends Controller
     public function licenciatura()
     {
         $courses = Course::latest()->paginate(10)->onEachSide(1);
-        return Inertia('front/pages/courses/Licenciaturas', [ 
+        return Inertia('front/pages/courses/LicenciaturasIndex', [ 
             'courses' => CourseResource::collection($courses)
         ]);
     }

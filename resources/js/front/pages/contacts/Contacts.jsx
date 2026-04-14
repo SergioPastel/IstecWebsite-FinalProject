@@ -1,4 +1,4 @@
-import Layout from "../Layouts/Layout";
+import Layout from "../../layouts/Layout";
 import { useForm, usePage } from "@inertiajs/react";
 
 export default function Contacts({ language, infoCards, departmentContacts }) {
