@@ -9,6 +9,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\EventsandnewsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Fortify;
@@ -106,7 +107,9 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
 });
 
 // Public routes
-Route::get('/courses', [CourseController::class, 'index'])->name('courses');
+Route::get('/courses', [CourseController::class, 'index'])->name('courses'); // change later
+Route::get('/courses/ctesp', [CourseController::class, 'ctesp'])->name('courses.ctesp');
+Route::get('/courses/licenciatura', [CourseController::class, 'licenciatura'])->name('courses.licenciatura');
 Route::get('/courses/{course:id}', [CourseController::class, 'show'])->name('courses.show');
 
 route::get('/events', [EventController::class, 'index'])->name('events');
@@ -115,12 +118,17 @@ route::get('/events/{event:id}', [EventController::class, 'show'])->name('events
 route::get('/news', [NewsController::class, 'index'])->name('news');
 route::get('/news/{news:id}', [NewsController::class, 'show'])->name('news.show');
 
+// Events and news shared
+route::get('/events-and-news', [EventsandnewsController::class, 'index'])->name('eventsandnews');
+
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
-Route::get('/applications/create/{course:slug}', [ApplicationController::class, 'create'])->name('applications.create');
-Route::post('/applications', [ApplicationController::class, 'store'])->name('applications.store');
+Route::get('/applications/applyCourse', [ApplicationController::class, 'applyCourse'])->name('applications.applyCourse'); // Has no course id or slug, because the page is shared and thus the user may not have any course or may change mid-form
+Route::post('/applications/courses', [ApplicationController::class, 'storeCourse'])->name('applications.storeCourse');
+Route::get('/applications/applyEvent', [ApplicationController::class, 'applyEvent'])->name('applications.applyEvent');
+Route::post('/applications/events', [ApplicationController::class, 'storeEvent'])->name('applications.storeEvent');
 
-Route::get('/contacts', [ContactController::class, 'create'])->name('contacts.create');
+Route::get('/contacts', [ContactController::class, 'create'])->name('contacts');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
 
 

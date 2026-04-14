@@ -17,8 +17,24 @@ class CourseController extends Controller
     public function index()
     {
         $courses = Course::latest()->paginate(10)->onEachSide(1);
-        return Inertia('front/pages/courses/Index', [
+        return Inertia('front/pages/courses/Index', [ // Will be replaced
             // Wraps the data as a Laravel data resource, applying to all items with collection
+            'courses' => CourseResource::collection($courses)
+        ]);
+    }
+
+    public function ctesp()
+    {
+        $courses = Course::latest()->paginate(10)->onEachSide(1);
+        return Inertia('front/pages/courses/CtespIndex', [ 
+            'courses' => CourseResource::collection($courses)
+        ]);
+    }
+
+    public function licenciatura()
+    {
+        $courses = Course::latest()->paginate(10)->onEachSide(1);
+        return Inertia('front/pages/courses/LicenciaturasIndex', [ 
             'courses' => CourseResource::collection($courses)
         ]);
     }

@@ -1,0 +1,290 @@
+import Layout from '../../layouts/Layout';
+import { useTranslation } from 'react-i18next';
+import { Link, router, Head } from '@inertiajs/react';
+import { useMemo, useState } from 'react';
+import Pagination from '../../components/common/Pagination';
+
+function getCourseText(value, lang) {
+    if (value == null) return '';
+    if (typeof value === 'string') return value;
+    if (typeof value === 'object') return value?.[lang] ?? value?.pt ?? value?.en ?? '';
+    return String(value);
+}
+
+export default function CtespIndex({ courses, filters = {} }) {
+    const { i18n } = useTranslation();
+    const lang = i18n.language?.startsWith('en') ? 'en' : 'pt';
+
+    const [query, setQuery] = useState(filters?.q ?? '');
+    const [sortBy, setSortBy] = useState('relevance');
+
+    const courseItems = useMemo(() => {
+        if (!courses) return [];
+        if (Array.isArray(courses)) return courses;
+        return courses.data ?? [];
+    }, [courses]);
+
+    const sortedCourseItems = useMemo(() => {
+        const items = [...courseItems];
+
+        if (sortBy === 'name_asc') {
+            items.sort((a, b) => {
+                const ta = getCourseText(a.title, lang).toLowerCase();
+                const tb = getCourseText(b.title, lang).toLowerCase();
+                return ta.localeCompare(tb, lang);
+            });
+        } else if (sortBy === 'name_desc') {
+            items.sort((a, b) => {
+                const ta = getCourseText(a.title, lang).toLowerCase();
+                const tb = getCourseText(b.title, lang).toLowerCase();
+                return tb.localeCompare(ta, lang);
+            });
+        }
+
+        return items;
+    }, [courseItems, sortBy, lang]);
+
+    const resultsCount = courses?.total ?? sortedCourseItems.length;
+
+    const applyFilters = (next = {}) => {
+        // router.get(
+        //     route('courses.ctesp'),
+        //     {
+        //         q: next.q ?? query ?? undefined,
+        //     },
+        //     { preserveScroll: true, preserveState: true, replace: true }
+        // );
+    };
+
+    return (
+        <Layout title="CTeSP">
+
+            <div className="w-full bg-[#f5f8fc] text-[#1f2937]">
+                <section className="relative overflow-hidden bg-gradient-to-br from-[#0d8fe8] to-[#38b6ff] pt-40 pb-20 text-white">
+                    <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 sm:px-6 lg:px-8">
+                        <div className="max-w-3xl">
+                            <p className="mb-4 text-[0.85rem] font-extrabold uppercase tracking-[1.5px] text-white/90">
+                                ISTEC PORTO
+                            </p>
+
+                            <h1 className="text-[clamp(2.2rem,4vw,3.8rem)] font-extrabold leading-[1.08] tracking-[-1px]">
+                                Cursos Técnicos Superiores Profissionais
+                            </h1>
+
+                            <p className="mt-5 max-w-2xl text-[1.05rem] leading-[1.8] text-white/90">
+                                Descobre a oferta de CTeSP do ISTEC Porto e encontra um percurso
+                                formativo com forte componente prática, ligação ao mercado e foco
+                                na tua integração profissional.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="absolute right-[-120px] bottom-[-80px] h-[320px] w-[320px] rounded-full bg-white/10 blur-xl"></div>
+                </section>
+
+                <section className="relative -mt-10 z-10">
+                    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div className="rounded-[26px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] sm:p-8">
+                            <p className="mb-3 inline-block text-[0.8rem] font-extrabold uppercase tracking-[1.2px] text-[#0d8fe8]">
+                                Sobre os CTeSP
+                            </p>
+
+                            <h2 className="mb-4 text-[clamp(1.8rem,3vw,2.4rem)] font-semibold leading-[1.15] tracking-[-0.5px] text-[#1f2937]">
+                                Formação prática, especializada e orientada para o mercado
+                            </h2>
+
+                            <div className="max-w-4xl space-y-4 text-[0.98rem] leading-[1.8] text-[#6b7280]">
+                                <p>
+                                    Os Cursos Técnicos Superiores Profissionais conferem um Diploma
+                                    de Técnico Superior Profissional e têm a duração de dois anos,
+                                    distribuídos por quatro semestres.
+                                </p>
+
+                                <p>
+                                    Nos três primeiros semestres, a formação técnica privilegia a
+                                    aplicação prática, laboratorial e oficinal. O último semestre é
+                                    dedicado a estágio curricular, promovendo a ligação direta ao
+                                    contexto real de trabalho.
+                                </p>
+
+                                <p>
+                                    Esta oferta prepara os estudantes para uma entrada sólida no
+                                    mercado profissional, com competências técnicas atualizadas e
+                                    experiência relevante.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section className="py-12">
+                    <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 sm:px-6 lg:px-8">
+                        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                            <div>
+                                <p className="mb-[10px] inline-block text-[0.8rem] font-extrabold uppercase tracking-[1.2px] text-[#0d8fe8]">
+                                    Oferta CTeSP
+                                </p>
+
+                                <h2 className="text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.15] tracking-[-0.5px] text-[#1f2937]">
+                                    Encontra o curso certo para ti
+                                </h2>
+                            </div>
+
+                            <div className="text-sm text-[#6b7280]">
+                                <span className="font-bold text-[#1f2937]">{resultsCount}</span>{' '}
+                                {resultsCount === 1 ? 'curso encontrado' : 'cursos encontrados'}
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_220px]">
+                            <div className="relative">
+                                <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-[#94a3b8]">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        className="h-4 w-4"
+                                    >
+                                        <circle cx="11" cy="11" r="7" />
+                                        <line x1="16.5" y1="16.5" x2="21" y2="21" />
+                                    </svg>
+                                </div>
+
+                                <input
+                                    value={query}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') applyFilters({ q: e.currentTarget.value });
+                                    }}
+                                    placeholder="Pesquisar CTeSP..."
+                                    className="w-full rounded-[18px] border border-[#dbe4ee] bg-white px-11 py-4 pr-32 text-sm text-[#1f2937] outline-none focus:ring-2 focus:ring-[#0d8fe8]"
+                                />
+
+                                <div className="absolute right-2 top-1/2 -translate-y-1/2">
+                                    <button
+                                        type="button"
+                                        onClick={() => applyFilters({ q: query })}
+                                        className="rounded-full bg-[#0d8fe8] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#0a78c4]"
+                                    >
+                                        Pesquisar
+                                    </button>
+                                </div>
+                            </div>
+
+                            <select
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value)}
+                                className="w-full rounded-[18px] border border-[#dbe4ee] bg-white px-4 py-4 text-sm text-[#1f2937] outline-none focus:ring-2 focus:ring-[#0d8fe8]"
+                            >
+                                <option value="relevance">Mais relevantes</option>
+                                <option value="name_asc">Nome A-Z</option>
+                                <option value="name_desc">Nome Z-A</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <section className="pb-16">
+                    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+                        {sortedCourseItems.length === 0 ? (
+                            <div className="rounded-[20px] border border-dashed border-[#dbe4ee] bg-white p-10 text-center text-sm text-[#6b7280] shadow-[0_8px_24px_rgba(15,23,42,0.04)]">
+                                Não foram encontrados CTeSP com os filtros aplicados.
+                            </div>
+                        ) : (
+                            <>
+                                <div className="grid grid-cols-1 gap-[22px] sm:grid-cols-2 xl:grid-cols-3">
+                                    {sortedCourseItems.map((course) => {
+                                        const title = getCourseText(course.title, lang);
+                                        const desc = getCourseText(course.description, lang);
+                                        const duration = course.duration_years
+                                            ? `${course.duration_years} anos`
+                                            : '2 anos';
+                                        const regimeLabel = course.study_regime ? 'Pós-laboral' : 'Laboral';
+
+                                        return (
+                                            <article
+                                                key={course.id}
+                                                className="flex h-full flex-col rounded-[20px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(13,143,232,0.12)]"
+                                            >
+                                                <span className="inline-flex self-start rounded-full bg-[#eaf5ff] px-3 py-[6px] text-[0.8rem] font-extrabold text-[#0d8fe8]">
+                                                    CTeSP
+                                                </span>
+
+                                                <h3 className="mt-[14px] text-[1.2rem] font-semibold leading-[1.3] text-[#1f2937]">
+                                                    {title}
+                                                </h3>
+
+                                                {desc ? (
+                                                    <p className="mt-3 text-sm leading-[1.7] text-[#6b7280] line-clamp-3">
+                                                        {desc}
+                                                    </p>
+                                                ) : (
+                                                    <p className="mt-3 text-sm leading-[1.7] text-[#6b7280]">
+                                                        Curso técnico superior profissional com forte componente prática e ligação ao contexto empresarial.
+                                                    </p>
+                                                )}
+
+                                                <div className="mt-4 flex flex-wrap gap-2 text-xs text-[#4b5563]">
+                                                    <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">
+                                                        {regimeLabel}
+                                                    </span>
+
+                                                    <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">
+                                                        {duration}
+                                                    </span>
+
+                                                    {course.tuition_months ? (
+                                                        <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">
+                                                            {course.tuition_months} meses
+                                                        </span>
+                                                    ) : null}
+                                                </div>
+
+                                                <div className="mt-5 text-sm text-[#6b7280]">
+                                                    {course.tuition_monthly_pay ? (
+                                                        <span className="font-bold text-[#1f2937]">
+                                                            {course.tuition_monthly_pay}€/mês
+                                                        </span>
+                                                    ) : (
+                                                        <span className="font-bold text-[#1f2937]">Consultar propina</span>
+                                                    )}
+                                                </div>
+
+                                                <div className="mt-auto flex gap-3 pt-6">
+                                                    <Link
+                                                        href={route('courses.show', course.id)}
+                                                        className="flex-1 rounded-full bg-[#0d8fe8] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#0a78c4]"
+                                                    >
+                                                        Mais Informações
+                                                    </Link>
+
+                                                    <button
+                                                        type="button"
+                                                        className="flex-1 rounded-full border border-[rgba(13,143,232,0.22)] bg-transparent px-4 py-3 text-sm font-bold text-[#0d8fe8] transition hover:bg-[#eaf5ff]"
+                                                        onClick={() =>
+                                                            window.umami?.track('ctesp_apply_click', {
+                                                                course_id: course.id,
+                                                            })
+                                                        }
+                                                    >
+                                                        Candidatar-me
+                                                    </button>
+                                                </div>
+                                            </article>
+                                        );
+                                    })}
+                                </div>
+
+                                <div className="mt-10">
+                                    <Pagination links={courses?.meta?.links} />
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </section>
+            </div>
+        </Layout>
+    );
+}

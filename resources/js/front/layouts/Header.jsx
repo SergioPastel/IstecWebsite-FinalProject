@@ -105,60 +105,85 @@ function Header({}) {
     console.log("Pesquisar:", search);
   };
 
+    const topLinks = [
+    {
+      type: "external",
+      href: "https://istec-porto.pt/citeca/",
+      label: t("header.research"),
+      target: "_blank",
+      rel: "noopener noreferrer",
+    },
+    {
+      type: "page",
+      href: route("contacts"),
+      label: t("header.institutionContacts"),
+    },
+    {
+      type: "external",
+      href: "https://www.istec.pt/",
+      label: t("header.istecLisboa"),
+      target: "_blank",
+      rel: "noopener noreferrer",
+    },
+  ];
+
   // Blue Nav Links with Dropdowns
   const mainNav = [
     {
-      key: "/ISTEC Porto",
+      key: "istec-porto",
       titleKey: "istecPorto",
       children: [
-        { key: "/mission" },
-        { key: "/orgaos" },
-        { key: "/organograma" },
-        { key: "/documentos" },
-        { key: "/docentes" },
-        { key: "/calendarios" },
-        { key: "/qualidade" },
-        { key: "/etica" },
+        { href: "/finalidade-e-projeto-educativo", labelKey: "mission" },
+        { href: "/orgaos", labelKey: "orgaos" },
+        { href: "/organograma", labelKey: "organograma" },
+        { href: "/documentos", labelKey: "documentos" },
+        { href: "/docentes", labelKey: "docentes" },
+        { href: "/calendarios", labelKey: "calendarios" },
+        { href: "/qualidade", labelKey: "qualidade" },
+        { href: "/etica", labelKey: "etica" },
       ],
     },
     {
-      key: "/courses",
+      key: "courses",
       titleKey: "courses",
       children: [
-        { key: "/ctesp" },
-        { key: "/licenciatura" },
-        { key: "/pos-graduacao" },
-        { key: "/plano-atividades" },
-        { key: "/emolumentos" },
-        { key: "/bolsas-dges" },
-        { key: "/protocolos" },
-        { key: "/editais-2526" },
-        { key: "/applications" },
+        { href: route('courses.ctesp'), labelKey: "ctesp" },
+        { href: route('courses.licenciatura'), labelKey: "licenciatura" },
+        { href: "/pos-graduacao", labelKey: "pos-graduacao" },
+        { href: "/plano-atividades", labelKey: "plano-atividades" },
+        { href: "/emolumentos", labelKey: "emolumentos" },
+        { href: "/bolsas-dges", labelKey: "bolsas-dges" },
+        { href: "/protocolos", labelKey: "protocolos" },
+        { href: "/editais-2526", labelKey: "editais-2526" },
+        { href: "/candidaturas/curso", labelKey: "applications" },
       ],
     },
     {
-      key: "/events-and-news",
+      key: "events-and-news",
       titleKey: "eventsAndNews",
       children: [
-        { key: "/events-upcoming" },
-        { key: "/events-workshops" },
-        { key: "/events-open-days" },
-        { key: "/news-latest" },
-        { key: "/news-interviews" },
-        { key: "/news-press" },
-        { key: "/applications-events" },
+        { href: route("eventsandnews"), labelKey: "events-upcoming" },
+        { href: "/eventos", labelKey: "events-workshops" },
+        { href: "/eventos", labelKey: "events-open-days" },
+        { href: "/noticias", labelKey: "news-interviews" },
+        { href: "/noticias", labelKey: "news-press" },
+        { href: "/candidaturas/evento", labelKey: "applications-events" },
       ],
     },
     {
-      key: "/programa-de-mobilidade",
+      key: "mobility-program",
       titleKey: "mobilityProgram",
-      children: [{ key: "/erasmus+" }],
+      children: [
+        { href: "/erasmus", labelKey: "erasmus+" },
+      ],
     },
     {
-      key: "/pedagogia-xxi",
+      key: "pedagogy-xxi",
       titleKey: "pedagogyXXI",
+      href: "/pedagogia-xxi",
     },
   ];
+
   return (
     <header className="fixed top-0 left-0 z-[1000] w-full bg-white font-sans shadow-sm transition-all duration-300">
       <div className="border-b border-[#e5eaf0] bg-[#f8f9fb]">
@@ -199,44 +224,31 @@ function Header({}) {
               menuOpen ? "flex" : "hidden"
             } mt-2 w-full flex-col items-start gap-4 md:mt-0 md:flex md:w-auto md:flex-row md:items-center md:gap-[18px]`}
           >
-            <Link
-              onClick={() => {
-                setPrivateOpen(false);
-                setSearchOpen(false);
-              }}
-              href={route("about")}
-              className="text-[15px] text-[#1d1d1b] hover:text-[#0c73b7]"
-            >
-              {t("header.aboutIstec")}
-            </Link>
+            {topLinks.map((item, index) => (
+              <React.Fragment key={index}>
+                {item.type === "external" ? (
+                  <a
+                    href={item.href}
+                    target={item.target}
+                    rel={item.rel}
+                    onClick={closeMenus}
+                    className="text-[15px] text-[#1d1d1b] hover:text-[#0c73b7]"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={item.href}
+                    onClick={closeMenus}
+                    className="text-[15px] text-[#1d1d1b] hover:text-[#0c73b7]"
+                  >
+                    {item.label}
+                  </Link>
+                )}
 
-            <Divider />
-
-            <Link
-              // href={route("contacts")}
-              onClick={() => {
-                setPrivateOpen(false);
-                setSearchOpen(false);
-              }}
-              className="text-[15px] text-[#1d1d1b] hover:text-[#0c73b7]"
-            >
-              {t("header.institutionContacts")}
-            </Link>
-
-            <Divider />
-
-            <Link
-              href="https://www.istec.pt/"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => {
-                setPrivateOpen(false);
-                setSearchOpen(false);
-              }}
-              className="text-[15px] text-[#1d1d1b] hover:text-[#0c73b7]"
-            >
-              {t("header.istecLisboa")}
-            </Link>
+                {index < topLinks.length - 1 && <Divider />}
+              </React.Fragment>
+            ))}
 
             <Divider />
 
@@ -273,7 +285,7 @@ function Header({}) {
                     : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
                 }`}
               >
-                <Link
+                <a
                   href="https://aluno.istec-porto.pt/?_gl=1*1tahsiw*_ga*NTUwMTQ4MzkwLjE3Njk4MTk5MTM.*_ga_BPL2BYTWCM*czE3NzQ5NzkyNzgkbzE2JGcxJHQxNzc0OTgwMTIyJGozOCRsMCRoMA.."
                   target="_blank"
                   rel="noopener noreferrer"
@@ -281,9 +293,9 @@ function Header({}) {
                   className="block px-4 py-3 text-[14px] text-[#1d1d1b] hover:bg-[#f5f8fc] hover:text-[#0c73b7] transition"
                 >
                   {t("header.studentArea")}
-                </Link>
+                </a>
 
-                <Link
+                <a
                   href="https://docente.istec-porto.pt/?_gl=1*1796j2f*_ga*NTUwMTQ4MzkwLjE3Njk4MTk5MTM.*_ga_BPL2BYTWCM*czE3NzQ5NzkyNzgkbzE2JGcxJHQxNzc0OTgwMTIyJGozOCRsMCRoMA.."
                   target="_blank"
                   rel="noopener noreferrer"
@@ -291,9 +303,9 @@ function Header({}) {
                   className="block px-4 py-3 text-[14px] text-[#1d1d1b] hover:bg-[#f5f8fc] hover:text-[#0c73b7] transition"
                 >
                   {t("header.teacherArea")}
-                </Link>
+                </a>
 
-                <Link
+                <a
                   href="https://moodle.istec-porto.pt/?_gl=1*1796j2f*_ga*NTUwMTQ4MzkwLjE3Njk4MTk5MTM.*_ga_BPL2BYTWCM*czE3NzQ5NzkyNzgkbzE2JGcxJHQxNzc0OTgwMTIyJGozOCRsMCRoMA.."
                   target="_blank"
                   rel="noopener noreferrer"
@@ -301,7 +313,7 @@ function Header({}) {
                   className="block px-4 py-3 text-[14px] text-[#1d1d1b] hover:bg-[#f5f8fc] hover:text-[#0c73b7] transition"
                 >
                   {t("header.moodle")}
-                </Link>
+                </a>
 
                 <Link
                   href={route("dashboard")}
@@ -371,81 +383,91 @@ function Header({}) {
         </div>
       </div>
 
-      <div
-        className={`bg-gradient-to-r from-[#2a92da] to-[#38a6df] ${
-          scrolled ? "shadow-md" : ""
-        }`}
-      >
+      <div className={`${scrolled ? "shadow-md" : ""} bg-[#0C73B7]`}>
+      
         <div
           className={`${
             menuOpen ? "flex" : "hidden"
           } md:flex flex-col md:flex-row max-w-[1600px] mx-auto`}
         >
           {mainNav.map((item, index) => (
-            <div
-              key={index}
-              className="relative w-full md:w-auto"
-              onMouseEnter={() => item.children && setOpenDropdown(item.key)}
-              onMouseLeave={() => item.children && setOpenDropdown(null)}
-            >
-              <button
-                type="button"
-                onClick={() => {
-                  if (item.children) {
-                    setOpenDropdown(
-                      openDropdown === item.key ? null : item.key,
-                    );
-                  } else {
-                    goToPage(item.key);
-                  }
-                }}
-                className="flex w-full items-center justify-between border-r border-white/25 px-6 py-4 text-left text-[16px] font-bold text-white transition hover:bg-white/10 md:w-auto md:gap-2"
-              >
-                <span>{t("header." + item.titleKey)}</span>
-
-                {item.children && (
-                  <svg
-                    className={`h-4 w-4 transition-transform duration-300 ${
-                      openDropdown === item.key ? "rotate-180" : ""
-                    }`}
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
+        <div
+          key={index}
+          className="relative w-full md:w-auto"
+          onMouseEnter={() => item.children && setOpenDropdown(item.key)}
+          onMouseLeave={() => item.children && setOpenDropdown(null)}
+        >
+           {item.children ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setOpenDropdown(openDropdown === item.key ? null : item.key)
+                    }
+                    className="flex w-full items-center justify-between border-r border-white/25 px-6 py-4 text-left text-[16px] font-bold text-white transition hover:bg-white/10 md:w-auto md:gap-2"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 9l6 6 6-6"
-                    />
-                  </svg>
-                )}
-              </button>
+                    <span>{t("header." + item.titleKey)}</span>
 
-              {item.children && (
-                <div
-                  className={`${
-                    openDropdown === item.key
-                      ? "pointer-events-auto visible opacity-100 translate-y-0"
-                      : "pointer-events-none invisible opacity-0 -translate-y-2"
-                  } absolute left-0 top-full z-[1200] min-w-[260px] overflow-hidden bg-[#1488c9] shadow-lg transition-all duration-200`}
-                >
-                  {item.children.map((child, childIndex) => (
-                    <button
-                      key={childIndex}
-                      type="button"
-                      onClick={() => goToPage(child.key)}
-                      className="block w-full px-8 py-4 text-left text-[15px] text-white transition hover:bg-[#0f6fa9]"
+                    <svg
+                      className={`h-4 w-4 transition-transform duration-300 ${
+                        openDropdown === item.key ? "rotate-180" : ""
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
                     >
-                      {t("nav." + child.key.replace("/", ""))}
-                    </button>
-                  ))}
-                </div>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 9l6 6 6-6"
+                      />
+                    </svg>
+                  </button>
+
+                  <div
+                    className={`${
+                      openDropdown === item.key
+                        ? "pointer-events-auto visible opacity-100 translate-y-0"
+                        : "pointer-events-none invisible opacity-0 -translate-y-2"
+                    } absolute left-0 top-full z-[1200] min-w-[260px] overflow-hidden bg-[#1488c9] shadow-lg transition-all duration-200`}
+                  >
+                    {item.children.map((child, childIndex) => (
+                      <Link
+                        key={childIndex}
+                        href={child.href}
+                        onClick={closeMenus}
+                        className="block w-full px-8 py-4 text-left text-[15px] text-white transition hover:bg-[#0f6fa9]"
+                      >
+                        {t("nav." + child.labelKey)}
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <Link
+                  href={item.href}
+                  onClick={closeMenus}
+                  className="flex w-full items-center justify-between border-r border-white/25 px-6 py-4 text-left text-[16px] font-bold text-white transition hover:bg-white/10 md:w-auto md:gap-2"
+                >
+                  <span>{t("header." + item.titleKey)}</span>
+                </Link>
               )}
             </div>
           ))}
+        </div>
+      </div>
+    </header>
+  );
+}
 
-          {/*[ This has been REPLACED, but the code might be relevant still. REMOVE LATER.
+function Divider() {
+  return <span className="hidden md:block w-[1px] h-[18px] bg-[#d6d6d6]" />;
+}
+
+export default Header;
+
+/*[ This has been REPLACED, but the code might be relevant still. REMOVE LATER.
             "home",
             "/courses",
             "/events",
@@ -477,15 +499,4 @@ function Header({}) {
                 {t("header." + link.replace("/", ""))}
               </Link>
             ),
-          )*/}
-        </div>
-      </div>
-    </header>
-  );
-}
-
-function Divider() {
-  return <span className="hidden md:block w-[1px] h-[18px] bg-[#d6d6d6]" />;
-}
-
-export default Header;
+          )*/

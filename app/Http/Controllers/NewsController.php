@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use App\Http\Requests\StoreNewsRequest;
 use App\Http\Requests\UpdateNewsRequest;
+use App\Http\Resources\NewsResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -17,15 +18,15 @@ class NewsController extends Controller
 
     public function index()
     {
-        return Inertia('front/pages/news/Index', [
-            'news' => News::latest()->get()
+        return Inertia('front/pages/news/News', [
+            'news' => NewsResource::collection(News::latest()->get())
         ]);
     }
 
     public function show(News $news)
     {
-        return Inertia('front/pages/news/Show', [
-            'news' => $news
+        return Inertia('front/pages/news/NewsDetail', [
+            'news' => NewsResource::make($news)
         ]);
     }
 

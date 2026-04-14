@@ -25,7 +25,11 @@
         },
         "events": {
             "title": "Events",
-            "description": "View events"
+            "description": "View events",
+            "buttons": {
+                "viewEvent": "View event",
+                "viewDetails": "View details"
+            }
         },
         "contacts": {
             "title": "Contacts",
@@ -94,6 +98,91 @@
             "viewMore": "View more →"
         }
     },
+    "applicationsForm": {
+        "common": {
+            "sectionLabel": "Applications",
+            "typeLabel": "Type",
+            "back": "Back",
+            "next": "Next",
+            "submitApplication": "Submit application",
+            "returnHome": "Return home",
+            "stepLabel": "Step",
+            "stepCounter": "Step {{current}} of {{total}}",
+            "requiredField": "Required field.",
+            "acceptTerms": "You must accept the terms.",
+            "firstName": "First name",
+            "lastName": "Last name",
+            "name": "Name",
+            "email": "Email",
+            "phone": "Phone",
+            "birthDate": "Birth date",
+            "identificationNumber": "Identification number",
+            "noSelection": "Not selected",
+            "noValue": "—",
+            "cv": "CV",
+            "identityDocument": "Identification document",
+            "certificate": "Certificate / proof"
+        },
+        "course": {
+            "pageTitle": "Course application",
+            "pageDescription": "Fill out the form and associate the application directly with a course.",
+            "typeValue": "Course",
+            "steps": {
+                "1": "Selection and personal information",
+                "2": "File upload",
+                "3": "Review",
+                "4": "Confirmation"
+            },
+            "stepHeading": "1. Selection",
+            "sectionOneTitle": "Selection and personal information",
+            "sectionOneDescription": "Choose the course and fill in your personal details.",
+            "personalInfoHeading": "2. Personal information",
+            "selectLevelOption": "Select a level",
+            "selectionLabel": "Course",
+            "selectCourseOption": "Select a course",
+            "selectLevelFirstOption": "Select a level first",
+            "sectionTwoTitle": "File upload",
+            "sectionTwoDescription": "Upload the requested documents to complete the application.",
+            "sectionThreeTitle": "Review",
+            "sectionThreeDescription": "Review your information before submitting.",
+            "termsConfirmation": "I confirm that the information is correct and accept the application terms.",
+            "sectionFourTitle": "Confirmation",
+            "sectionFourDescription": "Your application has been submitted successfully.",
+            "finalSummaryTitle": "Final summary",
+            "selectedLevelLabel": "Selected level:",
+            "submittedFor": "You have submitted an application for",
+            "invalidIdentificationNumber": "The identification number must have 9 digits."
+        },
+        "event": {
+            "pageTitle": "Event application",
+            "pageDescription": "Choose a category, select an event, and fill out your information.",
+            "typeValue": "Event",
+            "steps": {
+                "1": "Selection and personal information",
+                "2": "Review",
+                "3": "Confirmation"
+            },
+            "sectionOneTitle": "Selection and personal information",
+            "sectionOneDescription": "Choose a category, select the event and fill in your details.",
+            "stepHeading": "1. Selection",
+            "personalInfoHeading": "2. Personal information",
+            "categoryLabel": "Event category",
+            "selectCategoryOption": "Select a category",
+            "selectEventOption": "Select an event",
+            "selectCategoryFirstOption": "Select a category first",
+            "categoryAll": "All events",
+            "sectionThreeTitle": "Review",
+            "sectionThreeDescription": "Review your information before submitting.",
+            "reviewCategory": "Event category",
+            "reviewEvent": "Desired event",
+            "sectionFourTitle": "Confirmation",
+            "sectionFourDescription": "Your event application has been submitted successfully.",
+            "finalSummaryTitle": "Final summary",
+            "selectedCategoryLabel": "Selected category:",
+            "submittedFor": "You have submitted an application for",
+            "invalidIdentificationNumber": "The identification number must have exactly 9 digits."
+        }
+    },
     "header": {
         "aboutIstec": "About ISTEC",
         "institutionContacts": "Institution Contacts",
@@ -114,7 +203,8 @@
         "eventsAndNews": "Events and News",
         "mobilityProgram": "Mobility Program",
         "pedagogyXXI": "Pedagogy XXI",
-        "moodle": "Moodle"
+        "moodle": "Moodle",
+        "research": "Research"
     },
     "nav": {
         "mission": "Mission and Educational Project",
@@ -142,6 +232,21 @@
         "news-press": "Press Releases",
         "applications-events": "Event Applications",
         "erasmus+": "Erasmus +"
+    },
+    "news": {
+        "title": "News",
+        "description": "View news",
+        "buttons": {
+            "viewNews": "View news",
+            "viewDetails": "View details"
+        },
+        "detail": {
+            "date": "Date",
+            "author": "Author",
+            "description": "Description",
+            "backToNews": "Back to news",
+            "notFound": "News not found"
+        }
     },
     "courses": {
         "subtitle": "ISTEC Porto Training Offer",
@@ -171,6 +276,21 @@
         "months": "months",
         "learnMore": "Learn +",
         "enroll": "Enroll"
+    },
+    "events": {
+        "title": "Events",
+        "description": "View events",
+        "buttons": {
+            "viewEvent": "View event",
+            "viewDetails": "View details"
+        },
+        "detail": {
+            "date": "Date",
+            "location": "Location",
+            "description": "Description",
+            "backToEvents": "Back to events",
+            "notFound": "Event not found"
+        }
     },
     "footer": {
         "istecPorto": "ISTEC Porto",

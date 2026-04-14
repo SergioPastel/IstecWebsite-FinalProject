@@ -3,6 +3,6 @@
 
 Olá {{ $application->name }},
 
-Nós recebemos a sua candidatura. Irémos entrar em contacto logo.
+Nós recebemos a sua candidatura ao curso {{ $application->course->title }}. Irémos entrar em contacto logo.
 
 </x-mail::message>

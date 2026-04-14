@@ -16,7 +16,7 @@ function useUmamiPageTracking() { // For umami analytics tracking on our SPA
     useEffect(() => {
         const handleVisit = () => {
             if (window.umami) {
-                window.umami.trackView();
+                window.umami.track();
             }
         };
 

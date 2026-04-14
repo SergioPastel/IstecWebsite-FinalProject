@@ -20,10 +20,10 @@ class SearchController extends Controller
     {
         $query = $request->get('q', '');
 
-        return Inertia('front/pages/search/index', [
+        return Inertia('front/pages/search/index', [ // Is this used ?
             'query' => $query,
             'results' => [
-                 'courses' => $query ? Course::where('title', 'like', "%{$query}%")->get() : [],
+                'courses' => $query ? Course::where('title', 'like', "%{$query}%")->get() : [],
                 'events' => $query ? Event::where('title', 'like', "%{$query}%")->get() : [],
                 'news' => $query ? News::where('title', 'like', "%{$query}%")->get() : [],
             ]

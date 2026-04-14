@@ -94,6 +94,91 @@
             "viewMore": "Ver mais →"
         }
     },
+    "applicationsForm": {
+        "common": {
+            "sectionLabel": "Candidaturas",
+            "typeLabel": "Tipo",
+            "back": "Voltar",
+            "next": "Próximo",
+            "submitApplication": "Submeter candidatura",
+            "returnHome": "Voltar ao início",
+            "stepLabel": "Passo",
+            "stepCounter": "Passo {{current}} de {{total}}",
+            "requiredField": "Campo obrigatório.",
+            "acceptTerms": "Tem de aceitar os termos.",
+            "firstName": "Primeiro nome",
+            "lastName": "Sobrenome",
+            "name": "Nome",
+            "email": "Email",
+            "phone": "Telefone",
+            "birthDate": "Data de nascimento",
+            "identificationNumber": "Número de identificação",
+            "noSelection": "Não selecionado",
+            "noValue": "—",
+            "cv": "CV",
+            "identityDocument": "Documento de identificação",
+            "certificate": "Certificado / comprovativo"
+        },
+        "course": {
+            "pageTitle": "Candidatura a Curso",
+            "pageDescription": "Preencha a candidatura e associe-a diretamente a um curso.",
+            "typeValue": "Curso",
+            "steps": {
+                "1": "Seleção e dados pessoais",
+                "2": "Envio de arquivos",
+                "3": "Revisão",
+                "4": "Confirmação"
+            },
+            "stepHeading": "1. Seleção",
+            "sectionOneTitle": "Seleção e Informações Pessoais",
+            "sectionOneDescription": "Escolha o curso e preencha os seus dados.",
+            "personalInfoHeading": "2. Informações pessoais",
+            "selectLevelOption": "Selecione um nível",
+            "selectionLabel": "Curso",
+            "selectCourseOption": "Selecione um curso",
+            "selectLevelFirstOption": "Selecione primeiro o nível",
+            "sectionTwoTitle": "Envio de Arquivos",
+            "sectionTwoDescription": "Faça upload dos documentos pedidos para concluir a candidatura.",
+            "sectionThreeTitle": "Revisão",
+            "sectionThreeDescription": "Reveja os dados antes de submeter.",
+            "termsConfirmation": "Confirmo que os dados estão corretos e aceito os termos da candidatura.",
+            "sectionFourTitle": "Confirmação",
+            "sectionFourDescription": "A sua candidatura foi submetida com sucesso.",
+            "finalSummaryTitle": "Resumo final",
+            "selectedLevelLabel": "Nível escolhido:",
+            "submittedFor": "Submeteu uma candidatura para",
+            "invalidIdentificationNumber": "O número de identificação deve ter 9 dígitos."
+        },
+        "event": {
+            "pageTitle": "Candidatura a Evento",
+            "pageDescription": "Escolha a categoria, selecione o evento e preencha os seus dados.",
+            "typeValue": "Evento",
+            "steps": {
+                "1": "Seleção e dados pessoais",
+                "2": "Revisão",
+                "3": "Confirmação"
+            },
+            "sectionOneTitle": "Seleção e Dados Pessoais",
+            "sectionOneDescription": "Escolha a categoria, selecione o evento e preencha os seus dados.",
+            "stepHeading": "1. Seleção",
+            "personalInfoHeading": "2. Informações pessoais",
+            "categoryLabel": "Categoria do evento",
+            "selectCategoryOption": "Selecione uma categoria",
+            "selectEventOption": "Selecione um evento",
+            "selectCategoryFirstOption": "Selecione primeiro a categoria",
+            "categoryAll": "Todos os eventos",
+            "sectionThreeTitle": "Revisão",
+            "sectionThreeDescription": "Reveja os dados antes de submeter.",
+            "reviewCategory": "Categoria do evento",
+            "reviewEvent": "Evento desejado",
+            "sectionFourTitle": "Confirmação",
+            "sectionFourDescription": "A sua candidatura foi submetida com sucesso.",
+            "finalSummaryTitle": "Resumo final",
+            "selectedCategoryLabel": "Categoria escolhida:",
+            "submittedFor": "Submeteu uma candidatura para",
+            "invalidIdentificationNumber": "O número de identificação tem de ter exatamente 9 dígitos."
+        }
+    },
     "header": {
         "aboutIstec": "Sobre ISTEC",
         "institutionContacts": "Contactos Instituição",
@@ -114,7 +199,8 @@
         "eventsAndNews": "Eventos e Notícias",
         "mobilityProgram": "Programa de Mobilidade",
         "pedagogyXXI": "Pedagogia XXI",
-        "moodle": "Moodle"
+        "moodle": "Moodle",
+        "research": "Investigação"
     },
     "nav": {
         "mission": "Finalidade e Projeto Educativo",
@@ -142,6 +228,24 @@
         "news-press": "Comunicados",
         "applications-events": "Candidaturas a Eventos",
         "erasmus+": "Erasmus +"
+        
+    },
+    "news": {
+        "hero": {
+            "label": "Notícias ISTEC",
+            "title": "Fica a par das últimas novidades",
+            "description": "Descobre notícias, entrevistas, eventos e atualizações importantes da comunidade académica do ISTEC Porto.",
+            "backHome": "Voltar à home"
+        },
+        "buttons": {
+            "readFull": "Ler notícia completa",
+            "readMore": "Ler mais"
+        },
+        "section": {
+            "label": "Atualizações",
+            "title": "Todas as notícias",
+            "backHomeInline": "Voltar à home"
+        }
     },
     "courses": {
         "subtitle": "Oferta formativa ISTEC Porto",
@@ -171,6 +275,21 @@
         "months": "meses",
         "learnMore": "Saber +",
         "enroll": "Inscrever"
+    },
+    "events": {
+        "title": "Eventos",
+        "description": "Ver eventos",
+        "buttons": {
+            "viewEvent": "Ver evento",
+            "viewDetails": "Ver detalhes"
+        },
+        "detail": {
+            "date": "Data",
+            "location": "Localização",
+            "description": "Descrição",
+            "backToEvents": "Voltar a eventos",
+            "notFound": "Evento não encontrado"
+        }
     },
     "footer": {
         "istecPorto": "ISTEC Porto",

@@ -1,6 +1,7 @@
 import React from "react";
 import "./Home.css";
-import Layout from "../../layouts/layout";
+
+import Layout from "../../layouts/Layout";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -9,6 +10,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useTranslation } from 'react-i18next';
+import { route } from "ziggy-js";
+import { Link } from "@inertiajs/react";
 
 export default function Home({
   courses,
@@ -25,7 +28,7 @@ export default function Home({
       id: 1,
       title: t("home.quickLinks.courses.title"),
       description: t("home.quickLinks.courses.description"),
-      link: "#",
+      link: route("courses") // Will be replaced by the new courses page
     },
     {
       id: 2,
@@ -37,13 +40,13 @@ export default function Home({
       id: 3,
       title: t("home.quickLinks.events.title"),
       description: t("home.quickLinks.events.description"),
-      link: "#",
+      link: route("events"),
     },
     {
       id: 4,
       title: t("home.quickLinks.contacts.title"),
       description: t("home.quickLinks.contacts.description"),
-      link: "#",
+      link: route("contacts"),
     },
   ];
 
@@ -130,17 +133,18 @@ export default function Home({
             modules={[Autoplay, Navigation, Pagination]}
             slidesPerView={1}
             loop={true}
-            speed={800}
+            speed={1200}
             autoplay={{
-              delay: 3000,
+              delay: 5000,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
             navigation
-            pagination={{ clickable: true }}
+            
           >
             <SwiperSlide>
-              <div className="bg-gradient-to-br from-[#0d8fe8] to-[#38b6ff] text-white h-[520px] flex items-center justify-center relative">
+              <div className="bg-[#0d8fe8] text-white h-[560px] flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.15),transparent_60%)]"></div>
                 <div className="max-w-[1600px] mx-auto px-6 w-full flex justify-center relative z-10">
                   <div className="max-w-[680px] text-center mx-auto">
                     <p className="mb-4 text-[0.85rem] font-extrabold tracking-[1.5px] uppercase text-white/90">
@@ -156,7 +160,7 @@ export default function Home({
                     </p>
 
                     <div className="flex flex-wrap gap-[14px] justify-center">
-                      <button className="bg-white text-[#0d8fe8] px-6 py-3 rounded-full font-bold shadow hover:bg-[#f8fbff] transition">
+                      <button className="bg-white text-[#0d8fe8] px-7 py-3 rounded-full font-semibold shadow-md hover:shadow-lg hover:-translate-y-[2px] transition-all duration-300">
                         {t("home.hero.viewCourses")}
                       </button>
 
@@ -175,7 +179,8 @@ export default function Home({
             </SwiperSlide>
 
             <SwiperSlide>
-              <div className="bg-gradient-to-br from-[#0d8fe8] to-[#38b6ff] text-white h-[520px] flex items-center justify-center relative">
+             <div className="bg-[#0d8fe8] text-white h-[560px] flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.15),transparent_60%)]"></div>
                 <div className="max-w-[1600px] mx-auto px-6 w-full flex justify-center relative z-10">
                   <div className="max-w-[680px] text-center mx-auto">
                     <p className="mb-4 text-[0.85rem] font-extrabold tracking-[1.5px] uppercase text-white/90">
@@ -203,7 +208,8 @@ export default function Home({
             </SwiperSlide>
 
             <SwiperSlide>
-              <div className="bg-gradient-to-br from-[#0d8fe8] to-[#38b6ff] text-white h-[520px] flex items-center justify-center relative">
+              <div className="bg-[#0d8fe8] text-white h-[560px] flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.15),transparent_60%)]"></div>
                 <div className="max-w-[1600px] mx-auto px-6 w-full flex justify-center relative z-10">
                   <div className="max-w-[680px] text-center mx-auto">
                     <p className="mb-4 text-[0.85rem] font-extrabold tracking-[1.5px] uppercase text-white/90">
@@ -268,12 +274,12 @@ export default function Home({
                 </h2>
               </div>
 
-              <a
-                href="#"
+              <Link
+                href={route("courses")}
                 className="text-[#0d8fe8] font-bold whitespace-nowrap hover:underline"
               >
                 {t("home.coursesSection.viewAllOffer")}
-              </a>
+              </Link>
             </div>
 
             <div className="grid grid-cols-3 gap-[22px] max-[1100px]:grid-cols-2 max-[768px]:grid-cols-1">
@@ -305,7 +311,7 @@ export default function Home({
                   </p>
 
                   <a
-                    href="#"
+                    href={route("courses.show", course.id)}
                     className={`inline-block mt-auto pt-4 font-bold hover:underline ${getCourseLinkClasses(
                       course.category,
                     )}`}
@@ -330,12 +336,12 @@ export default function Home({
                 </h2>
               </div>
 
-              <a
-                href="#"
+              <Link
+                href={route("events")}
                 className="text-[#0d8fe8] font-bold whitespace-nowrap hover:underline"
               >
                 {t("home.eventsNewsSection.viewAll")}
-              </a>
+              </Link>
             </div>
 
             <div className="grid grid-cols-3 gap-[22px] max-[1100px]:grid-cols-2 max-[768px]:grid-cols-1">
@@ -366,14 +372,14 @@ export default function Home({
                     {event.description}
                   </p>
 
-                  <a
-                    href="#"
+                  <Link
+                    href={route("events.show", event.id)}
                     className={`inline-block mt-auto pt-4 font-bold hover:underline ${getEventLinkClasses(
                       event.type,
                     )}`}
                   >
                     {t("home.eventsNewsSection.readMore")}
-                  </a>
+                  </Link>
                 </div>
               ))}
             </div>
@@ -427,7 +433,7 @@ export default function Home({
           </div>
         </section>
 
-        <section className="bg-[#f5f8fc] py-20">
+        <section className="bg-white pt-20 pb-8">
           <div className="max-w-[1600px] mx-auto px-6">
             <div className="bg-white border border-[#dbe4ee] rounded-[26px] p-[34px] max-[768px]:p-5 shadow-[0_8px_24px_rgba(15,23,42,0.06)] flex items-center justify-between gap-7 max-[1100px]:flex-col max-[1100px]:items-start">
               <div>

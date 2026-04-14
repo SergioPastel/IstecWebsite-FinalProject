@@ -17,8 +17,7 @@ class Application extends Model
         'phone',
         'birth_date',
         'academic_level',
-        'motivation',
-        'status',
+        'motivation'
     ];
 
     // Applications belong to a course
