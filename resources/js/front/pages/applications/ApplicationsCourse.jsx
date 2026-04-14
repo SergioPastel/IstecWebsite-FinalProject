@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { router } from '@inertiajs/react';
+import { Inertia } from "@inertiajs/inertia";
 import Layout from "../../layouts/Layout";
 
 export default function ApplicationsCourse({

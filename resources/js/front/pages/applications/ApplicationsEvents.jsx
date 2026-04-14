@@ -25,7 +25,6 @@ export default function ApplicationsEvents({
     last_name: "",
     email: "",
     phone: "",
-    birth_date: "",
     identification_number: "",
     terms: false,
   });
@@ -101,16 +100,10 @@ export default function ApplicationsEvents({
       newErrors.phone = t("applicationsForm.common.requiredField");
     }
 
-    if (!formData.birth_date) {
-      newErrors.birth_date = t("applicationsForm.common.requiredField");
-    }
-
-    if (!formData.identification_number) {
-      newErrors.identification_number = t("applicationsForm.common.requiredField");
-    } else if (!isValidIdentificationNumber(formData.identification_number)) {
-      newErrors.identification_number =
-        t("applicationsForm.event.invalidIdentificationNumber");
-    }
+      if (
+    formData.identification_number &&
+    !isValidIdentificationNumber(formData.identification_number)
+  ) {newErrors.identification_number = t("applicationsForm.event.invalidIdentificationNumber");}
 
     setErrors((prev) => ({ ...prev, ...newErrors }));
     return Object.keys(newErrors).length === 0;
@@ -139,19 +132,10 @@ export default function ApplicationsEvents({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (currentStep === 2) {
-      if (!validateStep2()) return;
-      setCurrentStep(3);
-    } else if (currentStep === 3) {
-      // Submit the application
-      const data = {
-        event_id: formData.applicable_id,
-        full_name: `${formData.first_name} ${formData.last_name}`,
-        email: formData.email,
-        phone: formData.phone,
-      };
-      router.post('/applications/events', data);
-    }
+    if (!validateStep2()) return;
+
+    console.log("Candidatura a evento submetida:", formData);
+    setCurrentStep(3);
   };
 
   const pageTitle = t("applicationsForm.event.pageTitle");
@@ -345,18 +329,6 @@ export default function ApplicationsEvents({
                         required
                       />
                       <Input
-                        label={t("applicationsForm.common.birthDate")}
-                        type="date"
-                        value={formData.birth_date}
-                        onChange={(v) => {
-                          if (/^\d{0,4}-?\d{0,2}-?\d{0,2}$/.test(v)) {
-                            updateField("birth_date", v);
-                          }
-                        }}
-                        error={errors.birth_date}
-                        required
-                      />
-                      <Input
                         label={t("applicationsForm.common.identificationNumber")}
                         value={formData.identification_number}
                         onChange={(v) =>
@@ -366,7 +338,6 @@ export default function ApplicationsEvents({
                           )
                         }
                         error={errors.identification_number}
-                        required
                         maxLength={9}
                         inputMode="numeric"
                       />
@@ -410,10 +381,6 @@ export default function ApplicationsEvents({
                       <ReviewItem
                         label={t("applicationsForm.common.phone")}
                         value={formData.phone || t("applicationsForm.common.noValue")}
-                      />
-                      <ReviewItem
-                        label={t("applicationsForm.common.birthDate")}
-                        value={formData.birth_date || t("applicationsForm.common.noValue")}
                       />
                       <ReviewItem
                         label={t("applicationsForm.common.identificationNumber")}
@@ -499,14 +466,15 @@ export default function ApplicationsEvents({
                     type="submit"
                     className="rounded-xl bg-[#0d8fe8] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                   >
-                    {t("applicationsForm.common.next")}
+                    {t("applicationsForm.common.submitApplication")}
                   </button>
                 ) : (
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={() => setPage("home")}
                     className="rounded-xl bg-[#0d8fe8] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                   >
-                    {t("applicationsForm.common.submitApplication")}
+                    {t("applicationsForm.common.returnHome")}
                   </button>
                 )}
               </div>
