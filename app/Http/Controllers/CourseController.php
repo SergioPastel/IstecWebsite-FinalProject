@@ -23,6 +23,22 @@ class CourseController extends Controller
         ]);
     }
 
+    public function ctesp()
+    {
+        $courses = Course::latest()->paginate(10)->onEachSide(1);
+        return Inertia('front/pages/courses/CtespIndex', [ 
+            'courses' => CourseResource::collection($courses)
+        ]);
+    }
+
+    public function licenciatura()
+    {
+        $courses = Course::latest()->paginate(10)->onEachSide(1);
+        return Inertia('front/pages/courses/Licenciaturas', [ 
+            'courses' => CourseResource::collection($courses)
+        ]);
+    }
+
     // Admin doesn't need show
     public function show(Course $course)
     {

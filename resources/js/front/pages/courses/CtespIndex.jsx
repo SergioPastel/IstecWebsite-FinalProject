@@ -58,7 +58,6 @@ export default function CtespIndex({ courses, filters = {} }) {
 
     return (
         <Layout title="CTeSP">
-            <Head title="CTeSP" />
 
             <div className="w-full bg-[#f5f8fc] text-[#1f2937]">
                 <section className="relative overflow-hidden bg-gradient-to-br from-[#0d8fe8] to-[#38b6ff] pt-40 pb-20 text-white">
