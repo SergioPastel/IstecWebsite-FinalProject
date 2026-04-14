@@ -16,14 +16,14 @@ class EventController extends Controller
     public function index()
     {
         // dd(EventResource::collection(Event::latest()->get()));
-        return Inertia('front/pages/events/Index', [
+        return Inertia('front/pages/events/Events', [
             'events' => EventResource::collection(Event::latest()->get())
         ]);
     }
 
     public function show(Event $event)
     {
-        return Inertia('front/pages/events/Show', [
+        return Inertia('front/pages/events/EventsDetail', [
             'event' => new EventResource($event)
         ]);
     }

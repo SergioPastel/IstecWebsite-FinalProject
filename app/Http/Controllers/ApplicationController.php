@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Application;
 use App\Models\Course;
+use App\Models\CourseCategory;
+use App\Models\Event;
+use App\Http\Resources\CourseCategoryResource;
+use App\Http\Resources\CourseResource;
+use App\Http\Resources\EventResource;
 use App\Http\Requests\StoreApplicationRequest;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicationReceived;
 use App\Mail\ApplicationAutoReply;
+use Illuminate\Http\Request;
+
 
 class ApplicationController extends Controller
 {
@@ -15,14 +22,29 @@ class ApplicationController extends Controller
     FRONT
     */
 
-    public function create(Course $course)
+    public function applyCourse(?Course $course = null) // Null by default so the same action can be shared regardless if the user has a pre-selected course
     {
-        return Inertia('front/pages/applications/create', [
-            'course' => $course
+        $courseCategories = CourseCategoryResource::collection(
+            CourseCategory::with('courses')->get()
+        )->resolve();
+
+        return Inertia('front/pages/applications/ApplicationsCourse', [
+            'course' => $course,
+            'courseCategories' => $courseCategories,
         ]);
     }
 
-    public function store(StoreApplicationRequest $request)
+    public function applyEvent(Event $event) // possibly nullable? Check later
+    {
+        $events = EventResource::collection(Event::all())->resolve();
+
+        return Inertia('front/pages/applications/ApplicationsEvents', [
+            'event' => $event,
+            'events' => $events,
+        ]);
+    }
+
+    public function storeCourse(Request $request)
     {
         $validated = $request->validated();
 
@@ -43,6 +65,28 @@ class ApplicationController extends Controller
         Mail::to($application->email)->send(new ApplicationAutoReply($application));
 
         $course = Course::findOrFail($validated['course_id']);
+        Application::create($validated);
+
+        $course = Course::findOrFail($validated['course_id']);
+
+        return redirect()->route('courses.show', $course->slug) // Probably not correct
+            ->with('success', 'Candidatura submetida com sucesso.');
+    }
+
+    public function storeEvent(Request $request){        
+        $validated = $request->validate([
+            'event_id' => 'required|exists:events,id',
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:30'
+        ]);
+
+        Application::create($validated); // different application type ?
+
+        $event = Event::findOrFail($validated['event_id']);
+
+        return redirect()->route('events.show', $event->slug) // Probably not correct
+            ->with('success', 'Candidatura submetida com sucesso.');
     }
 
     /*

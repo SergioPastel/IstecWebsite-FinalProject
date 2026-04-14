@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -26,36 +27,36 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-gray-400">
               <li>
-                <a
-                  href="#"
+                <Link
+                  href={route("home")}
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
                   {t('footer.home')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href={route("courses")}
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
                   {t('footer.courses')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href={route("events")} // To become events and news
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
                   {t('footer.events')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href={route("applications.applyCourse")}
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
                   {t('footer.applications')}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

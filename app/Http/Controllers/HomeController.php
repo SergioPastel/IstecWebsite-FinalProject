@@ -77,7 +77,4 @@ class HomeController extends Controller
         return Inertia("front/pages/About");
     }
 
-    /*
-        ADMIN DASHBOARD HAS IT'S OWN CONTROLLER
-    */
 }

@@ -106,7 +106,7 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
 });
 
 // Public routes
-Route::get('/courses', [CourseController::class, 'index'])->name('courses');
+Route::get('/courses', [CourseController::class, 'index'])->name('courses'); // change later
 Route::get('/courses/{course:id}', [CourseController::class, 'show'])->name('courses.show');
 
 route::get('/events', [EventController::class, 'index'])->name('events');
@@ -117,8 +117,10 @@ route::get('/news/{news:id}', [NewsController::class, 'show'])->name('news.show'
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
-Route::get('/applications/create/{course:slug}', [ApplicationController::class, 'create'])->name('applications.create');
-Route::post('/applications', [ApplicationController::class, 'store'])->name('applications.store');
+Route::get('/applications/applyCourse', [ApplicationController::class, 'applyCourse'])->name('applications.applyCourse'); // Has no course id or slug, because the page is shared and thus the user may not have any course or may change mid-form
+Route::post('/applications/courses', [ApplicationController::class, 'storeCourse'])->name('applications.storeCourse');
+Route::get('/applications/applyEvent', [ApplicationController::class, 'applyEvent'])->name('applications.applyEvent');
+Route::post('/applications/events', [ApplicationController::class, 'storeEvent'])->name('applications.storeEvent');
 
 Route::get('/contacts', [ContactController::class, 'create'])->name('contacts.create');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
