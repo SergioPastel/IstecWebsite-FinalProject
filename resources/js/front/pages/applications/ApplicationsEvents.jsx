@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { router } from '@inertiajs/react';
 import Layout from "../../layouts/Layout";
 
 export default function ApplicationsEvents({
@@ -138,10 +139,19 @@ export default function ApplicationsEvents({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!validateStep2()) return;
-
-    console.log("Candidatura a evento submetida:", formData);
-    setCurrentStep(3);
+    if (currentStep === 2) {
+      if (!validateStep2()) return;
+      setCurrentStep(3);
+    } else if (currentStep === 3) {
+      // Submit the application
+      const data = {
+        event_id: formData.applicable_id,
+        full_name: `${formData.first_name} ${formData.last_name}`,
+        email: formData.email,
+        phone: formData.phone,
+      };
+      router.post('/applications/events', data);
+    }
   };
 
   const pageTitle = t("applicationsForm.event.pageTitle");
@@ -489,15 +499,14 @@ export default function ApplicationsEvents({
                     type="submit"
                     className="rounded-xl bg-[#0d8fe8] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                   >
-                    {t("applicationsForm.common.submitApplication")}
+                    {t("applicationsForm.common.next")}
                   </button>
                 ) : (
                   <button
-                    type="button"
-                    onClick={() => setPage("home")}
+                    type="submit"
                     className="rounded-xl bg-[#0d8fe8] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                   >
-                    {t("applicationsForm.common.returnHome")}
+                    {t("applicationsForm.common.submitApplication")}
                   </button>
                 )}
               </div>

@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/react';
 import Layout from "../../layouts/Layout";
 
 export default function ApplicationsCourse({
@@ -136,10 +136,27 @@ export default function ApplicationsCourse({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!validateStep3()) return;
+    if (currentStep === 3) {
+      if (!validateStep3()) return;
+      setCurrentStep(4);
+    } else if (currentStep === 4) {
+      // Submit the application
+      const data = new FormData();
+      data.append('course_id', formData.applicable_id);
+      data.append('full_name', `${formData.first_name} ${formData.last_name}`);
+      data.append('email', formData.email);
+      data.append('phone', formData.phone);
+      data.append('birth_date', formData.birth_date);
+      data.append('course_category_id', formData.course_category);
+      data.append('motivation', formData.notes); // assuming notes is motivation
+      if (formData.cv_file) data.append('cv_file', formData.cv_file);
+      if (formData.identification_file) data.append('identification_file', formData.identification_file); // but backend doesn't handle
+      if (formData.certificate_file) data.append('certificate_file', formData.certificate_file); // not handled
 
-    console.log("Candidatura submetida:", formData);
-    setCurrentStep(4);
+      router.post('/applications/courses', data, {
+        forceFormData: true,
+      });
+    }
   };
 
   return (
@@ -503,7 +520,7 @@ export default function ApplicationsCourse({
                   {t("applicationsForm.common.stepCounter", { current: currentStep, total: 4 })}
                 </div>
 
-                {currentStep < 3 ? (
+                {currentStep < 4 ? (
                   <button
                     type="button"
                     onClick={nextStep}
@@ -511,20 +528,12 @@ export default function ApplicationsCourse({
                   >
                     {t("applicationsForm.common.next")}
                   </button>
-                ) : currentStep === 3 ? (
+                ) : (
                   <button
                     type="submit"
                     className="rounded-xl bg-[#0d8fe8] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                   >
                     {t("applicationsForm.common.submitApplication")}
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => Inertia.visit('/')}
-                    className="rounded-xl bg-[#0d8fe8] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
-                  >
-                    {t("applicationsForm.common.returnHome")}
                   </button>
                 )}
               </div>

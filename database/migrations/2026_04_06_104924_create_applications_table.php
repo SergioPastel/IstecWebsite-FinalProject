@@ -24,8 +24,13 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
             $table->date('birth_date');
-            $table->string('motivation');
-            $table->integer('academic_level');
+            $table->string('motivation')->nullable();
+
+            $table->foreignUuid('course_category_id')
+                    ->nullable()
+                    ->constrained('course_categories')
+                    ->nullOnDelete();
+
             $table->timestamps();
         });
     }
@@ -35,6 +40,9 @@ return new class extends Migration
     //  */
     public function down(): void
     {
-        Schema::dropIfExists('applications');
+        Schema::table('applications', function (Blueprint $table) {
+            $table->dropForeign(['course_id']);
+            $table->dropColumn('course_id');
+        });
     }
 };

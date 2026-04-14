@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\EventApplication;
 use App\Models\Course;
 use App\Models\CourseCategory;
 use App\Models\Event;
@@ -10,6 +11,7 @@ use App\Http\Resources\CourseCategoryResource;
 use App\Http\Resources\CourseResource;
 use App\Http\Resources\EventResource;
 use App\Http\Requests\StoreApplicationRequest;
+use App\Http\Requests\StoreEventApplicationRequest;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicationReceived;
 use App\Mail\ApplicationAutoReply;
@@ -44,7 +46,7 @@ class ApplicationController extends Controller
         ]);
     }
 
-    public function storeCourse(Request $request)
+    public function storeCourse(StoreApplicationRequest $request)
     {
         $validated = $request->validated();
 
@@ -65,27 +67,25 @@ class ApplicationController extends Controller
         Mail::to($application->email)->send(new ApplicationAutoReply($application));
 
         $course = Course::findOrFail($validated['course_id']);
-        Application::create($validated);
 
-        $course = Course::findOrFail($validated['course_id']);
-
-        return redirect()->route('courses.show', $course->slug) // Probably not correct
+        return redirect()->route('courses.show', $course)
             ->with('success', 'Candidatura submetida com sucesso.');
     }
 
-    public function storeEvent(Request $request){        
-        $validated = $request->validate([
-            'event_id' => 'required|exists:events,id',
-            'full_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'required|string|max:30'
-        ]);
+    public function storeEvent(StoreEventApplicationRequest $request){        
+        $validated = $request->validated();
 
-        Application::create($validated); // different application type ?
+        $application = EventApplication::create($validated);
+
+        // Send notification to staff
+        Mail::to(config('mail.admin_email', 'admin@istec.pt'))->send(new ApplicationReceived($application));
+
+        // Send auto-reply to applicant
+        Mail::to($application->email)->send(new ApplicationAutoReply($application));
 
         $event = Event::findOrFail($validated['event_id']);
 
-        return redirect()->route('events.show', $event->slug) // Probably not correct
+        return redirect()->route('events.show', $event->slug)
             ->with('success', 'Candidatura submetida com sucesso.');
     }
 
