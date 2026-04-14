@@ -109,6 +109,8 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
 // Public routes
 Route::get('/courses', [CourseController::class, 'index'])->name('courses'); // change later
 Route::get('/courses/{course:id}', [CourseController::class, 'show'])->name('courses.show');
+Route::get('/courses/ctesp', [CourseController::class, 'ctesp'])->name('courses.ctesps');
+Route::get('/courses/licenciatura', [CourseController::class, 'licenciaturas'])->name('courses.licenciaturas');
 
 route::get('/events', [EventController::class, 'index'])->name('events');
 route::get('/events/{event:id}', [EventController::class, 'show'])->name('events.show');
