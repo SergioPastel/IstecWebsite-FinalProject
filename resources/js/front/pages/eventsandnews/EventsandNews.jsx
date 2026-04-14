@@ -3,6 +3,7 @@ import { Link } from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
 import Layout from "../../layouts/Layout";
 import { route } from "ziggy-js";
+import Pagination from "../../components/common/Pagination";
 
 export default function Updates({
   events = { data: [] },
@@ -85,7 +86,7 @@ export default function Updates({
   return (
     <Layout title={t("updates.metaTitle", "Lorem Ipsum Dolor")}>
       <main
-        className="w-full overflow-x-hidden bg-[#f7f9fc] text-[#1f2937]"
+        className="w-full overflow-x-hidden bg-white text-[#1f2937]"
         onClick={() => {
           window.dispatchEvent(new Event("closeDropdowns"));
         }}
@@ -125,7 +126,7 @@ export default function Updates({
                       : "bg-[#f3f4f6] text-[#374151] hover:bg-[#e8eef5]"
                   }`}
                 >
-                  {t("updates.filters.all", "Lorem")}
+                  {t("updates.filters.all", "Todos")}
                 </button>
 
                 <button
@@ -136,7 +137,7 @@ export default function Updates({
                       : "bg-[#f3f4f6] text-[#374151] hover:bg-[#e8eef5]"
                   }`}
                 >
-                  {t("updates.filters.events", "Ipsum")}
+                  {t("updates.filters.events", "Eventos")}
                 </button>
 
                 <button
@@ -147,7 +148,7 @@ export default function Updates({
                       : "bg-[#f3f4f6] text-[#374151] hover:bg-[#e8eef5]"
                   }`}
                 >
-                  {t("updates.filters.news", "Dolor")}
+                  {t("updates.filters.news", "Notícias")}
                 </button>
               </div>
 
@@ -369,7 +370,11 @@ export default function Updates({
               </div>
             )}
           </div>
-        </section>
+        
+         <div className="mt-12 flex justify-center">
+            <Pagination links={events.links || []} />
+          </div>
+          </section>
       </main>
     </Layout>
   );

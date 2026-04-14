@@ -8,6 +8,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\EventsandnewsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Fortify;
@@ -112,6 +113,9 @@ route::get('/events/{event:id}', [EventController::class, 'show'])->name('events
 
 route::get('/news', [NewsController::class, 'index'])->name('news');
 route::get('/news/{news:id}', [NewsController::class, 'show'])->name('news.show');
+
+// Events and news shared
+route::get('/events-and-news', [EventsandnewsController::class, 'index'])->name('eventsandnews');
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 

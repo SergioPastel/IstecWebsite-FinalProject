@@ -16,7 +16,7 @@ class EventController extends Controller
     public function index()
     {
         // dd(EventResource::collection(Event::latest()->get()));
-        return Inertia('front/pages/events/Events', [
+        return Inertia('front/pages/eventsandnews/EventsAndNews', [
             'events' => EventResource::collection(Event::latest()->get())
         ]);
     }

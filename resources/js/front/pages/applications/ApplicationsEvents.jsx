@@ -24,7 +24,6 @@ export default function ApplicationsEvents({
     last_name: "",
     email: "",
     phone: "",
-    birth_date: "",
     identification_number: "",
     terms: false,
   });
@@ -100,16 +99,10 @@ export default function ApplicationsEvents({
       newErrors.phone = t("applicationsForm.common.requiredField");
     }
 
-    if (!formData.birth_date) {
-      newErrors.birth_date = t("applicationsForm.common.requiredField");
-    }
-
-    if (!formData.identification_number) {
-      newErrors.identification_number = t("applicationsForm.common.requiredField");
-    } else if (!isValidIdentificationNumber(formData.identification_number)) {
-      newErrors.identification_number =
-        t("applicationsForm.event.invalidIdentificationNumber");
-    }
+      if (
+    formData.identification_number &&
+    !isValidIdentificationNumber(formData.identification_number)
+  ) {newErrors.identification_number = t("applicationsForm.event.invalidIdentificationNumber");}
 
     setErrors((prev) => ({ ...prev, ...newErrors }));
     return Object.keys(newErrors).length === 0;
@@ -335,18 +328,6 @@ export default function ApplicationsEvents({
                         required
                       />
                       <Input
-                        label={t("applicationsForm.common.birthDate")}
-                        type="date"
-                        value={formData.birth_date}
-                        onChange={(v) => {
-                          if (/^\d{0,4}-?\d{0,2}-?\d{0,2}$/.test(v)) {
-                            updateField("birth_date", v);
-                          }
-                        }}
-                        error={errors.birth_date}
-                        required
-                      />
-                      <Input
                         label={t("applicationsForm.common.identificationNumber")}
                         value={formData.identification_number}
                         onChange={(v) =>
@@ -356,7 +337,6 @@ export default function ApplicationsEvents({
                           )
                         }
                         error={errors.identification_number}
-                        required
                         maxLength={9}
                         inputMode="numeric"
                       />
@@ -400,10 +380,6 @@ export default function ApplicationsEvents({
                       <ReviewItem
                         label={t("applicationsForm.common.phone")}
                         value={formData.phone || t("applicationsForm.common.noValue")}
-                      />
-                      <ReviewItem
-                        label={t("applicationsForm.common.birthDate")}
-                        value={formData.birth_date || t("applicationsForm.common.noValue")}
                       />
                       <ReviewItem
                         label={t("applicationsForm.common.identificationNumber")}
