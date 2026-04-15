@@ -76,7 +76,12 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-[#0d8fe8]">📞</span>
-                <span>{t('footer.phone')}</span>
+                <div>
+                  <span>{t('footer.phone')}</span>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {t('footer.callCost', 'Chamada para a rede fixa nacional')}
+                  </p>
+                </div>
               </li>
             </ul>
           </div>

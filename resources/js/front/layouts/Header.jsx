@@ -162,7 +162,7 @@ function Header({}) {
       key: "events-and-news",
       titleKey: "eventsAndNews",
       children: [
-        { href: route("eventsandnews"), labelKey: "events-upcoming" },
+        { href: route("eventsandnews"), labelKey: "eventos-e-noticias" },
         { href: "/eventos", labelKey: "events-workshops" },
         { href: "/eventos", labelKey: "events-open-days" },
         { href: "/noticias", labelKey: "news-interviews" },
