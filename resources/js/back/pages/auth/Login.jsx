@@ -28,7 +28,6 @@ export default function Login() {
             />
             <h1 className="text-2xl font-bold">Área Administrativa</h1>
             <p className="text-sm text-white/90 mt-2">
-              Aceda à plataforma
             </p>
           </div>
 

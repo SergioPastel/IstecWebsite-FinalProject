@@ -121,6 +121,15 @@ route::get('/news/{news:id}', [NewsController::class, 'show'])->name('news.show'
 // Events and news shared
 route::get('/events-and-news', [EventsandnewsController::class, 'index'])->name('eventsandnews');
 
+// Events by type
+Route::get('/eventos/proximos', [EventController::class, 'upcoming'])->name('events.upcoming');
+Route::get('/eventos/workshops', [EventController::class, 'workshops'])->name('events.workshops');
+Route::get('/eventos/open-days', [EventController::class, 'openDays'])->name('events.openDays');
+
+// News by type
+Route::get('/noticias/entrevistas', [NewsController::class, 'interviews'])->name('news.interviews');
+Route::get('/noticias/comunicados', [NewsController::class, 'statements'])->name('news.statements');
+
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 Route::get('/applications/applyCourse', [ApplicationController::class, 'applyCourse'])->name('applications.applyCourse'); // Has no course id or slug, because the page is shared and thus the user may not have any course or may change mid-form
