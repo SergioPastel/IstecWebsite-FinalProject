@@ -2,51 +2,35 @@
 
 namespace Database\Factories;
 
-use GuzzleHttp\Psr7\MimeType;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Storage;
-use Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Media>
- */
 class MediaFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
             'type' => 'image',
-
             'file_disk' => 'public',
-
             'file_path' => function () {
-
-                // create fake image
                 $filename = Str::uuid() . '.jpg';
+                // Using a stable provider directly
+                $image = Http::get('https://picsum.photos/1920/1080')->body();
 
-                Storage::disk('public')->put(
-                    "media/$filename",
-                    fake()->image(width: 1920, height: 1080, format: 'jpg')
-                );
+                Storage::disk('public')->put("media/$filename", $image);
 
                 return "media/$filename";
             },
 
             'thumbnail_disk' => 'public',
-
             'thumbnail_path' => function () {
-
                 $filename = Str::uuid() . '.jpg';
+                // Smaller dimensions for the thumbnail
+                $image = Http::get('https://picsum.photos/400/300')->body();
 
-                Storage::disk('public')->put(
-                    "media/thumbs/$filename",
-                    fake()->image(format: 'jpg')
-                );
+                Storage::disk('public')->put("media/thumbs/$filename", $image);
 
                 return "media/thumbs/$filename";
             },
