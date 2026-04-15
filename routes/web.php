@@ -131,6 +131,9 @@ Route::post('/applications/events', [ApplicationController::class, 'storeEvent']
 Route::get('/contacts', [ContactController::class, 'create'])->name('contacts');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
 
+//Terms and privacy routes
+Route::get('/termos', function () {return Inertia::render('termsandprivacy/Terms');})->name('terms');
+Route::get('/privacidade', function () {return Inertia::render('termsandprivacy/Privacy');})->name('privacy');
 
 // MAIL TESTER
 

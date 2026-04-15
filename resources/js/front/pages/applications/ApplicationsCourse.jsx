@@ -466,7 +466,26 @@ export default function ApplicationsCourse({
                         onChange={(e) => updateField("terms", e.target.checked)}
                         className="mt-1"
                       />
-                      <span>{t("applicationsForm.course.termsConfirmation")}</span>
+                      <span>
+                        {t("applicationsForm.course.acceptPrefix", "Aceito os")}{" "}
+                        
+                        <Link
+                          href={route("terms")}
+                          className="text-[#0d8fe8] underline hover:opacity-80"
+                        >
+                          {t("applicationsForm.course.terms", "Termos e Condições")}
+                        </Link>{" "}
+                        
+                        {t("applicationsForm.course.and", "e a")}{" "}
+                        
+                        <Link
+                          href={route("privacy")}
+                          className="text-[#0d8fe8] underline hover:opacity-80"
+                        >
+                          {t("applicationsForm.course.privacy", "Política de Privacidade")}
+                        </Link>
+                        .
+                      </span>
                     </label>
 
                     {errors.terms && (

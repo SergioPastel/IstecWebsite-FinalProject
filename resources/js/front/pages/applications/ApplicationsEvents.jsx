@@ -396,8 +396,21 @@ export default function ApplicationsEvents({
                         className="mt-1"
                       />
                       <span>
-                        Confirmo que os dados estão corretos e aceito os termos
-                        da candidatura.
+                        Confirmo que os dados estão corretos e aceito os{" "}
+                        <Link
+                          href={route("terms")}
+                          className="text-[#0d8fe8] underline hover:opacity-80"
+                        >
+                          Termos e Condições
+                        </Link>{" "}
+                        e a{" "}
+                        <Link
+                          href={route("privacy")}
+                          className="text-[#0d8fe8] underline hover:opacity-80"
+                        >
+                          Política de Privacidade
+                        </Link>
+                        .
                       </span>
                     </label>
 
