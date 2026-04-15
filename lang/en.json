@@ -232,7 +232,23 @@
         "news-interviews": "Interviews",
         "news-press": "Press Releases",
         "applications-events": "Event Applications",
-        "erasmus+": "Erasmus +"
+        "erasmus+": "Erasmus +",
+        "eventos-e-noticias": "Events and News"
+    },
+    "news": {
+        "title": "News",
+        "description": "View news",
+        "buttons": {
+            "viewNews": "View news",
+            "viewDetails": "View details"
+        },
+        "detail": {
+            "date": "Date",
+            "author": "Author",
+            "description": "Description",
+            "backToNews": "Back to news",
+            "notFound": "News not found"
+        }
     },
     "news": {
         "title": "News",
