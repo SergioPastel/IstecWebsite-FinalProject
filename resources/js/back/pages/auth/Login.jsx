@@ -19,17 +19,27 @@ export default function Login() {
           onSubmit={submit}
           className="bg-white rounded-3xl shadow-[0_20px_60px_rgba(15,23,42,0.12)] border border-slate-200 overflow-hidden"
         >
+
+          {/* Botão voltar */}
+          <Link
+            href={route("home")}
+            className="absolute top-6 left-6 inline-flex items-center gap-2 bg-[#0d8fe8] text-white px-5 py-2.5 rounded-xl font-semibold shadow-[0_10px_25px_rgba(13,143,232,0.25)] hover:bg-[#0b7fd1] hover:-translate-y-[1px] transition-all duration-300">
+            ← Voltar ao site
+          </Link>
+
           {/* Header */}
-          <div className="bg-[#0d8fe8] text-white text-center px-8 py-10">
+          <div className="bg-[#0d8fe8] text-white px-8 py-10 relative">
+  
+          <div className="text-center">
             <img
               src={logo}
               alt="ISTEC Porto"
               className="mx-auto h-20 mb-4"
             />
             <h1 className="text-2xl font-bold">Área Administrativa</h1>
-            <p className="text-sm text-white/90 mt-2">
-            </p>
           </div>
+
+        </div>
 
           {/* Form */}
           <div className="p-8 space-y-5">
