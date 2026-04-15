@@ -204,6 +204,7 @@
         "research": "Investigação"
     },
     "nav": {
+        "home": "Início",
         "mission": "Finalidade e Projeto Educativo",
         "orgaos": "Órgãos do Instituto",
         "organograma": "Organograma",
@@ -229,7 +230,9 @@
         "news-press": "Comunicados",
         "applications-events": "Candidaturas a Eventos",
         "erasmus+": "Erasmus +",
-        "eventos-e-noticias": "Eventos e Notícias"
+        "eventos-e-noticias": "Eventos e Notícias",
+        "terms": "Termos e Condições",
+        "privacy": "Política de Privacidade"
         
     },
     "news": {

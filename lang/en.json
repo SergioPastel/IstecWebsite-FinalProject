@@ -208,6 +208,7 @@
         "research": "Research"
     },
     "nav": {
+        "home": "Home",
         "mission": "Mission and Educational Project",
         "orgaos": "Institute Bodies",
         "organograma": "Organization Chart",
@@ -233,7 +234,9 @@
         "news-press": "Press Releases",
         "applications-events": "Event Applications",
         "erasmus+": "Erasmus +",
-        "eventos-e-noticias": "Events and News"
+        "eventos-e-noticias": "Events and News",
+        "terms": "Terms and Conditions",
+        "privacy": "Privacy Policy"
     },
     "news": {
         "title": "News",

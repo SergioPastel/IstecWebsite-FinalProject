@@ -131,16 +131,11 @@ function Header({}) {
   const mainNav = [
     {
       key: "istec-porto",
-      titleKey: "istecPorto",
+      titleKey: "istecPorto",      
       children: [
-        { href: "/finalidade-e-projeto-educativo", labelKey: "mission" },
-        { href: "/orgaos", labelKey: "orgaos" },
-        { href: "/organograma", labelKey: "organograma" },
-        { href: "/documentos", labelKey: "documentos" },
-        { href: "/docentes", labelKey: "docentes" },
-        { href: "/calendarios", labelKey: "calendarios" },
-        { href: "/qualidade", labelKey: "qualidade" },
-        { href: "/etica", labelKey: "etica" },
+        { href: route("home"), labelKey: "home" },
+        { href: route('terms'), labelKey: "terms" },
+        { href: route('privacy'), labelKey: "privacy" },
       ],
     },
     {
@@ -461,37 +456,3 @@ function Divider() {
 }
 
 export default Header;
-
-/*[ This has been REPLACED, but the code might be relevant still. REMOVE LATER.
-            "home",
-            "/courses",
-            "/events",
-            "/news",
-            "/applications",
-          ].map((link, i) =>
-            link === "home" ? (
-              <button
-                key={i}
-                onClick={() => {
-                  setPrivateOpen(false);
-                  setSearchOpen(false);
-                }}
-                href={route("home")}
-                className="text-white font-bold text-[16px] px-6 py-4 border-r border-white/25 hover:bg-white/10 w-full md:w-auto text-left"
-              >
-                {t("header." + link.replace("/", ""))}
-              </button>
-            ) : (
-              <Link
-                key={i}
-                href={link}
-                onClick={() => {
-                  setPrivateOpen(false);
-                  setSearchOpen(false);
-                }}
-                className="text-white font-bold text-[16px] px-6 py-4 border-r border-white/25 hover:bg-white/10 w-full md:w-auto"
-              >
-                {t("header." + link.replace("/", ""))}
-              </Link>
-            ),
-          )*/

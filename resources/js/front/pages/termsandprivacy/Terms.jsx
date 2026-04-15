@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import Layout from "../layouts/Layout";
+import Layout from "../../layouts/Layout";
 
 export default function Terms() {
   const { t } = useTranslation();
