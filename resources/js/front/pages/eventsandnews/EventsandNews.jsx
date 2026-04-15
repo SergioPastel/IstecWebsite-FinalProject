@@ -170,7 +170,7 @@ export default function Updates({
               <div className="group overflow-hidden rounded-[28px] border border-[#dbe4ee] bg-white shadow-[0_18px_40px_rgba(15,23,42,0.08)]">
                 <div className="relative h-[320px] md:h-[420px] overflow-hidden">
                   <img
-                    src={featuredItem.image}
+                    src={featuredItem.media.url}
                     alt={featuredItem.title}
                     className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
                   />
@@ -231,7 +231,7 @@ export default function Updates({
                     <div className="grid sm:grid-cols-[180px_1fr]">
                       <div className="h-[180px] sm:h-full overflow-hidden">
                         <img
-                          src={item.image}
+                          src={item.media.url}
                           alt={item.title}
                           className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
                         />
@@ -307,7 +307,7 @@ export default function Updates({
               >
                 <div className="relative h-[240px] overflow-hidden bg-[#eae6df]">
                   <img
-                    src={item.image}
+                    src={item.media.url}
                     alt={item.title}
                     className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
                   />
