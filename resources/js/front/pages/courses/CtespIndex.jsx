@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, router, Head } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
 import Pagination from '../../components/common/Pagination';
+import { route } from 'ziggy-js';
 
 function getCourseText(value, lang) {
     if (value == null) return '';
@@ -263,11 +264,13 @@ export default function CtespIndex({ courses, filters = {} }) {
                                                     <button
                                                         type="button"
                                                         className="flex-1 rounded-full border border-[rgba(13,143,232,0.22)] bg-transparent px-4 py-3 text-sm font-bold text-[#0d8fe8] transition hover:bg-[#eaf5ff]"
-                                                        onClick={() =>
+                                                        onClick={() => {
                                                             window.umami?.track('ctesp_apply_click', {
                                                                 course_id: course.id,
-                                                            })
-                                                        }
+                                                            });
+                                                            
+                                                            router.visit(route('applications.applyCourse', course));
+                                                        }}
                                                     >
                                                         Candidatar-me
                                                     </button>

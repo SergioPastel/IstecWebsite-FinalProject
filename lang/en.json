@@ -125,6 +125,7 @@
         },
         "course": {
             "pageTitle": "Course application",
+            "educationalLevel": "Educational Level",
             "pageDescription": "Fill out the form and associate the application directly with a course.",
             "typeValue": "Course",
             "steps": {

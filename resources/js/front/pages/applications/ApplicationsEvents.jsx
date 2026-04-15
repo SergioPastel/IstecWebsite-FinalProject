@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { router } from '@inertiajs/react';
 import Layout from "../../layouts/Layout";
+import { Link, router, Head } from '@inertiajs/react';
 
 export default function ApplicationsEvents({
   setPage,

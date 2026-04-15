@@ -132,17 +132,23 @@ Route::get('/noticias/comunicados', [NewsController::class, 'statements'])->name
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
-Route::get('/applications/applyCourse', [ApplicationController::class, 'applyCourse'])->name('applications.applyCourse'); // Has no course id or slug, because the page is shared and thus the user may not have any course or may change mid-form
+// Application routes, course and event are nullable
+Route::get('/applications/applyCourse/{course?}', [ApplicationController::class, 'applyCourse'])->name('applications.applyCourse'); // Has no course id or slug, because the page is shared and thus the user may not have any course or may change mid-form
 Route::post('/applications/courses', [ApplicationController::class, 'storeCourse'])->name('applications.storeCourse');
-Route::get('/applications/applyEvent', [ApplicationController::class, 'applyEvent'])->name('applications.applyEvent');
+Route::get('/applications/applyEvent{event?}', [ApplicationController::class, 'applyEvent'])->name('applications.applyEvent');
 Route::post('/applications/events', [ApplicationController::class, 'storeEvent'])->name('applications.storeEvent');
 
 Route::get('/contacts', [ContactController::class, 'create'])->name('contacts');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
 
 //Terms and privacy routes
-Route::get('/termos', function () {return Inertia::render('termsandprivacy/Terms');})->name('terms');
-Route::get('/privacidade', function () {return Inertia::render('termsandprivacy/Privacy');})->name('privacy');
+Route::get('/terms', function () {
+    return Inertia('front/pages/termsandprivacy/Terms');
+})->name('terms');
+
+Route::get('/privacy', function () {
+    return Inertia('front/pages/termsandprivacy/Privacy');
+})->name('privacy');
 
 // MAIL TESTER
 

@@ -149,13 +149,8 @@ function Header({}) {
       children: [
         { href: route('courses.ctesp'), labelKey: "ctesp" },
         { href: route('courses.licenciatura'), labelKey: "licenciatura" },
-        { href: "/pos-graduacao", labelKey: "pos-graduacao" },
-        { href: "/plano-atividades", labelKey: "plano-atividades" },
-        { href: "/emolumentos", labelKey: "emolumentos" },
-        { href: "/bolsas-dges", labelKey: "bolsas-dges" },
-        { href: "/protocolos", labelKey: "protocolos" },
-        { href: "/editais-2526", labelKey: "editais-2526" },
-        { href: "/candidaturas/curso", labelKey: "applications" },
+        { href: "/pos-graduacao", labelKey: "pos-graduacao" },    
+        { href: route('applications.applyCourse'), labelKey: "applications" },
       ],
     },
     {
@@ -167,7 +162,7 @@ function Header({}) {
         { href: route("events.openDays"), labelKey: "events-open-days" },
         { href: route("news.interviews"), labelKey: "news-interviews" },
         { href: route("news.statements"), labelKey: "news-press" },
-        { href: "/candidaturas/evento", labelKey: "applications-events" },
+        { href: route('applications.applyEvent'), labelKey: "applications-events" },
       ],
     },
     {

@@ -26,6 +26,10 @@ class ApplicationController extends Controller
 
     public function applyCourse(?Course $course = null) // Null by default so the same action can be shared regardless if the user has a pre-selected course
     {
+        if ($course) {
+            $course->load('category');
+        }
+
         $courseCategories = CourseCategoryResource::collection(
             CourseCategory::with('courses')->get()
         )->resolve();

@@ -122,6 +122,7 @@
         "course": {
             "pageTitle": "Candidatura a Curso",
             "pageDescription": "Preencha a candidatura e associe-a diretamente a um curso.",
+            "educationalLevel": "Nível de ensino",
             "typeValue": "Curso",
             "steps": {
                 "1": "Seleção e dados pessoais",

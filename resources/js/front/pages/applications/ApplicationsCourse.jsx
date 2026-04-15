@@ -1,8 +1,8 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { router } from '@inertiajs/react';
-import { Inertia } from "@inertiajs/inertia";
 import Layout from "../../layouts/Layout";
+import { Link } from '@inertiajs/react';
 
 export default function ApplicationsCourse({
   course,
@@ -22,8 +22,10 @@ export default function ApplicationsCourse({
   const selectionLabel = t("applicationsForm.course.selectionLabel");
 
   const [formData, setFormData] = useState({
-    course_level: "",
-    applicable_id: "",
+    course_level: course?.course_category_id
+      ? String(course.course_category_id)
+      : "",
+    applicable_id: course?.id ? String(course.id) : "",
     first_name: "",
     last_name: "",
     email: "",
@@ -40,7 +42,7 @@ export default function ApplicationsCourse({
   const availableCourses = useMemo(() => {
     if (!formData.course_level) return [];
     const selectedCategory = courseCategories.find(
-      (category) => category.id === formData.course_level
+      (category) => String(category.id) === String(formData.course_level)
     );
     return selectedCategory && Array.isArray(selectedCategory.courses) ? selectedCategory.courses : []; // double check this
   }, [formData.course_level, courseCategories]);
@@ -48,7 +50,7 @@ export default function ApplicationsCourse({
   const selectedLevelName = useMemo(() => {
     if (!formData.course_level) return "";
     const selectedCategory = courseCategories.find(
-      (category) => category.id === formData.course_level
+      (category) => String(category.id) === String(formData.course_level)
     );
     return selectedCategory?.title || "";
   }, [formData.course_level, courseCategories]);
@@ -148,7 +150,7 @@ export default function ApplicationsCourse({
       data.append('email', formData.email);
       data.append('phone', formData.phone);
       data.append('birth_date', formData.birth_date);
-      data.append('course_category_id', formData.course_category);
+      data.append('course_category_id', formData.course_level);
       data.append('motivation', formData.notes); // assuming notes is motivation
       if (formData.cv_file) data.append('cv_file', formData.cv_file);
       if (formData.identification_file) data.append('identification_file', formData.identification_file); // but backend doesn't handle
@@ -159,6 +161,27 @@ export default function ApplicationsCourse({
       });
     }
   };
+
+  useEffect(() => {
+    // This effect ensures that when the course prop arrives or changes, it is synced to the current form data.
+    
+    // useState(initialValue) only runs ONCE on first render.
+    // If course is loaded asynchronously or changes later,
+    // the state will NOT update automatically without this effect.
+
+    if (course) {
+      setFormData((prev) => ({
+        ...prev,
+
+        // Convert IDs to strings because <select> values are strings in HTML
+        course_level: course.course_category_id
+          ? String(course.course_category_id)
+          : "",
+
+        applicable_id: course.id ? String(course.id) : "",
+      }));
+    }
+  }, [course]);
 
   return (
     <Layout title={pageTitle}>
@@ -250,7 +273,7 @@ export default function ApplicationsCourse({
                     <div className="space-y-5 p-6">
                       <div>
                         <label className="mb-2 block text-sm font-semibold text-slate-700">
-                          Nível de ensino <span className="text-red-500">*</span>
+                          {t('applicationsForm.course.educationalLevel')} <span className="text-red-500">*</span>
                         </label>
 
                         <select
@@ -263,7 +286,7 @@ export default function ApplicationsCourse({
                         >
                           <option value="">{t("applicationsForm.course.selectLevelOption")}</option>
                           {courseCategories.map((level) => (
-                            <option key={level.id} value={level.id}>
+                            <option key={level.id} value={String(level.id)}>
                               {level.title}
                             </option>
                           ))}
@@ -296,7 +319,7 @@ export default function ApplicationsCourse({
                           </option>
 
                           {availableCourses.map((course) => (
-                            <option key={course.id} value={course.id}>
+                            <option key={course.id} value={String(course.id)}>
                               {course.title}
                             </option>
                           ))}
