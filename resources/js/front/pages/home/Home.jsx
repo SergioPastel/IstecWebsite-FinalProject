@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useTranslation } from 'react-i18next';
 import { route } from "ziggy-js";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 
 export default function Home({
   courses,
@@ -28,7 +28,7 @@ export default function Home({
       id: 1,
       title: t("home.quickLinks.courses.title"),
       description: t("home.quickLinks.courses.description"),
-      link: route("courses") // Will be replaced by the new courses page
+      link: route("applications.applyCourse")
     },
     {
       id: 2,
@@ -40,7 +40,7 @@ export default function Home({
       id: 3,
       title: t("home.quickLinks.events.title"),
       description: t("home.quickLinks.events.description"),
-      link: route("events"),
+      link: route("eventsandnews"),
     },
     {
       id: 4,
@@ -310,14 +310,14 @@ export default function Home({
                     {course.description}
                   </p>
 
-                  <a
+                  <Link
                     href={route("courses.show", course.id)}
                     className={`inline-block mt-auto pt-4 font-bold hover:underline ${getCourseLinkClasses(
                       course.category,
                     )}`}
                   >
                     {t("home.coursesSection.learnMore")}
-                  </a>
+                  </Link>
                 </div>
               ))}
             </div>
@@ -426,7 +426,10 @@ export default function Home({
             </div>
 
             <div className="flex justify-center">
-              <button className="mt-7 min-h-[52px] px-7 py-3 rounded-full bg-white text-[#0d8fe8] font-bold shadow-[0_8px_24px_rgba(15,23,42,0.06)] hover:bg-[#f8fbff] hover:-translate-y-[2px] transition-all duration-300">
+              <button 
+                className="mt-7 min-h-[52px] px-7 py-3 rounded-full bg-white text-[#0d8fe8] font-bold shadow-[0_8px_24px_rgba(15,23,42,0.06)] hover:bg-[#f8fbff] hover:-translate-y-[2px] transition-all duration-300"
+                onClick={() => router.visit(route('applications.applyCourse'))}
+              >
                 {t("home.applicationsSection.startApplication")}
               </button>
             </div>
@@ -457,7 +460,10 @@ export default function Home({
               </div>
 
               <div className="flex gap-3 flex-wrap">
-                <button className="inline-flex items-center justify-center min-h-12 px-[22px] py-3 rounded-full border border-transparent bg-[#0d8fe8] text-white font-bold shadow-[0_10px_30px_rgba(13,143,232,0.08)] hover:bg-[#0a78c4] hover:-translate-y-[2px] transition-all duration-300">
+                <button 
+                className="inline-flex items-center justify-center min-h-12 px-[22px] py-3 rounded-full border border-transparent bg-[#0d8fe8] text-white font-bold shadow-[0_10px_30px_rgba(13,143,232,0.08)] hover:bg-[#0a78c4] hover:-translate-y-[2px] transition-all duration-300"
+                onClick={() => router.visit(route('contacts'))}
+                >
                   {t("home.contactsSection.goToContacts")}
                 </button>
 

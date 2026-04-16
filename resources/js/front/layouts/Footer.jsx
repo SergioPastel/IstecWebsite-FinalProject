@@ -44,7 +44,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href={route("events")} // To become events and news
+                  href={route("eventsandnews")}
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
                   {t('footer.events')}
@@ -92,28 +92,28 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-gray-400">
               <li>
-                <a
-                  href="#"
+                <Link
+                  href={route("privacy")}
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
                   {t('footer.privacyPolicy')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href={route("terms")}
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
                   {t('footer.termsConditions')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href={route('contacts') + '#contact-form'}
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
                   {t('footer.requestInfo')}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

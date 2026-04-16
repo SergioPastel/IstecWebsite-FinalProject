@@ -312,6 +312,13 @@
             "notFound": "Event not found"
         }
     },
+    "contacts": {
+        "contacts": "Contacts",
+        "subtitle": "We're available to answer your questions.",
+        "departments": "Contacts by department",
+        "location": "Where we're located",
+        "message": "Send us a message"
+    },
     "footer": {
         "istecPorto": "ISTEC Porto",
         "description": "Higher Institute of Advanced Technologies of Porto, focused on innovation, practical training and proximity to the market.",

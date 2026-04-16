@@ -150,15 +150,7 @@ Route::get('/privacy', function () {
     return Inertia('front/pages/termsandprivacy/Privacy');
 })->name('privacy');
 
-// MAIL TESTER
 
-/* Route::get('/test-mail', function () {
-    Mail::raw('Test email', function ($msg) {
-        $msg->to('sergioclsantanna@gmail.com')->subject('Test');
-    });
-
-    return 'Sent';
-}); */
 
 // DYNAMIC TESTING
 Route::get('/test-dynamic', [PageController::class, 'index'])->name('dynamic.index');

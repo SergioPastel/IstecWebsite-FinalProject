@@ -296,6 +296,13 @@
             "notFound": "Evento não encontrado"
         }
     },
+    "contacts": {
+        "contacts": "Contactos",
+        "subtitle": "Estamos disponíveis para responder às tuas perguntas.",
+        "departments": "Contactos por departamento",
+        "location": "Onde estamos localizados",
+        "message": "Envia-nos uma mensagem"
+    },
     "footer": {
         "istecPorto": "ISTEC Porto",
         "description": "Instituto Superior de Tecnologias Avançadas do Porto, com foco na inovação, formação prática e proximidade ao mercado.",
