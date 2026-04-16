@@ -1,60 +1,97 @@
-import Layout from '../layouts/layout';
-import { useTranslation } from 'react-i18next';
-import { Link } from '@inertiajs/react';
-import { Inertia } from '@inertiajs/inertia';
+import { Link } from "@inertiajs/react";
+import { Inertia } from "@inertiajs/inertia";
+import BackofficeLayout from "../../layouts/BackofficeLayout";
+import EmptyState from "../../components/ui/EmptyState";
+import PageHeader from "../../components/ui/PageHeader";
+import SectionCard from "../../components/ui/SectionCard";
+import StatusBadge from "../../components/ui/StatusBadge";
 
 export default function NewsIndexBack({ news }) {
-  const { t } = useTranslation();
+  const rows = news ?? [];
 
   function handleDelete(newsId) {
-    // ADD I18N TRANSLATION TO THIS MESSAGE!!!
-    if (confirm('Tem certeza que deseja deletar esta noticia?')) {
-        Inertia.delete(route('news.destroy', { news: newsId }));
+    if (confirm("Tem certeza que deseja eliminar esta noticia?")) {
+      Inertia.delete(route("news.destroy", { news: newsId }));
     }
   }
 
-/**
- * Component properties, when coming from the server, may be wraped with 'data'
- * key, such as a collection of resources. Single resources remain unwraped
- * (see more in resource classes)
- *
- * As such, to map news data, acces is given through 'news.data', and
- * not 'news', as seen in the example below
- */
   return (
-    <Layout>
-      <h1>{t("language")} ADMIN</h1>
+    <BackofficeLayout
+      title="Noticias"
+      subtitle="Organize o conteudo editorial com uma base pronta para evoluir."
+      searchPlaceholder="Pesquisar noticias"
+    >
+      <div className="space-y-6">
+        <PageHeader
+          eyebrow="Editorial"
+          title="Gestao de noticias"
+          //description="Pagina redesenhada para encaixar no novo backoffice sem alterar a stack nem duplicar padroes."
+          actions={[
+            <Link
+              key="create"
+              href={route("news.create")}
+              className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
+            >
+              Nova noticia
+            </Link>,
+          ]}
+        />
 
-      <div className="container mx-auto p-6">
-        <h1 className="text-3xl font-bold mb-6">News</h1>
+        <SectionCard
+          title="Publicacoes"
+          subtitle={`${rows.length} entradas prontas para administracao editorial.`}
+        >
+          {rows.length === 0 ? (
+            <EmptyState
+              title="Nao existem noticias publicadas."
+              //description="Quando houver conteudo editorial no sistema, esta vista pode suportar estados, destaque e programacao."
+            />
+          ) : (
+            <div className="grid gap-4 xl:grid-cols-2">
+              {rows.map((item) => (
+                <article
+                  key={item.id}
+                  className="rounded-[28px] border border-slate-200 bg-slate-50/80 p-6"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h2 className="text-xl font-semibold text-slate-950">
+                        {item.title?.pt ?? item.title}
+                      </h2>
+                      <p className="mt-2 text-sm leading-6 text-slate-500">
+                        {item.description?.pt ??
+                          item.excerpt?.pt ??
+                          item.excerpt ??
+                          "Sem resumo disponivel."}
+                      </p>
+                    </div>
+                    <StatusBadge
+                      label={item.published_at ? "Publicado" : "Rascunho"}
+                      tone={item.published_at ? "success" : "warning"}
+                    />
+                  </div>
 
-
-        {news.length === 0 ? (
-          <p>No news available.</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {news.map((news) => (
-              <div
-                key={news.id}
-                className="border rounded-lg p-4 shadow-sm hover:shadow-md transition"
-              >
-                <h2 className="text-xl font-semibold">{news.title.pt}</h2>
-
-                {news.description && (
-                  <p className="text-gray-600 mt-2">{news.description.pt}</p>
-                )}
-
-                <div className="mt-4 text-sm text-gray-500">
-                  ID: {news.id}
-                </div>
-
-                <Link href={route('news.edit', { news: news.id })}>Editar noticia</Link><br />
-                <button type="button" onClick={() => handleDelete(news.id)}>DELETAR noticias</button>
-              </div>
-            ))}
-          </div>
-        )}
+                  <div className="mt-5 flex flex-wrap items-center gap-3">
+                    <Link
+                      href={route("news.edit", { news: item.id })}
+                      className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
+                    >
+                      Editar
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(item.id)}
+                      className="inline-flex items-center justify-center rounded-2xl border border-rose-200 bg-rose-50 px-4 py-2.5 text-sm font-semibold text-rose-700 transition hover:bg-rose-100"
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </SectionCard>
       </div>
-    </Layout>
+    </BackofficeLayout>
   );
 }

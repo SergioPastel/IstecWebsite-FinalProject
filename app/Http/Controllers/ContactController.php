@@ -7,6 +7,7 @@ use App\Http\Requests\StoreContactRequest; // Validation layer
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactReceived;
 use App\Mail\ContactAutoReply;
+use Inertia\Inertia;
 
 // THIS CONTROLLER IS CURRENTLY BEING USED FOR CONTACT EMAILS RATHER THAN COMPANY CONTACTS, CHANGE IF NECESSARY
 // A lot of it does not currently make sense

@@ -1,60 +1,100 @@
-import Layout from '../layouts/layout';
-import { useTranslation } from 'react-i18next';
-import { Link } from '@inertiajs/react';
-import { Inertia } from '@inertiajs/inertia';
+import { Link } from "@inertiajs/react";
+import { Inertia } from "@inertiajs/inertia";
+import BackofficeLayout from "../../layouts/BackofficeLayout";
+import EmptyState from "../../components/ui/EmptyState";
+import PageHeader from "../../components/ui/PageHeader";
+import SectionCard from "../../components/ui/SectionCard";
+import StatusBadge from "../../components/ui/StatusBadge";
 
 export default function CoursesIndexBack({ courses }) {
-  const { t } = useTranslation();
+  const rows = courses?.data ?? [];
 
   function handleDelete(courseId) {
-    // ADD I18N TRANSLATION TO THIS MESSAGE!!!
-    if (confirm('Tem certeza que deseja deletar este curso?')) {
-        Inertia.delete(route('courses.destroy', { course: courseId }));
+    if (confirm("Tem certeza que deseja eliminar este curso?")) {
+      Inertia.delete(route("courses.destroy", { course: courseId }));
     }
   }
 
-/**
- * Component properties, when coming from the server, may be wraped with 'data'
- * key, such as a collection of resources. Single resources remain unwraped
- * (see more in resource classes)
- *
- * As such, to map courses data, acces is given through 'courses.data', and
- * not 'courses', as seen in the example below
- */
   return (
-    <Layout>
-      <h1>{t("language")} ADMIN</h1>
+    <BackofficeLayout
+      title="Cursos"
+      subtitle="Organize a oferta formativa e prepare a area para futuras operacoes editoriais."
+      searchPlaceholder="Pesquisar cursos"
+    >
+      <div className="space-y-6">
+        <PageHeader
+          eyebrow="Academics"
+          title="Gestao de cursos"
+          //description="A estrutura abaixo reaproveita a stack atual e deixa a pagina pronta para crescer com filtros, formularios e detalhe editorial."
+          actions={[
+            <Link
+              key="create"
+              href={route("courses.create")}
+              className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
+            >
+              Novo curso
+            </Link>,
+          ]}
+        />
 
-      <div className="container mx-auto p-6">
-        <h1 className="text-3xl font-bold mb-6">Courses</h1>
+        <SectionCard
+          title="Catalogo atual"
+          subtitle={`${rows.length} registos disponiveis para administracao.`}
+        >
+          {rows.length === 0 ? (
+            <EmptyState
+              title="Ainda nao existem cursos registados."
+              description="Quando a equipa adicionar a oferta formativa, esta vista pode evoluir para incluir filtros, estados, imagens e destaque institucional."
+            />
+          ) : (
+            <div className="grid gap-4 xl:grid-cols-2">
+              {rows.map((course) => (
+                <article
+                  key={course.id}
+                  className="rounded-[28px] border border-slate-200 bg-slate-50/80 p-6"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h2 className="text-xl font-semibold text-slate-950">
+                        {course.title?.pt ?? course.title}
+                      </h2>
+                      <p className="mt-2 text-sm leading-6 text-slate-500">
+                        {course.description?.pt ??
+                          course.description ??
+                          "Sem descricao resumida."}
+                      </p>
+                    </div>
+                    <StatusBadge
+                      label={
+                        course.duration_years
+                          ? `${course.duration_years} anos`
+                          : "Sem duracao"
+                      }
+                      tone="info"
+                    />
+                  </div>
 
-
-        {courses.data.length === 0 ? (
-          <p>No courses available.</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {courses.data.map((course) => (
-              <div
-                key={course.id}
-                className="border rounded-lg p-4 shadow-sm hover:shadow-md transition"
-              >
-                <h2 className="text-xl font-semibold">{course.title}</h2>
-
-                {course.description && (
-                  <p className="text-gray-600 mt-2">{course.description}</p>
-                )}
-
-                <div className="mt-4 text-sm text-gray-500">
-                  ID: {course.id}
-                </div>
-
-                <Link href={route('courses.edit', { course: course.id })}>Editar curso</Link><br />
-                <button type="button" onClick={() => handleDelete(course.id)}>DELETAR curso</button>
-              </div>
-            ))}
-          </div>
-        )}
+                  <div className="mt-5 flex flex-wrap items-center gap-3">
+                    <Link
+                      href={route("courses.edit", { course: course.id })}
+                      className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
+                    >
+                      Editar
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(course.id)}
+                      className="inline-flex items-center justify-center rounded-2xl border border-rose-200 bg-rose-50 px-4 py-2.5 text-sm font-semibold text-rose-700 transition hover:bg-rose-100"
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </SectionCard>
       </div>
-    </Layout>
+    </BackofficeLayout>
   );
 }

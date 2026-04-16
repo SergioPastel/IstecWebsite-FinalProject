@@ -104,6 +104,86 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::get('/news/{news:id}/edit', [NewsController::class, 'edit'])->name('news.edit');
     Route::patch('/news/{news:id}', [NewsController::class, 'update'])->name('news.update');
     Route::delete('/news/{news:id}', [NewsController::class, 'destroy'])->name('news.destroy');
+
+    // Application routes
+    Route::get('/applications', [ApplicationController::class, 'adminIndex'])->name('backoffice.applications');
+
+    // Contact routes
+    Route::get('/contacts', [ContactController::class, 'adminIndex'])->name('backoffice.contacts');
+
+    // Users and settings base pages
+    Route::get('/users', function () {
+        return Inertia('back/pages/users/Index', [
+            'users' => [
+                [
+                    'id' => 1,
+                    'name' => 'Ana Martins',
+                    'email' => 'ana.martins@istec.pt',
+                    'status' => 'Ativo',
+                    'roles' => ['Administracao', 'Conteudos'],
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'Bruno Silva',
+                    'email' => 'bruno.silva@istec.pt',
+                    'status' => 'Ativo',
+                    'roles' => ['Eventos'],
+                ],
+                [
+                    'id' => 3,
+                    'name' => 'Catarina Lopes',
+                    'email' => 'catarina.lopes@istec.pt',
+                    'status' => 'Pendente',
+                    'roles' => ['Admissions'],
+                ],
+            ],
+        ]);
+    })->name('backoffice.users');
+
+    Route::get('/settings', function () {
+        return Inertia('back/pages/settings/Index', [
+            'settingsGroups' => [
+                [
+                    'id' => 'notifications',
+                    'title' => 'Notificacoes',
+                    'description' => 'Preferencias base para alertas operacionais e fluxos editoriais.',
+                    'items' => [
+                        [
+                            'label' => 'Alertas de candidaturas',
+                            'helpText' => 'Receber aviso sempre que entrar uma nova candidatura.',
+                            'value' => 'Ativo',
+                            'enabled' => true,
+                        ],
+                        [
+                            'label' => 'Resumo diario',
+                            'helpText' => 'Compilar atividade editorial e operacional num unico envio.',
+                            'value' => 'Ativo',
+                            'enabled' => true,
+                        ],
+                    ],
+                ],
+                [
+                    'id' => 'experience',
+                    'title' => 'Experiencia interna',
+                    'description' => 'Parametros iniciais para ajustar a experiencia do backoffice.',
+                    'items' => [
+                        [
+                            'label' => 'Pesquisa global',
+                            'helpText' => 'Ativar pesquisa transversal a cursos, noticias e eventos.',
+                            'value' => 'Beta',
+                            'enabled' => false,
+                        ],
+                        [
+                            'label' => 'Modo de aprovacao',
+                            'helpText' => 'Fluxo manual para validacao editorial antes da publicacao.',
+                            'value' => 'Manual',
+                            'enabled' => true,
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+    })->name('backoffice.settings');
 });
 
 // Public routes
