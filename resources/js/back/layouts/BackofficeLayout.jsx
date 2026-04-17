@@ -1,7 +1,8 @@
 import { Head, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
-import Sidebar from "../components/layout/Sidebar";
-import Topbar from "../components/layout/Topbar";
+import Sidebar from "./Sidebar";
+import Topbar from "./Topbar";
+import FlashToasts from '../components/ui/FlashToast'
 
 export default function BackofficeLayout({
   children,
@@ -16,8 +17,9 @@ export default function BackofficeLayout({
     setIsSidebarOpen(false);
   }, [title]);
 
-  return (
+  return ( 
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(45,167,223,0.18),_transparent_30%),linear-gradient(180deg,_var(--color-brand-surface)_0%,_#ffffff_100%)] text-[var(--color-brand-black)]">
+      <FlashToasts />
       <Head title={title} />
 
       <Sidebar

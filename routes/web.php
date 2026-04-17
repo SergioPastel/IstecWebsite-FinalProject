@@ -112,33 +112,8 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::get('/contacts', [ContactController::class, 'adminIndex'])->name('backoffice.contacts');
 
     // Users and settings base pages
-    Route::get('/users', function () {
-        return Inertia('back/pages/users/Index', [
-            'users' => [
-                [
-                    'id' => 1,
-                    'name' => 'Ana Martins',
-                    'email' => 'ana.martins@istec.pt',
-                    'status' => 'Ativo',
-                    'roles' => ['Administracao', 'Conteudos'],
-                ],
-                [
-                    'id' => 2,
-                    'name' => 'Bruno Silva',
-                    'email' => 'bruno.silva@istec.pt',
-                    'status' => 'Ativo',
-                    'roles' => ['Eventos'],
-                ],
-                [
-                    'id' => 3,
-                    'name' => 'Catarina Lopes',
-                    'email' => 'catarina.lopes@istec.pt',
-                    'status' => 'Pendente',
-                    'roles' => ['Admissions'],
-                ],
-            ],
-        ]);
-    })->name('backoffice.users');
+    Route::get('/users', [DashboardController::class, 'users'])->name('backoffice.users');
+    Route::delete('/users/{user:id}', [DashboardController::class, 'destroyUser'])->name('backoffice.users.destroy');
 
     Route::get('/settings', function () {
         return Inertia('back/pages/settings/Index', [
