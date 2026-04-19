@@ -73,12 +73,5 @@ class Course extends Model
         return $this->hasMany(Application::class);
     }
 
-    public static function boot()
-    {
-        parent::boot();
 
-        static::creating(function ($model) {
-            $model->id = Str::uuid();
-        });
-    }
 }

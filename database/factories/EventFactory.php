@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\EventCategory;
 use App\Models\Media;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -27,6 +28,7 @@ class EventFactory extends Factory
 
         return [
             'media_id' => Media::factory()->create(),
+            'event_category_id' => EventCategory::inRandomOrder()->first()?->id,
             'start_date' => $startDate,
             'end_date' => $endDate,
             'location' => fake()->address(),

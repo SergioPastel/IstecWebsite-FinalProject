@@ -41,12 +41,5 @@ class Subject extends Model
         return $this->belongsToMany(Semester::class)
             ->withTimestamps();
     }
-    public static function boot()
-    {
-        parent::boot();
 
-        static::creating(function ($model) {
-            $model->id = Str::uuid();
-        });
-    }
 }

@@ -40,12 +40,5 @@ class CourseCategory extends Model
     {
         return $this->hasMany(Course::class);
     }
-    public static function boot()
-    {
-        parent::boot();
 
-        static::creating(function ($model) {
-            $model->id = Str::uuid();
-        });
-    }
 }

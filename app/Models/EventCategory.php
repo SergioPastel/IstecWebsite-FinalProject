@@ -6,16 +6,11 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
-class DepartmentInfo extends Model
+class EventCategory extends Model
 {
-    use HasUuids, HasTranslations;
+    use HasTranslations, HasUuids;
 
-    protected $fillable = [
-        'title',
-        'phone',
-        'phone_alt',
-        'email'
+    public $translatable = [
+        'title'
     ];
-
-
 }

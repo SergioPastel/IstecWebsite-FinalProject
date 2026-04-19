@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Media;
+use App\Models\NewsCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +20,7 @@ class NewsFactory extends Factory
     {
         return [
             'media_id' => Media::factory()->create(),
+            'news_category_id' => NewsCategory::inRandomOrder()->first(),
             'title' => [
                 'pt' => fake()->word(),
                 'en' => fake()->word(),
