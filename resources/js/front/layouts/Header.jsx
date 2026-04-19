@@ -4,6 +4,7 @@ import { Link, router, usePage } from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
 import { route } from "ziggy-js";
 
+
 function Header({}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -134,8 +135,7 @@ function Header({}) {
       titleKey: "istecPorto",      
       children: [
         { href: route("home"), labelKey: "home" },
-        { href: route('terms'), labelKey: "terms" },
-        { href: route('privacy'), labelKey: "privacy" },
+        { href: route("about"), labelKey: "aboutIstec" },
       ],
     },
     {

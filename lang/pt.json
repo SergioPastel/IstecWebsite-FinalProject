@@ -19,6 +19,14 @@
             "workshopsReal": "Workshops e experiências reais para te preparar para o mercado.",
             "viewEvents": "Ver eventos"
         },
+        "about": {
+            "cta": {
+                "title": "Queres saber mais?",
+                "description": "Entra em contacto connosco para mais informações sobre cursos, candidaturas ou a instituição.",
+                "contactButton": "Contactar",
+                "coursesButton": "Ver cursos"
+            }
+        },
         "applications": {
             "title": "Candidaturas",
             "description": "Submeter candidatura"
@@ -205,6 +213,7 @@
     },
     "nav": {
         "home": "Início",
+        "aboutIstec": "Sobre ISTEC",
         "mission": "Finalidade e Projeto Educativo",
         "orgaos": "Órgãos do Instituto",
         "organograma": "Organograma",
