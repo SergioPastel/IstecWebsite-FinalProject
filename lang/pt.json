@@ -296,6 +296,10 @@
             "notFound": "Evento não encontrado"
         }
     },
+    "pagination": {
+        "previous": "Anterior",
+        "next": "Seguinte"
+    },
     "contacts": {
         "contacts": "Contactos",
         "subtitle": "Estamos disponíveis para responder às tuas perguntas.",
@@ -320,6 +324,7 @@
         "termsConditions": "Termos e Condições",
         "requestInfo": "Pedir Informações",
         "copyright": "© {{ year }} ISTEC Porto. Todos os direitos reservados.",
-        "developed": "Desenvolvido para projeto académico"
+        "developed": "Desenvolvido para projeto académico",
+        "fixedLineNote": "Custo de chamada para rede fixa/móvel nacional, de acordo com o seu tarifário"
     }
 }

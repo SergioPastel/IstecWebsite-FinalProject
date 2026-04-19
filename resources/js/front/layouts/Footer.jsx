@@ -79,7 +79,7 @@ export default function Footer() {
                 <div>
                   <span>{t('footer.phone')}</span>
                   <p className="text-xs text-gray-500 mt-1">
-                    {t('footer.callCost', 'Chamada para a rede fixa nacional')}
+                    {t("footer.fixedLineNote")}
                   </p>
                 </div>
               </li>
