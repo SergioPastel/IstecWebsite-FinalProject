@@ -269,7 +269,7 @@ export default function CtespIndex({ courses, filters = {} }) {
                                                                 course_id: course.id,
                                                             });
                                                             
-                                                            router.visit(route('applications.applyCourse', course));
+                                                            router.visit(route('applications.courses.apply', course));
                                                         }}
                                                     >
                                                         Candidatar-me

@@ -10,8 +10,10 @@ use App\Models\Event;
 use App\Http\Resources\CourseCategoryResource;
 use App\Http\Resources\CourseResource;
 use App\Http\Resources\EventResource;
+use App\Models\EventCategory;
 use App\Http\Requests\StoreApplicationRequest;
 use App\Http\Requests\StoreEventApplicationRequest;
+use App\Http\Resources\EventCategoryResource;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicationReceived;
 use App\Mail\ApplicationAutoReply;
@@ -41,13 +43,20 @@ class ApplicationController extends Controller
         ]);
     }
 
-    public function applyEvent(Event $event) // possibly nullable? Check later
+    public function applyEvent(?Event $event = null)
     {
-        $events = EventResource::collection(Event::all())->resolve();
+        if ($event) {
+            $event->load('category');
+        }
+
+        $eventCategories = EventCategoryResource::collection(
+            EventCategory::with('events')->get()
+        )->resolve();
+
 
         return Inertia('front/pages/applications/ApplicationsEvents', [
             'event' => $event,
-            'events' => $events,
+            'eventCategories' => $eventCategories
         ]);
     }
 

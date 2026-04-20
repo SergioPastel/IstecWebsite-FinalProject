@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use App\Http\Resources\SiteInfoResource;
 use App\Models\SiteInfo;
-use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;

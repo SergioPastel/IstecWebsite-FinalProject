@@ -13,4 +13,9 @@ class EventCategory extends Model
     public $translatable = [
         'title'
     ];
+
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'event_category_id');
+    }
 }

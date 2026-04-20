@@ -20,7 +20,7 @@ class NewsFactory extends Factory
     {
         return [
             'media_id' => Media::factory()->create(),
-            'news_category_id' => NewsCategory::inRandomOrder()->first(),
+            'news_category_id' => NewsCategory::inRandomOrder()->first()->id,
             'title' => [
                 'pt' => fake()->word(),
                 'en' => fake()->word(),

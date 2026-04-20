@@ -20,7 +20,7 @@ class EventResource extends JsonResource
         return [
             'id' => $this->id,
             'media' => $this->media_id ? new MediaResource($this->media) : null,
-            'category' => $this->category()->getTranslation('title', $locale) ?: $this->getTranslation('title', 'pt'),
+            'category' => $this->category->getTranslation('title', $locale) ?: $this->getTranslation('title', 'pt'),
             'title' => $this->getTranslation('title', $locale) ?: $this->getTranslation('title', 'pt'),
             'description' => $this->getTranslation('description', $locale) ?: $this->getTranslation('description', 'pt'),
             'location' => $this->location,

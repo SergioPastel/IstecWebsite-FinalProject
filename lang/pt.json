@@ -177,7 +177,8 @@
             "finalSummaryTitle": "Resumo final",
             "selectedCategoryLabel": "Categoria escolhida:",
             "submittedFor": "Submeteu uma candidatura para",
-            "invalidIdentificationNumber": "O número de identificação tem de ter exatamente 9 dígitos."
+            "invalidIdentificationNumber": "O número de identificação tem de ter exatamente 9 dígitos.",
+            "desiredEventLabel": "Evento desejado"
         }
     },
     "header": {

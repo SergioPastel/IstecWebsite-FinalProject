@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Layout from "../../layouts/Layout";
 import { Link, router, Head } from '@inertiajs/react';
@@ -7,7 +7,8 @@ export default function ApplicationsEvents({
   setPage,
   language,
   setLanguage,
-  events = [],
+  event,
+  eventCategories = []
 }) {
   const { t } = useTranslation();
   const steps = [
@@ -19,7 +20,7 @@ export default function ApplicationsEvents({
   const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
-    event_category: "",
+    event_category: "all",
     applicable_id: "",
     first_name: "",
     last_name: "",
@@ -29,27 +30,29 @@ export default function ApplicationsEvents({
     terms: false,
   });
 
-  const eventCategories = useMemo(
-    () => [
-      {
-        id: "all-events",
-        title: t("applicationsForm.event.categoryAll"),
-        events,
-      },
-    ],
-    [events, t]
-  );
-
   const availableEvents = useMemo(() => {
     if (!formData.event_category) return [];
+
+    // For all the events
+    if (formData.event_category === "all") {
+      return eventCategories.flatMap((category) => category.events || []);
+    }
+
     const selectedCategory = eventCategories.find(
-      (category) => category.id === formData.event_category
+      (category) =>
+        String(category.id) === String(formData.event_category)
     );
-    return selectedCategory ? selectedCategory.events : [];
+
+    return selectedCategory?.events || [];
   }, [formData.event_category, eventCategories]);
 
   const selectedCategoryName = useMemo(() => {
     if (!formData.event_category) return "";
+
+    if (formData.event_category === "all") {
+      return t("applicationsForm.event.categoryAll");
+    }
+
     const selectedCategory = eventCategories.find(
       (category) => category.id === formData.event_category
     );
@@ -137,6 +140,27 @@ export default function ApplicationsEvents({
     console.log("Candidatura a evento submetida:", formData);
     setCurrentStep(3);
   };
+
+  useEffect(() => {
+      // This effect ensures that when the course prop arrives or changes, it is synced to the current form data.
+      
+      // useState(initialValue) only runs ONCE on first render.
+      // If course is loaded asynchronously or changes later,
+      // the state will NOT update automatically without this effect.
+  
+      if (event) {
+        setFormData((prev) => ({
+          ...prev,
+  
+          // Convert IDs to strings because <select> values are strings in HTML
+          event_category: event.event_category_id
+            ? String(event.event_category_id)
+            : "all",
+  
+          applicable_id: event.id ? String(event.id) : "",
+        }));
+      }
+    }, [event]);
 
   const pageTitle = t("applicationsForm.event.pageTitle");
 
@@ -241,9 +265,11 @@ export default function ApplicationsEvents({
                           }}
                           className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-[#0d8fe8]"
                         >
-                          <option value="">{t("applicationsForm.event.selectCategoryOption")}</option>
+                          <option value="all">
+                            {t("applicationsForm.event.categoryAll")}
+                          </option>
                           {eventCategories.map((category) => (
-                            <option key={category.id} value={category.id}>
+                            <option key={category.id} value={String(category.id)}>
                               {category.title}
                             </option>
                           ))}
