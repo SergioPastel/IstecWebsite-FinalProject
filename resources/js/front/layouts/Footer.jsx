@@ -52,7 +52,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href={route("applications.applyCourse")}
+                  href={route("applications.courses.apply")}
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >
                   {t('footer.applications')}

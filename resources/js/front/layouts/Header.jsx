@@ -145,7 +145,7 @@ function Header({}) {
         { href: route('courses.ctesp'), labelKey: "ctesp" },
         { href: route('courses.licenciatura'), labelKey: "licenciatura" },
         { href: "/pos-graduacao", labelKey: "pos-graduacao" },    
-        { href: route('applications.applyCourse'), labelKey: "applications" },
+        { href: route('applications.courses.apply'), labelKey: "applications" },
       ],
     },
     {
@@ -157,7 +157,7 @@ function Header({}) {
         { href: route("events.openDays"), labelKey: "events-open-days" },
         { href: route("news.interviews"), labelKey: "news-interviews" },
         { href: route("news.statements"), labelKey: "news-press" },
-        { href: route('applications.applyEvent'), labelKey: "applications-events" },
+        { href: route('applications.events.apply'), labelKey: "applications-events" },
       ],
     },
     {

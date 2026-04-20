@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Http\Resources\SiteInfoResource;
 use App\Models\SiteInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Inertia\Middleware;
 
@@ -55,6 +56,7 @@ class HandleInertiaRequests extends Middleware
             'locale' => app()->getLocale(),
             'languages' => config('app.available_locales'),
             'siteInfo' => $siteInfo,
+            'user' => Auth::user(),
             // For the toast notifs
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),

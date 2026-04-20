@@ -1,8 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { router } from '@inertiajs/react';
 import Layout from "../../layouts/Layout";
-import { Link } from '@inertiajs/react';
+import { router, Link, usePage } from "@inertiajs/react";
 
 export default function ApplicationsCourse({
   course,
@@ -17,6 +16,11 @@ export default function ApplicationsCourse({
     t("applicationsForm.course.steps.4"),
   ];
   const [errors, setErrors] = useState({});
+
+  const { flash } = usePage().props;
+  const successMessage = flash?.success;
+  const errorMessage = flash?.error;
+  const hasResult = Boolean(successMessage || errorMessage);
 
   const pageTitle = t("applicationsForm.course.pageTitle");
   const selectionLabel = t("applicationsForm.course.selectionLabel");
@@ -129,37 +133,48 @@ export default function ApplicationsCourse({
 
   const nextStep = () => {
     if (currentStep === 1 && !validateStep1()) return;
-    if (currentStep < 4) setCurrentStep((prev) => prev + 1);
+    if (currentStep < 3) setCurrentStep((prev) => prev + 1);
   };
 
   const prevStep = () => {
-    if (currentStep > 1) setCurrentStep((prev) => prev - 1);
+    if (currentStep > 1 && currentStep !== 4) {
+      setFormData((prev) => ({  // This is needed to disable terms. Otherwise there is a bug that'll auto-submit 
+                                // the form if the user goes back and forth. (I have tried fixing it for HOURS...)
+            ...prev,
+            terms: false,
+          }));
+
+      setCurrentStep((prev) => prev - 1);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (currentStep === 3) {
-      if (!validateStep3()) return;
-      setCurrentStep(4);
-    } else if (currentStep === 4) {
-      // Submit the application
-      const data = new FormData();
-      data.append('course_id', formData.applicable_id);
-      data.append('full_name', `${formData.first_name} ${formData.last_name}`);
-      data.append('email', formData.email);
-      data.append('phone', formData.phone);
-      data.append('birth_date', formData.birth_date);
-      data.append('course_category_id', formData.course_level);
-      data.append('motivation', formData.notes); // assuming notes is motivation
-      if (formData.cv_file) data.append('cv_file', formData.cv_file);
-      if (formData.identification_file) data.append('identification_file', formData.identification_file); // but backend doesn't handle
-      if (formData.certificate_file) data.append('certificate_file', formData.certificate_file); // not handled
+    if (currentStep !== 3) return;
 
-      router.post('/applications/courses', data, {
-        forceFormData: true,
-      });
+    if (!validateStep3()) return;
+
+    const data = new FormData();
+    data.append("course_id", formData.applicable_id);
+    data.append("full_name", `${formData.first_name} ${formData.last_name}`);
+    data.append("email", formData.email);
+    data.append("phone", formData.phone);
+    data.append("birth_date", formData.birth_date);
+    data.append("course_category_id", formData.course_level);
+    data.append("motivation", formData.notes);
+
+    if (formData.cv_file) data.append("cv_file", formData.cv_file);
+    if (formData.identification_file) {
+      data.append("identification_file", formData.identification_file);
     }
+    if (formData.certificate_file) {
+      data.append("certificate_file", formData.certificate_file);
+    }
+
+    router.post(route("applications.courses.store"), data, {
+      forceFormData: true,
+    });
   };
 
   useEffect(() => {
@@ -182,6 +197,17 @@ export default function ApplicationsCourse({
       }));
     }
   }, [course]);
+
+  useEffect(() => { // Another useEffect. When the page is redirected back to this form after submission, 
+                    // if it has a success/error flash, move to the final step to show the message instead of showing the form again.
+    const timer = setTimeout(() => { // timer is needed to wait for the flash messages
+      if (flash?.success || flash?.error) {
+        setCurrentStep(4);
+      }
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, [flash]);
 
   return (
     <Layout title={pageTitle}>
@@ -251,7 +277,9 @@ export default function ApplicationsCourse({
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="px-4 py-8 sm:px-10">
+            <form 
+              onSubmit={handleSubmit} 
+              className="px-4 py-8 sm:px-10">
               {currentStep === 1 && (
                 <div className="space-y-6">
                   <div>
@@ -522,30 +550,76 @@ export default function ApplicationsCourse({
 
               {currentStep === 4 && (
                 <div className="space-y-6">
-                  <div>
-                    <h2 className="text-2xl font-bold text-slate-900">
-                      {t("applicationsForm.course.sectionFourTitle")}
-                    </h2>
-                    <p className="mt-2 text-sm text-slate-500">
-                      {t("applicationsForm.course.sectionFourDescription")}
-                    </p>
-                  </div>
+                  {successMessage && (
+                    <div className="rounded-2xl border border-green-200 bg-green-50 p-8 text-center">
+                      <div className="text-5xl">🎉</div>
 
-                  <div className="rounded-2xl border border-[#d8ebfb] bg-[#f7fbff] p-6 shadow-sm">
-                    <h3 className="text-lg font-bold text-slate-900">
-                      {t("applicationsForm.course.finalSummaryTitle")}
-                    </h3>
+                      <h2 className="mt-4 text-2xl font-bold text-green-800">
+                        {t("applicationsForm.course.successTitle", "Application submitted")}
+                      </h2>
 
-                    {selectedLevelName && (
-                      <p className="mt-2 text-sm text-slate-600">
-                        {t("applicationsForm.course.selectedLevelLabel")} <strong>{selectedLevelName}</strong>
+                      <p className="mt-2 text-sm text-green-700">
+                        {successMessage}
                       </p>
-                    )}
 
-                    <p className="mt-2 text-sm text-slate-600">
-                      {t("applicationsForm.course.submittedFor")} <strong>{selectedName || t("applicationsForm.common.noSelection")}</strong>.
-                    </p>
-                  </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setCurrentStep(1);
+                          setFormData({
+                            course_level: "",
+                            applicable_id: "",
+                            first_name: "",
+                            last_name: "",
+                            email: "",
+                            phone: "",
+                            birth_date: "",
+                            identification_number: "",
+                            notes: "",
+                            cv_file: null,
+                            identification_file: null,
+                            certificate_file: null,
+                            terms: false,
+                          });
+                        }}
+                        className="mt-6 rounded-xl bg-green-600 px-6 py-3 text-sm font-semibold text-white hover:bg-green-700"
+                      >
+                        {t("applicationsForm.common.newApplication", "New application")}
+                      </button>
+                    </div>
+                  )}
+
+                  {errorMessage && (
+                    <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center">
+                      <div className="text-5xl">⚠️</div>
+
+                      <h2 className="mt-4 text-2xl font-bold text-red-800">
+                        {t("applicationsForm.course.errorTitle", "Submission failed")}
+                      </h2>
+
+                      <p className="mt-2 text-sm text-red-700">
+                        {errorMessage}
+                      </p>
+
+                      <div className="mt-6 flex justify-center gap-3">
+                        <button
+                          type="button"
+                          onClick={() => setCurrentStep(3)}
+                          className="rounded-xl bg-red-600 px-6 py-3 text-sm font-semibold text-white hover:bg-red-700"
+                        >
+                          {t("applicationsForm.common.tryAgain", "Try again")}
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setCurrentStep(1)}
+                          className="rounded-xl border border-red-300 px-6 py-3 text-sm font-semibold text-red-700 hover:bg-red-100"
+                        >
+                          {t("applicationsForm.common.restart", "Restart")}
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -563,7 +637,7 @@ export default function ApplicationsCourse({
                   {t("applicationsForm.common.stepCounter", { current: currentStep, total: 4 })}
                 </div>
 
-                {currentStep < 4 ? (
+                {currentStep < 3 ? (
                   <button
                     type="button"
                     onClick={nextStep}
@@ -571,14 +645,15 @@ export default function ApplicationsCourse({
                   >
                     {t("applicationsForm.common.next")}
                   </button>
-                ) : (
+                ) : currentStep === 3 ? (
                   <button
                     type="submit"
-                    className="rounded-xl bg-[#0d8fe8] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                    disabled={!formData.terms}
+                    className="rounded-xl bg-[#0d8fe8] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     {t("applicationsForm.common.submitApplication")}
                   </button>
-                )}
+                ) : null}
               </div>
             </form>
           </div>

@@ -29,8 +29,9 @@ class StoreApplicationRequest extends FormRequest
             'phone' => ['required', 'string', 'max:30'],
             'birth_date' => ['nullable', 'date'],
             'academic_level' => ['nullable', 'string', 'max:255'],
-            'motivation' => ['nullable', 'string'],
             'cv_file' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:4096'],
+            'id_file' => ['nullable', 'file', 'mimes:pdf,doc,docx,png,jpg,jpeg', 'max:4096'],
+            'certificate' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:4096']
         ];
     }
 }

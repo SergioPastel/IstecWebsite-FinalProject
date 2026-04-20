@@ -188,10 +188,10 @@ Route::get('/noticias/comunicados', [NewsController::class, 'statements'])->name
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 // Application routes, course and event are nullable
-Route::get('/applications/applyCourse/{course?}', [ApplicationController::class, 'applyCourse'])->name('applications.applyCourse'); // Has no course id or slug, because the page is shared and thus the user may not have any course or may change mid-form
-Route::post('/applications/courses', [ApplicationController::class, 'storeCourse'])->name('applications.storeCourse');
-Route::get('/applications/applyEvent{event?}', [ApplicationController::class, 'applyEvent'])->name('applications.applyEvent');
-Route::post('/applications/events', [ApplicationController::class, 'storeEvent'])->name('applications.storeEvent');
+Route::get('/applications/applyCourse/{course?}', [ApplicationController::class, 'applyCourse'])->name('applications.courses.apply'); // Has no course id or slug, because the page is shared and thus the user may not have any course or may change mid-form
+Route::post('/applications/courses', [ApplicationController::class, 'storeCourse'])->name('applications.courses.store');
+Route::get('/applications/applyEvent{event?}', [ApplicationController::class, 'applyEvent'])->name('applications.events.apply');
+Route::post('/applications/events', [ApplicationController::class, 'storeEvent'])->name('applications.events.store');
 
 Route::get('/contacts', [ContactController::class, 'create'])->name('contacts');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
