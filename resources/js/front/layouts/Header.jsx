@@ -145,7 +145,7 @@ function Header({}) {
         { href: route('courses.ctesp'), labelKey: "ctesp" },
         { href: route('courses.licenciatura'), labelKey: "licenciatura" },
         { href: "/pos-graduacao", labelKey: "pos-graduacao" },
-        { href: route('applications.applyCourse'), labelKey: "applications" },
+        { href: route('applications.courses.apply'), labelKey: "applications" },
       ],
     },
     {
@@ -153,7 +153,7 @@ function Header({}) {
       titleKey: "eventsAndNews",
       children: [
         { href: route("eventsandnews"), labelKey: "eventos-e-noticias" },
-        { href: route('applications.applyEvent'), labelKey: "applications-events" },
+        { href: route('applications.events.apply'), labelKey: "applications-events" },
       ],
     },
     {
