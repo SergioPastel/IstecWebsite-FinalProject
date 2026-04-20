@@ -2,7 +2,7 @@ import Layout from "../../layouts/Layout";
 import { useForm, usePage } from "@inertiajs/react";
 import { useTranslation } from 'react-i18next';
 
-export default function Contacts({ infoCards, departmentContacts }) {
+export default function Contacts({departmentContacts }) {
   const { flash } = usePage().props;
 
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ export default function Contacts({ infoCards, departmentContacts }) {
     <Layout title={t("contacts.contacts")}>
       <div className="min-h-screen bg-[#f3f5f8]">
         <main className="pt-28">
-          
+
           {/* HERO */}
           <section className="h-[500px] md:h-[600px] flex items-center bg-[#1697e6] text-white">
             <div className="max-w-7xl mx-auto px-6 md:px-10">
@@ -45,20 +45,8 @@ export default function Contacts({ infoCards, departmentContacts }) {
             </div>
           </section>
 
-          {/* INFO CARDS */}
-          <section className="-mt-20 pb-16">
-            <div className="max-w-7xl mx-auto px-6 md:px-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-              {infoCards.map((item, i) => (
-                <div key={i} className="bg-white p-6 rounded-2xl shadow-md">
-                  <h3 className="font-bold mb-2">{item.title}</h3>
-                  <p className="text-gray-600 text-sm">{item.value}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
           {/* DEPARTAMENTOS */}
-          <section className="pb-16">
+          <section className="pt-16 pb-16">
             <div className="max-w-7xl mx-auto px-6 md:px-10 text-center mb-10">
               <h2 className="text-3xl font-bold text-[#1697e6]">
                 {t("contacts.departments")}
@@ -68,6 +56,7 @@ export default function Contacts({ infoCards, departmentContacts }) {
             <div className="max-w-7xl mx-auto px-6 md:px-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
               {departmentContacts.map((dept, i) => (
                 <div key={i} className="bg-white p-6 rounded-2xl shadow">
+                  {console.log(dept)}
                   <h3 className="font-bold mb-4">{dept.title}</h3>
                   <p className="text-sm text-gray-600 mb-4">{dept.email}</p>
 
