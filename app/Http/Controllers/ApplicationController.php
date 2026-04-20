@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicationReceived;
 use App\Mail\ApplicationAutoReply;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 
 class ApplicationController extends Controller
