@@ -1,14 +1,14 @@
 import Layout from "../../layouts/Layout";
-import { Link } from "@inertiajs/react";
-import { useTranslation } from 'react-i18next';
+import { Link, usePage } from "@inertiajs/react";
+import { useTranslation } from "react-i18next";
 
 export default function About() {
   const { t } = useTranslation();
+  const { props: pageProps } = usePage();
 
   return (
     <Layout title={t("about.metaTitle", "Sobre ISTEC")}>
       <main className="w-full bg-white text-[#1f2937]">
-
         {/* HERO */}
         <section className="mt-[120px]">
           <div className="bg-gradient-to-r from-[#0b7fd1] to-[#1597ec] text-white">
@@ -24,7 +24,7 @@ export default function About() {
               <p className="mt-6 max-w-[700px] text-white/90 leading-relaxed">
                 {t(
                   "about.hero.description",
-                  "O ISTEC Porto é uma instituição de ensino superior focada na inovação, na formação prática e na ligação direta ao mercado de trabalho."
+                  "O ISTEC Porto é uma instituição de ensino superior focada na inovação, na formação prática e na ligação direta ao mercado de trabalho.",
                 )}
               </p>
             </div>
@@ -39,18 +39,9 @@ export default function About() {
             </h2>
 
             <p className="text-lg text-[#4b5563] leading-relaxed mb-6">
-              {t(
-                "about.section.aboutText1",
-                "O ISTEC Porto integra uma rede de ensino superior orientada para a tecnologia, inovação e desenvolvimento de competências práticas."
-              )}
+              {pageProps.siteInfo.mission}
             </p>
 
-            <p className="text-lg text-[#4b5563] leading-relaxed">
-              {t(
-                "about.section.aboutText2",
-                "A nossa missão passa por preparar profissionais qualificados, promovendo o contacto direto com o mercado e experiências reais ao longo do percurso académico."
-              )}
-            </p>
           </div>
         </section>
 
@@ -62,53 +53,43 @@ export default function About() {
             </h2>
 
             <p className="text-lg text-[#4b5563] leading-relaxed mb-6">
-              {t(
-                "about.section.missionText1",
-                "Promover uma formação de excelência baseada na inovação, proximidade ao estudante e ligação ao tecido empresarial."
-              )}
+              {pageProps.siteInfo.mission}
             </p>
-
-            <p className="text-lg text-[#4b5563] leading-relaxed">
-              {t(
-                "about.section.missionText2",
-                "Valorizamos o rigor académico, a responsabilidade social e o desenvolvimento contínuo de competências."
-              )}
-            </p>
+            
           </div>
         </section>
 
         {/* CONTACTO RÁPIDO */}
         <section className="py-16">
-            <div className="max-w-[1200px] mx-auto px-6 text-center">
-                <h2 className="text-3xl font-extrabold mb-4">
-                {t("about.cta.title", "Queres saber mais?")}
-                </h2>
+          <div className="max-w-[1200px] mx-auto px-6 text-center">
+            <h2 className="text-3xl font-extrabold mb-4">
+              {t("about.cta.title", "Queres saber mais?")}
+            </h2>
 
-                <p className="text-[#6b7280] mb-8">
-                {t(
-                    "about.cta.description",
-                    "Entra em contacto connosco para mais informações sobre cursos, candidaturas ou a instituição."
-                )}
-                </p>
+            <p className="text-[#6b7280] mb-8">
+              {t(
+                "about.cta.description",
+                "Entra em contacto connosco para mais informações sobre cursos, candidaturas ou a instituição.",
+              )}
+            </p>
 
-                <div className="flex flex-wrap items-center justify-center gap-4">
-                <Link
-                    href={route("contacts")}
-                    className="inline-flex items-center justify-center bg-[#0d8fe8] text-white px-6 py-3 rounded-full font-bold hover:bg-[#0a78c4] transition"
-                >
-                    {t("about.cta.contactButton", "Contactar")}
-                </Link>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <Link
+                href={route("contacts")}
+                className="inline-flex items-center justify-center bg-[#0d8fe8] text-white px-6 py-3 rounded-full font-bold hover:bg-[#0a78c4] transition"
+              >
+                {t("about.cta.contactButton", "Contactar")}
+              </Link>
 
-                <Link
-                    href={route("courses")}
-                    className="inline-flex items-center justify-center border border-[#0d8fe8] text-[#0d8fe8] px-6 py-3 rounded-full font-bold hover:bg-[#eef6ff] transition"
-                >
-                    {t("about.cta.coursesButton", "Ver cursos")}
-                </Link>
-                </div>
+              <Link
+                href={route("courses")}
+                className="inline-flex items-center justify-center border border-[#0d8fe8] text-[#0d8fe8] px-6 py-3 rounded-full font-bold hover:bg-[#eef6ff] transition"
+              >
+                {t("about.cta.coursesButton", "Ver cursos")}
+              </Link>
             </div>
+          </div>
         </section>
-
       </main>
     </Layout>
   );
