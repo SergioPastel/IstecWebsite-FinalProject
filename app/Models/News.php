@@ -13,6 +13,7 @@ class News extends Model
     /** @use HasFactory<\Database\Factories\NewsFactory> */
     use HasUuids, HasFactory, HasTranslations;
     protected $fillable = [
+        'news_category_id',
         'media_id',
         'title',
         'description',
@@ -31,6 +32,11 @@ class News extends Model
         'description'
     ];
 
+    public function category()
+    {
+        return $this->hasOne(NewsCategory::class);
+    }
+
     /**
      * Summary of media
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Media, News>
@@ -40,12 +46,5 @@ class News extends Model
         return $this->belongsTo(Media::class);
     }
 
-    public static function boot()
-    {
-        parent::boot();
 
-        static::creating(function ($model) {
-            $model->id = Str::uuid();
-        });
-    }
 }

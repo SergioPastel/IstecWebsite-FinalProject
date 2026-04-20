@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Http\Resources\SiteInfoResource;
 use App\Models\SiteInfo;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
@@ -53,6 +54,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
 
             // these key:value pairs are shared in pages' props
+            'user' => Auth::user(),
             'locale' => app()->getLocale(),
             'languages' => config('app.available_locales'),
             'siteInfo' => $siteInfo,

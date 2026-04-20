@@ -35,12 +35,5 @@ class Semester extends Model
         return $this->belongsToMany(Subject::class)
             ->withTimestamps();
     }
-    public static function boot()
-    {
-        parent::boot();
 
-        static::creating(function ($model) {
-            $model->id = Str::uuid();
-        });
-    }
 }

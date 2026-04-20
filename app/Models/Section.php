@@ -27,12 +27,5 @@ class Section extends Model
         return $this->belongsTo(Page::class);
     }
 
-    public static function boot()
-    {
-        parent::boot();
 
-        static::creating(function ($model) {
-            $model->id = Str::uuid();
-        });
-    }
 }

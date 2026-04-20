@@ -13,13 +13,14 @@ return new class extends Migration {
         Schema::create('events', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('media_id')->nullable()->constrained('media');
+            $table->foreignUuid('event_category_id')->constrained('event_categories');
 
+            $table->unsignedInteger('applications')->default(0);
             $table->dateTime('start_date');
             $table->dateTime('end_date')->nullable();
             $table->string('location');
             $table->json('title');
             $table->json('description');
-            $table->json('category')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

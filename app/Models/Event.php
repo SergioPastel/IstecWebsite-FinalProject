@@ -15,6 +15,7 @@ class Event extends Model
     use HasUuids, HasFactory, HasTranslations, SoftDeletes;
     protected $fillable = [
         'media_id',
+        'event_category_id',
         'title',
         'description',
         'location',
@@ -30,6 +31,10 @@ class Event extends Model
      * the translated text
      * @var array
      */
+
+    public function category(){
+        return $this->hasOne(EventCategory::class);
+    }
     public $translatable = [
         'title',
         'description',
@@ -48,12 +53,5 @@ class Event extends Model
         return $this->belongsTo(Media::class);
     }
 
-    public static function boot()
-    {
-        parent::boot();
 
-        static::creating(function ($model) {
-            $model->id = Str::uuid();
-        });
-    }
 }
