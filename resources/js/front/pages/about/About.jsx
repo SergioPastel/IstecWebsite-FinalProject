@@ -1,5 +1,5 @@
 import Layout from "../../layouts/Layout";
-import { useForm, usePage } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 import { useTranslation } from 'react-i18next';
 
 export default function About() {
