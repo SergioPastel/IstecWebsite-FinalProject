@@ -21,11 +21,13 @@ return new class extends Migration
             $table->foreignUuid('favicon_media_id')->constrained('media');
 
             $table->json('slogan');
+            $table->json('mission');
+            $table->json('whoWeAre');
             $table->string('site_name');
             $table->string('phone_number');
             $table->string('email');
             $table->string('address');
-            
+
             $table->timestamps();
         });
     }

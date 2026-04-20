@@ -29,6 +29,36 @@ class SiteInfoSeeder extends Seeder
                 'pt' => 'Instituto Superior de Tecnologias Avançadas do Porto, com foco na inovação, formação prática e proximidade ao mercado.',
                 'en' => 'Higher Institute of Advanced Technologies of Porto, focused on innovation, practical training and proximity to the market.',
             ],
+            'mission' => [
+                'pt' => [
+                    [
+                        'title' => ,
+                        'description' => ,
+                    ]
+                ],
+                'en' => [
+                    [
+                        'title' => ,
+                        'description' => ,
+                    ]
+                ],
+
+            ],
+            'whoWeAre' => [
+                'pt' => [
+                    [
+                        'title' => ,
+                        'description' => ,
+                    ]
+                ],
+                'en' => [
+                    [
+                        'title' => ,
+                        'description' => ,
+                    ]
+                ],
+
+            ],
             'site_name' => config('app.name'),
             // TODO: adding spaces between icon and text does nothing as of now
             'phone_number' =>   '📞+351 225 193 220',
