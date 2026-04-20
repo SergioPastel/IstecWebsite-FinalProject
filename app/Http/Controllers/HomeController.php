@@ -74,7 +74,7 @@ class HomeController extends Controller
      */
     public function about()
     {
-        return Inertia("front/pages/About");
+        return Inertia("front/pages/about/About");
     }
 
 }

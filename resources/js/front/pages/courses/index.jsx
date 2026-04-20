@@ -63,7 +63,7 @@ export default function CoursesIndex({ courses, categories, filters }) {
 
     return (
         <Layout title={t("courses.title")}>
-            <div className="w-full bg-slate-50/60">
+            <div className="pt-22 w-full bg-slate-50/60">
                 <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 pb-12 pt-24 sm:px-6 lg:px-8">
                     {/* Header + search */}
                     <header className="space-y-4">
