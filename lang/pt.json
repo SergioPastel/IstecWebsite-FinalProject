@@ -316,6 +316,36 @@
         "location": "Onde estamos localizados",
         "message": "Envia-nos uma mensagem"
     },
+    "erasmusPage": {
+        "title": "Erasmus+",
+        "subtitle": "Programa de Mobilidade",
+        "description": "Descobre oportunidades de mobilidade académica internacional e enriquece o teu percurso.",
+        "studyTitle": "Estuda além-fronteiras",
+        "studyText1": "O programa Erasmus+ permite estudar numa instituição parceira.",
+        "studyText2": "Promove autonomia, intercâmbio cultural e desenvolvimento académico.",
+        "benefitsTitle": "Vantagens do programa",
+        "benefits": [
+            "Experiência internacional",
+            "Desenvolvimento pessoal",
+            "Novas metodologias",
+            "Melhor empregabilidade"
+        ]
+        },
+    "pedagogyPage": {
+        "title": "Pedagogia XXI",
+        "subtitle": "ISTEC PORTO",
+        "description": "A área pedagógica foca-se na inovação no ensino e aprendizagem centrada no estudante.",
+        "impactTitle": "Ensino com impacto",
+        "impactText1": "Práticas educativas modernas com participação ativa.",
+        "impactText2": "Foco na aplicação prática do conhecimento.",
+        "objectivesTitle": "Objetivos pedagógicos",
+        "objectives": [
+            "Inovação pedagógica",
+            "Melhorar qualidade",
+            "Apoiar docentes",
+            "Aprendizagem ativa"
+        ]
+        },
     "footer": {
         "istecPorto": "ISTEC Porto",
         "description": "Instituto Superior de Tecnologias Avançadas do Porto, com foco na inovação, formação prática e proximidade ao mercado.",

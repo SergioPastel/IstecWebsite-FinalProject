@@ -324,6 +324,36 @@
         "location": "Where we're located",
         "message": "Send us a message"
     },
+    "erasmusPage": {
+        "title": "Erasmus+",
+        "subtitle": "Mobility Program",
+        "description": "Discover international academic mobility opportunities and enrich your journey with a unique experience abroad.",
+        "studyTitle": "Study abroad",
+        "studyText1": "The Erasmus+ program gives students the opportunity to study at a partner institution.",
+        "studyText2": "It promotes autonomy, cultural exchange and academic development.",
+        "benefitsTitle": "Program benefits",
+        "benefits": [
+            "International experience",
+            "Personal development",
+            "New teaching methodologies",
+            "Better employability"
+        ]
+        },
+    "pedagogyPage": {
+        "title": "Pedagogy XXI",
+        "subtitle": "ISTEC PORTO",
+        "description": "The pedagogical area focuses on innovation in teaching and student-centered learning.",
+        "impactTitle": "Teaching with impact",
+        "impactText1": "Modern educational practices with active student participation.",
+        "impactText2": "Focus on practical knowledge and real-world preparation.",
+        "objectivesTitle": "Pedagogical goals",
+        "objectives": [
+            "Innovative teaching",
+            "Improve quality",
+            "Support teachers",
+            "Active learning"
+        ]
+        },
     "footer": {
         "istecPorto": "ISTEC Porto",
         "description": "Higher Institute of Advanced Technologies of Porto, focused on innovation, practical training and proximity to the market.",
