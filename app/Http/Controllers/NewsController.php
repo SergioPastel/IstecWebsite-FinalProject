@@ -18,14 +18,14 @@ class NewsController extends Controller
 
     public function index()
     {
-        return Inertia('front/pages/news/News', [
+        return Inertia('front/pages/eventsandnews/News', [
             'news' => NewsResource::collection(News::latest()->get())
         ]);
     }
 
     public function show(News $news)
     {
-        return Inertia('front/pages/news/NewsDetail', [
+        return Inertia('front/pages/eventsandnews/NewsDetail', [
             'news' => NewsResource::make($news)
         ]);
     }

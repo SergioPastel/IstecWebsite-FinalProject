@@ -93,9 +93,10 @@ export default function EventsandNews({
   const getItemHref = (item) => {
     if (item.kind === "event") {
       return route("events.show", item.id);
+    } else if (item.kind === "news") {
+      return route("news.show", item.id);
     }
-
-    return `/noticias/${item.id}`;
+   
   };
 
     const getKindLabel = (item) => {
