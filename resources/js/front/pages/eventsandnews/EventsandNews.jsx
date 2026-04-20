@@ -5,13 +5,30 @@ import Layout from "../../layouts/Layout";
 import { route } from "ziggy-js";
 import Pagination from "../../components/common/Pagination";
 
-export default function Updates({
+export default function EventsandNews({
   events = { data: [] },
   news = { data: [] },
 }) {
   const { t } = useTranslation();
   const [activeFilter, setActiveFilter] = useState("all");
+  const [subFilter, setSubFilter] = useState("all");
   const [search, setSearch] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  const eventSubFilters = [
+    { key: "all", label: "Todos" },
+    { key: "workshop", label: "Workshops" },
+    { key: "open-day", label: "Open Days" },
+  ];
+
+  const newsSubFilters = [
+    { key: "all", label: "Todas" },
+    { key: "entrevistas", label: "Entrevistas" },
+    { key: "parcerias", label: "Parcerias" },
+  ];
+
 
   const eventItems = Array.isArray(events?.data)
     ? events.data.map((item) => ({...item,
@@ -41,6 +58,15 @@ export default function Updates({
         (activeFilter === "events" && item.kind === "event") ||
         (activeFilter === "news" && item.kind === "news");
 
+      const matchesSubFilter =
+        subFilter === "all" ||
+        (activeFilter === "events" &&
+          item.kind === "event" &&
+          (item.type || "").toLowerCase() === subFilter) ||
+        (activeFilter === "news" &&
+          item.kind === "news" &&
+          (item.category || "").toLowerCase() === subFilter);  
+
       const searchableText = `
         ${item.title || ""}
         ${item.summary || ""}
@@ -50,9 +76,9 @@ export default function Updates({
 
       const matchesSearch = searchableText.includes(search.toLowerCase());
 
-      return matchesFilter && matchesSearch;
+      return matchesFilter && matchesSubFilter && matchesSearch;
     });
-  }, [allItems, activeFilter, search]);
+  }, [allItems, activeFilter, subFilter, search]);
 
   const featuredItem =
     filteredItems.find((item) => item.featured) || filteredItems[0] || null;
@@ -77,9 +103,13 @@ export default function Updates({
       ? t("updates.card.event", "Evento")
       : t("updates.card.news", "Notícia");
   };
+  const paginatedItems = useMemo(() => {
+  const start = (currentPage - 1) * itemsPerPage;
+  return filteredItems.slice(start, start + itemsPerPage);
+}, [filteredItems, currentPage]);
 
   return (
-  <Layout title={t("updates.metaTitle", "Notícias e Eventos")}>
+  <Layout title={t("updates.metaTitle", "Eventos e Notícias")}>
     <main
       className="w-full overflow-x-hidden bg-white text-[#1f2937]"
       onClick={() => {
@@ -95,7 +125,7 @@ export default function Updates({
               </p>
 
               <h1 className="text-[clamp(2.6rem,4.5vw,4.2rem)] leading-[1.08] font-extrabold tracking-[-1px]">
-                {t("updates.hero.title", "Notícias e Eventos")}
+                {t("updates.hero.title", "Eventos e Notícias")}
               </h1>
 
               <p className="mt-5 text-[1.04rem] leading-[1.8] text-white/90 max-w-[620px]">
@@ -111,57 +141,104 @@ export default function Updates({
 
       <section className="relative -mt-8 z-10 pb-2">
         <div className="max-w-[1600px] mx-auto px-6">
-          <div className="bg-white border border-[#e5e7eb] rounded-[24px] shadow-[0_12px_30px_rgba(15,23,42,0.06)] p-5 md:p-6 flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
+          <div className="bg-white border border-[#e5e7eb] rounded-[24px] shadow-[0_12px_30px_rgba(15,23,42,0.06)] p-5 md:p-6 flex flex-col gap-4">
+            <div className="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
             <div className="flex flex-wrap gap-3">
-              <button
-                onClick={() => setActiveFilter("all")}
-                className={`px-5 py-2.5 rounded-full font-semibold transition-all duration-300 ${
-                  activeFilter === "all"
-                    ? "bg-[#0d8fe8] text-white shadow"
-                    : "bg-[#f3f4f6] text-[#374151] hover:bg-[#e8eef5]"
-                }`}
-              >
-                {t("updates.filters.all", "Todos")}
-              </button>
+                 <button
+                    onClick={() => {
+                      setActiveFilter("all");
+                      setSubFilter("all");
+                    }}
+                    className={`px-5 py-2.5 rounded-full font-semibold transition-all duration-300 ${
+                      activeFilter === "all"
+                        ? "bg-[#0d8fe8] text-white shadow"
+                        : "bg-[#f3f4f6] text-[#374151] hover:bg-[#e8eef5]"
+                    }`}
+                  >
+                    {t("updates.filters.all", "Todos")}
+                  </button>
 
-              <button
-                onClick={() => setActiveFilter("events")}
-                className={`px-5 py-2.5 rounded-full font-semibold transition-all duration-300 ${
-                  activeFilter === "events"
-                    ? "bg-[#0d8fe8] text-white shadow"
-                    : "bg-[#f3f4f6] text-[#374151] hover:bg-[#e8eef5]"
-                }`}
-              >
-                {t("updates.filters.events", "Eventos")}
-              </button>
+                  <button
+                    onClick={() => {
+                      setActiveFilter("events");
+                      setSubFilter("all");
+                    }}
+                    className={`px-5 py-2.5 rounded-full font-semibold transition-all duration-300 ${
+                      activeFilter === "events"
+                        ? "bg-[#0d8fe8] text-white shadow"
+                        : "bg-[#f3f4f6] text-[#374151] hover:bg-[#e8eef5]"
+                    }`}
+                  >
+                    {t("updates.filters.events", "Eventos")}
+                  </button>
 
-              <button
-                onClick={() => setActiveFilter("news")}
-                className={`px-5 py-2.5 rounded-full font-semibold transition-all duration-300 ${
-                  activeFilter === "news"
-                    ? "bg-[#0d8fe8] text-white shadow"
-                    : "bg-[#f3f4f6] text-[#374151] hover:bg-[#e8eef5]"
-                }`}
-              >
-                {t("updates.filters.news", "Notícias")}
-              </button>
+                  <button
+                    onClick={() => {
+                      setActiveFilter("news");
+                      setSubFilter("all");
+                    }}
+                    className={`px-5 py-2.5 rounded-full font-semibold transition-all duration-300 ${
+                      activeFilter === "news"
+                        ? "bg-[#0d8fe8] text-white shadow"
+                        : "bg-[#f3f4f6] text-[#374151] hover:bg-[#e8eef5]"
+                    }`}
+                  >
+                    {t("updates.filters.news", "Notícias")}
+                  </button>
+                </div>
+
+                <div className="w-full lg:w-[340px] max-[640px]:min-w-0">
+                  <input
+                    type="text"
+                    placeholder={t(
+                      "updates.search.placeholder",
+                      "Pesquisar notícias ou eventos..."
+                    )}
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="w-full rounded-full border border-[#e5e7eb] bg-[#f9fafb] px-5 py-3 outline-none transition focus:border-[#0d8fe8] focus:bg-white"
+                  />
+                </div>
+              </div>
+
+              {activeFilter === "events" && (
+                <div className="flex flex-wrap gap-3 pt-1">
+                  {eventSubFilters.map((filter) => (
+                    <button
+                      key={filter.key}
+                      onClick={() => setSubFilter(filter.key)}
+                      className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                        subFilter === filter.key
+                          ? "bg-[#0d8fe8] text-white shadow"
+                          : "bg-white border border-[#dbe4ee] text-[#374151] hover:bg-[#f8fafc]"
+                      }`}
+                    >
+                      {filter.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {activeFilter === "news" && (
+                <div className="flex flex-wrap gap-3 pt-1">
+                  {newsSubFilters.map((filter) => (
+                    <button
+                      key={filter.key}
+                      onClick={() => setSubFilter(filter.key)}
+                      className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                        subFilter === filter.key
+                          ? "bg-[#0d8fe8] text-white shadow"
+                          : "bg-white border border-[#dbe4ee] text-[#374151] hover:bg-[#f8fafc]"
+                      }`}
+                    >
+                      {filter.label}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
-
-            <div className="w-full lg:w-[340px]">
-              <input
-                type="text"
-                placeholder={t(
-                  "updates.search.placeholder",
-                  "Pesquisar notícias ou eventos..."
-                )}
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full rounded-full border border-[#e5e7eb] bg-[#f9fafb] px-5 py-3 outline-none transition focus:border-[#0d8fe8] focus:bg-white"
-              />
             </div>
-          </div>
-        </div>
-      </section>
+        </section>
 
       {featuredItem && (
         <section className="py-10">
@@ -170,7 +247,7 @@ export default function Updates({
               <div className="group overflow-hidden rounded-[28px] border border-[#dbe4ee] bg-white shadow-[0_18px_40px_rgba(15,23,42,0.08)]">
                 <div className="relative h-[320px] md:h-[420px] overflow-hidden">
                   <img
-                    src={featuredItem.media.url}
+                    src={featuredItem.media?.url}
                     alt={featuredItem.title}
                     className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
                   />
@@ -231,7 +308,7 @@ export default function Updates({
                     <div className="grid sm:grid-cols-[180px_1fr]">
                       <div className="h-[180px] sm:h-full overflow-hidden">
                         <img
-                          src={item.media.url}
+                          src={item.media?.url}
                           alt={item.title}
                           className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
                         />
@@ -300,14 +377,14 @@ export default function Updates({
           </div>
 
           <div className="grid grid-cols-3 gap-6 max-[1150px]:grid-cols-2 max-[768px]:grid-cols-1">
-            {filteredItems.map((item) => (
+            {paginatedItems.map((item) => (
               <article
                 key={`${item.kind}-${item.id}`}
                 className="group min-h-full bg-white border border-[#dbe4ee] rounded-[24px] overflow-hidden shadow-[0_10px_30px_rgba(15,23,42,0.05)] hover:-translate-y-1.5 hover:shadow-[0_18px_40px_rgba(15,23,42,0.08)] transition-all duration-300 flex flex-col"
               >
                 <div className="relative h-[240px] overflow-hidden bg-[#eae6df]">
                   <img
-                    src={item.media.url}
+                    src={item.media?.url}
                     alt={item.title}
                     className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
                   />
@@ -365,10 +442,56 @@ export default function Updates({
             </div>
           )}
         </div>
+        {Math.ceil(filteredItems.length / itemsPerPage) > 1 && (
+              <div className="mt-12 flex justify-center">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <button
+                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className={`px-4 py-2 rounded-md border text-sm font-medium transition ${
+                      currentPage === 1
+                        ? "bg-[#f9fafb] text-[#9ca3af] border-[#e5e7eb] cursor-not-allowed"
+                        : "bg-white text-[#374151] border-[#dbe4ee] hover:bg-[#f8fafc]"
+                    }`}
+                  >
+                    {`« ${t("pagination.previous", "Anterior")}`}
+                  </button>
 
-        <div className="mt-12 flex justify-center">
-          <Pagination links={events.links || []} />
-        </div>
+                  {Array.from(
+                    { length: Math.ceil(filteredItems.length / itemsPerPage) },
+                    (_, i) => i + 1
+                  ).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`min-w-[40px] h-[40px] rounded-md border text-sm font-medium transition ${
+                        currentPage === page
+                          ? "bg-[#0d8fe8] text-white border-[#0d8fe8]"
+                          : "bg-white text-[#374151] border-[#dbe4ee] hover:bg-[#f8fafc]"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+
+                  <button
+                    onClick={() =>
+                      setCurrentPage((prev) =>
+                        Math.min(prev + 1, Math.ceil(filteredItems.length / itemsPerPage))
+                      )
+                    }
+                    disabled={currentPage === Math.ceil(filteredItems.length / itemsPerPage)}
+                    className={`px-4 py-2 rounded-md border text-sm font-medium transition ${
+                      currentPage === Math.ceil(filteredItems.length / itemsPerPage)
+                        ? "bg-[#f9fafb] text-[#9ca3af] border-[#e5e7eb] cursor-not-allowed"
+                        : "bg-white text-[#374151] border-[#dbe4ee] hover:bg-[#f8fafc]"
+                    }`}
+                  >
+                    {`${t("pagination.next", "Seguinte")} »`}
+                  </button>
+                </div>
+              </div>
+            )}
       </section>
     </main>
   </Layout>

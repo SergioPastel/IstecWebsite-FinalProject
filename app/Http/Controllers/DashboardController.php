@@ -10,6 +10,7 @@ use App\Models\Application;
 use App\Models\Contact;
 use App\Http\Requests\StoreDashboardRequest;
 use App\Http\Requests\UpdateDashboardRequest;
+use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Services\UmamiService;
@@ -50,6 +51,29 @@ class DashboardController extends Controller
             ],
             'user' => $user
         ]);
+    }
+
+    // GET /users - List of admin users
+    public function users()
+    {
+        $users = User::withTrashed()->get(); // Get all users, including soft-deleted ones
+
+        return Inertia('back/pages/users/Index', [
+            'users' => $users
+        ]);
+    }
+
+    // DELETE /users/{user} - Delete a user
+    public function destroyUser(User $user)
+    {
+        // Prevents self deletion
+        if ($user->id === Auth::id()) {
+            return back()->with('error', 'Administradores não eliminar a si mesmos.');
+        }
+
+        $user->delete();
+
+        return back()->with('success', 'Gestor eliminado com sucesso.');
     }
 
 }

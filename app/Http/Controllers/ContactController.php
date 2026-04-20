@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
 use App\Http\Requests\StoreContactRequest; // Validation layer
+use App\Models\DepartmentInfo;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactReceived;
 use App\Mail\ContactAutoReply;
+use Inertia\Inertia;
 
 // THIS CONTROLLER IS CURRENTLY BEING USED FOR CONTACT EMAILS RATHER THAN COMPANY CONTACTS, CHANGE IF NECESSARY
 // A lot of it does not currently make sense
@@ -18,7 +20,19 @@ class ContactController extends Controller
 
     public function create()
     {
-        return Inertia('front/pages/contacts/Contacts');
+        return Inertia('front/pages/contacts/Contacts', [
+            'infoCards' => [
+                [
+                    'title' => 'hello',
+                    'value' => 'world'
+                ],
+                [
+                    'title' => 'hello',
+                    'value' => 'world'
+                ],
+            ],
+            'departmentContacts' => DepartmentInfo::all()
+        ]);
     }
 
     public function store(StoreContactRequest $request)
@@ -60,6 +74,6 @@ class ContactController extends Controller
         /*$contact->delete();
 
         return redirect()->route('admin.contacts.index')
-            ->with('success', 'Mensagem eliminada com sucesso.'); */ 
+            ->with('success', 'Mensagem eliminada com sucesso.'); */
     }
 }

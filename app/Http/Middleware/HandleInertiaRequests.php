@@ -6,6 +6,7 @@ use App\Http\Resources\SiteInfoResource;
 use App\Models\SiteInfo;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -38,6 +39,16 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $siteInfo = null;
+
+        if (Schema::hasTable('site_infos')) {
+            $record = SiteInfo::first();
+
+            if ($record) {
+                $siteInfo = new SiteInfoResource($record);
+            }
+        }
+
         return [
             ...parent::share($request),
 
@@ -45,7 +56,12 @@ class HandleInertiaRequests extends Middleware
             'user' => Auth::user(),
             'locale' => app()->getLocale(),
             'languages' => config('app.available_locales'),
-            'siteInfo' => new SiteInfoResource(SiteInfo::first()),
+            'siteInfo' => $siteInfo,
+            // For the toast notifs
+            'flash' => [
+                'success' => fn () => $request->session()->get('success'),
+                'error'   => fn () => $request->session()->get('error'),
+            ],
         ];
     }
 }

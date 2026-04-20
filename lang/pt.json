@@ -19,6 +19,14 @@
             "workshopsReal": "Workshops e experiências reais para te preparar para o mercado.",
             "viewEvents": "Ver eventos"
         },
+        "about": {
+            "cta": {
+                "title": "Queres saber mais?",
+                "description": "Entra em contacto connosco para mais informações sobre cursos, candidaturas ou a instituição.",
+                "contactButton": "Contactar",
+                "coursesButton": "Ver cursos"
+            }
+        },
         "applications": {
             "title": "Candidaturas",
             "description": "Submeter candidatura"
@@ -205,6 +213,7 @@
     },
     "nav": {
         "home": "Início",
+        "aboutIstec": "Sobre ISTEC",
         "mission": "Finalidade e Projeto Educativo",
         "orgaos": "Órgãos do Instituto",
         "organograma": "Organograma",
@@ -296,6 +305,10 @@
             "notFound": "Evento não encontrado"
         }
     },
+    "pagination": {
+        "previous": "Anterior",
+        "next": "Seguinte"
+    },
     "contacts": {
         "contacts": "Contactos",
         "subtitle": "Estamos disponíveis para responder às tuas perguntas.",
@@ -320,6 +333,7 @@
         "termsConditions": "Termos e Condições",
         "requestInfo": "Pedir Informações",
         "copyright": "© {{ year }} ISTEC Porto. Todos os direitos reservados.",
-        "developed": "Desenvolvido para projeto académico"
+        "developed": "Desenvolvido para projeto académico",
+        "fixedLineNote": "Custo de chamada para rede fixa/móvel nacional, de acordo com o seu tarifário"
     }
 }
