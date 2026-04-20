@@ -19,6 +19,8 @@ class SiteInfoResource extends JsonResource
 
         return [
             'slogan' => $this->getTranslation('slogan', $locale) ?: $this->getTranslation('slogan', 'pt'),
+            'mission' => $this->getTranslation('mission', $locale) ?: $this->getTranslation('mission', 'pt'),
+            'whoWeAre' => $this->getTranslation('whoWeAre', $locale) ?: $this->getTranslation('whoWeAre', 'pt'),
             'site_name' => $this->site_name,
             'phone_number'=> $this->phone_number,
             'email' => $this->email,

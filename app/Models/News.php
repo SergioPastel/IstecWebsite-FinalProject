@@ -44,6 +44,4 @@ class News extends Model
     {
         return $this->belongsTo(Media::class);
     }
-
-
 }

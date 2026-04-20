@@ -10,6 +10,8 @@ class SiteInfo extends Model
     use HasTranslations;
     protected $fillable = [
         'slogan',
+        'mission',
+        'whoWeAre',
         'logo_media_id',
         'favicon_media_id',
         'site_name',
@@ -19,6 +21,8 @@ class SiteInfo extends Model
     ];
     public $translatable = [
         'slogan',
+        'mission',
+        'whoWeAre'
     ];
 
     public function logo(){

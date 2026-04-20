@@ -210,6 +210,7 @@
     },
     "nav": {
         "home": "Home",
+        "aboutIstec": "About ISTEC",
         "mission": "Mission and Educational Project",
         "orgaos": "Institute Bodies",
         "organograma": "Organization Chart",
@@ -313,6 +314,10 @@
             "notFound": "Event not found"
         }
     },
+    "pagination": {
+        "previous": "Previous",
+        "next": "Next"
+    },
     "contacts": {
         "contacts": "Contacts",
         "subtitle": "We're available to answer your questions.",
@@ -337,6 +342,7 @@
         "termsConditions": "Terms and Conditions",
         "requestInfo": "Request Information",
         "copyright": "© {{ year }} ISTEC Porto. All rights reserved.",
-        "developed": "Developed for academic project"
+        "developed": "Developed for academic project",
+        "fixedLineNote": "Call rates to domestic landlines and mobile phones, according to your plan"
     }
 }

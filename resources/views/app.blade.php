@@ -10,10 +10,10 @@
 
     <!-- FOR UMAMI ANALYTICS. It tracks the website's visits -->
     <script
-        async 
-        defer 
-        src="http://cloud.umami.is/script.js" 
-        data-website-id="149e98ea-974b-409e-b7a4-3fb43def4bbe">
+        async
+        defer
+        src="http://cloud.umami.is/script.js"
+        data-website-id={{ config('services.umami.website_id') }}>
     </script>
 
     @routes
