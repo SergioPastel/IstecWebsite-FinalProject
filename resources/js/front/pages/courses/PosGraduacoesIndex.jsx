@@ -1,8 +1,7 @@
 ﻿import Layout from '../../layouts/layout';
 import { useTranslation } from 'react-i18next';
 import { Link, router, Head } from '@inertiajs/react';
-import { useMemo, useState } from 'react';
-import Pagination from '../../components/common/Pagination';
+import { useEffect, useMemo, useState } from 'react';
 import { route } from 'ziggy-js';
 
 function getCourseText(value, lang) {
@@ -52,6 +51,8 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
 
     const [query, setQuery] = useState(filters?.q ?? '');
     const [sortBy, setSortBy] = useState('relevance');
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 6;
 
     const courseItems = useMemo(() => {
         if (!courses) return [];
@@ -82,6 +83,24 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
 
         return items;
     }, [posGraduacaoCourseItems, sortBy, lang]);
+
+    const totalPages = Math.ceil(sortedCourseItems.length / itemsPerPage);
+
+    useEffect(() => {
+        if (totalPages === 0 && currentPage !== 1) {
+            setCurrentPage(1);
+            return;
+        }
+
+        if (totalPages > 0 && currentPage > totalPages) {
+            setCurrentPage(totalPages);
+        }
+    }, [currentPage, totalPages]);
+
+    const paginatedCourseItems = useMemo(() => {
+        const start = (currentPage - 1) * itemsPerPage;
+        return sortedCourseItems.slice(start, start + itemsPerPage);
+    }, [sortedCourseItems, currentPage]);
 
     const resultsCount = sortedCourseItems.length;
 
@@ -233,7 +252,7 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                         ) : (
                             <>
                                 <div className="grid grid-cols-1 gap-[22px] sm:grid-cols-2 xl:grid-cols-3">
-                                    {sortedCourseItems.map((course) => {
+                                    {paginatedCourseItems.map((course) => {
                                         const title = getCourseText(course.title, lang);
                                         const desc = getCourseText(course.description, lang);
                                         const duration = course.duration_years
@@ -317,9 +336,49 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                     })}
                                 </div>
 
-                                <div className="mt-10">
-                                    <Pagination links={courses?.meta?.links} />
-                                </div>
+                                {totalPages > 1 && (
+                                    <div className="mt-12 flex justify-center">
+                                        <div className="flex flex-wrap items-center gap-2">
+                                            <button
+                                                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                                                disabled={currentPage === 1}
+                                                className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
+                                                    currentPage === 1
+                                                        ? 'cursor-not-allowed border-[#e5e7eb] bg-[#f9fafb] text-[#9ca3af]'
+                                                        : 'border-[#dbe4ee] bg-white text-[#374151] hover:bg-[#f8fafc]'
+                                                }`}
+                                            >
+                                                Anterior
+                                            </button>
+
+                                            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                                                <button
+                                                    key={page}
+                                                    onClick={() => setCurrentPage(page)}
+                                                    className={`h-[40px] min-w-[40px] rounded-md border text-sm font-medium transition ${
+                                                        currentPage === page
+                                                            ? 'border-[#0d8fe8] bg-[#0d8fe8] text-white'
+                                                            : 'border-[#dbe4ee] bg-white text-[#374151] hover:bg-[#f8fafc]'
+                                                    }`}
+                                                >
+                                                    {page}
+                                                </button>
+                                            ))}
+
+                                            <button
+                                                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                                                disabled={currentPage === totalPages}
+                                                className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
+                                                    currentPage === totalPages
+                                                        ? 'cursor-not-allowed border-[#e5e7eb] bg-[#f9fafb] text-[#9ca3af]'
+                                                        : 'border-[#dbe4ee] bg-white text-[#374151] hover:bg-[#f8fafc]'
+                                                }`}
+                                            >
+                                                Seguinte
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
                             </>
                         )}
                     </div>
