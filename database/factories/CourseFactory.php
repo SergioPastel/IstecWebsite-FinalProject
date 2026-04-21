@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\CourseCategory;
+use App\Models\Media;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CourseFactory extends Factory
@@ -84,6 +85,7 @@ class CourseFactory extends Factory
 
         return [
             'course_category_id' => CourseCategory::inRandomOrder()->first()->id,
+            'media_id' => Media::factory(),
 
             'title' => $course['title'],
             'description' => $course['description'],

@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Semester;
 use App\Models\Subject;
 use Illuminate\Database\Seeder;
+use App\Models\Media;
 
 class CourseSeeder extends Seeder
 {

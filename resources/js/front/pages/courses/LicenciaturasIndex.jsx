@@ -1,4 +1,4 @@
-import Layout from '../../layouts/layout';
+import Layout from '../../layouts/Layout';
 import { useTranslation } from 'react-i18next';
 import { Link, router, Head } from '@inertiajs/react';
 import { useEffect, useMemo, useState } from 'react';
@@ -28,16 +28,13 @@ function isLicenciaturaCourse(course, lang) {
         getCourseText(course.title, 'pt'),
         getCourseText(course.title, 'en'),
         categoryTitle,
-        course.slug,
         course.type,
         course.course_type,
     ].join(' '));
 
     return (
         searchableText.includes('licenciatura') ||
-        searchableText.includes('bachelor') ||
-        searchableText.includes('engenharia informatica') ||
-        searchableText.includes('engenharia multimedia')
+        searchableText.includes('bachelor')
     );
 }
 

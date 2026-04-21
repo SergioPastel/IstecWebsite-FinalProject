@@ -69,7 +69,7 @@ class EventFactory extends Factory
         $event = fake()->randomElement(self::$events);
 
         return [
-            'media_id' => Media::factory(), // ✅ correto
+            'media_id' => Media::factory(), 
             'event_category_id' => EventCategory::inRandomOrder()->first()?->id,
 
             'start_date' => Carbon::parse($event['start_date']),
