@@ -3,8 +3,9 @@ import BackofficeLayout from "../../layouts/BackofficeLayout";
 import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
 import EmptyState from "../../components/ui/EmptyState";
+import CourseCreateForm from "../../components/common/CourseCreateForm";
 
-export default function CreateCourse() {
+export default function CreateCourse({categories = []}) {
   return (
     <BackofficeLayout
       title="Novo curso"
@@ -28,11 +29,14 @@ export default function CreateCourse() {
         />
 
         <SectionCard title="Formulario" subtitle="Placeholder preparado para evolucao.">
-          <EmptyState
+          <CourseCreateForm categories={categories}/>
+
+
+          {/* <EmptyState
             compact
             title="Formulario de criacao ainda por ligar."
             description="Mantive a pagina integrada com o novo layout para que o modulo continue coerente enquanto o backend e os campos finais sao fechados."
-          />
+          /> */}
         </SectionCard>
       </div>
     </BackofficeLayout>

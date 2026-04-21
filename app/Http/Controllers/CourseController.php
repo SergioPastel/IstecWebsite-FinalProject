@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CourseCategoryResource;
 use App\Http\Resources\CourseResource;
+use App\Models\CourseCategory;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use Inertia\Inertia;
@@ -26,7 +28,7 @@ class CourseController extends Controller
     public function ctesp()
     {
         $courses = Course::latest()->paginate(10)->onEachSide(1);
-        return Inertia('front/pages/courses/CtespIndex', [ 
+        return Inertia('front/pages/courses/CtespIndex', [
             'courses' => CourseResource::collection($courses)
         ]);
     }
@@ -34,7 +36,7 @@ class CourseController extends Controller
     public function licenciatura()
     {
         $courses = Course::latest()->paginate(10)->onEachSide(1);
-        return Inertia('front/pages/courses/LicenciaturasIndex', [ 
+        return Inertia('front/pages/courses/LicenciaturasIndex', [
             'courses' => CourseResource::collection($courses)
         ]);
     }
@@ -60,7 +62,11 @@ class CourseController extends Controller
 
     public function create()
     {
-        return Inertia('back/pages/courses/Create');
+
+        $categories = CourseCategory::get();
+        return Inertia('back/pages/courses/Create', [
+            'categories' => $categories
+        ]);
     }
 
     public function store(Request $request)
