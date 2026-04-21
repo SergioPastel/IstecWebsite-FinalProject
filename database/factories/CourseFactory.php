@@ -25,6 +25,7 @@ class CourseFactory extends Factory
             'duration_years' => 3,
             'study_regime' => true,
             'tuition_monthly_pay' => 350,
+            'modality' => 'in-person'
         ],
         [
             'title' => [
@@ -42,6 +43,7 @@ class CourseFactory extends Factory
             'duration_years' => 3,
             'study_regime' => true,
             'tuition_monthly_pay' => 375,
+            'modality' => 'in-person'
         ],
         [
             'title' => [
@@ -59,6 +61,7 @@ class CourseFactory extends Factory
             'duration_years' => 3,
             'study_regime' => false,
             'tuition_monthly_pay' => 320,
+            'modality' => 'online'
         ],
         [
             'title' => [
@@ -76,6 +79,7 @@ class CourseFactory extends Factory
             'duration_years' => 3,
             'study_regime' => true,
             'tuition_monthly_pay' => 340,
+            'modality' => 'hybrid'
         ],
     ];
 
@@ -95,6 +99,7 @@ class CourseFactory extends Factory
             'study_regime' => $course['study_regime'],
             'tuition_monthly_pay' => $course['tuition_monthly_pay'],
             'tuition_months' => $course['duration_years'] * 12,
+            'modality' => $course['modality']
         ];
     }
 }

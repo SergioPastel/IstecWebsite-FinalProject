@@ -41,6 +41,9 @@ class CourseResource extends JsonResource
                 $this->getTranslation('description', $locale)
                 ?: $this->getTranslation('description', 'pt'),
             'duration_years' => $this->duration_years,
+            'modality' =>
+                $this->getTranslation('modality', $locale)
+                ?: $this->getTranslation('modality', 'pt'),
             'study_regime' => $this->study_regime,
             'tuition_monthly_pay' => $this->tuition_monthly_pay,
             'tuition_months' => $this->tuition_months,
