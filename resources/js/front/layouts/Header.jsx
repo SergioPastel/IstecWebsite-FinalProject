@@ -153,7 +153,7 @@ function Header({}) {
       titleKey: "eventsAndNews",
       children: [
         { href: route("eventsandnews"), labelKey: "eventos-e-noticias" },
-        { href: route('applications.applyEvent'), labelKey: "applications-events" },
+        { href: route('applications.events.apply'), labelKey: "applications-events" },
       ],
     },
     {
