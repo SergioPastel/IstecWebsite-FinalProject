@@ -263,9 +263,9 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                         return (
                                             <article
                                                 key={course.id}
-                                                className="flex h-full flex-col rounded-[20px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(13,143,232,0.12)]"
+                                                className="flex h-full flex-col rounded-[20px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(124,58,237,0.12)]"
                                             >
-                                                <span className="inline-flex self-start rounded-full bg-[#eaf5ff] px-3 py-[6px] text-[0.8rem] font-extrabold text-[#0d8fe8]">
+                                                <span className="inline-flex self-start rounded-full bg-[#f3e8ff] px-3 py-[6px] text-[0.8rem] font-extrabold text-[#7c3aed]">
                                                     Pós-Graduação
                                                 </span>
 
@@ -312,14 +312,14 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                                 <div className="mt-auto flex gap-3 pt-6">
                                                     <Link
                                                         href={route('courses.show', course.id)}
-                                                        className="flex-1 rounded-full bg-[#0d8fe8] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#0a78c4]"
+                                                        className="flex-1 rounded-full bg-[#7c3aed] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#6d28d9]"
                                                     >
                                                         Mais Informações
                                                     </Link>
 
                                                     <button
                                                         type="button"
-                                                        className="flex-1 rounded-full border border-[rgba(13,143,232,0.22)] bg-transparent px-4 py-3 text-sm font-bold text-[#0d8fe8] transition hover:bg-[#eaf5ff]"
+                                                        className="flex-1 rounded-full border border-[rgba(124,58,237,0.22)] bg-transparent px-4 py-3 text-sm font-bold text-[#7c3aed] transition hover:bg-[#f3e8ff]"
                                                         onClick={() => {
                                                             window.umami?.track('pos_graduacao_apply_click', {
                                                                 course_id: course.id,
