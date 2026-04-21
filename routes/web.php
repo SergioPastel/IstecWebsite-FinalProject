@@ -210,3 +210,8 @@ Route::get('/privacy', function () {
 // DYNAMIC TESTING
 Route::get('/test-dynamic', [PageController::class, 'index'])->name('dynamic.index');
 Route::get('/test-dynamic/{page:slug}', [PageController::class, 'show'])->name('dynamic.show');
+
+// Erasmus and pedagogy pages
+Route::get('/erasmus', function () {return Inertia::render('front/pages/mobilityprogram/Erasmus');})->name('erasmus');
+
+Route::get('/pedagogia-xxi', function () {return Inertia::render('front/pages/pedagogy/Pedagogy');})->name('pedagogia');

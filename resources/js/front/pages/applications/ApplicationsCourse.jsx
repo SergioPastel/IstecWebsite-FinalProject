@@ -2,6 +2,9 @@ import React, { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Layout from "../../layouts/Layout";
 import { router, Link, usePage } from "@inertiajs/react";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+
 
 export default function ApplicationsCourse({
   course,
@@ -78,6 +81,10 @@ export default function ApplicationsCourse({
     return /^\d{9}$/.test(value);
   };
 
+  const isValidEmail = (value) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  };
+
   const validateStep1 = () => {
     const newErrors = {};
 
@@ -98,12 +105,16 @@ export default function ApplicationsCourse({
     }
 
     if (!formData.email) {
-      newErrors.email = t("applicationsForm.common.requiredField");
-    }
+        newErrors.email = t("applicationsForm.common.requiredField");
+      } else if (!isValidEmail(formData.email)) {
+        newErrors.email = "Introduza um email válido.";
+      }
 
     if (!formData.phone) {
-      newErrors.phone = t("applicationsForm.common.requiredField");
-    }
+        newErrors.phone = t("applicationsForm.common.requiredField");
+      } else if (!isValidPhoneNumber(formData.phone)) {
+        newErrors.phone = "Introduza um número de telefone válido.";
+      }
 
     if (!formData.birth_date) {
       newErrors.birth_date = t("applicationsForm.common.requiredField");
@@ -392,13 +403,25 @@ export default function ApplicationsCourse({
                         error={errors.email}
                         required
                       />
-                      <Input
-                        label={t("applicationsForm.common.phone")}
-                        value={formData.phone}
-                        onChange={(v) => updateField("phone", v)}
-                        error={errors.phone}
-                        required
-                      />
+                      <div>
+                          <label className="mb-2 block text-sm font-semibold text-slate-700">
+                            {t("applicationsForm.common.phone")} <span className="text-red-500">*</span>
+                          </label>
+
+                          <div className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus-within:border-[#0d8fe8]">
+                            <PhoneInput
+                              international
+                              defaultCountry="PT"
+                              value={formData.phone}
+                              onChange={(value) => updateField("phone", value || "")}
+                              className="w-full"
+                            />
+                          </div>
+
+                          {errors.phone && (
+                            <p className="mt-2 text-sm text-red-500">{errors.phone}</p>
+                          )}
+                       </div>
                       <Input
                         label={t("applicationsForm.common.birthDate")}
                         type="date"

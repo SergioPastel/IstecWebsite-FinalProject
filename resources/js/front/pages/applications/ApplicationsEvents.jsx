@@ -1,8 +1,11 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Layout from "../../layouts/Layout";
-import { Link, router, usePage } from "@inertiajs/react";
+import { Link, router, Head, usePage } from '@inertiajs/react';
 import { route } from "ziggy-js";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+
 
 export default function ApplicationsEvents({
   setPage,
@@ -87,6 +90,10 @@ export default function ApplicationsEvents({
     return /^\d{9}$/.test(value);
   };
 
+  const isValidEmail = (value) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  };
+
   const validateStep1 = () => {
     const newErrors = {};
 
@@ -108,10 +115,14 @@ export default function ApplicationsEvents({
 
     if (!formData.email) {
       newErrors.email = t("applicationsForm.common.requiredField");
-    }
+    } else if (!isValidEmail(formData.email)) {
+       newErrors.email = "Introduza um email válido.";
+      }
 
     if (!formData.phone) {
       newErrors.phone = t("applicationsForm.common.requiredField");
+    } else if (!isValidPhoneNumber(formData.phone)) {
+      newErrors.phone = "Introduza um número de telefone válido.";
     }
 
     if (
@@ -421,75 +432,61 @@ export default function ApplicationsEvents({
                       </p>
                     </div>
 
-                    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                        <ReviewItem
-                          label={t("applicationsForm.event.reviewCategory")}
-                          value={
-                            selectedCategoryName ||
-                            t("applicationsForm.common.notSelected")
-                          }
-                        />
-                        <ReviewItem
-                          label={t("applicationsForm.event.reviewEvent")}
-                          value={
-                            selectedEventName ||
-                            t("applicationsForm.common.notSelected")
-                          }
-                        />
-                        <ReviewItem
-                          label={t("applicationsForm.common.name")}
-                          value={
-                            `${formData.first_name} ${formData.last_name}`.trim() ||
-                            t("applicationsForm.common.noValue")
-                          }
-                        />
-                        <ReviewItem
-                          label={t("applicationsForm.common.email")}
-                          value={formData.email || t("applicationsForm.common.noValue")}
-                        />
-                        <ReviewItem
-                          label={t("applicationsForm.common.phone")}
-                          value={formData.phone || t("applicationsForm.common.noValue")}
-                        />
-                        <ReviewItem
-                          label={t("applicationsForm.common.identificationNumber")}
-                          value={
-                            formData.identification_number ||
-                            t("applicationsForm.common.noValue")
-                          }
-                        />
-                      </div>
+                    <div className="grid grid-cols-1 gap-5 p-6 md:grid-cols-2">
+                      <Input
+                        label={t("applicationsForm.common.firstName")}
+                        value={formData.first_name}
+                        onChange={(v) => updateField("first_name", v)}
+                        error={errors.first_name}
+                        required
+                      />
+                      <Input
+                        label={t("applicationsForm.common.lastName")}
+                        value={formData.last_name}
+                        onChange={(v) => updateField("last_name", v)}
+                        error={errors.last_name}
+                        required
+                      />
+                      <Input
+                        label={t("applicationsForm.common.email")}
+                        type="email"
+                        value={formData.email}
+                        onChange={(v) => updateField("email", v)}
+                        error={errors.email}
+                        required
+                      />
+                      <div>
+                          <label className="mb-2 block text-sm font-semibold text-slate-700">
+                            {t("applicationsForm.common.phone")} <span className="text-red-500">*</span>
+                          </label>
 
-                      <label className="mt-6 flex items-start gap-3 rounded-xl border border-slate-200 p-4 text-sm text-slate-600">
-                        <input
-                          type="checkbox"
-                          checked={formData.terms}
-                          onChange={(e) => updateField("terms", e.target.checked)}
-                          className="mt-1"
-                        />
-                        <span>
-                          Confirmo que os dados estão corretos e aceito os{" "}
-                          <Link
-                            href={route("terms")}
-                            className="text-[#0d8fe8] underline hover:opacity-80"
-                          >
-                            Termos e Condições
-                          </Link>{" "}
-                          e a{" "}
-                          <Link
-                            href={route("privacy")}
-                            className="text-[#0d8fe8] underline hover:opacity-80"
-                          >
-                            Política de Privacidade
-                          </Link>
-                          .
-                        </span>
-                      </label>
+                          <div className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus-within:border-[#0d8fe8]">
+                            <PhoneInput
+                              international
+                              defaultCountry="PT"
+                              value={formData.phone}
+                              onChange={(value) => updateField("phone", value || "")}
+                              className="w-full"
+                            />
+                          </div>
 
-                      {errors.terms && (
-                        <p className="mt-2 text-sm text-red-500">{errors.terms}</p>
-                      )}
+                          {errors.phone && (
+                            <p className="mt-2 text-sm text-red-500">{errors.phone}</p>
+                          )}
+                       </div>
+                      <Input
+                        label={t("applicationsForm.common.identificationNumber")}
+                        value={formData.identification_number}
+                        onChange={(v) =>
+                          updateField(
+                            "identification_number",
+                            v.replace(/\D/g, "").slice(0, 9)
+                          )
+                        }
+                        error={errors.identification_number}
+                        maxLength={9}
+                        inputMode="numeric"
+                      />
                     </div>
                   </div>
                 )}

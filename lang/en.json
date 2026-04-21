@@ -325,6 +325,87 @@
         "location": "Where we're located",
         "message": "Send us a message"
     },
+    "erasmusPage": {
+        "title": "Erasmus+",
+        "subtitle": "Mobility Program",
+        "description": "Discover international academic mobility opportunities and enrich your journey with a unique experience abroad.",
+        "studyTitle": "Study abroad",
+        "studyText1": "The Erasmus+ program gives students the opportunity to study at a partner institution.",
+        "studyText2": "It promotes autonomy, cultural exchange and academic development.",
+        "benefitsTitle": "Program benefits",
+        "benefits": [
+            "International and intercultural experience",
+            "Personal and academic development",
+            "Contact with new teaching methodologies",
+            "Enhanced CV and employability"
+        ],
+        "highlights": [
+            "available destinations",
+            "partner institutions",
+            "international experience"
+        ],
+        "stepsTitle": "How it works",
+        "stepsDescription": "A simple path to take part in the program.",
+        "steps": [
+            {
+            "title": "1. Application",
+            "text": "Check the criteria and submit your application within the defined deadline."
+            },
+            {
+            "title": "2. Selection",
+            "text": "Applications are reviewed according to the requirements and available places."
+            },
+            {
+            "title": "3. Preparation",
+            "text": "After selection, you prepare the documents and study plan for your mobility period."
+            }
+        ],
+        "partnersTitle": "Partner institutions",
+        "partnersDescription": "Examples of host institutions for mobility.",
+        "partners": [
+            "Partner University A",
+            "Partner University B",
+            "Partner University C",
+            "Partner University D"
+        ],
+        "ctaTitle": "Take your journey further",
+        "ctaText": "Erasmus+ is an opportunity to grow academically and personally through an enriching international experience.",
+        "ctaButton": "Learn more"
+        },
+    "pedagogyPage": {
+        "title": "Pedagogy XXI",
+        "subtitle": "ISTEC PORTO",
+        "description": "The pedagogical area focuses on innovation in teaching and student-centered learning.",
+        "impactTitle": "Teaching with impact",
+        "impactText1": "Modern educational practices with active student participation.",
+        "impactText2": "Focus on practical knowledge and real-world preparation.",
+        "objectivesTitle": "Pedagogical goals",
+        "objectives": [
+            "Innovative teaching",
+            "Improve quality",
+            "Support teachers",
+            "Active learning"
+        ],
+        "areasTitle": "Pedagogical areas",
+            "areasDescription": "Main areas of pedagogical intervention and development.",
+            "areas": [
+                {
+                "title": "Teaching Methodologies",
+                "text": "Innovative pedagogical approaches focused on the student and active learning."
+                },
+                {
+                "title": "Educational Assessment",
+                "text": "Continuous assessment strategies focused on developing skills."
+                },
+                {
+                "title": "Technology in Education",
+                "text": "Integration of digital tools in the teaching and learning process."
+                }
+            ],
+            "ctaTitle": "Innovating in teaching means preparing the future",
+            "ctaText": "Pedagogy is an essential pillar in training qualified, critical professionals who are ready to respond to the challenges of the market and society.",
+            "ctaButton": "Learn more"
+        },
     "footer": {
         "istecPorto": "ISTEC Porto",
         "description": "Higher Institute of Advanced Technologies of Porto, focused on innovation, practical training and proximity to the market.",

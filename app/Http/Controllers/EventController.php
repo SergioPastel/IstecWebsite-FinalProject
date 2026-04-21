@@ -23,7 +23,7 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
-        return Inertia('front/pages/events/EventsDetail', [
+        return Inertia('front/pages/eventsandnews/EventsDetail', [
             'event' => new EventResource($event)
         ]);
     }
