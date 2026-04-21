@@ -60,29 +60,26 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
         return courses.data ?? [];
     }, [courses]);
 
-    const posGraduacaoCourseItems = useMemo(() => {
-        return courseItems.filter((course) => isPosGraduacaoCourse(course, lang));
-    }, [courseItems, lang]);
+   
+ const sortedCourseItems = useMemo(() => {
+    const items = [...courseItems];
 
-    const sortedCourseItems = useMemo(() => {
-        const items = [...posGraduacaoCourseItems];
+    if (sortBy === 'name_asc') {
+        items.sort((a, b) => {
+            const ta = getCourseText(a.title, lang).toLowerCase();
+            const tb = getCourseText(b.title, lang).toLowerCase();
+            return ta.localeCompare(tb, lang);
+        });
+    } else if (sortBy === 'name_desc') {
+        items.sort((a, b) => {
+            const ta = getCourseText(a.title, lang).toLowerCase();
+            const tb = getCourseText(b.title, lang).toLowerCase();
+            return tb.localeCompare(ta, lang);
+        });
+    }
 
-        if (sortBy === 'name_asc') {
-            items.sort((a, b) => {
-                const ta = getCourseText(a.title, lang).toLowerCase();
-                const tb = getCourseText(b.title, lang).toLowerCase();
-                return ta.localeCompare(tb, lang);
-            });
-        } else if (sortBy === 'name_desc') {
-            items.sort((a, b) => {
-                const ta = getCourseText(a.title, lang).toLowerCase();
-                const tb = getCourseText(b.title, lang).toLowerCase();
-                return tb.localeCompare(ta, lang);
-            });
-        }
-
-        return items;
-    }, [posGraduacaoCourseItems, sortBy, lang]);
+    return items;
+}, [courseItems, sortBy, lang]);
 
     const totalPages = Math.ceil(sortedCourseItems.length / itemsPerPage);
 

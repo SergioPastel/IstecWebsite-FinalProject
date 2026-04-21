@@ -56,29 +56,25 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
         return courses.data ?? [];
     }, [courses]);
 
-    const licenciaturaCourseItems = useMemo(() => {
-        return courseItems.filter((course) => isLicenciaturaCourse(course, lang));
-    }, [courseItems, lang]);
-
     const sortedCourseItems = useMemo(() => {
-        const items = [...licenciaturaCourseItems];
+    const items = [...courseItems];
 
-        if (sortBy === 'name_asc') {
-            items.sort((a, b) => {
-                const ta = getCourseText(a.title, lang).toLowerCase();
-                const tb = getCourseText(b.title, lang).toLowerCase();
-                return ta.localeCompare(tb, lang);
-            });
-        } else if (sortBy === 'name_desc') {
-            items.sort((a, b) => {
-                const ta = getCourseText(a.title, lang).toLowerCase();
-                const tb = getCourseText(b.title, lang).toLowerCase();
-                return tb.localeCompare(ta, lang);
-            });
-        }
+    if (sortBy === 'name_asc') {
+        items.sort((a, b) => {
+            const ta = getCourseText(a.title, lang).toLowerCase();
+            const tb = getCourseText(b.title, lang).toLowerCase();
+            return ta.localeCompare(tb, lang);
+        });
+    } else if (sortBy === 'name_desc') {
+        items.sort((a, b) => {
+            const ta = getCourseText(a.title, lang).toLowerCase();
+            const tb = getCourseText(b.title, lang).toLowerCase();
+            return tb.localeCompare(ta, lang);
+        });
+    }
 
-        return items;
-    }, [licenciaturaCourseItems, sortBy, lang]);
+    return items;
+}, [courseItems, sortBy, lang]);
 
     const totalPages = Math.ceil(sortedCourseItems.length / itemsPerPage);
 
@@ -98,7 +94,7 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
         return sortedCourseItems.slice(start, start + itemsPerPage);
     }, [sortedCourseItems, currentPage]);
 
-    const resultsCount = sortedCourseItems.length;
+    const resultsCount = courses?.total ?? sortedCourseItems.length;
 
     const applyFilters = (next = {}) => {
         router.get(
