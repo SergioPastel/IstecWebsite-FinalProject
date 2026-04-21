@@ -257,7 +257,7 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                                         return (
                                             <article
                                                 key={course.id}
-                                                className="flex h-full flex-col rounded-[20px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(13,143,232,0.12)]"
+                                                className="flex h-full flex-col rounded-[20px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(22,163,74,0.12)]"
                                             >
                                                 <div className="relative w-full h-48 mb-4 overflow-hidden rounded-xl">
                                                     <img
@@ -267,7 +267,7 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                                                     />
 
                                                     <span 
-                                                    className="absolute top-3 left-3 inline-flex rounded-full bg-[#eaf5ff] px-3 py-[6px] text-[0.8rem] font-extrabold text-[#0d8fe8] shadow">
+                                                    className="absolute top-3 left-3 inline-flex self-start rounded-full bg-[#eafaf1] px-3 py-[6px] text-[0.8rem] font-extrabold text-[#16a34a] shadow">
                                                         Licenciatura
                                                     </span>
                                                 </div>
@@ -313,14 +313,14 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                                                 <div className="mt-auto flex gap-3 pt-6">
                                                     <Link
                                                         href={`/courses/${course.id}`}
-                                                        className="flex-1 rounded-full bg-[#0d8fe8] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#0a78c4]"
+                                                        className="flex-1 rounded-full bg-[#16a34a] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#15803d]"
                                                     >
                                                         Mais Informações
                                                     </Link>
 
                                                     <button
                                                         type="button"
-                                                        className="flex-1 rounded-full border border-[rgba(13,143,232,0.22)] bg-transparent px-4 py-3 text-sm font-bold text-[#0d8fe8] transition hover:bg-[#eaf5ff]"
+                                                        className="flex-1 rounded-full border border-[rgba(22,163,74,0.22)] bg-transparent px-4 py-3 text-sm font-bold text-[#16a34a] transition hover:bg-[#eafaf1]"
                                                         onClick={() => {
                                                             window.umami?.track('licenciatura_apply_click', {
                                                                 course_id: course.id,
