@@ -11,7 +11,33 @@ export default function Erasmus() {
     t("erasmusPage.benefits.2"),
     t("erasmusPage.benefits.3"),
   ];
+  const highlights = [
+    { value: "20+", label: t("erasmusPage.highlights.0") },
+    { value: "10+", label: t("erasmusPage.highlights.1") },
+    { value: "100%", label: t("erasmusPage.highlights.2") },
+  ];
 
+  const partners = [
+    t("erasmusPage.partners.0"),
+    t("erasmusPage.partners.1"),
+    t("erasmusPage.partners.2"),
+    t("erasmusPage.partners.3"),
+  ];
+
+  const steps = [
+    {
+      title: t("erasmusPage.steps.0.title"),
+      text: t("erasmusPage.steps.0.text"),
+    },
+    {
+      title: t("erasmusPage.steps.1.title"),
+      text: t("erasmusPage.steps.1.text"),
+    },
+    {
+      title: t("erasmusPage.steps.2.title"),
+      text: t("erasmusPage.steps.2.text"),
+    },
+  ];
   return (
     <Layout title={t("erasmusPage.title")}>
       <div className="min-h-screen bg-white">
@@ -29,6 +55,23 @@ export default function Erasmus() {
               <p className="text-lg md:text-xl text-white/90 max-w-2xl">
                 {t("erasmusPage.description")}
               </p>
+            </div>
+          </section>
+           <section className="py-16">
+            <div className="max-w-7xl mx-auto px-6 md:px-10">
+              <div className="grid gap-6 md:grid-cols-3">
+                {highlights.map((item, index) => (
+                  <div
+                    key={index}
+                    className="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm"
+                  >
+                    <div className="text-4xl font-bold text-[#1697e6]">
+                      {item.value}
+                    </div>
+                    <p className="mt-3 text-slate-600">{item.label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 
@@ -63,8 +106,75 @@ export default function Erasmus() {
               </div>
             </div>
           </section>
+          <section className="pb-16">
+            <div className="max-w-7xl mx-auto px-6 md:px-10">
+              <div className="mb-10 text-center">
+                <h2 className="text-3xl font-bold text-[#1697e6]">
+                  {t("erasmusPage.stepsTitle")}
+                </h2>
+                <p className="mt-3 text-slate-600">
+                  {t("erasmusPage.stepsDescription")}
+                </p>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-3">
+                {steps.map((step, index) => (
+                  <div
+                    key={index}
+                    className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+                  >
+                    <h3 className="text-lg font-semibold text-slate-900">
+                      {step.title}
+                    </h3>
+                    <p className="mt-4 leading-7 text-slate-600">{step.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="pb-16">
+            <div className="max-w-7xl mx-auto px-6 md:px-10">
+              <div className="mb-10 text-center">
+                <h2 className="text-3xl font-bold text-[#1697e6]">
+                  {t("erasmusPage.partnersTitle")}
+                </h2>
+                <p className="mt-3 text-slate-600">
+                  {t("erasmusPage.partnersDescription")}
+                </p>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+                {partners.map((partner, index) => (
+                  <div
+                    key={index}
+                    className="rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm"
+                  >
+                    <p className="font-semibold text-slate-900">{partner}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="pb-16">
+            <div className="max-w-4xl mx-auto px-6 text-center">
+              <h2 className="text-3xl font-bold text-[#1697e6]">
+                {t("erasmusPage.ctaTitle")}
+              </h2>
+
+              <p className="mt-4 text-slate-600 leading-8">
+                {t("erasmusPage.ctaText")}
+              </p>
+
+              <button className="mt-8 rounded-xl bg-[#1697e6] px-8 py-3 font-semibold text-white transition hover:bg-[#0f7fc2]">
+                {t("erasmusPage.ctaButton")}
+              </button>
+            </div>
+          </section>
         </main>
       </div>
     </Layout>
   );
 }
+   
