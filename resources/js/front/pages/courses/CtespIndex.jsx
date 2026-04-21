@@ -228,7 +228,6 @@ export default function CtespIndex({ courses, filters = {} }) {
                                                 key={course.id}
                                                 className="flex h-full flex-col rounded-[20px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(13,143,232,0.12)]"
                                             >
-                                                {/* Image + Tag */}
                                                 <div className="relative w-full h-48 mb-4 overflow-hidden rounded-xl">
                                                     <img
                                                         src={course.media?.url}

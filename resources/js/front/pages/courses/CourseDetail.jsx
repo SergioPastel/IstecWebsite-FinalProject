@@ -96,24 +96,27 @@ export default function CourseDetail({ course = {} }) {
     const title = getCourseText(course.title) || 'Nome do curso';
     const category = getCourseText(course.category) || 'Curso';
     const description = getCourseText(course.description) || 'Descrição do curso a definir.';
-    const objectives = getCourseText(course.objectives) || getCourseText(course.goals);
-    const accessConditions = getCourseText(course.access_conditions) || getCourseText(course.accessConditions);
-    const professionalOutcomes = getCourseText(course.professional_outcomes) || getCourseText(course.professionalOutcomes);
+    // const objectives = getCourseText(course.objectives) || getCourseText(course.goals);
+    // const accessConditions = getCourseText(course.access_conditions) || getCourseText(course.accessConditions);
+    const professionalOutcomes = course.professional_outcomes; // it's a json/array
+
+    const outcomesList = (professionalOutcomes).split(",").map(item => item.trim()); // splits the array
+
     const semesters = getArrayValue(course.semesters);
     const duration = formatDuration(course);
     const regime = formatRegime(course);
     const tuition = formatTuition(course);
-    const ects = course.ects ?? course.total_ects ?? (category.toLowerCase().includes('licenciatura') ? '180 ECTS' : null);
-    const campus = course.campus || course.location || 'ISTEC Porto';
+    const ects = course.semesters
+    .flatMap(semester => semester.subjects)
+    .reduce((sum, subject) => sum + subject.ects, 0);
+
+    // const ects = course.ects ?? course.total_ects ?? (category.toLowerCase().includes('licenciatura') ? '180 ECTS' : null);
     const schedule = course.schedule || regime;
-    const startDate = course.start_date || course.startDate || 'Consultar';
     const heroImage = course.image || course.hero_image || heroBackground;
 
     const tabs = useMemo(() => [
         { id: 'overview', label: 'Apresentação' },
-        { id: 'objectives', label: 'Objetivos' },
         { id: 'plan', label: 'Plano de estudos' },
-        { id: 'access', label: 'Condições de acesso' },
         { id: 'outcomes', label: 'Saídas profissionais' },
     ], []);
 
@@ -129,7 +132,7 @@ export default function CourseDetail({ course = {} }) {
         });
 
         if (typeof route === 'function') {
-            router.visit(route('applications.applyCourse', course));
+            router.visit(route('applications.courses.apply', course));
             return;
         }
 
@@ -221,10 +224,7 @@ export default function CourseDetail({ course = {} }) {
                                         />
 
                                         <div className="space-y-5 text-[1rem] leading-8 text-[#4b5563]">
-                                            <p>{description}</p>
-                                            <p>
-                                                A estrutura desta página foi preparada para receber os dados reais do curso quando forem criados no backoffice, mantendo uma leitura simples e uma experiência coerente com a identidade do ISTEC Porto.
-                                            </p>
+                                            <p>{description}</p>                                            
                                         </div>
 
                                         <div className="mt-9 grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -241,22 +241,6 @@ export default function CourseDetail({ course = {} }) {
                                                 <p className="mt-2 text-xl font-bold text-[#111827]">{tuition}</p>
                                             </div>
                                         </div>
-                                    </div>
-                                ) : null}
-
-                                {activeTab === 'objectives' ? (
-                                    <div>
-                                        <SectionTitle
-                                            eyebrow="Objetivos"
-                                            title="Competências que o curso pretende desenvolver"
-                                        />
-                                        {objectives ? (
-                                            <p className="whitespace-pre-line text-[1rem] leading-8 text-[#4b5563]">{objectives}</p>
-                                        ) : (
-                                            <EmptyState>
-                                                Os objetivos do curso serão apresentados aqui quando estiverem disponíveis no conteúdo do curso.
-                                            </EmptyState>
-                                        )}
                                     </div>
                                 ) : null}
 
@@ -313,23 +297,7 @@ export default function CourseDetail({ course = {} }) {
                                             </EmptyState>
                                         )}
                                     </div>
-                                ) : null}
-
-                                {activeTab === 'access' ? (
-                                    <div>
-                                        <SectionTitle
-                                            eyebrow="Condições de acesso"
-                                            title="Informação para candidatura"
-                                        />
-                                        {accessConditions ? (
-                                            <p className="whitespace-pre-line text-[1rem] leading-8 text-[#4b5563]">{accessConditions}</p>
-                                        ) : (
-                                            <EmptyState>
-                                                As condições de acesso serão adicionadas aqui quando forem definidas para este curso.
-                                            </EmptyState>
-                                        )}
-                                    </div>
-                                ) : null}
+                                ) : null}                                
 
                                 {activeTab === 'outcomes' ? (
                                     <div>
@@ -337,9 +305,15 @@ export default function CourseDetail({ course = {} }) {
                                             eyebrow="Saídas profissionais"
                                             title="Possíveis percursos após o curso"
                                         />
-                                        {professionalOutcomes ? (
-                                            <p className="whitespace-pre-line text-[1rem] leading-8 text-[#4b5563]">{professionalOutcomes}</p>
-                                        ) : (
+                                        
+                                        {outcomesList.length > 0 ? (
+                                        <ul className="list-disc pl-5 text-[1rem] leading-8 text-[#4b5563]">
+                                            {outcomesList.map((outcome, index) => (
+                                                <li key={index}>{outcome}</li>
+                                            ))}
+                                        </ul>
+                                        ) : 
+                                        (
                                             <EmptyState>
                                                 As saídas profissionais serão apresentadas aqui quando estiverem associadas ao curso.
                                             </EmptyState>
@@ -356,17 +330,7 @@ export default function CourseDetail({ course = {} }) {
                                 Informação do curso
                             </p>
 
-                            <div className="space-y-4">
-                                <InfoItem
-                                    label="Início"
-                                    value={startDate}
-                                    icon={(
-                                        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                            <rect x="3" y="4" width="18" height="18" rx="2" />
-                                            <path d="M16 2v4M8 2v4M3 10h18" />
-                                        </svg>
-                                    )}
-                                />
+                            <div className="space-y-4">                                
                                 <InfoItem
                                     label="Horário"
                                     value={schedule}
@@ -407,17 +371,7 @@ export default function CourseDetail({ course = {} }) {
                                             <path d="M4 15l8 4 8-4" />
                                         </svg>
                                     )}
-                                />
-                                <InfoItem
-                                    label="Local"
-                                    value={campus}
-                                    icon={(
-                                        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                            <path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z" />
-                                            <circle cx="12" cy="10" r="2" />
-                                        </svg>
-                                    )}
-                                />
+                                />                                
                             </div>
 
                             <div className="mt-7 space-y-3 border-t border-[#edf2f7] pt-6">

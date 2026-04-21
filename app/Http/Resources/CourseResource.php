@@ -45,6 +45,10 @@ class CourseResource extends JsonResource
             'tuition_monthly_pay' => $this->tuition_monthly_pay,
             'tuition_months' => $this->tuition_months,
             'semesters' => SemesterResource::collection($this->semesters),
+
+            'professional_outcomes' =>
+                $this->getTranslation('professional_outcomes', $locale)
+                ?: $this->getTranslation('professional_outcomes', 'pt'),
         ];
     }
 }

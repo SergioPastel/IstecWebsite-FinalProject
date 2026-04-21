@@ -24,7 +24,7 @@ class SubjectResource extends JsonResource
         $locale = app()->getLocale();
         return [
             'id' => $this->id,
-            'name' => $this->name[$locale] ?? $this->name['pt'] ?? null,
+            'name' => $this->getTranslation('name', $locale) ?: $this->getTranslation('name', $locale),
             'ects' => $this->ects ?? null,
             'file_path' => $this->file_path ?? '',
         ];
