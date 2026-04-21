@@ -265,9 +265,18 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                                 key={course.id}
                                                 className="flex h-full flex-col rounded-[20px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(124,58,237,0.12)]"
                                             >
-                                                <span className="inline-flex self-start rounded-full bg-[#f3e8ff] px-3 py-[6px] text-[0.8rem] font-extrabold text-[#7c3aed]">
-                                                    Pós-Graduação
-                                                </span>
+                                                <div className="relative w-full h-48 mb-4 overflow-hidden rounded-xl">
+                                                    <img
+                                                        src={course.media?.url}
+                                                        alt={course.title}
+                                                        className="w-full h-full object-cover opacity-60 transition duration-700 group-hover:scale-105"
+                                                    />
+
+                                                    <span 
+                                                    className="absolute top-3 left-3 inline-flex self-start rounded-full bg-[#f3e8ff] px-3 py-[6px] text-[0.8rem] font-extrabold text-[#7c3aed] shadow">
+                                                        Pós-graduação
+                                                    </span>
+                                                </div>
 
                                                 <h3 className="mt-[14px] text-[1.2rem] font-semibold leading-[1.3] text-[#1f2937]">
                                                     {title}
