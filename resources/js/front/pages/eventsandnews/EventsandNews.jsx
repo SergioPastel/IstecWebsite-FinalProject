@@ -118,7 +118,7 @@ export default function EventsandNews({
       }}
     >
       <section className="w-full mt-[120px]">
-        <div className="bg-gradient-to-r from-[#0b7fd1] to-[#1597ec] text-white">
+        <div className="bg-[#0d8fe8] text-white h-[560px] flex items-center justify-center relative overflow-hidden">
           <div className="max-w-[1600px] mx-auto px-6 min-h-[540px] md:min-h-[620px] flex items-center">
             <div className="max-w-[760px]">
               <p className="text-[0.82rem] font-extrabold tracking-[1.8px] uppercase text-white/80 mb-4">

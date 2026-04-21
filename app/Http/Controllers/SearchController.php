@@ -16,17 +16,44 @@ class SearchController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+   public function index(Request $request)
     {
-        $query = $request->get('q', '');
+        $query = trim($request->input('q', ''));
 
-        return Inertia('front/pages/search/index', [ // Is this used ?
+        $courses = [];
+        $events = [];
+        $news = [];
+
+        if ($query !== '') {
+            $courses = Course::where(function ($q) use ($query) {
+                $q->where('title->pt', 'like', "%{$query}%")
+                  ->orWhere('title->en', 'like', "%{$query}%");
+            })
+            ->limit(6)
+            ->get();
+
+            $events = Event::where(function ($q) use ($query) {
+                $q->where('title->pt', 'like', "%{$query}%")
+                  ->orWhere('title->en', 'like', "%{$query}%");
+            })
+            ->limit(6)
+            ->get();
+
+            $news = News::where(function ($q) use ($query) {
+                $q->where('title->pt', 'like', "%{$query}%")
+                  ->orWhere('title->en', 'like', "%{$query}%");
+            })
+            ->limit(6)
+            ->get();
+        }
+
+        return Inertia('front/pages/search/index', [
             'query' => $query,
             'results' => [
-                'courses' => $query ? Course::where('title', 'like', "%{$query}%")->get() : [],
-                'events' => $query ? Event::where('title', 'like', "%{$query}%")->get() : [],
-                'news' => $query ? News::where('title', 'like', "%{$query}%")->get() : [],
-            ]
+                'courses' => $courses,
+                'events' => $events,
+                'news' => $news,
+            ],
         ]);
     }
 }

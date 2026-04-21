@@ -11,7 +11,7 @@ export default function About() {
       <main className="w-full bg-white text-[#1f2937]">
         {/* HERO */}
         <section className="mt-[120px]">
-          <div className="bg-gradient-to-r from-[#0b7fd1] to-[#1597ec] text-white">
+          <div className="bg-[#0d8fe8] text-white h-[560px] flex items-center justify-center relative overflow-hidden">
             <div className="max-w-[1600px] mx-auto px-6 py-20">
               <p className="text-sm uppercase tracking-[2px] font-extrabold text-white/80 mb-4">
                 {t("about.hero.label", "Instituição")}

@@ -142,7 +142,7 @@ export default function CourseDetail({ course = {} }) {
                 className="w-full overflow-x-hidden bg-[#f5f8fc] text-[#1f2937]"
                 onClick={() => window.dispatchEvent(new Event('closeDropdowns'))}
             >
-                <section className="relative mt-[120px] overflow-hidden bg-[#0d8fe8] text-white">
+                <section className="bg-[#0d8fe8] text-white h-[560px] flex items-center justify-center relative overflow-hidden">
                     <div className="absolute inset-0">
                         <img
                             src={heroImage}
