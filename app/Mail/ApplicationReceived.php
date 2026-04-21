@@ -16,15 +16,25 @@ class ApplicationReceived extends Mailable
 {
     public function __construct(
         // We pass the CV content, mime type and name as separate parameters because we don't want to store the CV file in our storage, but we want to attach it directly from the uploaded file content
-        public Application $application,
+        public $application,
         public ?Array $files = null
     ) {}
 
     public function envelope(): Envelope
     {
+        $subject = 'CANDIDATURA: ' . $this->application->full_name;
+
+        if ($this->application->course) {
+            $subject .= ' (Curso: ' . $this->application->course->title . ' #' . $this->application->course->id . ')';
+        }
+
+        if ($this->application->event) {
+            $subject .= ' (Evento: ' . $this->application->event->name . ' #' . $this->application->event->id . ')';
+        }
+
         return new Envelope(
-            subject: 'CANDIDATURA: ' . $this->application->full_name . ' (' . $this->application->course->title . ')',
-            replyTo: $this->application->email, // replies to the emails applicant
+            subject: $subject,
+            replyTo: [$this->application->email],
         );
     }
 

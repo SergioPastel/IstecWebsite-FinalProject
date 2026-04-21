@@ -106,8 +106,7 @@ class ApplicationController extends Controller
 
         $event = Event::findOrFail($validated['event_id']);
 
-        return redirect()->route('events.show', $event->slug)
-            ->with('success', 'Candidatura submetida com sucesso.');
+        return redirect()->back()->with('success', 'Candidatura submetida com sucesso.');
     }
 
     /*

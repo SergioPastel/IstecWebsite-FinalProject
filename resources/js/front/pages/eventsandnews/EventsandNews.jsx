@@ -33,7 +33,7 @@ export default function EventsandNews({
   const eventItems = Array.isArray(events?.data)
     ? events.data.map((item) => ({...item,
             kind: "event",
-            label: item.type || "Evento",
+            label: item.category || "Evento",
             meta: `${item.date || "Data por definir"} • ${item.location || "Local por definir"}`,
             summary:item.description || "Descobre este evento e participa numa experiência única com atividades práticas e interação com a comunidade.",
       }))
