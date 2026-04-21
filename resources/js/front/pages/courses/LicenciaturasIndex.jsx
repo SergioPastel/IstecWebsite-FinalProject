@@ -1,6 +1,7 @@
 import Layout from '../../layouts/layout';
 import { useTranslation } from 'react-i18next';
 import { Link, router, Head } from '@inertiajs/react';
+import Banner from '../../components/common/Banner';
 import { useEffect, useMemo, useState } from 'react';
 
 function getCourseText(value, lang) {
@@ -111,7 +112,7 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
             <Head title="Licenciaturas" />
 
             <div className="w-full bg-[#f5f8fc] text-[#1f2937]">
-                <section className="relative overflow-hidden bg-gradient-to-br from-[#0d8fe8] to-[#38b6ff] pt-40 pb-20 text-white">
+                <Banner>
                     <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 sm:px-6 lg:px-8">
                         <div className="max-w-3xl">
                             <p className="mb-4 text-[0.85rem] font-extrabold uppercase tracking-[1.5px] text-white/90">
@@ -131,7 +132,7 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                     </div>
 
                     <div className="absolute right-[-120px] bottom-[-80px] h-[320px] w-[320px] rounded-full bg-white/10 blur-xl"></div>
-                </section>
+                </Banner>
 
                 <section className="relative -mt-10 z-10">
                     <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">

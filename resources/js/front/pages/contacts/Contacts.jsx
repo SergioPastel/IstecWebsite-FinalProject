@@ -1,6 +1,7 @@
 import Layout from "../../layouts/Layout";
 import { useForm, usePage } from "@inertiajs/react";
 import { useTranslation } from 'react-i18next';
+import Banner from "../../components/common/Banner";
 
 export default function Contacts({departmentContacts }) {
   const { flash } = usePage().props;
@@ -26,10 +27,10 @@ export default function Contacts({departmentContacts }) {
   return (
     <Layout title={t("contacts.contacts")}>
       <div className="min-h-screen bg-[#f3f5f8]">
-        <main className="pt-28">
+        <main className="">
 
           {/* HERO */}
-          <section className="h-[500px] md:h-[600px] flex items-center bg-[#1697e6] text-white">
+          <Banner >
             <div className="max-w-7xl mx-auto px-6 md:px-10">
               <p className="uppercase tracking-[0.2em] text-sm text-white/80 mb-4">
                 ISTEC PORTO
@@ -43,7 +44,7 @@ export default function Contacts({departmentContacts }) {
                 {t("contacts.subtitle")}
               </p>
             </div>
-          </section>
+          </Banner>
 
           {/* DEPARTAMENTOS */}
           <section className="pt-16 pb-16">
