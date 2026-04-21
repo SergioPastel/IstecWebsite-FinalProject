@@ -30,7 +30,7 @@ class CourseResource extends JsonResource
         $locale = app()->getLocale();
         return [
             'id' => $this->id,
-            // 'category' => new CourseCategoryResource($this->category),
+            'media' => $this->media_id ? new MediaResource($this->media) : null,
             'category' =>
                 $this->category->getTranslation('title', $locale)
                 ?: $this->category->getTranslation('title', 'pt'),
