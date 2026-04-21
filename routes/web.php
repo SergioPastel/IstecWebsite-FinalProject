@@ -165,6 +165,7 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
 Route::get('/courses', [CourseController::class, 'index'])->name('courses'); // change later
 Route::get('/courses/ctesp', [CourseController::class, 'ctesp'])->name('courses.ctesp');
 Route::get('/courses/licenciatura', [CourseController::class, 'licenciatura'])->name('courses.licenciatura');
+Route::get('/courses/pos-graduacao', [CourseController::class, 'posGraduacao'])->name('courses.posGraduacao');
 Route::get('/courses/{course:id}', [CourseController::class, 'show'])->name('courses.show');
 
 route::get('/events', [EventController::class, 'index'])->name('events');

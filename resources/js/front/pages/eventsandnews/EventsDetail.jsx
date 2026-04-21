@@ -17,9 +17,9 @@ export default function EventDetail({ event }) {
         <section className="max-w-[1200px] mx-auto px-6">
           <article className="overflow-hidden rounded-[28px] border border-[#ddd6cc] bg-white shadow-[0_10px_30px_rgba(15,23,42,0.08)]">
             <div className="h-[320px] md:h-[460px] w-full overflow-hidden bg-[#eae6df]">
-              {event.image ? (
+              {event.media ? (
                 <img
-                  src={event.image}
+                  src={event.media?.url}
                   alt={event.title}
                   className="w-full h-full object-cover"
                 />
@@ -76,7 +76,7 @@ export default function EventDetail({ event }) {
                     </button>
 
                     <Link
-                      href={route("applications.applyEvent")}
+                      href={route("applications.events.apply", { event: event.id })}
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#0d8fe8] text-white font-semibold hover:bg-[#0b7acc] transition shadow"
                     >
                       {t("events.detail.apply", "Candidatar-se")}

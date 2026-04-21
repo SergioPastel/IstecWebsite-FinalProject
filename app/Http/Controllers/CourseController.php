@@ -39,6 +39,14 @@ class CourseController extends Controller
         ]);
     }
 
+    public function posGraduacao()
+    {
+        $courses = Course::latest()->paginate(10)->onEachSide(1);
+        return Inertia('front/pages/courses/PosGraduacoesIndex', [ 
+            'courses' => CourseResource::collection($courses)
+        ]);
+    }
+
     // Admin doesn't need show
     public function show(Course $course)
     {

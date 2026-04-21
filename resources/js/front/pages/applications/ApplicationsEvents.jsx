@@ -396,13 +396,25 @@ export default function ApplicationsEvents({
                           error={errors.email}
                           required
                         />
-                        <Input
-                          label={t("applicationsForm.common.phone")}
-                          value={formData.phone}
-                          onChange={(v) => updateField("phone", v)}
-                          error={errors.phone}
-                          required
-                        />
+                        <div>
+                          <label className="mb-2 block text-sm font-semibold text-slate-700">
+                            {t("applicationsForm.common.phone")} <span className="text-red-500">*</span>
+                          </label>
+
+                          <div className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus-within:border-[#0d8fe8]">
+                            <PhoneInput
+                              international
+                              defaultCountry="PT"
+                              value={formData.phone}
+                              onChange={(value) => updateField("phone", value || "")}
+                              className="w-full"
+                            />
+                          </div>
+
+                          {errors.phone && (
+                            <p className="mt-2 text-sm text-red-500">{errors.phone}</p>
+                          )}
+                       </div>
                         <Input
                           label={t("applicationsForm.common.identificationNumber")}
                           value={formData.identification_number}
