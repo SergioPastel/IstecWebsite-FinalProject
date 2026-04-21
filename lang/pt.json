@@ -317,6 +317,87 @@
         "location": "Onde estamos localizados",
         "message": "Envia-nos uma mensagem"
     },
+    "erasmusPage": {
+        "title": "Erasmus+",
+        "subtitle": "Programa de Mobilidade",
+        "description": "Descobre oportunidades de mobilidade académica internacional e enriquece o teu percurso.",
+        "studyTitle": "Estuda além-fronteiras",
+        "studyText1": "O programa Erasmus+ permite estudar numa instituição parceira.",
+        "studyText2": "Promove autonomia, intercâmbio cultural e desenvolvimento académico.",
+        "benefitsTitle": "Vantagens do programa",
+        "benefits": [
+            "Experiência internacional e intercultural",
+            "Desenvolvimento pessoal e académico",
+            "Contacto com novas metodologias de ensino",
+            "Valorização do currículo e da empregabilidade"
+        ],
+        "highlights": [
+            "destinos disponíveis",
+            "instituições parceiras",
+            "experiência internacional"
+        ],
+        "stepsTitle": "Como funciona",
+        "stepsDescription": "Percurso simples para participar no programa.",
+        "steps": [
+            {
+            "title": "1. Candidatura",
+            "text": "Consulta os critérios e submete a tua candidatura dentro do prazo definido."
+            },
+            {
+            "title": "2. Seleção",
+            "text": "As candidaturas são avaliadas de acordo com os requisitos e vagas disponíveis."
+            },
+            {
+            "title": "3. Preparação",
+            "text": "Após a seleção, preparas a documentação e o plano de estudos para a mobilidade."
+            }
+        ],
+        "partnersTitle": "Instituições parceiras",
+        "partnersDescription": "Exemplos de instituições de acolhimento para mobilidade.",
+        "partners": [
+            "Universidade Parceira A",
+            "Universidade Parceira B",
+            "Universidade Parceira C",
+            "Universidade Parceira D"
+        ],
+        "ctaTitle": "Leva o teu percurso mais longe",
+        "ctaText": "O Erasmus+ é uma oportunidade para crescer académica e pessoalmente, através de uma experiência internacional enriquecedora.",
+        "ctaButton": "Saber mais"
+        },
+    "pedagogyPage": {
+        "title": "Pedagogia XXI",
+        "subtitle": "ISTEC PORTO",
+        "description": "A área pedagógica foca-se na inovação no ensino e aprendizagem centrada no estudante.",
+        "impactTitle": "Ensino com impacto",
+        "impactText1": "Práticas educativas modernas com participação ativa.",
+        "impactText2": "Foco na aplicação prática do conhecimento.",
+        "objectivesTitle": "Objetivos pedagógicos",
+        "objectives": [
+            "Inovação pedagógica",
+            "Melhorar qualidade",
+            "Apoiar docentes",
+            "Aprendizagem ativa"
+        ],
+        "areasTitle": "Áreas pedagógicas",
+                "areasDescription": "Principais áreas de intervenção e desenvolvimento pedagógico.",
+                "areas": [
+                    {
+                    "title": "Metodologias de Ensino",
+                    "text": "Abordagens pedagógicas inovadoras centradas no estudante e na aprendizagem ativa."
+                    },
+                    {
+                    "title": "Avaliação Educativa",
+                    "text": "Estratégias de avaliação contínua orientadas para o desenvolvimento de competências."
+                    },
+                    {
+                    "title": "Tecnologia na Educação",
+                    "text": "Integração de ferramentas digitais no processo de ensino e aprendizagem."
+                    }
+                ],
+                "ctaTitle": "Inovar no ensino é preparar o futuro",
+                "ctaText": "A pedagogia é um pilar essencial na formação de profissionais qualificados, críticos e preparados para responder aos desafios do mercado e da sociedade.",
+                "ctaButton": "Saber mais"
+        },
     "footer": {
         "istecPorto": "ISTEC Porto",
         "description": "Instituto Superior de Tecnologias Avançadas do Porto, com foco na inovação, formação prática e proximidade ao mercado.",

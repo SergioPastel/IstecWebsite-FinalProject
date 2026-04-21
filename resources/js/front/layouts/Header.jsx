@@ -144,7 +144,7 @@ function Header({}) {
       children: [
         { href: route('courses.ctesp'), labelKey: "ctesp" },
         { href: route('courses.licenciatura'), labelKey: "licenciatura" },
-        { href: "/pos-graduacao", labelKey: "pos-graduacao" },
+        { href: route('courses.posGraduacao'), labelKey: "pos-graduacao" },
         { href: route('applications.courses.apply'), labelKey: "applications" },
       ],
     },
@@ -160,13 +160,13 @@ function Header({}) {
       key: "mobility-program",
       titleKey: "mobilityProgram",
       children: [
-        { href: "/erasmus", labelKey: "erasmus+" },
+        { href: route("erasmus"), labelKey: "erasmus+" },
       ],
     },
     {
       key: "pedagogy-xxi",
       titleKey: "pedagogyXXI",
-      href: "/pedagogia-xxi",
+      href: route("pedagogia"),
     },
   ];
 

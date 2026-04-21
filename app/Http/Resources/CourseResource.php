@@ -30,7 +30,7 @@ class CourseResource extends JsonResource
         $locale = app()->getLocale();
         return [
             'id' => $this->id,
-            // 'category' => new CourseCategoryResource($this->category),
+            'media' => $this->media_id ? new MediaResource($this->media) : null,
             'category' =>
                 $this->category->getTranslation('title', $locale)
                 ?: $this->category->getTranslation('title', 'pt'),
@@ -41,10 +41,15 @@ class CourseResource extends JsonResource
                 $this->getTranslation('description', $locale)
                 ?: $this->getTranslation('description', 'pt'),
             'duration_years' => $this->duration_years,
+            'modality' => $this->modality,
             'study_regime' => $this->study_regime,
             'tuition_monthly_pay' => $this->tuition_monthly_pay,
             'tuition_months' => $this->tuition_months,
             'semesters' => SemesterResource::collection($this->semesters),
+
+            'professional_outcomes' =>
+                $this->getTranslation('professional_outcomes', $locale)
+                ?: $this->getTranslation('professional_outcomes', 'pt'),
         ];
     }
 }

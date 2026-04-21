@@ -6,40 +6,81 @@ use App\Models\EventCategory;
 use App\Models\Media;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use League\CommonMark\Reference\Reference;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Event>
- */
 class EventFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
-        $startDate = Carbon::instance(fake()->dateTimeBetween('-1 month', "+1 month"));
-        $duration = fake()->numberBetween(0, 7);
-        $endDate = fake()->boolean(90)
-            ? $startDate->copy()->addDays($duration)
-            : null;
-
-        return [
-            'media_id' => Media::factory()->create(),
-            'event_category_id' => EventCategory::inRandomOrder()->first()?->id,
-            'start_date' => $startDate,
-            'end_date' => $endDate,
-            'location' => fake()->address(),
+    private static array $events = [
+        [
             'title' => [
-                'pt' => fake()->word(),
-                'en' => fake()->word(),
+                'pt' => 'Workshop de Desenvolvimento Web no ISTEC',
+                'en' => 'Web Development Workshop at ISTEC',
             ],
             'description' => [
-                'pt' => fake()->sentence(),
-                'en' => fake()->sentence(),
-            ]
+                'pt' => 'Workshop prático dedicado ao desenvolvimento web moderno, abordando Laravel, React e boas práticas de programação.',
+                'en' => 'Hands-on workshop focused on modern web development covering Laravel, React and programming best practices.',
+            ],
+            'location' => 'ISTEC Porto',
+            'start_date' => '2026-05-10',
+            'end_date' => '2026-05-10',
+        ],
+        [
+            'title' => [
+                'pt' => 'Conferência de Cibersegurança',
+                'en' => 'Cybersecurity Conference',
+            ],
+            'description' => [
+                'pt' => 'Especialistas da indústria apresentam tendências atuais em cibersegurança e proteção de dados.',
+                'en' => 'Industry experts present current trends in cybersecurity and data protection.',
+            ],
+            'location' => 'Auditório ISTEC',
+            'start_date' => '2026-05-18',
+            'end_date' => '2026-05-19',
+        ],
+        [
+            'title' => [
+                'pt' => 'Hackathon Tecnológico ISTEC',
+                'en' => 'ISTEC Technology Hackathon',
+            ],
+            'description' => [
+                'pt' => 'Evento intensivo onde estudantes desenvolvem soluções tecnológicas inovadoras em equipas multidisciplinares.',
+                'en' => 'Intensive event where students develop innovative technological solutions in multidisciplinary teams.',
+            ],
+            'location' => 'Laboratórios ISTEC',
+            'start_date' => '2026-06-02',
+            'end_date' => '2026-06-04',
+        ],
+        [
+            'title' => [
+                'pt' => 'Sessão de Apresentação de Projetos Finais',
+                'en' => 'Final Project Presentation Session',
+            ],
+            'description' => [
+                'pt' => 'Estudantes finalistas apresentam os seus projetos perante professores e empresas convidadas.',
+                'en' => 'Final-year students present their projects to professors and invited companies.',
+            ],
+            'location' => 'Campus ISTEC',
+            'start_date' => '2026-06-20',
+            'end_date' => null,
+        ],
+    ];
+
+    public function definition(): array
+    {
+        $event = fake()->randomElement(self::$events);
+
+        return [
+            'media_id' => Media::factory(), 
+            'event_category_id' => EventCategory::inRandomOrder()->first()?->id,
+
+            'start_date' => Carbon::parse($event['start_date']),
+            'end_date' => $event['end_date']
+                ? Carbon::parse($event['end_date'])
+                : null,
+
+            'location' => $event['location'],
+
+            'title' => $event['title'],
+            'description' => $event['description'],
         ];
     }
 }

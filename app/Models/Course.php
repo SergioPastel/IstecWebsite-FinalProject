@@ -23,7 +23,8 @@ class Course extends Model
         'duration_years',
         'study_regime',
         'tuition_monthly_pay',
-        'tuition_months'
+        'tuition_months',
+        'modality',
     ];
     /**
      * Summary of translatable attributes.
@@ -69,7 +70,8 @@ class Course extends Model
      * Eloquent mapping of Applications
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Application, Course>
      */
-    function applications(){
+    function applications()
+    {
         return $this->hasMany(Application::class);
     }
 

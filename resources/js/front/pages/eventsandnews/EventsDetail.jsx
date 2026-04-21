@@ -6,57 +6,20 @@ import Layout from "../../layouts/Layout";
 export default function EventDetail({ event }) {
   const { t, i18n } = useTranslation();
 
-  /* if (!event) { Should never happen due to how the route is used, save here for now
-    return (
-      <Layout title={t("events.detail.notFound")}>
-        <main className="min-h-screen bg-[#f5f8fc] pt-32 pb-20 px-6">
-          <div className="max-w-[1000px] mx-auto">
-            <div className="rounded-[24px] border border-[#ddd6cc] bg-white p-10 text-center shadow-[0_8px_24px_rgba(15,23,42,0.06)]">
-              <h1 className="text-3xl font-bold text-[#111827]">
-                {t("events.detail.notFound", "Evento não encontrado")}
-              </h1>
-
-              <p className="mt-4 text-[#6b7280]">
-                {t(
-                  "events.detail.notFoundDescription",
-                  "Não foi possível carregar o detalhe do evento."
-                )}
-              </p>
-
-              <Link
-                href="/eventos"
-                className="mt-8 inline-flex items-center justify-center rounded-full bg-[#0d8fe8] px-6 py-3 font-bold text-white transition hover:bg-[#0a78c4]"
-              >
-                {t("events.detail.backToEvents", "Voltar aos eventos")}
-              </Link>
-            </div>
-          </div>
-        </main>
-      </Layout>
-    );
-  }*/
-
   return (  
     <Layout title={event.title}>
       <main
-        className="w-full overflow-x-hidden bg-[#f5f8fc] text-[#1f2937] pt-[120px] pb-20"
+        className="w-full overflow-x-hidden bg-[#f5f8fc] text-[#1f2937] pt-[160px] pb-20"
         onClick={() => {
           window.dispatchEvent(new Event("closeDropdowns"));
         }}
       >
         <section className="max-w-[1200px] mx-auto px-6">
-          <Link
-            href="/eventos"
-            className="mb-8 inline-flex items-center font-bold text-[#0d8fe8] hover:underline"
-          >
-            ← {t("events.detail.backToEvents", "Voltar aos eventos")}
-          </Link>
-
           <article className="overflow-hidden rounded-[28px] border border-[#ddd6cc] bg-white shadow-[0_10px_30px_rgba(15,23,42,0.08)]">
             <div className="h-[320px] md:h-[460px] w-full overflow-hidden bg-[#eae6df]">
-              {event.image ? (
+              {event.media ? (
                 <img
-                  src={event.image}
+                  src={event.media?.url}
                   alt={event.title}
                   className="w-full h-full object-cover"
                 />
@@ -103,6 +66,23 @@ export default function EventDetail({ event }) {
                   </p>
                 </div>
               </div>
+                <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-between items-center">
+                    <button
+                      type="button"
+                      onClick={() => window.history.back()}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[#0d8fe8] text-[#0d8fe8] font-semibold hover:bg-[#eaf4ff] transition"
+                    >
+                      ← {t("events.detail.back", "Voltar")}
+                    </button>
+
+                    <Link
+                      href={route("applications.events.apply", { event: event.id })}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#0d8fe8] text-white font-semibold hover:bg-[#0b7acc] transition shadow"
+                    >
+                      {t("events.detail.apply", "Candidatar-se")}
+                    </Link>
+                  </div>
+
             </div>
           </article>
         </section>

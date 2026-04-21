@@ -1,7 +1,8 @@
-import Layout from '../../layouts/Layout';
+﻿import Layout from '../../layouts/Layout';
 import { useTranslation } from 'react-i18next';
 import { Link, router, Head } from '@inertiajs/react';
 import { useEffect, useMemo, useState } from 'react';
+import { route } from 'ziggy-js';
 
 function getCourseText(value, lang) {
     if (value == null) return '';
@@ -17,7 +18,7 @@ function normalizeText(value) {
         .toLowerCase();
 }
 
-function isLicenciaturaCourse(course, lang) {
+function isPosGraduacaoCourse(course, lang) {
     const categoryTitle = getCourseText(
         course.course_category?.title ?? course.courseCategory?.title ?? course.category,
         lang
@@ -28,17 +29,23 @@ function isLicenciaturaCourse(course, lang) {
         getCourseText(course.title, 'pt'),
         getCourseText(course.title, 'en'),
         categoryTitle,
+        course.slug,
         course.type,
         course.course_type,
     ].join(' '));
 
     return (
-        searchableText.includes('licenciatura') ||
-        searchableText.includes('bachelor')
+        searchableText.includes('pos-graduacao') ||
+        searchableText.includes('pos-graduacoes') ||
+        searchableText.includes('pos graduacao') ||
+        searchableText.includes('pos graduacoes') ||
+        searchableText.includes('postgraduate') ||
+        searchableText.includes('post graduate') ||
+        searchableText.includes('especializacao')
     );
 }
 
-export default function LicenciaturasIndex({ courses, filters = {} }) {
+export default function PosGraduacoesIndex({ courses, filters = {} }) {
     const { i18n } = useTranslation();
     const lang = i18n.language?.startsWith('en') ? 'en' : 'pt';
 
@@ -53,12 +60,12 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
         return courses.data ?? [];
     }, [courses]);
 
-    const licenciaturaCourseItems = useMemo(() => {
-        return courseItems.filter((course) => isLicenciaturaCourse(course, lang));
+    const posGraduacaoCourseItems = useMemo(() => {
+        return courseItems.filter((course) => isPosGraduacaoCourse(course, lang));
     }, [courseItems, lang]);
 
     const sortedCourseItems = useMemo(() => {
-        const items = [...licenciaturaCourseItems];
+        const items = [...posGraduacaoCourseItems];
 
         if (sortBy === 'name_asc') {
             items.sort((a, b) => {
@@ -75,7 +82,7 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
         }
 
         return items;
-    }, [licenciaturaCourseItems, sortBy, lang]);
+    }, [posGraduacaoCourseItems, sortBy, lang]);
 
     const totalPages = Math.ceil(sortedCourseItems.length / itemsPerPage);
 
@@ -99,7 +106,7 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
 
     const applyFilters = (next = {}) => {
         router.get(
-            window.location?.pathname ?? '/courses/licenciaturas',
+            window.location?.pathname ?? '/courses/pos-graduacoes',
             {
                 q: next.q ?? query ?? undefined,
             },
@@ -108,8 +115,8 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
     };
 
     return (
-        <Layout title="Licenciaturas">
-            <Head title="Licenciaturas" />
+        <Layout title="Pós-Graduações">
+            <Head title="Pós-Graduações" />
 
             <div className="w-full bg-[#f5f8fc] text-[#1f2937]">
                 <section className="relative overflow-hidden bg-gradient-to-br from-[#0d8fe8] to-[#38b6ff] pt-40 pb-20 text-white">
@@ -120,13 +127,12 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                             </p>
 
                             <h1 className="text-[clamp(2.2rem,4vw,3.8rem)] font-extrabold leading-[1.08] tracking-[-1px]">
-                                Licenciaturas
+                                Pós-Graduações
                             </h1>
 
                             <p className="mt-5 max-w-2xl text-[1.05rem] leading-[1.8] text-white/90">
-                                Descobre as licenciaturas do ISTEC Porto e escolhe um percurso de
-                                ensino superior focado em tecnologia, criatividade e preparação
-                                para o mercado de trabalho.
+                                Descobre as pós-graduações do ISTEC Porto e aprofunda competências
+                                especializadas com formação orientada para a evolução profissional.
                             </p>
                         </div>
                     </div>
@@ -138,30 +144,30 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                     <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="rounded-[26px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] sm:p-8">
                             <p className="mb-3 inline-block text-[0.8rem] font-extrabold uppercase tracking-[1.2px] text-[#0d8fe8]">
-                                Sobre as licenciaturas
+                                Sobre as pós-graduações
                             </p>
 
                             <h2 className="mb-4 text-[clamp(1.8rem,3vw,2.4rem)] font-semibold leading-[1.15] tracking-[-0.5px] text-[#1f2937]">
-                                1º ciclo de estudos com 180 ECTS
+                                Formação avançada para reforçar competências profissionais
                             </h2>
 
                             <div className="max-w-4xl space-y-4 text-[0.98rem] leading-[1.8] text-[#6b7280]">
                                 <p>
-                                    As licenciaturas são ciclos de estudo de ensino superior com a
-                                    duração de seis semestres letivos, correspondentes a 180 unidades
-                                    de crédito ECTS.
+                                    As pós-graduações destinam-se a quem procura atualizar,
+                                    aprofundar ou especializar conhecimentos numa área concreta,
+                                    respondendo às necessidades atuais do mercado de trabalho.
                                 </p>
 
                                 <p>
-                                    No ISTEC Porto, a formação combina bases científicas, competências
-                                    técnicas e aplicação prática, preparando os estudantes para desafios
-                                    reais nas áreas da informática e da multimédia.
+                                    No ISTEC Porto, estes percursos valorizam a aplicação prática,
+                                    a proximidade ao contexto profissional e o desenvolvimento de
+                                    competências técnicas relevantes.
                                 </p>
 
                                 <p>
-                                    A oferta de licenciaturas inclui Engenharia Informática e Engenharia
-                                    Multimédia, com planos de estudo orientados para inovação,
-                                    desenvolvimento tecnológico e empregabilidade.
+                                    A oferta de pós-graduações é pensada para profissionais,
+                                    diplomados e estudantes que pretendem diferenciar o seu perfil e
+                                    continuar a evoluir na sua área de atuação.
                                 </p>
                             </div>
                         </div>
@@ -173,17 +179,17 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                             <div>
                                 <p className="mb-[10px] inline-block text-[0.8rem] font-extrabold uppercase tracking-[1.2px] text-[#0d8fe8]">
-                                    Oferta de licenciaturas
+                                    Oferta de pós-graduações
                                 </p>
 
                                 <h2 className="text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.15] tracking-[-0.5px] text-[#1f2937]">
-                                    Encontra a licenciatura certa para ti
+                                    Encontra a pós-graduação certa para ti
                                 </h2>
                             </div>
 
                             <div className="text-sm text-[#6b7280]">
                                 <span className="font-bold text-[#1f2937]">{resultsCount}</span>{' '}
-                                {resultsCount === 1 ? 'licenciatura encontrada' : 'licenciaturas encontradas'}
+                                {resultsCount === 1 ? 'pós-graduação encontrada' : 'pós-graduações encontradas'}
                             </div>
                         </div>
 
@@ -209,7 +215,7 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                                     onKeyDown={(e) => {
                                         if (e.key === 'Enter') applyFilters({ q: e.currentTarget.value });
                                     }}
-                                    placeholder="Pesquisar licenciaturas..."
+                                    placeholder="Pesquisar pós-graduações..."
                                     className="w-full rounded-[18px] border border-[#dbe4ee] bg-white px-11 py-4 pr-32 text-sm text-[#1f2937] outline-none focus:ring-2 focus:ring-[#0d8fe8]"
                                 />
 
@@ -241,7 +247,7 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                     <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
                         {sortedCourseItems.length === 0 ? (
                             <div className="rounded-[20px] border border-dashed border-[#dbe4ee] bg-white p-10 text-center text-sm text-[#6b7280] shadow-[0_8px_24px_rgba(15,23,42,0.04)]">
-                                Não foram encontradas licenciaturas com os filtros aplicados.
+                                Não foram encontradas pós-graduações com os filtros aplicados.
                             </div>
                         ) : (
                             <>
@@ -251,13 +257,13 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                                         const desc = getCourseText(course.description, lang);
                                         const duration = course.duration_years
                                             ? `${course.duration_years} anos`
-                                            : '3 anos';
+                                            : '1 ano';
                                         const regimeLabel = course.study_regime ? 'Pós-laboral' : 'Laboral';
 
                                         return (
                                             <article
                                                 key={course.id}
-                                                className="flex h-full flex-col rounded-[20px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(22,163,74,0.12)]"
+                                                className="flex h-full flex-col rounded-[20px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(124,58,237,0.12)]"
                                             >
                                                 <div className="relative w-full h-48 mb-4 overflow-hidden rounded-xl">
                                                     <img
@@ -267,8 +273,8 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                                                     />
 
                                                     <span 
-                                                    className="absolute top-3 left-3 inline-flex self-start rounded-full bg-[#eafaf1] px-3 py-[6px] text-[0.8rem] font-extrabold text-[#16a34a] shadow">
-                                                        Licenciatura
+                                                    className="absolute top-3 left-3 inline-flex self-start rounded-full bg-[#f3e8ff] px-3 py-[6px] text-[0.8rem] font-extrabold text-[#7c3aed] shadow">
+                                                        Pós-graduação
                                                     </span>
                                                 </div>
 
@@ -282,7 +288,7 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                                                     </p>
                                                 ) : (
                                                     <p className="mt-3 text-sm leading-[1.7] text-[#6b7280]">
-                                                        Licenciatura de 1º ciclo com formação técnica, prática e orientada para o mercado.
+                                                        Pós-graduação com formação especializada, prática e orientada para a valorização profissional.
                                                     </p>
                                                 )}
 
@@ -295,9 +301,11 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                                                         {duration}
                                                     </span>
 
-                                                    <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">
-                                                        180 ECTS
-                                                    </span>
+                                                    {course.tuition_months ? (
+                                                        <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">
+                                                            {course.tuition_months} meses
+                                                        </span>
+                                                    ) : null}
                                                 </div>
 
                                                 <div className="mt-5 text-sm text-[#6b7280]">
@@ -312,21 +320,21 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
 
                                                 <div className="mt-auto flex gap-3 pt-6">
                                                     <Link
-                                                        href={`/courses/${course.id}`}
-                                                        className="flex-1 rounded-full bg-[#16a34a] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#15803d]"
+                                                        href={route('courses.show', course.id)}
+                                                        className="flex-1 rounded-full bg-[#7c3aed] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#6d28d9]"
                                                     >
                                                         Mais Informações
                                                     </Link>
 
                                                     <button
                                                         type="button"
-                                                        className="flex-1 rounded-full border border-[rgba(22,163,74,0.22)] bg-transparent px-4 py-3 text-sm font-bold text-[#16a34a] transition hover:bg-[#eafaf1]"
+                                                        className="flex-1 rounded-full border border-[rgba(124,58,237,0.22)] bg-transparent px-4 py-3 text-sm font-bold text-[#7c3aed] transition hover:bg-[#f3e8ff]"
                                                         onClick={() => {
-                                                            window.umami?.track('licenciatura_apply_click', {
+                                                            window.umami?.track('pos_graduacao_apply_click', {
                                                                 course_id: course.id,
                                                             });
 
-                                                            router.visit(route('applications.courses.apply', course));
+                                                            router.visit(route('applications.applyCourse', course));
                                                         }}
                                                     >
                                                         Candidatar-me

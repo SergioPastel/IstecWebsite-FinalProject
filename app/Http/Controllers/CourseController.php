@@ -36,7 +36,18 @@ class CourseController extends Controller
     public function licenciatura()
     {
         $courses = Course::latest()->paginate(10)->onEachSide(1);
+
+        // dd($courses->pluck('title'));
+
         return Inertia('front/pages/courses/LicenciaturasIndex', [
+            'courses' => CourseResource::collection($courses)
+        ]);
+    }
+
+    public function posGraduacao()
+    {
+        $courses = Course::latest()->paginate(10)->onEachSide(1);
+        return Inertia('front/pages/courses/PosGraduacoesIndex', [
             'courses' => CourseResource::collection($courses)
         ]);
     }

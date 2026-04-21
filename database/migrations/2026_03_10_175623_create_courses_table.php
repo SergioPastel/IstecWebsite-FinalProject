@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->foreignUuid('course_category_id')->references('id')->on('course_categories');
             $table->foreignUuid('media_id')->nullable()->constrained('media');
 
+            $table->enum('modality', ['hybrid', 'online', 'in-person']);
             $table->json('professional_outcomes');
             $table->json('title');
             $table->json('description');

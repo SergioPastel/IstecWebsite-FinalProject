@@ -3,13 +3,13 @@ import { Link } from "@inertiajs/react";
 import { useTranslation } from "react-i18next";
 import Layout from "../../layouts/Layout";
 
-export default function NewsDetail({ newsItem = null }) {
+export default function NewsDetail({ news = null }) {
   const { t, i18n } = useTranslation();
 
-  if (!newsItem) {
+  if (!news) {
     return (
       <>
-        <Layout language={i18n.language} />
+        <Layout title={t("news.detail.notFound", "Notícia não encontrada")}>
 
         <main className="min-h-screen bg-[#f5f8fc] pt-32 pb-20 px-6">
           <div className="max-w-[1000px] mx-auto">
@@ -25,45 +25,39 @@ export default function NewsDetail({ newsItem = null }) {
                 )}
               </p>
 
-              <Link
-                href="/noticias"
-                className="mt-8 inline-flex items-center justify-center rounded-full bg-[#0d8fe8] px-6 py-3 font-bold text-white transition hover:bg-[#0a78c4]"
-              >
-                {t("news.detail.backToNews", "Voltar às notícias")}
-              </Link>
+              <div className="mt-8">
+                <button
+                  type="button"
+                  onClick={() => window.history.back()}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[#0d8fe8] text-[#0d8fe8] font-semibold hover:bg-[#eaf4ff] transition"
+                >
+                  ← {t("events.detail.back", "Voltar")}
+                </button>
+              </div>
             </div>
           </div>
         </main>
-
-        <Footer language={i18n.language} />
+        </Layout>
       </>
     );
   }
 
   return (
     <>
-      <Header language={i18n.language} />
-
+    <Layout title={news.title}>
       <main
         className="w-full overflow-x-hidden bg-[#f5f8fc] text-[#1f2937] pt-[120px] pb-20"
         onClick={() => {
           window.dispatchEvent(new Event("closeDropdowns"));
         }}
       >
-        <section className="max-w-[1200px] mx-auto px-6">
-          <Link
-            href="/noticias"
-            className="mb-8 inline-flex items-center font-bold text-[#0d8fe8] hover:underline"
-          >
-            ← {t("news.detail.backToNews", "Voltar às notícias")}
-          </Link>
-
+        <section className="max-w-[1200px] mx-auto px-6 pt-16">
           <article className="overflow-hidden rounded-[28px] border border-[#ddd6cc] bg-white shadow-[0_10px_30px_rgba(15,23,42,0.08)]">
             <div className="h-[320px] md:h-[460px] w-full overflow-hidden bg-[#eae6df]">
-              {newsItem.image ? (
+              {news.image ? (
                 <img
-                  src={newsItem.image}
-                  alt={newsItem.title}
+                  src={news.image}
+                  alt={news.title}
                   className="w-full h-full object-cover"
                 />
               ) : (
@@ -75,40 +69,49 @@ export default function NewsDetail({ newsItem = null }) {
 
             <div className="p-8 md:p-12">
               <div className="mb-5 flex flex-wrap items-center gap-3">
-                {newsItem.category && (
+                {news.category && (
                   <span className="inline-flex items-center min-h-[30px] rounded-full bg-[#eae6df] px-3 py-[6px] text-[0.8rem] font-extrabold text-[#3f3f3f]">
-                    {newsItem.category}
+                    {news.category}
                   </span>
                 )}
 
-                {newsItem.date && (
+                {news.date && (
                   <span className="text-[0.95rem] font-bold text-[#4b5563]">
-                    {newsItem.date}
+                    {news.date}
                   </span>
                 )}
               </div>
 
               <h1 className="text-[clamp(2rem,4vw,3.6rem)] font-extrabold leading-[1.1] tracking-[-1px] text-[#111827]">
-                {newsItem.title}
+                {news.title}
               </h1>
 
               <p className="mt-6 text-[1.08rem] leading-[1.9] text-[#6b7280]">
-                {newsItem.excerpt}
+                {news.excerpt}
               </p>
 
               <div className="mt-10 border-t border-[#e5e0d8] pt-8">
                 <div className="prose prose-lg max-w-none text-[#374151]">
                   <p className="whitespace-pre-line leading-[1.9]">
-                    {newsItem.content || newsItem.excerpt}
+                    {news.content || news.excerpt}
                   </p>
                 </div>
+              </div>
+
+              <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-between items-center">
+                <button
+                  type="button"
+                  onClick={() => window.history.back()}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[#0d8fe8] text-[#0d8fe8] font-semibold hover:bg-[#eaf4ff] transition"
+                >
+                  ← {t("events.detail.back", "Voltar")}
+                </button>
               </div>
             </div>
           </article>
         </section>
       </main>
-
-      <Footer language={i18n.language} />
+      </Layout>
     </>
   );
 }
