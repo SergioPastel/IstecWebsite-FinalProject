@@ -38,7 +38,6 @@ class Course extends Model
         'title',
         'professional_outcomes',
         'description',
-        'modality',
     ];
 
     /**
