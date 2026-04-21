@@ -296,11 +296,13 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                                                     <button
                                                         type="button"
                                                         className="flex-1 rounded-full border border-[rgba(13,143,232,0.22)] bg-transparent px-4 py-3 text-sm font-bold text-[#0d8fe8] transition hover:bg-[#eaf5ff]"
-                                                        onClick={() =>
+                                                        onClick={() => {
                                                             window.umami?.track('licenciatura_apply_click', {
                                                                 course_id: course.id,
-                                                            })
-                                                        }
+                                                            });
+
+                                                            router.visit(route('applications.courses.apply', course));
+                                                        }}
                                                     >
                                                         Candidatar-me
                                                     </button>

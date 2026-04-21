@@ -10,8 +10,10 @@ use App\Models\Event;
 use App\Http\Resources\CourseCategoryResource;
 use App\Http\Resources\CourseResource;
 use App\Http\Resources\EventResource;
+use App\Models\EventCategory;
 use App\Http\Requests\StoreApplicationRequest;
 use App\Http\Requests\StoreEventApplicationRequest;
+use App\Http\Resources\EventCategoryResource;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicationReceived;
 use App\Mail\ApplicationAutoReply;
@@ -41,13 +43,20 @@ class ApplicationController extends Controller
         ]);
     }
 
-    public function applyEvent(Event $event) // possibly nullable? Check later
+    public function applyEvent(?Event $event = null)
     {
-        $events = EventResource::collection(Event::all())->resolve();
+        if ($event) {
+            $event->load('category');
+        }
+
+        $eventCategories = EventCategoryResource::collection(
+            EventCategory::with('events')->get()
+        )->resolve();
+
 
         return Inertia('front/pages/applications/ApplicationsEvents', [
             'event' => $event,
-            'events' => $events,
+            'eventCategories' => $eventCategories
         ]);
     }
 
@@ -57,24 +66,31 @@ class ApplicationController extends Controller
 
         $application = Application::create($validated);
 
-        // Send notification to staff
+        // Handle file attachments
+        $attachments = [];
+
+        // Handle CV, ID, and Certificate files if they exist in the request
         if ($request->hasFile('cv_file')) {
-            $file = $request->file('cv_file');
-            $content = file_get_contents($file->getRealPath());
-            $mime = $file->getMimeType();
-            $name = $file->getClientOriginalName();
-            Mail::to(config('mail.admin_email', 'admin@istec.pt'))->send(new ApplicationReceived($application, $content, $mime, $name));
-        } else {
-            Mail::to(config('mail.admin_email', 'admin@istec.pt'))->send(new ApplicationReceived($application));
+            $attachments[] = $request->file('cv_file');
         }
+
+        if ($request->hasFile('identification_file')) {
+            $attachments[] = $request->file('identification_file');
+        }
+
+        if ($request->hasFile('certificate_file')) {
+            $attachments[] = $request->file('certificate_file');
+        }
+
+        // The emails are queued as to not delay the user's experience while the email is sent
+        // Send notification to staff
+        Mail::to(config('mail.admin_email', 'admin@istec.pt'))->send(new ApplicationReceived($application, $attachments));
 
         // Send auto-reply to applicant
         Mail::to($application->email)->send(new ApplicationAutoReply($application));
 
-        $course = Course::findOrFail($validated['course_id']);
-
-        return redirect()->route('courses.show', $course)
-            ->with('success', 'Candidatura submetida com sucesso.');
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Application submitted successfully!');
     }
 
     public function storeEvent(StoreEventApplicationRequest $request){        
@@ -90,8 +106,7 @@ class ApplicationController extends Controller
 
         $event = Event::findOrFail($validated['event_id']);
 
-        return redirect()->route('events.show', $event->slug)
-            ->with('success', 'Candidatura submetida com sucesso.');
+        return redirect()->back()->with('success', 'Candidatura submetida com sucesso.');
     }
 
     /*

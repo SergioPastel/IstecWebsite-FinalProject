@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
             $table->date('birth_date');
-            $table->string('motivation')->nullable();
 
             $table->foreignUuid('course_category_id')
                     ->nullable()

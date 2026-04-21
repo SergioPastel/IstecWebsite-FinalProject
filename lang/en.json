@@ -181,7 +181,8 @@
             "finalSummaryTitle": "Final summary",
             "selectedCategoryLabel": "Selected category:",
             "submittedFor": "You have submitted an application for",
-            "invalidIdentificationNumber": "The identification number must have exactly 9 digits."
+            "invalidIdentificationNumber": "The identification number must have exactly 9 digits.",
+            "desiredEventLabel": "Desired event"
         }
     },
     "header": {

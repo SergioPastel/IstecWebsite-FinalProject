@@ -28,7 +28,7 @@ export default function Home({
       id: 1,
       title: t("home.quickLinks.courses.title"),
       description: t("home.quickLinks.courses.description"),
-      link: route("applications.applyCourse")
+      link: route("applications.courses.apply")
     },
     {
       id: 2,

@@ -21,7 +21,6 @@ class Event extends Model
         'location',
         'start_date',
         'end_date',
-        'category'
     ];
     /**
      * Summary of translatable attributes.
@@ -33,7 +32,7 @@ class Event extends Model
      */
 
     public function category(){
-        return $this->hasOne(EventCategory::class);
+        return $this->belongsTo(EventCategory::class, 'event_category_id');
     }
     public $translatable = [
         'title',

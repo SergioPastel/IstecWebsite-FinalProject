@@ -23,8 +23,6 @@ class DashboardController extends Controller
     // GET /dashboard - Our admin dashboard
     public function index(UmamiService $umami)
     {
-        $user = Auth::user();
-
         // The analytics information is cached and refreshed so it doesn't do too many requests to the API
         // Our general stats
         $stats = Cache::remember('umami_stats', 300, function () use ($umami) {
@@ -48,8 +46,7 @@ class DashboardController extends Controller
                 'pageviews' => data_get($stats, 'pageviews'),
                 // The information is already stored, so you don't need to check the array
                 'course_check' => $courseCheckCount
-            ],
-            'user' => $user
+            ]
         ]);
     }
 

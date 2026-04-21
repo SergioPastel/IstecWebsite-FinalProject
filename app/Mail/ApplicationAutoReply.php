@@ -13,7 +13,7 @@ use App\Models\Application;
 // Auto reply for applicants
 class ApplicationAutoReply extends Mailable
 {
-    public function __construct(public Application $application) {}
+    public function __construct(public $application) {}
 
     public function envelope(): Envelope
     {

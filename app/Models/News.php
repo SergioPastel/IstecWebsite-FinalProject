@@ -13,11 +13,10 @@ class News extends Model
     /** @use HasFactory<\Database\Factories\NewsFactory> */
     use HasUuids, HasFactory, HasTranslations;
     protected $fillable = [
-        'news_category_id',
         'media_id',
+        'news_category_id',
         'title',
         'description',
-        'category'
     ];
     /**
      * Summary of translatable attributes.
@@ -34,7 +33,7 @@ class News extends Model
 
     public function category()
     {
-        return $this->hasOne(NewsCategory::class);
+        return $this->belongsTo(NewsCategory::class, 'news_category_id');
     }
 
     /**

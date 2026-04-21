@@ -145,7 +145,7 @@ function Header({}) {
         { href: route('courses.ctesp'), labelKey: "ctesp" },
         { href: route('courses.licenciatura'), labelKey: "licenciatura" },
         { href: "/pos-graduacao", labelKey: "pos-graduacao" },    
-        { href: route('applications.applyCourse'), labelKey: "applications" },
+        { href: route('applications.courses.apply'), labelKey: "applications" },
       ],
     },
     {
