@@ -76,7 +76,7 @@ export default function EventDetail({ event }) {
                     </button>
 
                     <Link
-                      href={route("applications.applyEvent")}
+                      href={route("applications.events.apply", { event: event.id })}
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#0d8fe8] text-white font-semibold hover:bg-[#0b7acc] transition shadow"
                     >
                       {t("events.detail.apply", "Candidatar-se")}
