@@ -1,421 +1,501 @@
 {
-    "test": "Ola mundo!",
-    "switchLang": "Mudar para Inglês",
-    "language": "Portugues",
-    "click": "Clica em mim!",
-    "home": {
-        "hero": {
-            "istecPorto": "ISTEC PORTO",
-            "buildFuture": "Constrói o teu futuro no ISTEC Porto",
-            "coursesEvents": "Cursos, candidaturas e eventos num só lugar, com uma experiência mais clara e intuitiva.",
-            "viewCourses": "Ver cursos",
-            "aboutIstec": "Sobre ISTEC",
-            "trainingOffer": "OFERTA FORMATIVA",
-            "exploreOffer": "Explora a nossa oferta formativa",
-            "discoverCourses": "Descobre cursos com foco prático e ligação ao mercado.",
-            "exploreCourses": "Explorar cursos",
-            "events": "EVENTOS",
-            "participateEvents": "Participa em eventos e projetos reais",
-            "workshopsReal": "Workshops e experiências reais para te preparar para o mercado.",
-            "viewEvents": "Ver eventos"
-        },
-        "about": {
-            "cta": {
-                "title": "Queres saber mais?",
-                "description": "Entra em contacto connosco para mais informações sobre cursos, candidaturas ou a instituição.",
-                "contactButton": "Contactar",
-                "coursesButton": "Ver cursos"
-            }
-        },
-        "applications": {
-            "title": "Candidaturas",
-            "description": "Submeter candidatura"
-        },
-        "events": {
-            "title": "Eventos",
-            "description": "Ver eventos"
-        },
-        "contacts": {
-            "title": "Contactos",
-            "description": "Falar connosco"
-        },
-        "viewMore": "Ver mais →",
-        "coursesSection": {
-            "trainingOffer": "Oferta Formativa",
-            "findRightCourse": "Encontra o curso certo para ti",
-            "viewAllOffer": "Ver toda a oferta →",
-            "learnMore": "Saber mais"
-        },
-        "eventsNewsSection": {
-            "eventsNews": "Eventos & Notícias",
-            "stayUpdated": "Fica a par do que está a acontecer",
-            "viewAll": "Ver tudo →",
-            "readMore": "Ler mais"
-        },
-        "applicationsSection": {
-            "applications": "Candidaturas",
-            "startApplication3Steps": "Começa a tua candidatura em 3 passos",
-            "futureStartsClick": "O teu futuro começa com um clique. Candidata-te agora e dá o primeiro passo.",
-            "steps": {
-                "1": {
-                    "title": "Escolher curso",
-                    "description": "Consulta a oferta e encontra o percurso mais adequado."
-                },
-                "2": {
-                    "title": "Submeter candidatura",
-                    "description": "Preenche o formulário e envia os documentos necessários."
-                },
-                "3": {
-                    "title": "Confirmar inscrição",
-                    "description": "Acompanha o processo e conclui a inscrição."
-                }
-            },
-            "startApplication": "Começar candidatura"
-        },
-        "contactsSection": {
-            "contacts": "Contactos",
-            "needHelp": "Precisas de ajuda ou mais informações?",
-            "teamAvailable": "A nossa equipa está disponível para esclarecer dúvidas sobre cursos, candidaturas e funcionamento do ISTEC Porto.",
-            "location": "📍 Porto, Portugal",
-            "email": "📧 geral@istec.pt",
-            "phone": "📞 +351 222 000 000",
-            "goToContacts": "Ir para contactos",
-            "requestInfo": "Pedir informações"
-        },
-        "quickLinks": {
-            "courses": {
-                "title": "Cursos",
-                "description": "Explorar formação"
-            },
-            "applications": {
-                "title": "Candidaturas",
-                "description": "Submeter candidatura"
-            },
-            "events": {
-                "title": "Eventos",
-                "description": "Ver eventos"
-            },
-            "contacts": {
-                "title": "Contactos",
-                "description": "Falar connosco"
-            },
-            "viewMore": "Ver mais →"
-        }
+  "test": "Ola mundo!",
+  "switchLang": "Mudar para Inglês",
+  "language": "Portugues",
+  "click": "Clica em mim!",
+  "home": {
+    "hero": {
+      "istecPorto": "ISTEC PORTO",
+      "buildFuture": "Constrói o teu futuro no ISTEC Porto",
+      "coursesEvents": "Cursos, candidaturas e eventos num só lugar, com uma experiência mais clara e intuitiva.",
+      "viewCourses": "Ver cursos",
+      "aboutIstec": "Sobre ISTEC",
+      "trainingOffer": "OFERTA FORMATIVA",
+      "exploreOffer": "Explora a nossa oferta formativa",
+      "discoverCourses": "Descobre cursos com foco prático e ligação ao mercado.",
+      "exploreCourses": "Explorar cursos",
+      "events": "EVENTOS",
+      "participateEvents": "Participa em eventos e projetos reais",
+      "workshopsReal": "Workshops e experiências reais para te preparar para o mercado.",
+      "viewEvents": "Ver eventos"
     },
-    "applicationsForm": {
-        "common": {
-            "sectionLabel": "Candidaturas",
-            "typeLabel": "Tipo",
-            "back": "Voltar",
-            "next": "Próximo",
-            "submitApplication": "Submeter candidatura",
-            "returnHome": "Voltar ao início",
-            "stepLabel": "Passo",
-            "stepCounter": "Passo {{current}} de {{total}}",
-            "requiredField": "Campo obrigatório.",
-            "acceptTerms": "Tem de aceitar os termos.",
-            "firstName": "Primeiro nome",
-            "lastName": "Sobrenome",
-            "name": "Nome",
-            "email": "Email",
-            "phone": "Telefone",
-            "birthDate": "Data de nascimento",
-            "identificationNumber": "Número de identificação",
-            "noSelection": "Não selecionado",
-            "noValue": "—",
-            "cv": "CV",
-            "identityDocument": "Documento de identificação",
-            "certificate": "Certificado / comprovativo"
-        },
-        "course": {
-            "pageTitle": "Candidatura a Curso",
-            "pageDescription": "Preencha a candidatura e associe-a diretamente a um curso.",
-            "educationalLevel": "Nível de ensino",
-            "typeValue": "Curso",
-            "steps": {
-                "1": "Seleção e dados pessoais",
-                "2": "Envio de arquivos",
-                "3": "Revisão",
-                "4": "Confirmação"
-            },
-            "stepHeading": "1. Seleção",
-            "sectionOneTitle": "Seleção e Informações Pessoais",
-            "sectionOneDescription": "Escolha o curso e preencha os seus dados.",
-            "personalInfoHeading": "2. Informações pessoais",
-            "selectLevelOption": "Selecione um nível",
-            "selectionLabel": "Curso",
-            "selectCourseOption": "Selecione um curso",
-            "selectLevelFirstOption": "Selecione primeiro o nível",
-            "sectionTwoTitle": "Envio de Arquivos",
-            "sectionTwoDescription": "Faça upload dos documentos pedidos para concluir a candidatura.",
-            "sectionThreeTitle": "Revisão",
-            "sectionThreeDescription": "Reveja os dados antes de submeter.",
-            "termsConfirmation": "Confirmo que os dados estão corretos e aceito os termos da candidatura.",
-            "sectionFourTitle": "Confirmação",
-            "sectionFourDescription": "A sua candidatura foi submetida com sucesso.",
-            "finalSummaryTitle": "Resumo final",
-            "selectedLevelLabel": "Nível escolhido:",
-            "submittedFor": "Submeteu uma candidatura para",
-            "invalidIdentificationNumber": "O número de identificação deve ter 9 dígitos."
-        },
-        "event": {
-            "pageTitle": "Candidatura a Evento",
-            "pageDescription": "Escolha a categoria, selecione o evento e preencha os seus dados.",
-            "typeValue": "Evento",
-            "steps": {
-                "1": "Seleção e dados pessoais",
-                "2": "Revisão",
-                "3": "Confirmação"
-            },
-            "sectionOneTitle": "Seleção e Dados Pessoais",
-            "sectionOneDescription": "Escolha a categoria, selecione o evento e preencha os seus dados.",
-            "stepHeading": "1. Seleção",
-            "personalInfoHeading": "2. Informações pessoais",
-            "categoryLabel": "Categoria do evento",
-            "selectCategoryOption": "Selecione uma categoria",
-            "selectEventOption": "Selecione um evento",
-            "selectCategoryFirstOption": "Selecione primeiro a categoria",
-            "categoryAll": "Todos os eventos",
-            "sectionThreeTitle": "Revisão",
-            "sectionThreeDescription": "Reveja os dados antes de submeter.",
-            "reviewCategory": "Categoria do evento",
-            "reviewEvent": "Evento desejado",
-            "sectionFourTitle": "Confirmação",
-            "sectionFourDescription": "A sua candidatura foi submetida com sucesso.",
-            "finalSummaryTitle": "Resumo final",
-            "selectedCategoryLabel": "Categoria escolhida:",
-            "submittedFor": "Submeteu uma candidatura para",
-            "invalidIdentificationNumber": "O número de identificação tem de ter exatamente 9 dígitos.",
-            "desiredEventLabel": "Evento desejado"
-        }
+    "about": {
+      "cta": {
+        "title": "Queres saber mais?",
+        "description": "Entra em contacto connosco para mais informações sobre cursos, candidaturas ou a instituição.",
+        "contactButton": "Contactar",
+        "coursesButton": "Ver cursos"
+      }
     },
-    "header": {
-        "aboutIstec": "Sobre ISTEC",
-        "institutionContacts": "Contactos Instituição",
-        "istecLisboa": "ISTEC Lisboa",
-        "privateArea": "Área Privada",
-        "studentArea": "Área do Aluno",
-        "teacherArea": "Área do Docente",
-        "administration": "Administração",
-        "languagePt": "PT",
-        "languageEn": "EN",
-        "searchPlaceholder": "Pesquisar...",
-        "home": "Início",
-        "courses": "Cursos",
-        "events": "Eventos",
-        "news": "Notícias",
-        "applications": "Candidaturas",
-        "istecPorto": "ISTEC Porto",
-        "eventsAndNews": "Eventos e Notícias",
-        "mobilityProgram": "Programa de Mobilidade",
-        "pedagogyXXI": "Pedagogia XXI",
-        "moodle": "Moodle",
-        "research": "Investigação"
-    },
-    "nav": {
-        "home": "Início",
-        "aboutIstec": "Sobre ISTEC",
-        "mission": "Finalidade e Projeto Educativo",
-        "orgaos": "Órgãos do Instituto",
-        "organograma": "Organograma",
-        "documentos": "Documentos e Legislação",
-        "docentes": "Corpo Docente",
-        "calendarios": "Calendários 25/26",
-        "qualidade": "Sistema Interno de Garantia da Qualidade",
-        "etica": "Comissão de Ética",
-        "ctesp": "CTeSP",
-        "licenciatura": "Licenciatura",
-        "pos-graduacao": "Pós-Graduação",
-        "plano-atividades": "Plano de Atividades",
-        "emolumentos": "Emolumentos",
-        "bolsas-dges": "Bolsas DGES",
-        "protocolos": "Protocolos",
-        "editais-2526": "Editais 25/26",
-        "applications": "Candidatura Online",
-        "events-upcoming": "Próximos Eventos",
-        "events-workshops": "Workshops",
-        "events-open-days": "Open Days",
-        "news-latest": "Últimas Notícias",
-        "news-interviews": "Entrevistas",
-        "news-press": "Comunicados",
-        "applications-events": "Candidaturas a Eventos",
-        "erasmus+": "Erasmus +",
-        "eventos-e-noticias": "Eventos e Notícias",
-        "terms": "Termos e Condições",
-        "privacy": "Política de Privacidade"
-        
-    },
-    "news": {
-        "hero": {
-            "label": "Notícias ISTEC",
-            "title": "Fica a par das últimas novidades",
-            "description": "Descobre notícias, entrevistas, eventos e atualizações importantes da comunidade académica do ISTEC Porto.",
-            "backHome": "Voltar à home"
-        },
-        "buttons": {
-            "readFull": "Ler notícia completa",
-            "readMore": "Ler mais"
-        },
-        "section": {
-            "label": "Atualizações",
-            "title": "Todas as notícias",
-            "backHomeInline": "Voltar à home"
-        }
-    },
-    "courses": {
-        "subtitle": "Oferta formativa ISTEC Porto",
-        "title": "Cursos",
-        "description": "Explora a nossa oferta de CTeSP, Licenciaturas e Pós-Graduações e encontra o curso ideal para ti.",
-        "oneCourse": "curso encontrado",
-        "multipleCourses": "cursos encontrados",
-        "searchPlaceholder": "Pesquisar curso, área, palavra-chave...",
-        "searchButton": "Pesquisar",
-        "filters": "Filtros",
-        "clearAll": "Limpar tudo",
-        "courseType": "Tipo de curso",
-        "all": "Todos",
-        "modality": "Modalidade",
-        "laboral": "Laboral",
-        "posLaboral": "Pós-laboral",
-        "sortBy": "Ordenar por",
-        "mostRecent": "Mais recentes",
-        "nameAsc": "Nome (A–Z)",
-        "nameDesc": "Nome (Z–A)",
-        "noCourses": "Nenhum curso encontrado com os filtros atuais. Tenta ajustar a pesquisa ou limpar os filtros.",
-        "defaultCategory": "Curso",
-        "posLaboralLabel": "Pós-laboral",
-        "laboralLabel": "Laboral",
-        "years": "anos",
-        "perMonth": "€/mês",
-        "months": "meses",
-        "learnMore": "Saber +",
-        "enroll": "Inscrever"
+    "applications": {
+      "title": "Candidaturas",
+      "description": "Submeter candidatura"
     },
     "events": {
-        "title": "Eventos",
-        "description": "Ver eventos",
-        "buttons": {
-            "viewEvent": "Ver evento",
-            "viewDetails": "Ver detalhes"
-        },
-        "detail": {
-            "date": "Data",
-            "location": "Localização",
-            "description": "Descrição",
-            "backToEvents": "Voltar a eventos",
-            "notFound": "Evento não encontrado"
-        }
-    },
-    "pagination": {
-        "previous": "Anterior",
-        "next": "Seguinte"
+      "title": "Eventos",
+      "description": "Ver eventos"
     },
     "contacts": {
-        "contacts": "Contactos",
-        "subtitle": "Estamos disponíveis para responder às tuas perguntas.",
-        "departments": "Contactos por departamento",
-        "location": "Onde estamos localizados",
-        "message": "Envia-nos uma mensagem"
+      "title": "Contactos",
+      "description": "Falar connosco"
     },
-    "erasmusPage": {
-        "title": "Erasmus+",
-        "subtitle": "Programa de Mobilidade",
-        "description": "Descobre oportunidades de mobilidade académica internacional e enriquece o teu percurso.",
-        "studyTitle": "Estuda além-fronteiras",
-        "studyText1": "O programa Erasmus+ permite estudar numa instituição parceira.",
-        "studyText2": "Promove autonomia, intercâmbio cultural e desenvolvimento académico.",
-        "benefitsTitle": "Vantagens do programa",
-        "benefits": [
-            "Experiência internacional e intercultural",
-            "Desenvolvimento pessoal e académico",
-            "Contacto com novas metodologias de ensino",
-            "Valorização do currículo e da empregabilidade"
-        ],
-        "highlights": [
-            "destinos disponíveis",
-            "instituições parceiras",
-            "experiência internacional"
-        ],
-        "stepsTitle": "Como funciona",
-        "stepsDescription": "Percurso simples para participar no programa.",
-        "steps": [
-            {
-            "title": "1. Candidatura",
-            "text": "Consulta os critérios e submete a tua candidatura dentro do prazo definido."
-            },
-            {
-            "title": "2. Seleção",
-            "text": "As candidaturas são avaliadas de acordo com os requisitos e vagas disponíveis."
-            },
-            {
-            "title": "3. Preparação",
-            "text": "Após a seleção, preparas a documentação e o plano de estudos para a mobilidade."
-            }
-        ],
-        "partnersTitle": "Instituições parceiras",
-        "partnersDescription": "Exemplos de instituições de acolhimento para mobilidade.",
-        "partners": [
-            "Universidade Parceira A",
-            "Universidade Parceira B",
-            "Universidade Parceira C",
-            "Universidade Parceira D"
-        ],
-        "ctaTitle": "Leva o teu percurso mais longe",
-        "ctaText": "O Erasmus+ é uma oportunidade para crescer académica e pessoalmente, através de uma experiência internacional enriquecedora.",
-        "ctaButton": "Saber mais"
+    "viewMore": "Ver mais →",
+    "coursesSection": {
+      "trainingOffer": "Oferta Formativa",
+      "findRightCourse": "Encontra o curso certo para ti",
+      "viewAllOffer": "Ver toda a oferta →",
+      "learnMore": "Saber mais"
+    },
+    "eventsNewsSection": {
+      "eventsNews": "Eventos & Notícias",
+      "stayUpdated": "Fica a par do que está a acontecer",
+      "viewAll": "Ver tudo →",
+      "readMore": "Ler mais"
+    },
+    "applicationsSection": {
+      "applications": "Candidaturas",
+      "startApplication3Steps": "Começa a tua candidatura em 3 passos",
+      "futureStartsClick": "O teu futuro começa com um clique. Candidata-te agora e dá o primeiro passo.",
+      "steps": {
+        "1": {
+          "title": "Escolher curso",
+          "description": "Consulta a oferta e encontra o percurso mais adequado."
         },
-    "pedagogyPage": {
-        "title": "Pedagogia XXI",
-        "subtitle": "ISTEC PORTO",
-        "description": "A área pedagógica foca-se na inovação no ensino e aprendizagem centrada no estudante.",
-        "impactTitle": "Ensino com impacto",
-        "impactText1": "Práticas educativas modernas com participação ativa.",
-        "impactText2": "Foco na aplicação prática do conhecimento.",
-        "objectivesTitle": "Objetivos pedagógicos",
-        "objectives": [
-            "Inovação pedagógica",
-            "Melhorar qualidade",
-            "Apoiar docentes",
-            "Aprendizagem ativa"
-        ],
-        "areasTitle": "Áreas pedagógicas",
-                "areasDescription": "Principais áreas de intervenção e desenvolvimento pedagógico.",
-                "areas": [
-                    {
-                    "title": "Metodologias de Ensino",
-                    "text": "Abordagens pedagógicas inovadoras centradas no estudante e na aprendizagem ativa."
-                    },
-                    {
-                    "title": "Avaliação Educativa",
-                    "text": "Estratégias de avaliação contínua orientadas para o desenvolvimento de competências."
-                    },
-                    {
-                    "title": "Tecnologia na Educação",
-                    "text": "Integração de ferramentas digitais no processo de ensino e aprendizagem."
-                    }
-                ],
-                "ctaTitle": "Inovar no ensino é preparar o futuro",
-                "ctaText": "A pedagogia é um pilar essencial na formação de profissionais qualificados, críticos e preparados para responder aos desafios do mercado e da sociedade.",
-                "ctaButton": "Saber mais"
+        "2": {
+          "title": "Submeter candidatura",
+          "description": "Preenche o formulário e envia os documentos necessários."
         },
-    "footer": {
-        "istecPorto": "ISTEC Porto",
-        "description": "Instituto Superior de Tecnologias Avançadas do Porto, com foco na inovação, formação prática e proximidade ao mercado.",
-        "navigation": "Navegação",
-        "home": "Início",
-        "courses": "Cursos",
-        "events": "Eventos",
-        "applications": "Candidaturas",
-        "contacts": "Contactos",
-        "location": "Porto, Portugal",
-        "email": "geral@istec.pt",
-        "phone": "+351 222 000 000",
-        "information": "Informações",
-        "privacyPolicy": "Política de Privacidade",
-        "termsConditions": "Termos e Condições",
-        "requestInfo": "Pedir Informações",
-        "copyright": "© {{ year }} ISTEC Porto. Todos os direitos reservados.",
-        "developed": "Desenvolvido para projeto académico",
-        "fixedLineNote": "Custo de chamada para rede fixa/móvel nacional, de acordo com o seu tarifário"
+        "3": {
+          "title": "Confirmar inscrição",
+          "description": "Acompanha o processo e conclui a inscrição."
+        }
+      },
+      "startApplication": "Começar candidatura"
+    },
+    "contactsSection": {
+      "contacts": "Contactos",
+      "needHelp": "Precisas de ajuda ou mais informações?",
+      "teamAvailable": "A nossa equipa está disponível para esclarecer dúvidas sobre cursos, candidaturas e funcionamento do ISTEC Porto.",
+      "location": "📍 Porto, Portugal",
+      "email": "📧 geral@istec.pt",
+      "phone": "📞 +351 222 000 000",
+      "goToContacts": "Ir para contactos",
+      "requestInfo": "Pedir informações"
+    },
+    "quickLinks": {
+      "courses": {
+        "title": "Cursos",
+        "description": "Explorar formação"
+      },
+      "applications": {
+        "title": "Candidaturas",
+        "description": "Submeter candidatura"
+      },
+      "events": {
+        "title": "Eventos",
+        "description": "Ver eventos"
+      },
+      "contacts": {
+        "title": "Contactos",
+        "description": "Falar connosco"
+      },
+      "viewMore": "Ver mais →"
     }
+  },
+  "applicationsForm": {
+    "common": {
+      "sectionLabel": "Candidaturas",
+      "typeLabel": "Tipo",
+      "back": "Voltar",
+      "next": "Próximo",
+      "submitApplication": "Submeter candidatura",
+      "returnHome": "Voltar ao início",
+      "stepLabel": "Passo",
+      "stepCounter": "Passo {{current}} de {{total}}",
+      "requiredField": "Campo obrigatório.",
+      "acceptTerms": "Tem de aceitar os termos.",
+      "firstName": "Primeiro nome",
+      "lastName": "Sobrenome",
+      "name": "Nome",
+      "email": "Email",
+      "phone": "Telefone",
+      "birthDate": "Data de nascimento",
+      "identificationNumber": "Número de identificação",
+      "noSelection": "Não selecionado",
+      "noValue": "—",
+      "cv": "CV",
+      "identityDocument": "Documento de identificação",
+      "certificate": "Certificado / comprovativo"
+    },
+    "course": {
+      "pageTitle": "Candidatura a Curso",
+      "pageDescription": "Preencha a candidatura e associe-a diretamente a um curso.",
+      "educationalLevel": "Nível de ensino",
+      "typeValue": "Curso",
+      "steps": {
+        "1": "Seleção e dados pessoais",
+        "2": "Envio de arquivos",
+        "3": "Revisão",
+        "4": "Confirmação"
+      },
+      "stepHeading": "1. Seleção",
+      "sectionOneTitle": "Seleção e Informações Pessoais",
+      "sectionOneDescription": "Escolha o curso e preencha os seus dados.",
+      "personalInfoHeading": "2. Informações pessoais",
+      "selectLevelOption": "Selecione um nível",
+      "selectionLabel": "Curso",
+      "selectCourseOption": "Selecione um curso",
+      "selectLevelFirstOption": "Selecione primeiro o nível",
+      "sectionTwoTitle": "Envio de Arquivos",
+      "sectionTwoDescription": "Faça upload dos documentos pedidos para concluir a candidatura.",
+      "sectionThreeTitle": "Revisão",
+      "sectionThreeDescription": "Reveja os dados antes de submeter.",
+      "termsConfirmation": "Confirmo que os dados estão corretos e aceito os termos da candidatura.",
+      "sectionFourTitle": "Confirmação",
+      "sectionFourDescription": "A sua candidatura foi submetida com sucesso.",
+      "finalSummaryTitle": "Resumo final",
+      "selectedLevelLabel": "Nível escolhido:",
+      "submittedFor": "Submeteu uma candidatura para",
+      "invalidIdentificationNumber": "O número de identificação deve ter 9 dígitos."
+    },
+    "event": {
+      "pageTitle": "Candidatura a Evento",
+      "pageDescription": "Escolha a categoria, selecione o evento e preencha os seus dados.",
+      "typeValue": "Evento",
+      "steps": {
+        "1": "Seleção e dados pessoais",
+        "2": "Revisão",
+        "3": "Confirmação"
+      },
+      "sectionOneTitle": "Seleção e Dados Pessoais",
+      "sectionOneDescription": "Escolha a categoria, selecione o evento e preencha os seus dados.",
+      "stepHeading": "1. Seleção",
+      "personalInfoHeading": "2. Informações pessoais",
+      "categoryLabel": "Categoria do evento",
+      "selectCategoryOption": "Selecione uma categoria",
+      "selectEventOption": "Selecione um evento",
+      "selectCategoryFirstOption": "Selecione primeiro a categoria",
+      "categoryAll": "Todos os eventos",
+      "sectionThreeTitle": "Revisão",
+      "sectionThreeDescription": "Reveja os dados antes de submeter.",
+      "reviewCategory": "Categoria do evento",
+      "reviewEvent": "Evento desejado",
+      "sectionFourTitle": "Confirmação",
+      "sectionFourDescription": "A sua candidatura foi submetida com sucesso.",
+      "finalSummaryTitle": "Resumo final",
+      "selectedCategoryLabel": "Categoria escolhida:",
+      "submittedFor": "Submeteu uma candidatura para",
+      "invalidIdentificationNumber": "O número de identificação tem de ter exatamente 9 dígitos.",
+      "desiredEventLabel": "Evento desejado"
+    }
+  },
+  "header": {
+    "aboutIstec": "Sobre ISTEC",
+    "institutionContacts": "Contactos Instituição",
+    "istecLisboa": "ISTEC Lisboa",
+    "privateArea": "Área Privada",
+    "studentArea": "Área do Aluno",
+    "teacherArea": "Área do Docente",
+    "administration": "Administração",
+    "languagePt": "PT",
+    "languageEn": "EN",
+    "searchPlaceholder": "Pesquisar...",
+    "home": "Início",
+    "courses": "Cursos",
+    "events": "Eventos",
+    "news": "Notícias",
+    "applications": "Candidaturas",
+    "istecPorto": "ISTEC Porto",
+    "eventsAndNews": "Eventos e Notícias",
+    "mobilityProgram": "Programa de Mobilidade",
+    "pedagogyXXI": "Pedagogia XXI",
+    "moodle": "Moodle",
+    "research": "Investigação"
+  },
+  "nav": {
+    "home": "Início",
+    "aboutIstec": "Sobre ISTEC",
+    "mission": "Finalidade e Projeto Educativo",
+    "orgaos": "Órgãos do Instituto",
+    "organograma": "Organograma",
+    "documentos": "Documentos e Legislação",
+    "docentes": "Corpo Docente",
+    "calendarios": "Calendários 25/26",
+    "qualidade": "Sistema Interno de Garantia da Qualidade",
+    "etica": "Comissão de Ética",
+    "ctesp": "CTeSP",
+    "licenciatura": "Licenciatura",
+    "pos-graduacao": "Pós-Graduação",
+    "plano-atividades": "Plano de Atividades",
+    "emolumentos": "Emolumentos",
+    "bolsas-dges": "Bolsas DGES",
+    "protocolos": "Protocolos",
+    "editais-2526": "Editais 25/26",
+    "applications": "Candidatura Online",
+    "events-upcoming": "Próximos Eventos",
+    "events-workshops": "Workshops",
+    "events-open-days": "Open Days",
+    "news-latest": "Últimas Notícias",
+    "news-interviews": "Entrevistas",
+    "news-press": "Comunicados",
+    "applications-events": "Candidaturas a Eventos",
+    "erasmus+": "Erasmus +",
+    "eventos-e-noticias": "Eventos e Notícias",
+    "terms": "Termos e Condições",
+    "privacy": "Política de Privacidade"
+  },
+  "news": {
+    "hero": {
+      "label": "Notícias ISTEC",
+      "title": "Fica a par das últimas novidades",
+      "description": "Descobre notícias, entrevistas, eventos e atualizações importantes da comunidade académica do ISTEC Porto.",
+      "backHome": "Voltar à home"
+    },
+    "buttons": {
+      "readFull": "Ler notícia completa",
+      "readMore": "Ler mais"
+    },
+    "section": {
+      "label": "Atualizações",
+      "title": "Todas as notícias",
+      "backHomeInline": "Voltar à home"
+    }
+  },
+  "courses": {
+    "subtitle": "Oferta formativa ISTEC Porto",
+    "title": "Cursos",
+    "description": "Explora a nossa oferta de CTeSP, Licenciaturas e Pós-Graduações e encontra o curso ideal para ti.",
+    "oneCourse": "curso encontrado",
+    "multipleCourses": "cursos encontrados",
+    "searchPlaceholder": "Pesquisar curso, área, palavra-chave...",
+    "searchButton": "Pesquisar",
+    "filters": "Filtros",
+    "clearAll": "Limpar tudo",
+    "courseType": "Tipo de curso",
+    "all": "Todos",
+    "modality": "Modalidade",
+    "laboral": "Laboral",
+    "posLaboral": "Pós-laboral",
+    "sortBy": "Ordenar por",
+    "mostRecent": "Mais recentes",
+    "nameAsc": "Nome (A–Z)",
+    "nameDesc": "Nome (Z–A)",
+    "noCourses": "Nenhum curso encontrado com os filtros atuais. Tenta ajustar a pesquisa ou limpar os filtros.",
+    "defaultCategory": "Curso",
+    "posLaboralLabel": "Pós-laboral",
+    "laboralLabel": "Laboral",
+    "years": "anos",
+    "perMonth": "€/mês",
+    "months": "meses",
+    "learnMore": "Saber +",
+    "enroll": "Inscrever",
+    "tuitionOnRequest": "Consultar propina",
+    "moreInfo": "Mais Informações",
+    "apply": "Candidatar-me",
+    "licenciatura": {
+      "pageTitle": "Licenciaturas",
+      "hero": {
+        "badge": "ISTEC PORTO",
+        "title": "Licenciaturas",
+        "description": "Descobre as licenciaturas do ISTEC Porto e escolhe um percurso de ensino superior focado em tecnologia, criatividade e preparação para o mercado de trabalho."
+      },
+      "about": {
+        "badge": "Sobre as licenciaturas",
+        "title": "1º ciclo de estudos com 180 ECTS",
+        "paragraph1": "As licenciaturas são ciclos de estudo de ensino superior com a duração de seis semestres letivos, correspondentes a 180 unidades de crédito ECTS.",
+        "paragraph2": "No ISTEC Porto, a formação combina bases científicas, competências técnicas e aplicação prática, preparando os estudantes para desafios reais nas áreas da informática e da multimédia.",
+        "paragraph3": "A oferta de licenciaturas inclui Engenharia Informática e Engenharia Multimédia, com planos de estudo orientados para inovação, desenvolvimento tecnológico e empregabilidade."
+      },
+      "listing": {
+        "badge": "Oferta de licenciaturas",
+        "title": "Encontra a licenciatura certa para ti"
+      },
+      "searchPlaceholder": "Pesquisar licenciaturas...",
+      "searchButton": "Pesquisar",
+      "sortRelevance": "Mais relevantes",
+      "noResults": "Não foram encontradas licenciaturas com os filtros aplicados.",
+      "cardBadge": "Licenciatura",
+      "defaultDescription": "Licenciatura de 1º ciclo com formação técnica, prática e orientada para o mercado."
+    },
+    "posGraduacao": {
+      "pageTitle": "Pós-Graduações",
+      "hero": {
+        "badge": "ISTEC PORTO",
+        "title": "Pós-Graduações",
+        "description": "Descobre as pós-graduações do ISTEC Porto e aprofunda competências especializadas com formação orientada para a evolução profissional."
+      },
+      "about": {
+        "badge": "Sobre as pós-graduações",
+        "title": "Formação avançada para reforçar competências profissionais",
+        "paragraph1": "As pós-graduações destinam-se a quem procura atualizar, aprofundar ou especializar conhecimentos numa área concreta, respondendo às necessidades atuais do mercado de trabalho.",
+        "paragraph2": "No ISTEC Porto, estes percursos valorizam a aplicação prática, a proximidade ao contexto profissional e o desenvolvimento de competências técnicas relevantes.",
+        "paragraph3": "A oferta de pós-graduações é pensada para profissionais, diplomados e estudantes que pretendem diferenciar o seu perfil e continuar a evoluir na sua área de atuação."
+      },
+      "listing": {
+        "badge": "Oferta de pós-graduações",
+        "title": "Encontra a pós-graduação certa para ti"
+      },
+      "searchPlaceholder": "Pesquisar pós-graduações...",
+      "searchButton": "Pesquisar",
+      "sortRelevance": "Mais relevantes",
+      "noResults": "Não foram encontradas pós-graduações com os filtros aplicados.",
+      "cardBadge": "Pós-graduação",
+      "defaultDescription": "Pós-graduação com formação especializada, prática e orientada para a valorização profissional."
+    },
+    "ctesp": {
+      "pageTitle": "CTeSP",
+      "hero": {
+        "badge": "ISTEC PORTO",
+        "title": "Cursos Técnicos Superiores Profissionais",
+        "description": "Descobre a oferta de CTeSP do ISTEC Porto e encontra um percurso formativo com forte componente prática, ligação ao mercado e foco na tua integração profissional."
+      },
+      "about": {
+        "badge": "Sobre os CTeSP",
+        "title": "Formação prática, especializada e orientada para o mercado",
+        "paragraph1": "Os Cursos Técnicos Superiores Profissionais conferem um Diploma de Técnico Superior Profissional e têm a duração de dois anos, distribuídos por quatro semestres.",
+        "paragraph2": "Nos três primeiros semestres, a formação técnica privilegia a aplicação prática, laboratorial e oficinal. O último semestre é dedicado a estágio curricular, promovendo a ligação direta ao contexto real de trabalho.",
+        "paragraph3": "Esta oferta prepara os estudantes para uma entrada sólida no mercado profissional, com competências técnicas atualizadas e experiência relevante."
+      },
+      "listing": {
+        "badge": "Oferta CTeSP",
+        "title": "Encontra o curso certo para ti"
+      },
+      "searchPlaceholder": "Pesquisar CTeSP...",
+      "searchButton": "Pesquisar",
+      "sortRelevance": "Mais relevantes",
+      "noResults": "Não foram encontrados CTeSP com os filtros aplicados.",
+      "cardBadge": "CTeSP",
+      "defaultDescription": "Curso técnico superior profissional com forte componente prática e ligação ao contexto empresarial.",
+      "tuitionInfo": "Consultar propina",
+      "moreInfo": "Mais Informações",
+      "apply": "Candidatar-me"
+    }
+  },
+  "events": {
+    "title": "Eventos",
+    "description": "Ver eventos",
+    "buttons": {
+      "viewEvent": "Ver evento",
+      "viewDetails": "Ver detalhes"
+    },
+    "detail": {
+      "date": "Data",
+      "location": "Localização",
+      "description": "Descrição",
+      "backToEvents": "Voltar a eventos",
+      "notFound": "Evento não encontrado"
+    }
+  },
+  "pagination": {
+    "previous": "Anterior",
+    "next": "Seguinte"
+  },
+  "contacts": {
+    "contacts": "Contactos",
+    "subtitle": "Estamos disponíveis para responder às tuas perguntas.",
+    "departments": "Contactos por departamento",
+    "location": "Onde estamos localizados",
+    "message": "Envia-nos uma mensagem"
+  },
+  "erasmusPage": {
+    "title": "Erasmus+",
+    "subtitle": "Programa de Mobilidade",
+    "description": "Descobre oportunidades de mobilidade académica internacional e enriquece o teu percurso.",
+    "studyTitle": "Estuda além-fronteiras",
+    "studyText1": "O programa Erasmus+ permite estudar numa instituição parceira.",
+    "studyText2": "Promove autonomia, intercâmbio cultural e desenvolvimento académico.",
+    "benefitsTitle": "Vantagens do programa",
+    "benefits": [
+      "Experiência internacional e intercultural",
+      "Desenvolvimento pessoal e académico",
+      "Contacto com novas metodologias de ensino",
+      "Valorização do currículo e da empregabilidade"
+    ],
+    "highlights": [
+      "destinos disponíveis",
+      "instituições parceiras",
+      "experiência internacional"
+    ],
+    "stepsTitle": "Como funciona",
+    "stepsDescription": "Percurso simples para participar no programa.",
+    "steps": [
+      {
+        "title": "1. Candidatura",
+        "text": "Consulta os critérios e submete a tua candidatura dentro do prazo definido."
+      },
+      {
+        "title": "2. Seleção",
+        "text": "As candidaturas são avaliadas de acordo com os requisitos e vagas disponíveis."
+      },
+      {
+        "title": "3. Preparação",
+        "text": "Após a seleção, preparas a documentação e o plano de estudos para a mobilidade."
+      }
+    ],
+    "partnersTitle": "Instituições parceiras",
+    "partnersDescription": "Exemplos de instituições de acolhimento para mobilidade.",
+    "partners": [
+      "Universidade Parceira A",
+      "Universidade Parceira B",
+      "Universidade Parceira C",
+      "Universidade Parceira D"
+    ],
+    "ctaTitle": "Leva o teu percurso mais longe",
+    "ctaText": "O Erasmus+ é uma oportunidade para crescer académica e pessoalmente, através de uma experiência internacional enriquecedora.",
+    "ctaButton": "Saber mais"
+  },
+  "pedagogyPage": {
+    "title": "Pedagogia XXI",
+    "subtitle": "ISTEC PORTO",
+    "description": "A área pedagógica foca-se na inovação no ensino e aprendizagem centrada no estudante.",
+    "impactTitle": "Ensino com impacto",
+    "impactText1": "Práticas educativas modernas com participação ativa.",
+    "impactText2": "Foco na aplicação prática do conhecimento.",
+    "objectivesTitle": "Objetivos pedagógicos",
+    "objectives": [
+      "Inovação pedagógica",
+      "Melhorar qualidade",
+      "Apoiar docentes",
+      "Aprendizagem ativa"
+    ],
+    "areasTitle": "Áreas pedagógicas",
+    "areasDescription": "Principais áreas de intervenção e desenvolvimento pedagógico.",
+    "areas": [
+      {
+        "title": "Metodologias de Ensino",
+        "text": "Abordagens pedagógicas inovadoras centradas no estudante e na aprendizagem ativa."
+      },
+      {
+        "title": "Avaliação Educativa",
+        "text": "Estratégias de avaliação contínua orientadas para o desenvolvimento de competências."
+      },
+      {
+        "title": "Tecnologia na Educação",
+        "text": "Integração de ferramentas digitais no processo de ensino e aprendizagem."
+      }
+    ],
+    "ctaTitle": "Inovar no ensino é preparar o futuro",
+    "ctaText": "A pedagogia é um pilar essencial na formação de profissionais qualificados, críticos e preparados para responder aos desafios do mercado e da sociedade.",
+    "ctaButton": "Saber mais"
+  },
+  "footer": {
+    "istecPorto": "ISTEC Porto",
+    "description": "Instituto Superior de Tecnologias Avançadas do Porto, com foco na inovação, formação prática e proximidade ao mercado.",
+    "navigation": "Navegação",
+    "home": "Início",
+    "courses": "Cursos",
+    "events": "Eventos",
+    "applications": "Candidaturas",
+    "contacts": "Contactos",
+    "location": "Porto, Portugal",
+    "email": "geral@istec.pt",
+    "phone": "+351 222 000 000",
+    "information": "Informações",
+    "privacyPolicy": "Política de Privacidade",
+    "termsConditions": "Termos e Condições",
+    "requestInfo": "Pedir Informações",
+    "copyright": "© {{ year }} ISTEC Porto. Todos os direitos reservados.",
+    "developed": "Desenvolvido para projeto académico",
+    "fixedLineNote": "Custo de chamada para rede fixa/móvel nacional, de acordo com o seu tarifário"
+  }
 }

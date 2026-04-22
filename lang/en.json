@@ -1,429 +1,553 @@
 {
-    "test": "Hello world!",
-    "language": "English",
-    "switchLang": "Switch to Portuguese",
-    "click": "Click me!",
-    "home": {
-        "hero": {
-            "istecPorto": "ISTEC PORTO",
-            "buildFuture": "Build your future at ISTEC Porto",
-            "coursesEvents": "Courses, applications and events in one place, with a clearer and more intuitive experience.",
-            "viewCourses": "View courses",
-            "aboutIstec": "About ISTEC",
-            "trainingOffer": "TRAINING OFFER",
-            "exploreOffer": "Explore our training offer",
-            "discoverCourses": "Discover courses with a practical focus and market connection.",
-            "exploreCourses": "Explore courses",
-            "events": "EVENTS",
-            "participateEvents": "Participate in events and real projects",
-            "workshopsReal": "Workshops and real experiences to prepare you for the market.",
-            "viewEvents": "View events"
-        },
-        "applications": {
-            "title": "Applications",
-            "description": "Submit application"
-        },
-        "events": {
-            "title": "Events",
-            "description": "View events",
-            "buttons": {
-                "viewEvent": "View event",
-                "viewDetails": "View details"
-            }
-        },
-        "contacts": {
-            "title": "Contacts",
-            "description": "Talk to us"
-        },
-        "viewMore": "View more →",
-        "coursesSection": {
-            "trainingOffer": "Training Offer",
-            "findRightCourse": "Find the right course for you",
-            "viewAllOffer": "View all offer →",
-            "learnMore": "Learn more"
-        },
-        "eventsNewsSection": {
-            "eventsNews": "Events & News",
-            "stayUpdated": "Stay up to date with what's happening",
-            "viewAll": "View all →",
-            "readMore": "Read more"
-        },
-        "applicationsSection": {
-            "applications": "Applications",
-            "startApplication3Steps": "Start your application in 3 steps",
-            "futureStartsClick": "Your future starts with a click. Apply now and take the first step.",
-            "steps": {
-                "1": {
-                    "title": "Choose course",
-                    "description": "Check the offer and find the most suitable path."
-                },
-                "2": {
-                    "title": "Submit application",
-                    "description": "Fill out the form and send the necessary documents."
-                },
-                "3": {
-                    "title": "Confirm enrollment",
-                    "description": "Follow the process and complete the enrollment."
-                }
-            },
-            "startApplication": "Start application"
-        },
-        "contactsSection": {
-            "contacts": "Contacts",
-            "needHelp": "Need help or more information?",
-            "teamAvailable": "Our team is available to clarify doubts about courses, applications and ISTEC Porto operation.",
-            "location": "📍 Porto, Portugal",
-            "email": "📧 geral@istec.pt",
-            "phone": "📞 +351 222 000 000",
-            "goToContacts": "Go to contacts",
-            "requestInfo": "Request information"
-        },
-        "quickLinks": {
-            "courses": {
-                "title": "Courses",
-                "description": "Explore training"
-            },
-            "applications": {
-                "title": "Applications",
-                "description": "Submit application"
-            },
-            "events": {
-                "title": "Events",
-                "description": "View events"
-            },
-            "contacts": {
-                "title": "Contacts",
-                "description": "Talk to us"
-            },
-            "viewMore": "View more →"
-        }
+  "test": "Hello world!",
+  "language": "English",
+  "switchLang": "Switch to Portuguese",
+  "click": "Click me!",
+  "home": {
+    "hero": {
+      "istecPorto": "ISTEC PORTO",
+      "buildFuture": "Build your future at ISTEC Porto",
+      "coursesEvents": "Courses, applications and events in one place, with a clearer and more intuitive experience.",
+      "viewCourses": "View courses",
+      "aboutIstec": "About ISTEC",
+      "trainingOffer": "TRAINING OFFER",
+      "exploreOffer": "Explore our training offer",
+      "discoverCourses": "Discover courses with a practical focus and market connection.",
+      "exploreCourses": "Explore courses",
+      "events": "EVENTS",
+      "participateEvents": "Participate in events and real projects",
+      "workshopsReal": "Workshops and real experiences to prepare you for the market.",
+      "viewEvents": "View events"
     },
-    "applicationsForm": {
-        "common": {
-            "sectionLabel": "Applications",
-            "typeLabel": "Type",
-            "back": "Back",
-            "next": "Next",
-            "submitApplication": "Submit application",
-            "returnHome": "Return home",
-            "stepLabel": "Step",
-            "stepCounter": "Step {{current}} of {{total}}",
-            "requiredField": "Required field.",
-            "acceptTerms": "You must accept the terms.",
-            "firstName": "First name",
-            "lastName": "Last name",
-            "name": "Name",
-            "email": "Email",
-            "phone": "Phone",
-            "birthDate": "Birth date",
-            "identificationNumber": "Identification number",
-            "noSelection": "Not selected",
-            "noValue": "—",
-            "cv": "CV",
-            "identityDocument": "Identification document",
-            "certificate": "Certificate / proof"
-        },
-        "course": {
-            "pageTitle": "Course application",
-            "educationalLevel": "Educational Level",
-            "pageDescription": "Fill out the form and associate the application directly with a course.",
-            "typeValue": "Course",
-            "steps": {
-                "1": "Selection and personal information",
-                "2": "File upload",
-                "3": "Review",
-                "4": "Confirmation"
-            },
-            "stepHeading": "1. Selection",
-            "sectionOneTitle": "Selection and personal information",
-            "sectionOneDescription": "Choose the course and fill in your personal details.",
-            "personalInfoHeading": "2. Personal information",
-            "selectLevelOption": "Select a level",
-            "selectionLabel": "Course",
-            "selectCourseOption": "Select a course",
-            "selectLevelFirstOption": "Select a level first",
-            "sectionTwoTitle": "File upload",
-            "sectionTwoDescription": "Upload the requested documents to complete the application.",
-            "sectionThreeTitle": "Review",
-            "sectionThreeDescription": "Review your information before submitting.",
-            "termsConfirmation": "I confirm that the information is correct and accept the application terms.",
-            "sectionFourTitle": "Confirmation",
-            "sectionFourDescription": "Your application has been submitted successfully.",
-            "finalSummaryTitle": "Final summary",
-            "selectedLevelLabel": "Selected level:",
-            "submittedFor": "You have submitted an application for",
-            "invalidIdentificationNumber": "The identification number must have 9 digits."
-        },
-        "event": {
-            "pageTitle": "Event application",
-            "pageDescription": "Choose a category, select an event, and fill out your information.",
-            "typeValue": "Event",
-            "steps": {
-                "1": "Selection and personal information",
-                "2": "Review",
-                "3": "Confirmation"
-            },
-            "sectionOneTitle": "Selection and personal information",
-            "sectionOneDescription": "Choose a category, select the event and fill in your details.",
-            "stepHeading": "1. Selection",
-            "personalInfoHeading": "2. Personal information",
-            "categoryLabel": "Event category",
-            "selectCategoryOption": "Select a category",
-            "selectEventOption": "Select an event",
-            "selectCategoryFirstOption": "Select a category first",
-            "categoryAll": "All events",
-            "sectionThreeTitle": "Review",
-            "sectionThreeDescription": "Review your information before submitting.",
-            "reviewCategory": "Event category",
-            "reviewEvent": "Desired event",
-            "sectionFourTitle": "Confirmation",
-            "sectionFourDescription": "Your event application has been submitted successfully.",
-            "finalSummaryTitle": "Final summary",
-            "selectedCategoryLabel": "Selected category:",
-            "submittedFor": "You have submitted an application for",
-            "invalidIdentificationNumber": "The identification number must have exactly 9 digits.",
-            "desiredEventLabel": "Desired event"
-        }
-    },
-    "header": {
-        "aboutIstec": "About ISTEC",
-        "institutionContacts": "Institution Contacts",
-        "istecLisboa": "ISTEC Lisboa",
-        "privateArea": "Private Area",
-        "studentArea": "Student Area",
-        "teacherArea": "Teacher Area",
-        "administration": "Administration",
-        "languagePt": "PT",
-        "languageEn": "EN",
-        "searchPlaceholder": "Search...",
-        "home": "Home",
-        "courses": "Courses",
-        "events": "Events",
-        "news": "News",
-        "applications": "Applications",
-        "istecPorto": "ISTEC Porto",
-        "eventsAndNews": "Events and News",
-        "mobilityProgram": "Mobility Program",
-        "pedagogyXXI": "Pedagogy XXI",
-        "moodle": "Moodle",
-        "research": "Research"
-    },
-    "nav": {
-        "home": "Home",
-        "aboutIstec": "About ISTEC",
-        "mission": "Mission and Educational Project",
-        "orgaos": "Institute Bodies",
-        "organograma": "Organization Chart",
-        "documentos": "Documents and Legislation",
-        "docentes": "Faculty",
-        "calendarios": "Calendars 25/26",
-        "qualidade": "Quality Assurance System",
-        "etica": "Ethics Committee",
-        "ctesp": "CTeSP",
-        "licenciatura": "Bachelor",
-        "pos-graduacao": "Postgraduate",
-        "plano-atividades": "Activity Plan",
-        "emolumentos": "Fees",
-        "bolsas-dges": "DGES Scholarships",
-        "protocolos": "Protocols",
-        "editais-2526": "Notices 25/26",
-        "applications": "Online Application",
-        "events-upcoming": "Upcoming Events",
-        "events-workshops": "Workshops",
-        "events-open-days": "Open Days",
-        "news-latest": "Latest News",
-        "news-interviews": "Interviews",
-        "news-press": "Press Releases",
-        "applications-events": "Event Applications",
-        "erasmus+": "Erasmus +",
-        "eventos-e-noticias": "Events and News",
-        "terms": "Terms and Conditions",
-        "privacy": "Privacy Policy"
-    },
-    "news": {
-        "title": "News",
-        "description": "View news",
-        "buttons": {
-            "viewNews": "View news",
-            "viewDetails": "View details"
-        },
-        "detail": {
-            "date": "Date",
-            "author": "Author",
-            "description": "Description",
-            "backToNews": "Back to news",
-            "notFound": "News not found"
-        }
-    },
-    "news": {
-        "title": "News",
-        "description": "View news",
-        "buttons": {
-            "viewNews": "View news",
-            "viewDetails": "View details"
-        },
-        "detail": {
-            "date": "Date",
-            "author": "Author",
-            "description": "Description",
-            "backToNews": "Back to news",
-            "notFound": "News not found"
-        }
-    },
-    "courses": {
-        "subtitle": "ISTEC Porto Training Offer",
-        "title": "Courses",
-        "description": "Explore our offer of CTeSP, Bachelor's and Postgraduate degrees and find the ideal course for you.",
-        "oneCourse": "course found",
-        "multipleCourses": "courses found",
-        "searchPlaceholder": "Search course, area, keyword...",
-        "searchButton": "Search",
-        "filters": "Filters",
-        "clearAll": "Clear all",
-        "courseType": "Course type",
-        "all": "All",
-        "modality": "Modality",
-        "laboral": "Laboral",
-        "posLaboral": "Post-laboral",
-        "sortBy": "Sort by",
-        "mostRecent": "Most recent",
-        "nameAsc": "Name (A–Z)",
-        "nameDesc": "Name (Z–A)",
-        "noCourses": "No courses found with the current filters. Try adjusting the search or clearing the filters.",
-        "defaultCategory": "Course",
-        "posLaboralLabel": "Post-laboral",
-        "laboralLabel": "Laboral",
-        "years": "years",
-        "perMonth": "€/month",
-        "months": "months",
-        "learnMore": "Learn +",
-        "enroll": "Enroll"
+    "applications": {
+      "title": "Applications",
+      "description": "Submit application"
     },
     "events": {
-        "title": "Events",
-        "description": "View events",
-        "buttons": {
-            "viewEvent": "View event",
-            "viewDetails": "View details"
-        },
-        "detail": {
-            "date": "Date",
-            "location": "Location",
-            "description": "Description",
-            "backToEvents": "Back to events",
-            "notFound": "Event not found"
-        }
-    },
-    "pagination": {
-        "previous": "Previous",
-        "next": "Next"
+      "title": "Events",
+      "description": "View events",
+      "buttons": {
+        "viewEvent": "View event",
+        "viewDetails": "View details"
+      }
     },
     "contacts": {
-        "contacts": "Contacts",
-        "subtitle": "We're available to answer your questions.",
-        "departments": "Contacts by department",
-        "location": "Where we're located",
-        "message": "Send us a message"
+      "title": "Contacts",
+      "description": "Talk to us"
     },
-    "erasmusPage": {
-        "title": "Erasmus+",
-        "subtitle": "Mobility Program",
-        "description": "Discover international academic mobility opportunities and enrich your journey with a unique experience abroad.",
-        "studyTitle": "Study abroad",
-        "studyText1": "The Erasmus+ program gives students the opportunity to study at a partner institution.",
-        "studyText2": "It promotes autonomy, cultural exchange and academic development.",
-        "benefitsTitle": "Program benefits",
-        "benefits": [
-            "International and intercultural experience",
-            "Personal and academic development",
-            "Contact with new teaching methodologies",
-            "Enhanced CV and employability"
-        ],
-        "highlights": [
-            "available destinations",
-            "partner institutions",
-            "international experience"
-        ],
-        "stepsTitle": "How it works",
-        "stepsDescription": "A simple path to take part in the program.",
-        "steps": [
-            {
-            "title": "1. Application",
-            "text": "Check the criteria and submit your application within the defined deadline."
-            },
-            {
-            "title": "2. Selection",
-            "text": "Applications are reviewed according to the requirements and available places."
-            },
-            {
-            "title": "3. Preparation",
-            "text": "After selection, you prepare the documents and study plan for your mobility period."
-            }
-        ],
-        "partnersTitle": "Partner institutions",
-        "partnersDescription": "Examples of host institutions for mobility.",
-        "partners": [
-            "Partner University A",
-            "Partner University B",
-            "Partner University C",
-            "Partner University D"
-        ],
-        "ctaTitle": "Take your journey further",
-        "ctaText": "Erasmus+ is an opportunity to grow academically and personally through an enriching international experience.",
-        "ctaButton": "Learn more"
+    "viewMore": "View more →",
+    "coursesSection": {
+      "trainingOffer": "Training Offer",
+      "findRightCourse": "Find the right course for you",
+      "viewAllOffer": "View all offer →",
+      "learnMore": "Learn more"
+    },
+    "eventsNewsSection": {
+      "eventsNews": "Events & News",
+      "stayUpdated": "Stay up to date with what's happening",
+      "viewAll": "View all →",
+      "readMore": "Read more"
+    },
+    "applicationsSection": {
+      "applications": "Applications",
+      "startApplication3Steps": "Start your application in 3 steps",
+      "futureStartsClick": "Your future starts with a click. Apply now and take the first step.",
+      "steps": {
+        "1": {
+          "title": "Choose course",
+          "description": "Check the offer and find the most suitable path."
         },
-    "pedagogyPage": {
-        "title": "Pedagogy XXI",
-        "subtitle": "ISTEC PORTO",
-        "description": "The pedagogical area focuses on innovation in teaching and student-centered learning.",
-        "impactTitle": "Teaching with impact",
-        "impactText1": "Modern educational practices with active student participation.",
-        "impactText2": "Focus on practical knowledge and real-world preparation.",
-        "objectivesTitle": "Pedagogical goals",
-        "objectives": [
-            "Innovative teaching",
-            "Improve quality",
-            "Support teachers",
-            "Active learning"
-        ],
-        "areasTitle": "Pedagogical areas",
-            "areasDescription": "Main areas of pedagogical intervention and development.",
-            "areas": [
-                {
-                "title": "Teaching Methodologies",
-                "text": "Innovative pedagogical approaches focused on the student and active learning."
-                },
-                {
-                "title": "Educational Assessment",
-                "text": "Continuous assessment strategies focused on developing skills."
-                },
-                {
-                "title": "Technology in Education",
-                "text": "Integration of digital tools in the teaching and learning process."
-                }
-            ],
-            "ctaTitle": "Innovating in teaching means preparing the future",
-            "ctaText": "Pedagogy is an essential pillar in training qualified, critical professionals who are ready to respond to the challenges of the market and society.",
-            "ctaButton": "Learn more"
+        "2": {
+          "title": "Submit application",
+          "description": "Fill out the form and send the necessary documents."
         },
-    "footer": {
-        "istecPorto": "ISTEC Porto",
-        "description": "Higher Institute of Advanced Technologies of Porto, focused on innovation, practical training and proximity to the market.",
-        "navigation": "Navigation",
-        "home": "Home",
-        "courses": "Courses",
-        "events": "Events",
-        "applications": "Applications",
-        "contacts": "Contacts",
-        "location": "Porto, Portugal",
-        "email": "geral@istec.pt",
-        "phone": "+351 222 000 000",
-        "information": "Information",
-        "privacyPolicy": "Privacy Policy",
-        "termsConditions": "Terms and Conditions",
-        "requestInfo": "Request Information",
-        "copyright": "© {{ year }} ISTEC Porto. All rights reserved.",
-        "developed": "Developed for academic project",
-        "fixedLineNote": "Call rates to domestic landlines and mobile phones, according to your plan"
+        "3": {
+          "title": "Confirm enrollment",
+          "description": "Follow the process and complete the enrollment."
+        }
+      },
+      "startApplication": "Start application"
+    },
+    "contactsSection": {
+      "contacts": "Contacts",
+      "needHelp": "Need help or more information?",
+      "teamAvailable": "Our team is available to clarify doubts about courses, applications and ISTEC Porto operation.",
+      "location": "📍 Porto, Portugal",
+      "email": "📧 geral@istec.pt",
+      "phone": "📞 +351 222 000 000",
+      "goToContacts": "Go to contacts",
+      "requestInfo": "Request information"
+    },
+    "quickLinks": {
+      "courses": {
+        "title": "Courses",
+        "description": "Explore training"
+      },
+      "applications": {
+        "title": "Applications",
+        "description": "Submit application"
+      },
+      "events": {
+        "title": "Events",
+        "description": "View events"
+      },
+      "contacts": {
+        "title": "Contacts",
+        "description": "Talk to us"
+      },
+      "viewMore": "View more →"
     }
+  },
+  "applicationsForm": {
+    "common": {
+      "sectionLabel": "Applications",
+      "typeLabel": "Type",
+      "back": "Back",
+      "next": "Next",
+      "submitApplication": "Submit application",
+      "returnHome": "Return home",
+      "stepLabel": "Step",
+      "stepCounter": "Step {{current}} of {{total}}",
+      "requiredField": "Required field.",
+      "acceptTerms": "You must accept the terms.",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "birthDate": "Birth date",
+      "identificationNumber": "Identification number",
+      "noSelection": "Not selected",
+      "noValue": "—",
+      "cv": "CV",
+      "identityDocument": "Identification document",
+      "certificate": "Certificate / proof"
+    },
+    "course": {
+      "pageTitle": "Course application",
+      "pageDescription": "Fill out the form and associate the application directly with a course.",
+      "educationalLevel": "Educational Level",
+      "typeValue": "Course",
+      "steps": {
+        "1": "Selection and personal information",
+        "2": "File upload",
+        "3": "Review",
+        "4": "Confirmation"
+      },
+      "stepHeading": "1. Selection",
+      "sectionOneTitle": "Selection and personal information",
+      "sectionOneDescription": "Choose the course and fill in your personal details.",
+      "personalInfoHeading": "2. Personal information",
+      "selectLevelOption": "Select a level",
+      "selectionLabel": "Course",
+      "selectCourseOption": "Select a course",
+      "selectLevelFirstOption": "Select a level first",
+      "sectionTwoTitle": "File upload",
+      "sectionTwoDescription": "Upload the requested documents to complete the application.",
+      "sectionThreeTitle": "Review",
+      "sectionThreeDescription": "Review your information before submitting.",
+      "termsConfirmation": "I confirm that the information is correct and accept the application terms.",
+      "sectionFourTitle": "Confirmation",
+      "sectionFourDescription": "Your application has been submitted successfully.",
+      "finalSummaryTitle": "Final summary",
+      "selectedLevelLabel": "Selected level:",
+      "submittedFor": "You have submitted an application for",
+      "invalidIdentificationNumber": "The identification number must have 9 digits."
+    },
+    "event": {
+      "pageTitle": "Event application",
+      "pageDescription": "Choose a category, select an event, and fill out your information.",
+      "typeValue": "Event",
+      "steps": {
+        "1": "Selection and personal information",
+        "2": "Review",
+        "3": "Confirmation"
+      },
+      "sectionOneTitle": "Selection and personal information",
+      "sectionOneDescription": "Choose a category, select the event and fill in your details.",
+      "stepHeading": "1. Selection",
+      "personalInfoHeading": "2. Personal information",
+      "categoryLabel": "Event category",
+      "selectCategoryOption": "Select a category",
+      "selectEventOption": "Select an event",
+      "selectCategoryFirstOption": "Select a category first",
+      "categoryAll": "All events",
+      "sectionThreeTitle": "Review",
+      "sectionThreeDescription": "Review your information before submitting.",
+      "reviewCategory": "Event category",
+      "reviewEvent": "Desired event",
+      "sectionFourTitle": "Confirmation",
+      "sectionFourDescription": "Your event application has been submitted successfully.",
+      "finalSummaryTitle": "Final summary",
+      "selectedCategoryLabel": "Selected category:",
+      "submittedFor": "You have submitted an application for",
+      "invalidIdentificationNumber": "The identification number must have exactly 9 digits.",
+      "desiredEventLabel": "Desired event"
+    }
+  },
+  "header": {
+    "aboutIstec": "About ISTEC",
+    "institutionContacts": "Institution Contacts",
+    "istecLisboa": "ISTEC Lisboa",
+    "privateArea": "Private Area",
+    "studentArea": "Student Area",
+    "teacherArea": "Teacher Area",
+    "administration": "Administration",
+    "languagePt": "PT",
+    "languageEn": "EN",
+    "searchPlaceholder": "Search...",
+    "home": "Home",
+    "courses": "Courses",
+    "events": "Events",
+    "news": "News",
+    "applications": "Applications",
+    "istecPorto": "ISTEC Porto",
+    "eventsAndNews": "Events and News",
+    "mobilityProgram": "Mobility Program",
+    "pedagogyXXI": "Pedagogy XXI",
+    "moodle": "Moodle",
+    "research": "Research"
+  },
+  "nav": {
+    "home": "Home",
+    "aboutIstec": "About ISTEC",
+    "mission": "Mission and Educational Project",
+    "orgaos": "Institute Bodies",
+    "organograma": "Organization Chart",
+    "documentos": "Documents and Legislation",
+    "docentes": "Faculty",
+    "calendarios": "Calendars 25/26",
+    "qualidade": "Quality Assurance System",
+    "etica": "Ethics Committee",
+    "ctesp": "CTeSP",
+    "licenciatura": "Bachelor",
+    "pos-graduacao": "Postgraduate",
+    "plano-atividades": "Activity Plan",
+    "emolumentos": "Fees",
+    "bolsas-dges": "DGES Scholarships",
+    "protocolos": "Protocols",
+    "editais-2526": "Notices 25/26",
+    "applications": "Online Application",
+    "events-upcoming": "Upcoming Events",
+    "events-workshops": "Workshops",
+    "events-open-days": "Open Days",
+    "news-latest": "Latest News",
+    "news-interviews": "Interviews",
+    "news-press": "Press Releases",
+    "applications-events": "Event Applications",
+    "erasmus+": "Erasmus +",
+    "eventos-e-noticias": "Events and News",
+    "terms": "Terms and Conditions",
+    "privacy": "Privacy Policy"
+  },
+  "news": {
+    "hero": {
+      "label": "ISTEC News",
+      "title": "Stay up to date with the latest news",
+      "description": "Discover news, interviews, events and important updates from the ISTEC Porto academic community.",
+      "backHome": "Back home"
+    },
+    "buttons": {
+      "readFull": "Read full news",
+      "readMore": "Read more"
+    },
+    "section": {
+      "label": "Updates",
+      "title": "All news",
+      "backHomeInline": "Back home"
+    }
+  },
+  "courses": {
+    "subtitle": "ISTEC Porto Training Offer",
+    "title": "Courses",
+    "description": "Explore our offer of CTeSP, Bachelor's and Postgraduate degrees and find the ideal course for you.",
+    "oneCourse": "course found",
+    "multipleCourses": "courses found",
+    "searchPlaceholder": "Search course, area, keyword...",
+    "searchButton": "Search",
+    "filters": "Filters",
+    "clearAll": "Clear all",
+    "courseType": "Course type",
+    "all": "All",
+    "modality": "Modality",
+    "laboral": "Laboral",
+    "posLaboral": "Post-laboral",
+    "sortBy": "Sort by",
+    "mostRecent": "Most recent",
+    "nameAsc": "Name (A–Z)",
+    "nameDesc": "Name (Z–A)",
+    "noCourses": "No courses found with the current filters. Try adjusting the search or clearing the filters.",
+    "defaultCategory": "Course",
+    "posLaboralLabel": "Post-laboral",
+    "laboralLabel": "Laboral",
+    "years": "years",
+    "perMonth": "€/month",
+    "months": "months",
+    "learnMore": "Learn +",
+    "enroll": "Enroll",
+    "tuitionOnRequest": "Check tuition",
+    "moreInfo": "More Information",
+    "apply": "Apply",
+    "licenciatura": {
+      "pageTitle": "Bachelor Degrees",
+      "hero": {
+        "badge": "ISTEC PORTO",
+        "title": "Bachelor Degrees",
+        "description": "Discover ISTEC Porto's bachelor degrees and choose a higher education path focused on technology, creativity and preparation for the job market."
+      },
+      "about": {
+        "badge": "About Bachelor Degrees",
+        "title": "1st cycle of studies with 180 ECTS",
+        "paragraph1": "Bachelor degrees are higher education study cycles lasting six academic semesters, corresponding to 180 ECTS credits.",
+        "paragraph2": "At ISTEC Porto, the training combines scientific foundations, technical skills and practical application, preparing students for real challenges in computing and multimedia.",
+        "paragraph3": "The bachelor degree offer includes Computer Engineering and Multimedia Engineering, with curricula oriented toward innovation, technological development and employability."
+      },
+      "listing": {
+        "badge": "Bachelor degree offer",
+        "title": "Find the right bachelor degree for you"
+      },
+      "searchPlaceholder": "Search bachelor degrees...",
+      "searchButton": "Search",
+      "sortRelevance": "Most relevant",
+      "noResults": "No bachelor degrees were found with the applied filters.",
+      "cardBadge": "Bachelor",
+      "defaultDescription": "1st-cycle bachelor degree with technical, practical and market-oriented training."
+    },
+    "posGraduacao": {
+      "pageTitle": "Postgraduate Courses",
+      "hero": {
+        "badge": "ISTEC PORTO",
+        "title": "Postgraduate Courses",
+        "description": "Discover ISTEC Porto postgraduate courses and deepen specialized skills with training aimed at professional growth."
+      },
+      "about": {
+        "badge": "About postgraduate courses",
+        "title": "Advanced training to strengthen professional skills",
+        "paragraph1": "Postgraduate courses are intended for those who want to update, deepen or specialize their knowledge in a specific area, responding to current labor market needs.",
+        "paragraph2": "At ISTEC Porto, these paths value practical application, proximity to the professional context and the development of relevant technical skills.",
+        "paragraph3": "The postgraduate offer is designed for professionals, graduates and students who want to differentiate their profile and continue evolving in their field."
+      },
+      "listing": {
+        "badge": "Postgraduate offer",
+        "title": "Find the right postgraduate course for you"
+      },
+      "searchPlaceholder": "Search postgraduate courses...",
+      "searchButton": "Search",
+      "sortRelevance": "Most relevant",
+      "noResults": "No postgraduate courses were found with the applied filters.",
+      "cardBadge": "Postgraduate",
+      "defaultDescription": "Postgraduate course with specialized, practical training oriented toward professional development."
+    },
+    "ctesp": {
+      "pageTitle": "CTeSP",
+      "hero": {
+        "badge": "ISTEC PORTO",
+        "title": "Higher Professional Technical Courses",
+        "description": "Discover ISTEC Porto's CTeSP offer and find a training path with a strong practical component, market connection and focus on your professional integration."
+      },
+      "about": {
+        "badge": "About CTeSP",
+        "title": "Practical, specialized and market-oriented training",
+        "paragraph1": "Higher Professional Technical Courses award a Higher Professional Technician Diploma and last two years, divided into four semesters.",
+        "paragraph2": "During the first three semesters, technical training prioritizes practical, laboratory and workshop-based application. The last semester is dedicated to a curricular internship, promoting direct connection with the real work context.",
+        "paragraph3": "This offer prepares students for a solid entry into the professional market, with updated technical skills and relevant experience."
+      },
+      "listing": {
+        "badge": "CTeSP Offer",
+        "title": "Find the right course for you"
+      },
+      "courseDetail": {
+        "defaultTitle": "Nome do curso",
+        "defaultDescription": "Descrição do curso a definir.",
+        "heroEyebrow": "Formação avançada em tecnologia e inovação",
+        "tabs": {
+          "overview": "Apresentação",
+          "plan": "Plano de estudos",
+          "outcomes": "Saídas profissionais"
+        },
+        "sections": {
+          "overview": {
+            "eyebrow": "Apresentação",
+            "title": "Um percurso pensado para o teu futuro",
+            "description": "Este modelo organiza a informação essencial do curso de forma clara, com destaque para apresentação, objetivos, plano curricular, acesso e saídas profissionais."
+          },
+          "plan": {
+            "eyebrow": "Plano de estudos",
+            "title": "Organização curricular",
+            "description": "Área preparada para listar semestres e unidades curriculares associadas ao curso."
+          },
+          "outcomes": {
+            "eyebrow": "Saídas profissionais",
+            "title": "Possíveis percursos após o curso"
+          }
+        },
+        "metrics": {
+          "duration": "Duração",
+          "regime": "Regime",
+          "tuition": "Propina"
+        },
+        "info": {
+          "schedule": "Horário",
+          "modality": "Modalidade",
+          "duration": "Duração",
+          "ects": "ECTS"
+        },
+        "modes": {
+          "hybrid": "Híbrido",
+          "online": "Online",
+          "presential": "Presencial"
+        },
+        "durationSingular": "{{count}} ano",
+        "durationPlural": "{{count}} anos",
+        "check": "Consultar",
+        "tuitionPerMonth": "{{value}}€/mês",
+        "tuitionOnRequest": "Consultar propina",
+        "moreInfo": "Mais Informações",
+        "applyNow": "Candidatar agora",
+        "requestInfo": "Pedir mais informações",
+        "sidebarTitle": "Informação do curso",
+        "semesterLabel": "{{number}}.º Semestre",
+        "subjectLabel": "Unidade curricular",
+        "noSubjects": "Unidades curriculares a definir.",
+        "noPlan": "O plano de estudos ainda não foi carregado para este curso.",
+        "noOutcomes": "As saídas profissionais serão apresentadas aqui quando estiverem associadas ao curso."
+      },
+      "searchPlaceholder": "Search CTeSP...",
+      "searchButton": "Search",
+      "sortRelevance": "Most relevant",
+      "noResults": "No CTeSP courses were found with the applied filters.",
+      "cardBadge": "CTeSP",
+      "defaultDescription": "Higher professional technical course with a strong practical component and connection to the business context.",
+      "tuitionInfo": "Check tuition",
+      "moreInfo": "More Information",
+      "apply": "Apply"
+    }
+  },
+  "events": {
+    "title": "Events",
+    "description": "View events",
+    "buttons": {
+      "viewEvent": "View event",
+      "viewDetails": "View details"
+    },
+    "detail": {
+      "date": "Date",
+      "location": "Location",
+      "description": "Description",
+      "backToEvents": "Back to events",
+      "notFound": "Event not found"
+    }
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "contacts": {
+    "contacts": "Contacts",
+    "subtitle": "We're available to answer your questions.",
+    "departments": "Contacts by department",
+    "location": "Where we're located",
+    "message": "Send us a message"
+  },
+  "erasmusPage": {
+    "title": "Erasmus+",
+    "subtitle": "Mobility Program",
+    "description": "Discover international academic mobility opportunities and enrich your journey with a unique experience abroad.",
+    "studyTitle": "Study abroad",
+    "studyText1": "The Erasmus+ program gives students the opportunity to study at a partner institution.",
+    "studyText2": "It promotes autonomy, cultural exchange and academic development.",
+    "benefitsTitle": "Program benefits",
+    "benefits": [
+      "International and intercultural experience",
+      "Personal and academic development",
+      "Contact with new teaching methodologies",
+      "Enhanced CV and employability"
+    ],
+    "highlights": [
+      "available destinations",
+      "partner institutions",
+      "international experience"
+    ],
+    "stepsTitle": "How it works",
+    "stepsDescription": "A simple path to take part in the program.",
+    "steps": [
+      {
+        "title": "1. Application",
+        "text": "Check the criteria and submit your application within the defined deadline."
+      },
+      {
+        "title": "2. Selection",
+        "text": "Applications are reviewed according to the requirements and available places."
+      },
+      {
+        "title": "3. Preparation",
+        "text": "After selection, you prepare the documents and study plan for your mobility period."
+      }
+    ],
+    "partnersTitle": "Partner institutions",
+    "partnersDescription": "Examples of host institutions for mobility.",
+    "partners": [
+      "Partner University A",
+      "Partner University B",
+      "Partner University C",
+      "Partner University D"
+    ],
+    "ctaTitle": "Take your journey further",
+    "ctaText": "Erasmus+ is an opportunity to grow academically and personally through an enriching international experience.",
+    "ctaButton": "Learn more"
+  },
+  "pedagogyPage": {
+    "title": "Pedagogy XXI",
+    "subtitle": "ISTEC PORTO",
+    "description": "The pedagogical area focuses on innovation in teaching and student-centered learning.",
+    "impactTitle": "Teaching with impact",
+    "impactText1": "Modern educational practices with active student participation.",
+    "impactText2": "Focus on practical knowledge and real-world preparation.",
+    "objectivesTitle": "Pedagogical goals",
+    "objectives": [
+      "Innovative teaching",
+      "Improve quality",
+      "Support teachers",
+      "Active learning"
+    ],
+    "areasTitle": "Pedagogical areas",
+    "areasDescription": "Main areas of pedagogical intervention and development.",
+    "areas": [
+      {
+        "title": "Teaching Methodologies",
+        "text": "Innovative pedagogical approaches focused on the student and active learning."
+      },
+      {
+        "title": "Educational Assessment",
+        "text": "Continuous assessment strategies focused on developing skills."
+      },
+      {
+        "title": "Technology in Education",
+        "text": "Integration of digital tools in the teaching and learning process."
+      }
+    ],
+    "ctaTitle": "Innovating in teaching means preparing the future",
+    "ctaText": "Pedagogy is an essential pillar in training qualified, critical professionals who are ready to respond to the challenges of the market and society.",
+    "ctaButton": "Learn more"
+  },
+  "footer": {
+    "istecPorto": "ISTEC Porto",
+    "description": "Higher Institute of Advanced Technologies of Porto, focused on innovation, practical training and proximity to the market.",
+    "navigation": "Navigation",
+    "home": "Home",
+    "courses": "Courses",
+    "events": "Events",
+    "applications": "Applications",
+    "contacts": "Contacts",
+    "location": "Porto, Portugal",
+    "email": "geral@istec.pt",
+    "phone": "+351 222 000 000",
+    "information": "Information",
+    "privacyPolicy": "Privacy Policy",
+    "termsConditions": "Terms and Conditions",
+    "requestInfo": "Request Information",
+    "copyright": "© {{ year }} ISTEC Porto. All rights reserved.",
+    "developed": "Developed for academic project",
+    "fixedLineNote": "Call rates to domestic landlines and mobile phones, according to your plan"
+  }
 }

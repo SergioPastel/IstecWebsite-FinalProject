@@ -46,7 +46,7 @@ function isPosGraduacaoCourse(course, lang) {
 }
 
 export default function PosGraduacoesIndex({ courses, filters = {} }) {
-    const { i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
     const lang = i18n.language?.startsWith('en') ? 'en' : 'pt';
 
     const [query, setQuery] = useState(filters?.q ?? '');
@@ -115,24 +115,23 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
     };
 
     return (
-        <Layout title="Pós-Graduações">
-            <Head title="Pós-Graduações" />
+        <Layout title={t('courses.posGraduacao.pageTitle')}>
+            <Head title={t('courses.posGraduacao.pageTitle')} />
 
             <div className="w-full bg-[#f5f8fc] text-[#1f2937]">
                 <section className="relative overflow-hidden bg-gradient-to-br from-[#0d8fe8] to-[#38b6ff] pt-40 pb-20 text-white">
                     <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 sm:px-6 lg:px-8">
                         <div className="max-w-3xl">
                             <p className="mb-4 text-[0.85rem] font-extrabold uppercase tracking-[1.5px] text-white/90">
-                                ISTEC PORTO
+                                {t('courses.posGraduacao.hero.badge')}
                             </p>
 
                             <h1 className="text-[clamp(2.2rem,4vw,3.8rem)] font-extrabold leading-[1.08] tracking-[-1px]">
-                                Pós-Graduações
+                                {t('courses.posGraduacao.hero.title')}
                             </h1>
 
                             <p className="mt-5 max-w-2xl text-[1.05rem] leading-[1.8] text-white/90">
-                                Descobre as pós-graduações do ISTEC Porto e aprofunda competências
-                                especializadas com formação orientada para a evolução profissional.
+                                {t('courses.posGraduacao.hero.description')}
                             </p>
                         </div>
                     </div>
@@ -144,31 +143,17 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                     <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="rounded-[26px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] sm:p-8">
                             <p className="mb-3 inline-block text-[0.8rem] font-extrabold uppercase tracking-[1.2px] text-[#0d8fe8]">
-                                Sobre as pós-graduações
+                                {t('courses.posGraduacao.about.badge')}
                             </p>
 
                             <h2 className="mb-4 text-[clamp(1.8rem,3vw,2.4rem)] font-semibold leading-[1.15] tracking-[-0.5px] text-[#1f2937]">
-                                Formação avançada para reforçar competências profissionais
+                                {t('courses.posGraduacao.about.title')}
                             </h2>
 
                             <div className="max-w-4xl space-y-4 text-[0.98rem] leading-[1.8] text-[#6b7280]">
-                                <p>
-                                    As pós-graduações destinam-se a quem procura atualizar,
-                                    aprofundar ou especializar conhecimentos numa área concreta,
-                                    respondendo às necessidades atuais do mercado de trabalho.
-                                </p>
-
-                                <p>
-                                    No ISTEC Porto, estes percursos valorizam a aplicação prática,
-                                    a proximidade ao contexto profissional e o desenvolvimento de
-                                    competências técnicas relevantes.
-                                </p>
-
-                                <p>
-                                    A oferta de pós-graduações é pensada para profissionais,
-                                    diplomados e estudantes que pretendem diferenciar o seu perfil e
-                                    continuar a evoluir na sua área de atuação.
-                                </p>
+                                <p>{t('courses.posGraduacao.about.paragraph1')}</p>
+                                <p>{t('courses.posGraduacao.about.paragraph2')}</p>
+                                <p>{t('courses.posGraduacao.about.paragraph3')}</p>
                             </div>
                         </div>
                     </div>
@@ -179,17 +164,19 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                             <div>
                                 <p className="mb-[10px] inline-block text-[0.8rem] font-extrabold uppercase tracking-[1.2px] text-[#0d8fe8]">
-                                    Oferta de pós-graduações
+                                    {t('courses.posGraduacao.listing.badge')}
                                 </p>
 
                                 <h2 className="text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.15] tracking-[-0.5px] text-[#1f2937]">
-                                    Encontra a pós-graduação certa para ti
+                                    {t('courses.posGraduacao.listing.title')}
                                 </h2>
                             </div>
 
                             <div className="text-sm text-[#6b7280]">
                                 <span className="font-bold text-[#1f2937]">{resultsCount}</span>{' '}
-                                {resultsCount === 1 ? 'pós-graduação encontrada' : 'pós-graduações encontradas'}
+                                {resultsCount === 1
+                                    ? t('courses.oneCourse')
+                                    : t('courses.multipleCourses')}
                             </div>
                         </div>
 
@@ -215,7 +202,7 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                     onKeyDown={(e) => {
                                         if (e.key === 'Enter') applyFilters({ q: e.currentTarget.value });
                                     }}
-                                    placeholder="Pesquisar pós-graduações..."
+                                    placeholder={t('courses.posGraduacao.searchPlaceholder')}
                                     className="w-full rounded-[18px] border border-[#dbe4ee] bg-white px-11 py-4 pr-32 text-sm text-[#1f2937] outline-none focus:ring-2 focus:ring-[#0d8fe8]"
                                 />
 
@@ -225,7 +212,7 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                         onClick={() => applyFilters({ q: query })}
                                         className="rounded-full bg-[#0d8fe8] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#0a78c4]"
                                     >
-                                        Pesquisar
+                                        {t('courses.posGraduacao.searchButton')}
                                     </button>
                                 </div>
                             </div>
@@ -235,9 +222,9 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                 onChange={(e) => setSortBy(e.target.value)}
                                 className="w-full rounded-[18px] border border-[#dbe4ee] bg-white px-4 py-4 text-sm text-[#1f2937] outline-none focus:ring-2 focus:ring-[#0d8fe8]"
                             >
-                                <option value="relevance">Mais relevantes</option>
-                                <option value="name_asc">Nome A-Z</option>
-                                <option value="name_desc">Nome Z-A</option>
+                                <option value="relevance">{t('courses.posGraduacao.sortRelevance')}</option>
+                                <option value="name_asc">{t('courses.nameAsc')}</option>
+                                <option value="name_desc">{t('courses.nameDesc')}</option>
                             </select>
                         </div>
                     </div>
@@ -247,7 +234,7 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                     <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
                         {sortedCourseItems.length === 0 ? (
                             <div className="rounded-[20px] border border-dashed border-[#dbe4ee] bg-white p-10 text-center text-sm text-[#6b7280] shadow-[0_8px_24px_rgba(15,23,42,0.04)]">
-                                Não foram encontradas pós-graduações com os filtros aplicados.
+                                {t('courses.posGraduacao.noResults')}
                             </div>
                         ) : (
                             <>
@@ -256,25 +243,26 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                         const title = getCourseText(course.title, lang);
                                         const desc = getCourseText(course.description, lang);
                                         const duration = course.duration_years
-                                            ? `${course.duration_years} anos`
-                                            : '1 ano';
-                                        const regimeLabel = course.study_regime ? 'Pós-laboral' : 'Laboral';
+                                            ? `${course.duration_years} ${t('courses.years')}`
+                                            : `1 ${t('courses.years')}`;
+                                        const regimeLabel = course.study_regime
+                                            ? t('courses.posLaboralLabel')
+                                            : t('courses.laboralLabel');
 
                                         return (
                                             <article
                                                 key={course.id}
                                                 className="flex h-full flex-col rounded-[20px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(124,58,237,0.12)]"
                                             >
-                                                <div className="relative w-full h-48 mb-4 overflow-hidden rounded-xl">
+                                                <div className="relative mb-4 h-48 w-full overflow-hidden rounded-xl">
                                                     <img
                                                         src={course.media?.url}
-                                                        alt={course.title}
-                                                        className="w-full h-full object-cover opacity-60 transition duration-700 group-hover:scale-105"
+                                                        alt={title}
+                                                        className="h-full w-full object-cover opacity-60 transition duration-700 group-hover:scale-105"
                                                     />
 
-                                                    <span 
-                                                    className="absolute top-3 left-3 inline-flex self-start rounded-full bg-[#f3e8ff] px-3 py-[6px] text-[0.8rem] font-extrabold text-[#7c3aed] shadow">
-                                                        Pós-graduação
+                                                    <span className="absolute top-3 left-3 inline-flex self-start rounded-full bg-[#f3e8ff] px-3 py-[6px] text-[0.8rem] font-extrabold text-[#7c3aed] shadow">
+                                                        {t('courses.posGraduacao.cardBadge')}
                                                     </span>
                                                 </div>
 
@@ -288,7 +276,7 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                                     </p>
                                                 ) : (
                                                     <p className="mt-3 text-sm leading-[1.7] text-[#6b7280]">
-                                                        Pós-graduação com formação especializada, prática e orientada para a valorização profissional.
+                                                        {t('courses.posGraduacao.defaultDescription')}
                                                     </p>
                                                 )}
 
@@ -303,7 +291,7 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
 
                                                     {course.tuition_months ? (
                                                         <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">
-                                                            {course.tuition_months} meses
+                                                            {course.tuition_months} {t('courses.months')}
                                                         </span>
                                                     ) : null}
                                                 </div>
@@ -311,10 +299,13 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                                 <div className="mt-5 text-sm text-[#6b7280]">
                                                     {course.tuition_monthly_pay ? (
                                                         <span className="font-bold text-[#1f2937]">
-                                                            {course.tuition_monthly_pay}€/mês
+                                                            {course.tuition_monthly_pay}
+                                                            {t('courses.perMonth')}
                                                         </span>
                                                     ) : (
-                                                        <span className="font-bold text-[#1f2937]">Consultar propina</span>
+                                                        <span className="font-bold text-[#1f2937]">
+                                                            {t('courses.tuitionOnRequest')}
+                                                        </span>
                                                     )}
                                                 </div>
 
@@ -323,7 +314,7 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                                         href={route('courses.show', course.id)}
                                                         className="flex-1 rounded-full bg-[#7c3aed] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#6d28d9]"
                                                     >
-                                                        Mais Informações
+                                                        {t('courses.moreInfo')}
                                                     </Link>
 
                                                     <button
@@ -337,7 +328,7 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                                             router.visit(route('applications.applyCourse', course));
                                                         }}
                                                     >
-                                                        Candidatar-me
+                                                        {t('courses.apply')}
                                                     </button>
                                                 </div>
                                             </article>
@@ -357,7 +348,7 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                                         : 'border-[#dbe4ee] bg-white text-[#374151] hover:bg-[#f8fafc]'
                                                 }`}
                                             >
-                                                Anterior
+                                                {t('pagination.previous')}
                                             </button>
 
                                             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -383,7 +374,7 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                                         : 'border-[#dbe4ee] bg-white text-[#374151] hover:bg-[#f8fafc]'
                                                 }`}
                                             >
-                                                Seguinte
+                                                {t('pagination.next')}
                                             </button>
                                         </div>
                                     </div>

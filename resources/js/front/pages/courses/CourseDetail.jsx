@@ -96,9 +96,14 @@ export default function CourseDetail({ course = {} }) {
     const title = getCourseText(course.title) || 'Nome do curso';
     const category = getCourseText(course.category) || 'Curso';
     const description = getCourseText(course.description) || 'Descrição do curso a definir.';
-    // const objectives = getCourseText(course.objectives) || getCourseText(course.goals);
+    // const objectives = getCourseText(course.objectives) || getCourseText(course.goals); The client MIGHT want this eventually
     // const accessConditions = getCourseText(course.access_conditions) || getCourseText(course.accessConditions);
     const professionalOutcomes = course.professional_outcomes; // it's a json/array
+    const modality = course.modality === 'hibrido'
+        ? 'Híbrido'
+        : course.modality === 'online'
+        ? 'Online'
+        : 'Presencial';
 
     const outcomesList = (professionalOutcomes).split(",").map(item => item.trim()); // splits the array
 
@@ -343,7 +348,7 @@ export default function CourseDetail({ course = {} }) {
                                 />
                                 <InfoItem
                                     label="Modalidade"
-                                    value={course.modality || 'Presencial'}
+                                    value={modality || 'Presencial'}
                                     icon={(
                                         <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                             <path d="M3 21h18" />
