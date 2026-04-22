@@ -236,6 +236,14 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                                         const regimeLabel = course.study_regime
                                             ? t('courses.posLaboralLabel')
                                             : t('courses.laboralLabel');
+                                        const modality = course.modality === 'hibrido'
+                                                        ? t('courses.modality.hybrid')
+                                                        : course.modality === 'online'
+                                                        ? t('courses.modality.remote')
+                                                        : t('courses.modality.inPerson');
+                                        const ects = course.semesters
+                                            .flatMap(semester => semester.subjects)
+                                            .reduce((sum, subject) => sum + subject.ects, 0);
 
                                         return (
                                             <article
@@ -278,7 +286,11 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                                                     </span>
 
                                                     <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">
-                                                        180 ECTS
+                                                        {modality}
+                                                    </span>
+
+                                                    <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">
+                                                        {ects} ects
                                                     </span>
                                                 </div>
 

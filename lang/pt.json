@@ -273,7 +273,12 @@
     "clearAll": "Limpar tudo",
     "courseType": "Tipo de curso",
     "all": "Todos",
-    "modality": "Modalidade",
+    "modality": {
+        "title": "Modalidade",
+        "inPerson": "Presencial",
+        "hybrid": "Híbrido",
+        "remote": "A distância"
+      },
     "laboral": "Laboral",
     "posLaboral": "Pós-laboral",
     "sortBy": "Ordenar por",

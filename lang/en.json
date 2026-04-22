@@ -269,7 +269,12 @@
     "clearAll": "Clear all",
     "courseType": "Course type",
     "all": "All",
-    "modality": "Modality",
+    "modality": {
+        "title": "Modality",
+        "inPerson": "In-person",
+        "hybrid": "Hybrid",
+        "remote": "Remote"
+      },
     "laboral": "Laboral",
     "posLaboral": "Post-laboral",
     "sortBy": "Sort by",
@@ -305,7 +310,7 @@
       "listing": {
         "badge": "Bachelor degree offer",
         "title": "Find the right bachelor degree for you"
-      },
+      },    
       "searchPlaceholder": "Search bachelor degrees...",
       "searchButton": "Search",
       "sortRelevance": "Most relevant",
