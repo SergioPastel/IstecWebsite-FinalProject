@@ -5,6 +5,7 @@ import EmptyState from "../../components/ui/EmptyState";
 import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
 import StatusBadge from "../../components/ui/StatusBadge";
+import { filterCollectionByQuery } from "../../utils/search";
 
 export default function EventsIndexBack({ events }) {
   const rows = events?.data ?? events ?? [];
@@ -21,11 +22,19 @@ export default function EventsIndexBack({ events }) {
       subtitle="Coordene agenda, visibilidade e estado operacional dos eventos."
       searchPlaceholder="Pesquisar eventos"
     >
-      <div className="space-y-6">
+      {({ searchQuery }) => {
+        const filteredRows = filterCollectionByQuery(rows, searchQuery, (event) => [
+          event.title,
+          event.description,
+          event.location,
+          formatDate(event.start_date),
+          formatDate(event.end_date),
+        ]);
+
+        return <div className="space-y-6">
         <PageHeader
           eyebrow="Agenda"
           title="Gestao de eventos"
-          //description="Base visual consistente com o novo backoffice, pronta para detalhe, filtros temporais e estados editoriais."
           actions={[
             <Link
               key="create"
@@ -39,16 +48,21 @@ export default function EventsIndexBack({ events }) {
 
         <SectionCard
           title="Calendario editorial"
-          subtitle={`${rows.length} eventos preparados para acompanhamento.`}
+          subtitle={`${filteredRows.length} de ${rows.length} eventos preparados para acompanhamento.`}
         >
           {rows.length === 0 ? (
             <EmptyState
               title="Nao existem eventos configurados."
               description="Assim que a agenda for populada, esta area pode mostrar estados, localizacao, periodo e destaque institucional."
             />
+          ) : filteredRows.length === 0 ? (
+            <EmptyState
+              title="Nenhum evento corresponde a esta pesquisa."
+              description="A pesquisa funciona por titulo, descricao, local e datas."
+            />
           ) : (
             <div className="grid gap-4 xl:grid-cols-2">
-              {rows.map((event) => (
+              {filteredRows.map((event) => (
                 <article
                   key={event.id}
                   className="rounded-[28px] border border-slate-200 bg-slate-50/80 p-6"
@@ -94,7 +108,8 @@ export default function EventsIndexBack({ events }) {
             </div>
           )}
         </SectionCard>
-      </div>
+      </div>;
+      }}
     </BackofficeLayout>
   );
 }

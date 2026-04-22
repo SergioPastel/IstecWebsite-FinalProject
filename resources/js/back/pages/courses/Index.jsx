@@ -5,6 +5,7 @@ import EmptyState from "../../components/ui/EmptyState";
 import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
 import StatusBadge from "../../components/ui/StatusBadge";
+import { filterCollectionByQuery } from "../../utils/search";
 
 export default function CoursesIndexBack({ courses }) {
   const rows = courses?.data ?? [];
@@ -21,11 +22,17 @@ export default function CoursesIndexBack({ courses }) {
       subtitle="Organize a oferta formativa e prepare a area para futuras operacoes editoriais."
       searchPlaceholder="Pesquisar cursos"
     >
-      <div className="space-y-6">
+      {({ searchQuery }) => {
+        const filteredRows = filterCollectionByQuery(rows, searchQuery, (course) => [
+          course.title,
+          course.description,
+          course.duration_years,
+        ]);
+
+        return <div className="space-y-6">
         <PageHeader
           eyebrow="Academics"
           title="Gestao de cursos"
-          //description="A estrutura abaixo reaproveita a stack atual e deixa a pagina pronta para crescer com filtros, formularios e detalhe editorial."
           actions={[
             <Link
               key="create"
@@ -39,16 +46,21 @@ export default function CoursesIndexBack({ courses }) {
 
         <SectionCard
           title="Catalogo atual"
-          subtitle={`${rows.length} registos disponiveis para administracao.`}
+          subtitle={`${filteredRows.length} de ${rows.length} registos disponiveis para administracao.`}
         >
           {rows.length === 0 ? (
             <EmptyState
               title="Ainda nao existem cursos registados."
               description="Quando a equipa adicionar a oferta formativa, esta vista pode evoluir para incluir filtros, estados, imagens e destaque institucional."
             />
+          ) : filteredRows.length === 0 ? (
+            <EmptyState
+              title="Nenhum curso corresponde a esta pesquisa."
+              description="A pesquisa funciona por titulo, descricao e duracao."
+            />
           ) : (
             <div className="grid gap-4 xl:grid-cols-2">
-              {rows.map((course) => (
+              {filteredRows.map((course) => (
                 <article
                   key={course.id}
                   className="rounded-[28px] border border-slate-200 bg-slate-50/80 p-6"
@@ -94,7 +106,8 @@ export default function CoursesIndexBack({ courses }) {
             </div>
           )}
         </SectionCard>
-      </div>
+      </div>;
+      }}
     </BackofficeLayout>
   );
 }

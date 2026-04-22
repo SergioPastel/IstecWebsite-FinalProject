@@ -5,6 +5,7 @@ import EmptyState from "../../components/ui/EmptyState";
 import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
 import StatusBadge from "../../components/ui/StatusBadge";
+import { filterCollectionByQuery } from "../../utils/search";
 
 export default function NewsIndexBack({ news }) {
   const rows = news ?? [];
@@ -21,11 +22,18 @@ export default function NewsIndexBack({ news }) {
       subtitle="Organize o conteudo editorial com uma base pronta para evoluir."
       searchPlaceholder="Pesquisar noticias"
     >
-      <div className="space-y-6">
+      {({ searchQuery }) => {
+        const filteredRows = filterCollectionByQuery(rows, searchQuery, (item) => [
+          item.title,
+          item.description,
+          item.excerpt,
+          item.published_at ? "publicado" : "rascunho",
+        ]);
+
+        return <div className="space-y-6">
         <PageHeader
           eyebrow="Editorial"
           title="Gestao de noticias"
-          //description="Pagina redesenhada para encaixar no novo backoffice sem alterar a stack nem duplicar padroes."
           actions={[
             <Link
               key="create"
@@ -39,16 +47,18 @@ export default function NewsIndexBack({ news }) {
 
         <SectionCard
           title="Publicacoes"
-          subtitle={`${rows.length} entradas prontas para administracao editorial.`}
+          subtitle={`${filteredRows.length} de ${rows.length} entradas prontas para administracao editorial.`}
         >
           {rows.length === 0 ? (
+            <EmptyState title="Nao existem noticias publicadas." />
+          ) : filteredRows.length === 0 ? (
             <EmptyState
-              title="Nao existem noticias publicadas."
-              //description="Quando houver conteudo editorial no sistema, esta vista pode suportar estados, destaque e programacao."
+              title="Nenhuma noticia corresponde a esta pesquisa."
+              description="A pesquisa funciona por titulo, resumo, descricao e estado."
             />
           ) : (
             <div className="grid gap-4 xl:grid-cols-2">
-              {rows.map((item) => (
+              {filteredRows.map((item) => (
                 <article
                   key={item.id}
                   className="rounded-[28px] border border-slate-200 bg-slate-50/80 p-6"
@@ -91,7 +101,8 @@ export default function NewsIndexBack({ news }) {
             </div>
           )}
         </SectionCard>
-      </div>
+      </div>;
+      }}
     </BackofficeLayout>
   );
 }
