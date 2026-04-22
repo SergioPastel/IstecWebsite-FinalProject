@@ -1,20 +1,35 @@
 <x-mail::message>
-# Nova canditura
 
-**Nome:** {{ $application->full_name }}<br>
-**Email:** {{ $application->email }}<br>
-**Telemovel:** {{ $application->phone }}<br>
+<p style="text-align: center; margin-bottom: 20px;">
+    <img src="{{ asset('/storage/media/logo/istec-logo.png') }}" alt="Logo" style="max-height: 60px;">
+</p>
+
+# 🎓 Nova Candidatura
+
+<x-mail::panel>
+<strong>Nome:</strong> {{ $application->full_name }}<br>
+<strong>Email:</strong> {{ $application->email }}<br>
+<strong>Telemóvel:</strong> {{ $application->phone }}<br>
+
 @isset($application->identification_number)
-**Número de Identificação:** {{ $application->identification_number }}<br>
+<strong>Número de Identificação:</strong> {{ $application->identification_number }}<br>
 @endisset
+</x-mail::panel>
 
 @isset($application->course)
-**Curso:** {{ $application->course->title }} ({{ $application->course->id }})<br>
+## 📚 Curso
+
+<x-mail::panel>
+{{ $application->course->title }} (ID: {{ $application->course->id }})
+</x-mail::panel>
 @endisset
 
 @isset($application->event)
-**Evento:** {{ $application->event->name }} ({{ $application->event->id }})<br>
-@endisset
+## 📅 Evento
 
+<x-mail::panel>
+{{ $application->event->name }} (ID: {{ $application->event->id }})
+</x-mail::panel>
+@endisset
 
 </x-mail::message>
