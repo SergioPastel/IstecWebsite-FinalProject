@@ -1,5 +1,6 @@
 import Layout from "../../layouts/Layout";
-import { useForm, usePage } from "@inertiajs/react";
+import { router, useForm, usePage } from "@inertiajs/react";
+import { route } from "ziggy-js";
 import { useTranslation } from 'react-i18next';
 
 export default function Contacts({departmentContacts }) {
@@ -8,16 +9,21 @@ export default function Contacts({departmentContacts }) {
   const { t } = useTranslation();
 
   const { data, setData, post, processing, errors, reset } = useForm({
-    nome: "",
+    name: "",
     email: "",
-    assunto: "",
-    mensagem: "",
+    subject: "",
+    message: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    post(route("contacts.submit"), {
+    console.log(data);
+    console.log("URL:", route("contacts.store"));
+
+    post(route("contacts.store"), {
+      onStart: () => console.log("request started"),
+      onFinish: () => console.log("request finished"),
       preserveScroll: true,
       onSuccess: () => reset(),
     });
@@ -56,7 +62,6 @@ export default function Contacts({departmentContacts }) {
             <div className="max-w-7xl mx-auto px-6 md:px-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
               {departmentContacts.map((dept, i) => (
                 <div key={i} className="bg-white p-6 rounded-2xl shadow">
-                  {console.log(dept)}
                   <h3 className="font-bold mb-4">{dept.title}</h3>
                   <p className="text-sm text-gray-600 mb-4">{dept.email}</p>
 
@@ -64,7 +69,7 @@ export default function Contacts({departmentContacts }) {
                     href={`mailto:${dept.email}`}
                     className="bg-[#1697e6] text-white px-4 py-2 rounded-full text-sm"
                   >
-                    Enviar Email
+                    {t('contacts.sendEmail')}
                   </a>
                 </div>
               ))}
@@ -105,12 +110,12 @@ export default function Contacts({departmentContacts }) {
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <input
-                    value={data.nome}
-                    onChange={(e) => setData("nome", e.target.value)}
-                    placeholder="Nome"
+                    value={data.name}
+                    onChange={(e) => setData("name", e.target.value)}
+                    placeholder={t('contacts.placeholders.name')}
                     className="w-full border p-3 rounded"
                   />
-                  {errors.nome && <p className="text-red-500">{errors.nome}</p>}
+                  {errors.name && <p className="text-red-500">{errors.name}</p>}
 
                   <input
                     value={data.email}
@@ -121,26 +126,27 @@ export default function Contacts({departmentContacts }) {
                   {errors.email && <p className="text-red-500">{errors.email}</p>}
 
                   <input
-                    value={data.assunto}
-                    onChange={(e) => setData("assunto", e.target.value)}
-                    placeholder="Assunto"
+                    value={data.subject}
+                    onChange={(e) => setData("subject", e.target.value)}
+                    placeholder={t('contacts.placeholders.subject')}
                     className="w-full border p-3 rounded"
                   />
-                  {errors.assunto && <p className="text-red-500">{errors.assunto}</p>}
+                  {errors.subject && <p className="text-red-500">{errors.subject}</p>}
 
                   <textarea
-                    value={data.mensagem}
-                    onChange={(e) => setData("mensagem", e.target.value)}
-                    placeholder="Mensagem"
+                    value={data.message}
+                    onChange={(e) => setData("message", e.target.value)}
+                    placeholder={t('contacts.placeholders.message')}
                     className="w-full border p-3 rounded"
                   />
-                  {errors.mensagem && (
-                    <p className="text-red-500">{errors.mensagem}</p>
+                  {errors.message && (
+                    <p className="text-red-500">{errors.message}</p>
                   )}
 
                   <button
                     disabled={processing}
                     className="bg-[#1697e6] text-white px-6 py-3 rounded-full"
+                    type="submit"
                   >
                     {processing ? "A enviar..." : "Enviar mensagem"}
                   </button>

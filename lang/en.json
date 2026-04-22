@@ -514,7 +514,13 @@
     "subtitle": "We're available to answer your questions.",
     "departments": "Contacts by department",
     "location": "Where we're located",
-    "message": "Send us a message"
+    "message": "Send us a message",
+    "sendEmail": "Send an Email",
+    "placeholders": {
+      "name": "Name",
+      "subject": "Subject",
+      "message": "Message"
+    }
   },
   "erasmusPage": {
     "title": "Erasmus+",

@@ -462,7 +462,13 @@
     "subtitle": "Estamos disponíveis para responder às tuas perguntas.",
     "departments": "Contactos por departamento",
     "location": "Onde estamos localizados",
-    "message": "Envia-nos uma mensagem"
+    "message": "Envia-nos uma mensagem",
+    "sendEmail": "Enviar Email",
+    "placeholders": {
+      "name": "Nome",
+      "subject": "Assunto",
+      "message": "Mensagem"
+    }
   },
   "erasmusPage": {
     "title": "Erasmus+",

@@ -47,7 +47,7 @@ class ContactController extends Controller
         // Send auto-reply to user
         Mail::to($contact->email)->send(new ContactAutoReply($contact));
 
-        return redirect()->route('contacts.create')
+        return redirect()->route('contacts')
             ->with('success', 'Mensagem enviada com sucesso.');
     }
 
