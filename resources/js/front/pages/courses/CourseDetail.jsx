@@ -1,4 +1,5 @@
 import { Link, router } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
 import { useMemo, useState } from 'react';
 import Layout from '../../layouts/Layout';
 import heroBackground from '../../assets/hero.png';
@@ -17,25 +18,52 @@ function getArrayValue(value) {
     return [];
 }
 
-function formatDuration(course) {
-    if (course?.duration_label) return course.duration_label;
+function formatDuration(course, lang, t) {
+    if (course?.duration_label) return getCourseText(course.duration_label, lang);
     if (course?.duration_years) {
-        return course.duration_years === 1 ? '1 ano' : `${course.duration_years} anos`;
+        return course.duration_years === 1
+            ? t('courses.detail.duration.year', '1 ano')
+            : t('courses.detail.duration.years', {
+                count: course.duration_years,
+                defaultValue: `${course.duration_years} anos`,
+            });
     }
 
-    return 'Consultar';
+    return t('courses.detail.consult', 'Consultar');
 }
 
-function formatRegime(course) {
-    if (course?.regime_label) return course.regime_label;
-    if (typeof course?.study_regime === 'string') return course.study_regime;
-    return course?.study_regime ? 'Pós-laboral' : 'Laboral';
+function formatRegime(course, lang, t) {
+    if (course?.regime_label) return getCourseText(course.regime_label, lang);
+    if (typeof course?.study_regime === 'string') return getCourseText(course.study_regime, lang);
+    return course?.study_regime
+        ? t('courses.detail.regime.afterHours', 'Pós-laboral')
+        : t('courses.detail.regime.daytime', 'Laboral');
 }
 
-function formatTuition(course) {
-    if (course?.tuition_label) return course.tuition_label;
-    if (course?.tuition_monthly_pay) return `${course.tuition_monthly_pay}€/mês`;
-    return 'Consultar propina';
+function formatTuition(course, lang, t) {
+    if (course?.tuition_label) return getCourseText(course.tuition_label, lang);
+    if (course?.tuition_monthly_pay) {
+        return t('courses.detail.tuition.monthly', {
+            value: course.tuition_monthly_pay,
+            defaultValue: `${course.tuition_monthly_pay}€/mês`,
+        });
+    }
+    return t('courses.detail.tuition.consult', 'Consultar propina');
+}
+
+function getOutcomesList(value, lang) {
+    const localizedValue = getCourseText(value, lang);
+
+    if (Array.isArray(localizedValue)) {
+        return localizedValue.map((item) => String(item).trim()).filter(Boolean);
+    }
+
+    if (typeof localizedValue !== 'string') return [];
+
+    return localizedValue
+        .split(',')
+        .map((item) => item.trim())
+        .filter(Boolean);
 }
 
 function InfoIcon({ children }) {
@@ -91,43 +119,36 @@ function EmptyState({ children }) {
 }
 
 export default function CourseDetail({ course = {} }) {
+    const { t, i18n } = useTranslation();
+    const lang = i18n.language?.startsWith('en') ? 'en' : 'pt';
     const [activeTab, setActiveTab] = useState('overview');
 
-    const title = getCourseText(course.title) || 'Nome do curso';
-    const category = getCourseText(course.category) || 'Curso';
-    const description = getCourseText(course.description) || 'Descrição do curso a definir.';
-    // const objectives = getCourseText(course.objectives) || getCourseText(course.goals); The client MIGHT want this eventually
-    // const accessConditions = getCourseText(course.access_conditions) || getCourseText(course.accessConditions);
-    const professionalOutcomes = course.professional_outcomes; // it's a json/array
-    const modality = course.modality === 'hibrido'
-        ? 'Híbrido'
-        : course.modality === 'online'
-        ? 'Online'
-        : 'Presencial';
-
-    const outcomesList = (professionalOutcomes).split(",").map(item => item.trim()); // splits the array
+    const title = getCourseText(course.title, lang) || t('courses.detail.fallbackTitle', 'Nome do curso');
+    const category = getCourseText(course.category, lang) || t('courses.detail.fallbackCategory', 'Curso');
+    const description = getCourseText(course.description, lang) || t('courses.detail.fallbackDescription', 'Descrição do curso a definir.');
+    const outcomesList = getOutcomesList(course.professional_outcomes, lang);
 
     const semesters = getArrayValue(course.semesters);
-    const duration = formatDuration(course);
-    const regime = formatRegime(course);
-    const tuition = formatTuition(course);
-    const ects = course.semesters
-    .flatMap(semester => semester.subjects)
-    .reduce((sum, subject) => sum + subject.ects, 0);
+    const duration = formatDuration(course, lang, t);
+    const regime = formatRegime(course, lang, t);
+    const tuition = formatTuition(course, lang, t);
+    const ects = semesters
+        .flatMap((semester) => getArrayValue(semester.subjects))
+        .reduce((sum, subject) => sum + (Number(subject.ects) || 0), 0);
 
-    // const ects = course.ects ?? course.total_ects ?? (category.toLowerCase().includes('licenciatura') ? '180 ECTS' : null);
-    const schedule = course.schedule || regime;
+    const schedule = getCourseText(course.schedule, lang) || regime;
     const heroImage = course.image || course.hero_image || heroBackground;
+    const modality = getCourseText(course.modality, lang) || t('courses.detail.modality.presential', 'Presencial');
 
     const tabs = useMemo(() => [
-        { id: 'overview', label: 'Apresentação' },
-        { id: 'plan', label: 'Plano de estudos' },
-        { id: 'outcomes', label: 'Saídas profissionais' },
-    ], []);
+        { id: 'overview', label: t('courses.detail.tabs.overview', 'Apresentação') },
+        { id: 'plan', label: t('courses.detail.tabs.plan', 'Plano de estudos') },
+        { id: 'outcomes', label: t('courses.detail.tabs.outcomes', 'Saídas profissionais') },
+    ], [i18n.language, t]);
 
     const breadcrumbs = [
-        { label: 'Home', href: '/' },
-        { label: 'Cursos', href: '/courses' },
+        { label: t('nav.home', 'Home'), href: '/' },
+        { label: t('nav.courses', 'Cursos'), href: '/courses' },
         { label: title },
     ];
 
@@ -164,7 +185,7 @@ export default function CourseDetail({ course = {} }) {
                     <div className="relative mx-auto flex min-h-[330px] w-full max-w-[1600px] items-end px-6 pb-16 pt-20">
                         <div className="max-w-4xl">
                             <p className="mb-4 text-[0.82rem] font-extrabold uppercase tracking-[1.5px] text-white/85">
-                                Formação avançada em tecnologia e inovação
+                                {t('courses.detail.heroEyebrow', 'Formação avançada em tecnologia e inovação')}
                             </p>
                             <span className="mb-4 inline-flex rounded-full bg-white/15 px-4 py-2 text-xs font-extrabold uppercase tracking-[1.2px] backdrop-blur">
                                 {category}
@@ -223,26 +244,26 @@ export default function CourseDetail({ course = {} }) {
                                 {activeTab === 'overview' ? (
                                     <div>
                                         <SectionTitle
-                                            eyebrow="Apresentação"
-                                            title="Um percurso pensado para o teu futuro"
-                                            description="Este modelo organiza a informação essencial do curso de forma clara, com destaque para apresentação, objetivos, plano curricular, acesso e saídas profissionais."
+                                            eyebrow={t('courses.detail.tabs.overview', 'Apresentação')}
+                                            title={t('courses.detail.overview.title', 'Um percurso pensado para o teu futuro')}
+                                            description={t('courses.detail.overview.description', 'Este modelo organiza a informação essencial do curso de forma clara, com destaque para apresentação, objetivos, plano curricular, acesso e saídas profissionais.')}
                                         />
 
                                         <div className="space-y-5 text-[1rem] leading-8 text-[#4b5563]">
-                                            <p>{description}</p>                                            
+                                            <p>{description}</p>
                                         </div>
 
                                         <div className="mt-9 grid grid-cols-1 gap-4 sm:grid-cols-3">
                                             <div className="rounded-[18px] bg-[#f5f8fc] p-5">
-                                                <p className="text-[0.72rem] font-extrabold uppercase tracking-[1px] text-[#0d8fe8]">Duração</p>
+                                                <p className="text-[0.72rem] font-extrabold uppercase tracking-[1px] text-[#0d8fe8]">{t('courses.detail.labels.duration', 'Duração')}</p>
                                                 <p className="mt-2 text-xl font-bold text-[#111827]">{duration}</p>
                                             </div>
                                             <div className="rounded-[18px] bg-[#f5f8fc] p-5">
-                                                <p className="text-[0.72rem] font-extrabold uppercase tracking-[1px] text-[#0d8fe8]">Regime</p>
+                                                <p className="text-[0.72rem] font-extrabold uppercase tracking-[1px] text-[#0d8fe8]">{t('courses.detail.labels.regime', 'Regime')}</p>
                                                 <p className="mt-2 text-xl font-bold text-[#111827]">{regime}</p>
                                             </div>
                                             <div className="rounded-[18px] bg-[#f5f8fc] p-5">
-                                                <p className="text-[0.72rem] font-extrabold uppercase tracking-[1px] text-[#0d8fe8]">Propina</p>
+                                                <p className="text-[0.72rem] font-extrabold uppercase tracking-[1px] text-[#0d8fe8]">{t('courses.detail.labels.tuition', 'Propina')}</p>
                                                 <p className="mt-2 text-xl font-bold text-[#111827]">{tuition}</p>
                                             </div>
                                         </div>
@@ -252,9 +273,9 @@ export default function CourseDetail({ course = {} }) {
                                 {activeTab === 'plan' ? (
                                     <div>
                                         <SectionTitle
-                                            eyebrow="Plano de estudos"
-                                            title="Organização curricular"
-                                            description="Área preparada para listar semestres e unidades curriculares associadas ao curso."
+                                            eyebrow={t('courses.detail.tabs.plan', 'Plano de estudos')}
+                                            title={t('courses.detail.plan.title', 'Organização curricular')}
+                                            description={t('courses.detail.plan.description', 'Área preparada para listar semestres e unidades curriculares associadas ao curso.')}
                                         />
 
                                         {semesters.length > 0 ? (
@@ -266,7 +287,10 @@ export default function CourseDetail({ course = {} }) {
                                                     return (
                                                         <div key={semester.id ?? semesterNumber} className="rounded-[18px] border border-[#dbe4ee] bg-[#fbfdff] p-5">
                                                             <h3 className="text-lg font-bold text-[#111827]">
-                                                                {semesterNumber}.º Semestre
+                                                                {t('courses.detail.plan.semester', {
+                                                                    number: semesterNumber,
+                                                                    defaultValue: `${semesterNumber}.º Semestre`,
+                                                                })}
                                                             </h3>
 
                                                             {subjects.length > 0 ? (
@@ -277,7 +301,7 @@ export default function CourseDetail({ course = {} }) {
                                                                             className="flex items-center justify-between gap-4 border-b border-[#edf2f7] px-4 py-3 text-sm last:border-b-0"
                                                                         >
                                                                             <span className="font-semibold text-[#374151]">
-                                                                                {getCourseText(subject.name) || 'Unidade curricular'}
+                                                                                {getCourseText(subject.name, lang) || t('courses.detail.plan.subjectFallback', 'Unidade curricular')}
                                                                             </span>
                                                                             {subject.ects ? (
                                                                                 <span className="rounded-full bg-[#eaf5ff] px-3 py-1 text-xs font-bold text-[#0d8fe8]">
@@ -289,7 +313,7 @@ export default function CourseDetail({ course = {} }) {
                                                                 </div>
                                                             ) : (
                                                                 <p className="mt-3 text-sm leading-7 text-[#6b7280]">
-                                                                    Unidades curriculares a definir.
+                                                                    {t('courses.detail.plan.subjectsPending', 'Unidades curriculares a definir.')}
                                                                 </p>
                                                             )}
                                                         </div>
@@ -298,29 +322,28 @@ export default function CourseDetail({ course = {} }) {
                                             </div>
                                         ) : (
                                             <EmptyState>
-                                                O plano de estudos ainda não foi carregado para este curso.
+                                                {t('courses.detail.plan.empty', 'O plano de estudos ainda não foi carregado para este curso.')}
                                             </EmptyState>
                                         )}
                                     </div>
-                                ) : null}                                
+                                ) : null}
 
                                 {activeTab === 'outcomes' ? (
                                     <div>
                                         <SectionTitle
-                                            eyebrow="Saídas profissionais"
-                                            title="Possíveis percursos após o curso"
+                                            eyebrow={t('courses.detail.tabs.outcomes', 'Saídas profissionais')}
+                                            title={t('courses.detail.outcomes.title', 'Possíveis percursos após o curso')}
                                         />
-                                        
+
                                         {outcomesList.length > 0 ? (
-                                        <ul className="list-disc pl-5 text-[1rem] leading-8 text-[#4b5563]">
-                                            {outcomesList.map((outcome, index) => (
-                                                <li key={index}>{outcome}</li>
-                                            ))}
-                                        </ul>
-                                        ) : 
-                                        (
+                                            <ul className="list-disc pl-5 text-[1rem] leading-8 text-[#4b5563]">
+                                                {outcomesList.map((outcome, index) => (
+                                                    <li key={index}>{outcome}</li>
+                                                ))}
+                                            </ul>
+                                        ) : (
                                             <EmptyState>
-                                                As saídas profissionais serão apresentadas aqui quando estiverem associadas ao curso.
+                                                {t('courses.detail.outcomes.empty', 'As saídas profissionais serão apresentadas aqui quando estiverem associadas ao curso.')}
                                             </EmptyState>
                                         )}
                                     </div>
@@ -332,12 +355,12 @@ export default function CourseDetail({ course = {} }) {
                     <aside className="lg:sticky lg:top-32 lg:self-start">
                         <div className="rounded-[22px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)]">
                             <p className="mb-5 text-[0.78rem] font-extrabold uppercase tracking-[1.3px] text-[#0d8fe8]">
-                                Informação do curso
+                                {t('courses.detail.sidebar.title', 'Informação do curso')}
                             </p>
 
-                            <div className="space-y-4">                                
+                            <div className="space-y-4">
                                 <InfoItem
-                                    label="Horário"
+                                    label={t('courses.detail.labels.schedule', 'Horário')}
                                     value={schedule}
                                     icon={(
                                         <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -347,8 +370,8 @@ export default function CourseDetail({ course = {} }) {
                                     )}
                                 />
                                 <InfoItem
-                                    label="Modalidade"
-                                    value={modality || 'Presencial'}
+                                    label={t('courses.detail.labels.modality', 'Modalidade')}
+                                    value={modality}
                                     icon={(
                                         <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                             <path d="M3 21h18" />
@@ -358,7 +381,7 @@ export default function CourseDetail({ course = {} }) {
                                     )}
                                 />
                                 <InfoItem
-                                    label="Duração"
+                                    label={t('courses.detail.labels.duration', 'Duração')}
                                     value={duration}
                                     icon={(
                                         <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -376,7 +399,7 @@ export default function CourseDetail({ course = {} }) {
                                             <path d="M4 15l8 4 8-4" />
                                         </svg>
                                     )}
-                                />                                
+                                />
                             </div>
 
                             <div className="mt-7 space-y-3 border-t border-[#edf2f7] pt-6">
@@ -385,13 +408,13 @@ export default function CourseDetail({ course = {} }) {
                                     onClick={handleApply}
                                     className="flex w-full items-center justify-center rounded-[12px] bg-[#0d8fe8] px-5 py-3 text-sm font-extrabold text-white shadow-[0_10px_24px_rgba(13,143,232,0.22)] transition hover:-translate-y-0.5 hover:bg-[#0a78c4]"
                                 >
-                                    Candidatar agora
+                                    {t('courses.detail.actions.apply', 'Candidatar agora')}
                                 </button>
                                 <Link
                                     href="/contacts"
                                     className="flex w-full items-center justify-center rounded-[12px] border border-[#0d8fe8]/25 px-5 py-3 text-sm font-extrabold text-[#0d8fe8] transition hover:bg-[#eaf5ff]"
                                 >
-                                    Pedir mais informações
+                                    {t('courses.detail.actions.moreInfo', 'Pedir mais informações')}
                                 </Link>
                             </div>
                         </div>
