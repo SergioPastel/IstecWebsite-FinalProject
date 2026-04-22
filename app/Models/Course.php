@@ -21,6 +21,7 @@ class Course extends Model
         'media_id',
         'description',
         'duration_years',
+        'professional_outcomes',
         'study_regime',
         'tuition_monthly_pay',
         'tuition_months',

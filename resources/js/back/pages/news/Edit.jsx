@@ -2,36 +2,41 @@ import { Link } from "@inertiajs/react";
 import BackofficeLayout from "../../layouts/BackofficeLayout";
 import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
-import EmptyState from "../../components/ui/EmptyState";
+import NewsCreateForm from "../../components/common/NewsCreateForm";
+
 
 export default function EditNews({ news }) {
+  const currentNews = news?.data ?? news ?? {};
+
   return (
     <BackofficeLayout
       title="Editar noticia"
-      subtitle="Area preparada para edicao de conteudo institucional."
-      searchPlaceholder="Pesquisar no modulo de noticias"
+      subtitle="Atualização dos dados da notícia."
+      searchPlaceholder="Pesquisar noticias"
     >
       <div className="space-y-6">
         <PageHeader
-          eyebrow="Editorial"
-          title={news?.title?.pt ?? news?.title ?? "Noticia"}
-          description={`Edicao do registo ${news?.id ?? ""}.`}
+          eyebrow="Notícias"
+          title={currentNews?.title ?? "Editar notícia"}
+          description={`Edição do registo ${currentNews?.id ?? ""}.`}
           actions={[
             <Link
               key="back"
               href={route("backoffice.news")}
               className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
             >
-              Voltar a noticias
+              Voltar à lista de notícias
             </Link>,
           ]}
         />
 
-        <SectionCard title="Formulario" subtitle="Placeholder preparado para evolucao.">
-          <EmptyState
-            compact
-            title="Edicao detalhada ainda por concluir."
-            description="A pagina ja esta integrada na nova linguagem visual e pronta para receber os campos reais da noticia."
+        <SectionCard
+          title="Formulário"
+          subtitle="Edita os dados principais da notícia"
+        >
+          <NewsCreateForm
+            news={currentNews}
+            isEdit={true}
           />
         </SectionCard>
       </div>

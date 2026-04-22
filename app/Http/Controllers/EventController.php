@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\EventResource;
 use App\Models\Event;
+use App\Models\EventCategory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -41,12 +42,15 @@ class EventController extends Controller
 
     public function create()
     {
-        return Inertia('back/pages/events/Create');
+        return Inertia('back/pages/events/Create', [
+        'eventCategories' => EventCategory::select('id', 'title')->get()
+    ]);
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'event_category_id' => 'required|exists:event_categories,id',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'start_date' => 'required|date',
@@ -73,13 +77,15 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         return Inertia('back/pages/events/Edit', [
-            'event' => new EventResource($event)
+            'event' => new EventResource($event),
+            'eventCategories' => EventCategory::select('id', 'title')->get()
         ]);
     }
 
     public function update(Request $request, Event $event)
     {
         $validated = $request->validate([
+            'event_category_id' => 'required|exists:event_categories,id',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'start_date' => 'required|date',

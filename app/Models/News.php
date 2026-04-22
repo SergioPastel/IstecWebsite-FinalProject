@@ -16,7 +16,8 @@ class News extends Model
         'media_id',
         'news_category_id',
         'title',
-        'description',
+        'excerpt',
+        'content',
     ];
     /**
      * Summary of translatable attributes.
@@ -28,7 +29,8 @@ class News extends Model
      */
     public $translatable = [
         'title',
-        'description'
+        'excerpt',
+        'content',
     ];
 
     public function category()
