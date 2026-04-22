@@ -125,7 +125,11 @@
       "noValue": "—",
       "cv": "CV",
       "identityDocument": "Documento de identificação",
-      "certificate": "Certificado / comprovativo"
+      "certificate": "Certificado / comprovativo",
+      "acceptPrefix": "Aceito os",
+      "terms": "Termos e Condições",
+      "and": "e a",
+      "privacy": "Política de Privacidade"
     },
     "course": {
       "pageTitle": "Candidatura a Curso",

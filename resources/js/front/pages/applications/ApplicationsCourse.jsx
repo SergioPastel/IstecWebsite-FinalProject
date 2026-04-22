@@ -277,7 +277,7 @@ export default function ApplicationsCourse({
                       </div>
 
                       <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
-                        Passo {stepNumber}
+                        {t('applicationsForm.common.stepLabel')} {stepNumber}
                       </p>
                       <p className="mt-1 max-w-[150px] text-sm font-medium text-slate-700">
                         {step}
@@ -541,22 +541,22 @@ export default function ApplicationsCourse({
                         className="mt-1"
                       />
                       <span>
-                        {t("applicationsForm.course.acceptPrefix", "Aceito os")}{" "}
-                        
+                        {t("applicationsForm.common.acceptPrefix")}{" "}
+
                         <Link
                           href={route("terms")}
                           className="text-[#0d8fe8] underline hover:opacity-80"
                         >
-                          {t("applicationsForm.course.terms", "Termos e Condições")}
+                          {t("applicationsForm.common.terms")}
                         </Link>{" "}
-                        
-                        {t("applicationsForm.course.and", "e a")}{" "}
-                        
+
+                        {t("applicationsForm.common.and")}{" "}
+
                         <Link
                           href={route("privacy")}
                           className="text-[#0d8fe8] underline hover:opacity-80"
                         >
-                          {t("applicationsForm.course.privacy", "Política de Privacidade")}
+                          {t("applicationsForm.common.privacy")}
                         </Link>
                         .
                       </span>

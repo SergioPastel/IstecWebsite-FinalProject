@@ -121,7 +121,11 @@
       "noValue": "—",
       "cv": "CV",
       "identityDocument": "Identification document",
-      "certificate": "Certificate / proof"
+      "certificate": "Certificate / proof",
+      "acceptPrefix": "I accept the",
+      "terms": "Terms and Conditions",
+      "and": "and the",
+      "privacy": "Privacy Policy"
     },
     "course": {
       "pageTitle": "Course application",
