@@ -248,6 +248,14 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                         const regimeLabel = course.study_regime
                                             ? t('courses.posLaboralLabel')
                                             : t('courses.laboralLabel');
+                                        const modality = course.modality === 'hibrido'
+                                                        ? t('courses.modality.hybrid')
+                                                        : course.modality === 'online'
+                                                        ? t('courses.modality.remote')
+                                                        : t('courses.modality.inPerson');
+                                        const ects = course.semesters
+                                                    .flatMap(semester => semester.subjects)
+                                                    .reduce((sum, subject) => sum + subject.ects, 0);
 
                                         return (
                                             <article
@@ -289,11 +297,13 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                                         {duration}
                                                     </span>
 
-                                                    {course.tuition_months ? (
-                                                        <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">
-                                                            {course.tuition_months} {t('courses.months')}
-                                                        </span>
-                                                    ) : null}
+                                                    <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">
+                                                        {modality}
+                                                    </span>
+
+                                                    <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">
+                                                        {ects} ects
+                                                    </span>
                                                 </div>
 
                                                 <div className="mt-5 text-sm text-[#6b7280]">

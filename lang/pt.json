@@ -273,7 +273,12 @@
     "clearAll": "Limpar tudo",
     "courseType": "Tipo de curso",
     "all": "Todos",
-    "modality": "Modalidade",
+    "modality": {
+        "title": "Modalidade",
+        "inPerson": "Presencial",
+        "hybrid": "Híbrido",
+        "remote": "A distância"
+      },
     "laboral": "Laboral",
     "posLaboral": "Pós-laboral",
     "sortBy": "Ordenar por",
@@ -477,6 +482,24 @@
     "ctaTitle": "Inovar no ensino é preparar o futuro",
     "ctaText": "A pedagogia é um pilar essencial na formação de profissionais qualificados, críticos e preparados para responder aos desafios do mercado e da sociedade.",
     "ctaButton": "Saber mais"
+  },
+  "about": {
+    "metaTitle": "Sobre o ISTEC",
+    "hero": {
+      "label": "Instituição",
+      "title": "Sobre o ISTEC Porto",
+      "description": "O ISTEC Porto é uma instituição de ensino superior focada na inovação, na formação prática e na ligação direta ao mercado de trabalho."
+    },
+    "section": {
+      "aboutTitle": "Quem somos",
+      "missionTitle": "Missão e Valores"
+    },
+    "cta": {
+      "title": "Queres saber mais?",
+      "description": "Entra em contacto connosco para mais informações sobre cursos, candidaturas ou a instituição.",
+      "contactButton": "Contactar",
+      "coursesButton": "Ver cursos"
+    }
   },
   "footer": {
     "istecPorto": "ISTEC Porto",

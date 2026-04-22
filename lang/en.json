@@ -269,7 +269,12 @@
     "clearAll": "Clear all",
     "courseType": "Course type",
     "all": "All",
-    "modality": "Modality",
+    "modality": {
+        "title": "Modality",
+        "inPerson": "In-person",
+        "hybrid": "Hybrid",
+        "remote": "Remote"
+      },
     "laboral": "Laboral",
     "posLaboral": "Post-laboral",
     "sortBy": "Sort by",
@@ -305,7 +310,7 @@
       "listing": {
         "badge": "Bachelor degree offer",
         "title": "Find the right bachelor degree for you"
-      },
+      },    
       "searchPlaceholder": "Search bachelor degrees...",
       "searchButton": "Search",
       "sortRelevance": "Most relevant",
@@ -529,6 +534,24 @@
     "ctaTitle": "Innovating in teaching means preparing the future",
     "ctaText": "Pedagogy is an essential pillar in training qualified, critical professionals who are ready to respond to the challenges of the market and society.",
     "ctaButton": "Learn more"
+  },
+  "about": {
+    "metaTitle": "About ISTEC",
+    "hero": {
+      "label": "Institution",
+      "title": "About ISTEC Porto",
+      "description": "ISTEC Porto is a higher education institution focused on innovation, practical training and direct connection with the job market."
+    },
+    "section": {
+      "aboutTitle": "Who we are",
+      "missionTitle": "Mission and Values"
+    },
+    "cta": {
+      "title": "Want to know more?",
+      "description": "Get in touch for more information about courses, applications or the institution.",
+      "contactButton": "Contact us",
+      "coursesButton": "View courses"
+    }
   },
   "footer": {
     "istecPorto": "ISTEC Porto",

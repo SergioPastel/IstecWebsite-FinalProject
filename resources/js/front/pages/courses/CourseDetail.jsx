@@ -1,6 +1,6 @@
 import { Link, router } from '@inertiajs/react';
 import { useMemo, useState } from 'react';
-import Layout from '../../layouts/layout';
+import Layout from '../../layouts/Layout';
 import heroBackground from '../../assets/hero.png';
 
 function getCourseText(value, lang = 'pt') {
