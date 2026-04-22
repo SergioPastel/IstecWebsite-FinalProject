@@ -8,9 +8,6 @@ import "react-phone-number-input/style.css";
 
 
 export default function ApplicationsEvents({
-  setPage,
-  language,
-  setLanguage,
   event,
   eventCategories = [],
 }) {

@@ -16,10 +16,6 @@ use Laravel\Fortify\Fortify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 
 /**
  * Locale setting route
@@ -162,7 +158,6 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
 });
 
 // Public routes
-Route::get('/courses', [CourseController::class, 'index'])->name('courses'); // change later
 Route::get('/courses/ctesp', [CourseController::class, 'ctesp'])->name('courses.ctesp');
 Route::get('/courses/licenciatura', [CourseController::class, 'licenciatura'])->name('courses.licenciatura');
 Route::get('/courses/pos-graduacao', [CourseController::class, 'posGraduacao'])->name('courses.posGraduacao');
@@ -207,10 +202,6 @@ Route::get('/privacy', function () {
 })->name('privacy');
 
 
-
-// DYNAMIC TESTING
-Route::get('/test-dynamic', [PageController::class, 'index'])->name('dynamic.index');
-Route::get('/test-dynamic/{page:slug}', [PageController::class, 'show'])->name('dynamic.show');
 
 // Erasmus and pedagogy pages
 Route::get('/erasmus', function () {return Inertia::render('front/pages/mobilityprogram/Erasmus');})->name('erasmus');

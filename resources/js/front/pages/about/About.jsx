@@ -41,7 +41,6 @@ export default function About() {
             <p className="text-lg text-[#4b5563] leading-relaxed mb-6">
               {pageProps.siteInfo.mission}
             </p>
-
           </div>
         </section>
 
@@ -55,7 +54,6 @@ export default function About() {
             <p className="text-lg text-[#4b5563] leading-relaxed mb-6">
               {pageProps.siteInfo.mission}
             </p>
-            
           </div>
         </section>
 
@@ -79,13 +77,6 @@ export default function About() {
                 className="inline-flex items-center justify-center bg-[#0d8fe8] text-white px-6 py-3 rounded-full font-bold hover:bg-[#0a78c4] transition"
               >
                 {t("about.cta.contactButton", "Contactar")}
-              </Link>
-
-              <Link
-                href={route("courses")}
-                className="inline-flex items-center justify-center border border-[#0d8fe8] text-[#0d8fe8] px-6 py-3 rounded-full font-bold hover:bg-[#eef6ff] transition"
-              >
-                {t("about.cta.coursesButton", "Ver cursos")}
               </Link>
             </div>
           </div>
