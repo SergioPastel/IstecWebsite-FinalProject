@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import Layout from "../../layouts/Layout";
 import { route } from "ziggy-js";
 import Pagination from "../../components/common/Pagination";
+import Banner from "../../components/common/Banner";
 
 export default function EventsandNews({
   events = { data: [] },
@@ -117,13 +118,13 @@ export default function EventsandNews({
         window.dispatchEvent(new Event("closeDropdowns"));
       }}
     >
-      <section className="w-full mt-[120px]">
-        <div className="bg-gradient-to-r from-[#0b7fd1] to-[#1597ec] text-white">
-          <div className="max-w-[1600px] mx-auto px-6 min-h-[540px] md:min-h-[620px] flex items-center">
+      <Banner>
+        <div className="w-full px-6 flex items-center">
             <div className="max-w-[760px]">
               <p className="text-[0.82rem] font-extrabold tracking-[1.8px] uppercase text-white/80 mb-4">
                 {t("updates.hero.label", "Atualizações")}
               </p>
+
 
               <h1 className="text-[clamp(2.6rem,4.5vw,4.2rem)] leading-[1.08] font-extrabold tracking-[-1px]">
                 {t("updates.hero.title", "Eventos e Notícias")}
@@ -137,8 +138,7 @@ export default function EventsandNews({
               </p>
             </div>
           </div>
-        </div>
-      </section>
+      </Banner>
 
       <section className="relative -mt-8 z-10 pb-2">
         <div className="max-w-[1600px] mx-auto px-6">

@@ -101,11 +101,18 @@ function Header({}) {
     );
   };
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    console.log("Pesquisar:", search);
-  };
+  const submitSearch = () => {
+  const trimmedSearch = search.trim();
 
+  console.log("submitSearch", trimmedSearch);
+
+  if (!trimmedSearch) return;
+
+  window.location.href = `/search?q=${encodeURIComponent(trimmedSearch)}`;
+
+  setSearchOpen(false);
+  setSearch("");
+};
     const topLinks = [
     {
       type: "external",
@@ -311,60 +318,73 @@ function Header({}) {
               </div>
             </div>
 
-            <div
-              className="flex items-center gap-2 ml-2 relative"
-              ref={searchRef}
-            >
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setLanguage("pt")}
-                  className={`text-[15px] font-semibold hover:cursor-pointer ${
-                    i18n.language === "pt" ? "text-[#0c73b7]" : "text-[#1d1d1b]"
-                  }`}
+              <div
+                  className="flex items-center gap-2 ml-2 relative"
+                  ref={searchRef}
                 >
-                  PT
-                </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setLanguage("pt")}
+                      className={`text-[15px] font-semibold hover:cursor-pointer ${
+                        i18n.language === "pt" ? "text-[#0c73b7]" : "text-[#1d1d1b]"
+                      }`}
+                    >
+                      PT
+                    </button>
 
-                <Divider className="h-5 mx-1! inline-block! bg-gray-800 self-center" />
+                    <Divider className="h-5 mx-1! inline-block! bg-gray-800 self-center" />
 
-                <button
-                  onClick={() => setLanguage("en")}
-                  className={`text-[15px] font-semibold hover:cursor-pointer ${
-                    i18n.language === "en" ? "text-[#0c73b7]" : "text-[#1d1d1b]"
-                  }`}
-                >
-                  EN
-                </button>
-              </div>
+                    <button
+                      type="button"
+                      onClick={() => setLanguage("en")}
+                      className={`text-[15px] font-semibold hover:cursor-pointer ${
+                        i18n.language === "en" ? "text-[#0c73b7]" : "text-[#1d1d1b]"
+                      }`}
+                    >
+                      EN
+                    </button>
+                  </div>
 
-              <div className="flex flex-row-reverse items-center gap-2">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setPrivateOpen(false);
-                    setSearchOpen((prev) => !prev);
-                  }}
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 transition hover:bg-[#0d8fe8] hover:text-white"
-                >
-                  🔍
-                </button>
+                  {!searchOpen ? (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setPrivateOpen(false);
+                        setSearchOpen(true);
+                      }}
+                      className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 transition hover:bg-[#0d8fe8] hover:text-white"
+                    >
+                      🔍
+                    </button>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        autoFocus
+                        placeholder={t("header.searchPlaceholder")}
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault();
+                            submitSearch();
+                          }
+                        }}
+                        className="w-[190px] h-[34px] border border-[#dbe4ee] rounded-full px-3 text-[14px] outline-none focus:border-[#0c73b7] focus:ring-2 focus:ring-[#0c73b7]/20"
+                      />
 
-                <form
-                  onSubmit={handleSearchSubmit}
-                  className={`overflow-hidden transition-all duration-300 ${
-                    searchOpen ? "w-[190px] opacity-100" : "w-0 opacity-0"
-                  }`}
-                >
-                  <input
-                    type="text"
-                    placeholder={t("header.searchPlaceholder")}
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="w-full h-[34px] border border-[#dbe4ee] rounded-full px-3 text-[14px] outline-none focus:border-[#0c73b7] focus:ring-2 focus:ring-[#0c73b7]/20"
-                  />
-                </form>
-              </div>
-            </div>
+                      <button
+                        type="button"
+                        onClick={submitSearch}
+                        className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 transition hover:bg-[#0d8fe8] hover:text-white"
+                      >
+                        🔍
+                      </button>
+                    </div>
+                  )}
+                </div>
           </div>
         </div>
       </div>

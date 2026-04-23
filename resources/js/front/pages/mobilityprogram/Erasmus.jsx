@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "../../layouts/Layout";
 import { useTranslation } from "react-i18next";
+import Banner from "../../components/common/Banner";
 
 export default function Erasmus() {
   const { t } = useTranslation();
@@ -41,22 +42,22 @@ export default function Erasmus() {
   return (
     <Layout title={t("erasmusPage.title")}>
       <div className="min-h-screen bg-white">
-        <main className="pt-28">
-          <section className="h-[500px] md:h-[600px] flex items-center bg-[#1697e6] text-white">
-            <div className="max-w-7xl mx-auto px-6 md:px-10">
-              <p className="uppercase tracking-[0.2em] text-sm text-white/80 mb-4">
+        <main className="">
+         <Banner>
+            <div className="max-w-[1600px] mx-auto px-6 py-20">
+              <p className="text-sm uppercase tracking-[2px] font-extrabold text-white/80 mb-4">
                 {t("erasmusPage.subtitle")}
               </p>
-
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                {t("erasmusPage.title")}
+        
+              <h1 className="text-[clamp(2.5rem,4vw,4rem)] font-extrabold leading-tight">
+               {t("erasmusPage.title")}
               </h1>
-
-              <p className="text-lg md:text-xl text-white/90 max-w-2xl">
+        
+              <p className="mt-6 max-w-[700px] text-white/90 leading-relaxed">
                 {t("erasmusPage.description")}
               </p>
             </div>
-          </section>
+          </Banner>
            <section className="py-16">
             <div className="max-w-7xl mx-auto px-6 md:px-10">
               <div className="grid gap-6 md:grid-cols-3">
