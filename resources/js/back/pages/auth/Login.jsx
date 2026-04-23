@@ -85,12 +85,12 @@ export default function Login() {
 
             {/* Forgot password */}
             <div className="text-right">
-              <a
-                href="#"
+              <Link
+                href={route("password.request")}
                 className="text-sm text-[#0d8fe8] hover:underline"
               >
                 Esqueceu-se da palavra-passe?
-              </a>
+              </Link>
             </div>
 
             <button

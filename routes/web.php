@@ -13,8 +13,9 @@ use App\Http\Controllers\EventsandnewsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Fortify;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
+use Illuminate\Http\Request;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -66,16 +67,32 @@ Route::post('/locale', function (Request $request) {
 
 // Fortify GET authentication routes (POST routes are defined fortify)
 
-// Guest routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', function () { // No controller for get views, instead just return the inertia pages
         return Inertia('back/pages/auth/Login');
     })->name('login');
+
+    Route::get('/forgot-password', function () {
+        return Inertia('back/pages/auth/PasswordRecovery');
+    })->name('password.request'); // Returns the password recovery form
+
+Route::get('/reset-password/{token}', function (Request $request, $token) {
+    return Inertia('back/pages/auth/ResetPassword', [
+        'token' => $token,
+        'email' => $request->email,
+    ]);
+    })->name('password.reset'); // Returns the password reset form, with token and email as props
 });
+
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.recover');
+
+// Guest routes
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/about', [HomeController::class, 'about'])->name('about');
+
+
 
 // Auth protected routes. Prefix allow for route separation
 Route::middleware(['auth'])->prefix('backoffice')->group(function () {
