@@ -23,12 +23,21 @@ class EventNewsResource extends JsonResource
     public function toArray(Request $request): array
     {
         $locale = app()->getLocale();
+                $description = null;
+
+        if (in_array('description', $this->translatable ?? [])) {
+            $description = $this->getTranslation('description', $locale);
+        } elseif (in_array('excerpt', $this->translatable ?? [])) {
+            $description = $this->getTranslation('excerpt', $locale);
+        } elseif (in_array('content', $this->translatable ?? [])) {
+            $description = $this->getTranslation('content', $locale);
+        }
 
         return [
             'type' => $this->type, // needs to be manually fed in
             'id' => $this->id,
             'title' => $this->getTranslation('title', $locale) ?: $this->getTranslation('title', $locale),
-            'description' => $this->getTranslation('description', $locale) ?: $this->getTranslation('description', $locale),
+            'description' => $description,
             'date' => $this->created_at->format('d M Y'), // unsure whether date will be useful for frontend
         ];
     }
