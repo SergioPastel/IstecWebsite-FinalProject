@@ -12,9 +12,11 @@ use Spatie\Translatable\HasTranslations;
 class Semester extends Model
 {
     use HasUuids, HasFactory, HasTranslations;
-    public $incrementing = false;
-    protected $keyType = 'string';
 
+    protected $fillable = [
+        'semester_number',
+        'course_id'
+    ];
     /**
      * Eloquent mapping of course
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Course, Semester>
