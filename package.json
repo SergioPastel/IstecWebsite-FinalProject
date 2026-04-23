@@ -20,6 +20,7 @@
         "@vitejs/plugin-react": "^5.1.4",
         "i18next": "^25.8.17",
         "libphonenumber-js": "^1.12.41",
+        "lucide-react": "^1.8.0",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
         "react-hot-toast": "^2.6.0",

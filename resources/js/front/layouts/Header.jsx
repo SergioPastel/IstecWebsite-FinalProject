@@ -139,7 +139,7 @@ function Header({}) {
   const mainNav = [
     {
       key: "istec-porto",
-      titleKey: "istecPorto",      
+      titleKey: "istecPorto",
       children: [
         { href: route("home"), labelKey: "home" },
         { href: route("about"), labelKey: "aboutIstec" },
@@ -151,7 +151,7 @@ function Header({}) {
       children: [
         { href: route('courses.ctesp'), labelKey: "ctesp" },
         { href: route('courses.licenciatura'), labelKey: "licenciatura" },
-        { href: route('courses.posGraduacao'), labelKey: "pos-graduacao" },    
+        { href: route('courses.posGraduacao'), labelKey: "pos-graduacao" },
         { href: route('applications.courses.apply'), labelKey: "applications" },
       ],
     },
@@ -390,7 +390,7 @@ function Header({}) {
       </div>
 
       <div className={`${scrolled ? "shadow-md" : ""} bg-[#0C73B7]`}>
-      
+
         <div
           className={`${
             menuOpen ? "flex" : "hidden"

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CourseCategoryResource;
 use App\Http\Resources\CourseResource;
+use App\Http\Resources\AdminCourseResource;
+use App\Models\CourseCategory;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use Inertia\Inertia;
@@ -26,7 +29,7 @@ class CourseController extends Controller
     public function ctesp()
     {
         $courses = Course::latest()->paginate(10)->onEachSide(1);
-        return Inertia('front/pages/courses/CtespIndex', [ 
+        return Inertia('front/pages/courses/CtespIndex', [
             'courses' => CourseResource::collection($courses)
         ]);
     }
@@ -37,7 +40,7 @@ class CourseController extends Controller
 
         // dd($courses->pluck('title'));
 
-        return Inertia('front/pages/courses/LicenciaturasIndex', [ 
+        return Inertia('front/pages/courses/LicenciaturasIndex', [
             'courses' => CourseResource::collection($courses)
         ]);
     }
@@ -45,7 +48,7 @@ class CourseController extends Controller
     public function posGraduacao()
     {
         $courses = Course::latest()->paginate(10)->onEachSide(1);
-        return Inertia('front/pages/courses/PosGraduacoesIndex', [ 
+        return Inertia('front/pages/courses/PosGraduacoesIndex', [
             'courses' => CourseResource::collection($courses)
         ]);
     }
@@ -71,7 +74,11 @@ class CourseController extends Controller
 
     public function create()
     {
-        return Inertia('back/pages/courses/Create');
+
+        $categories = CourseCategory::get();
+        return Inertia('back/pages/courses/Create', [
+            'categories' => $categories
+        ]);
     }
 
     public function store(Request $request)
@@ -85,8 +92,15 @@ class CourseController extends Controller
             'description.en' => 'required|string',
             'description.pt' => 'required|string',
 
+            'professional_outcomes' => 'required|array',
+            'professional_outcomes.en' => 'required|string',
+            'professional_outcomes.pt' => 'required|string',
+
             'course_category_id' => 'nullable|uuid|exists:course_categories,id',
             'duration_years' => 'nullable|integer',
+            'study_regime' => 'nullable|integer',
+            'tuition_monthly_pay' => 'nullable|numeric',
+            'tuition_months' => 'nullable|integer',
         ]);
 
         // Fix later to use images properly
@@ -107,7 +121,8 @@ class CourseController extends Controller
     public function edit(Course $course)
     {
         return Inertia('back/pages/courses/Edit', [
-            'course' => new CourseResource($course)
+            'course' => new AdminCourseResource($course),
+            'categories' => CourseCategory::get(),
         ]);
     }
 
@@ -122,8 +137,15 @@ class CourseController extends Controller
             'description.en' => 'required|string',
             'description.pt' => 'required|string',
 
+            'professional_outcomes' => 'required|array',
+            'professional_outcomes.en' => 'required|string',
+            'professional_outcomes.pt' => 'required|string',
+
             'course_category_id' => 'nullable|uuid|exists:course_categories,id',
             'duration_years' => 'nullable|integer',
+            'study_regime' => 'nullable|integer',
+            'tuition_monthly_pay' => 'nullable|numeric',
+            'tuition_months' => 'nullable|integer',
         ]);
 
         // Fix later to use images properly

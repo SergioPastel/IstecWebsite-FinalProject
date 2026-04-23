@@ -1,10 +1,12 @@
 @import 'tailwindcss';
- 
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
-@source '../**/*.js';
- 
+@source '../**/*.{js,jsx}';
+
+
+
 @theme {
     /* ISTEC Porto Brand (v02 - 30.Jan.2026)
        - Headlines: Roboto
@@ -17,7 +19,7 @@
     --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
     --font-heading: 'Roboto', ui-sans-serif, system-ui, sans-serif;
- 
+
     --color-brand-primary: #0C73B7;
     --color-brand-secondary: #2DA7DF;
     --color-brand-black: #1D1D1B;
@@ -26,11 +28,11 @@
     --color-brand-surface-strong: #E6F4FB;
     --color-brand-border: #C7E3F1;
 }
- 
+
 html {
     font-family: var(--font-sans);
 }
- 
+
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
 }

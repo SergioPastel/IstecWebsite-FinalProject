@@ -17,7 +17,7 @@ export default function BackofficeLayout({
     setIsSidebarOpen(false);
   }, [title]);
 
-  return ( 
+  return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(45,167,223,0.18),_transparent_30%),linear-gradient(180deg,_var(--color-brand-surface)_0%,_#ffffff_100%)] text-[var(--color-brand-black)]">
       <FlashToasts />
       <Head title={title} />
@@ -26,7 +26,6 @@ export default function BackofficeLayout({
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
       />
-
       <div className="min-h-screen md:pl-72">
         <Topbar
           title={title}

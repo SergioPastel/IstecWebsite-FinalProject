@@ -621,6 +621,27 @@
       "coursesButton": "View courses"
     }
   },
+  "common": {
+        "saving": "Saving..."
+        },
+    "backoffice": {
+    "courses": {
+        "form": {
+        "title_pt": "Title (PT)",
+        "title_en": "Title (EN)",
+        "category": "Category",
+        "select_category": "Select a category",
+        "no_title": "No title",
+        "duration_years": "Duration (years)",
+        "study_regime": "Study regime",
+        "study_regime_working": "Working hours",
+        "study_regime_after_work": "After working hours",
+        "description_pt": "Description (PT)",
+        "create": "Create course",
+        "update": "Update course"
+        }
+      }
+    },
   "footer": {
     "istecPorto": "ISTEC Porto",
     "description": "Higher Institute of Advanced Technologies of Porto, focused on innovation, practical training and proximity to the market.",

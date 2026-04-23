@@ -1,5 +1,8 @@
 import { Link, useForm } from '@inertiajs/react';
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from 'react';
 import logo from "../../../front/assets/_logo_branco.png";
+
 
 export default function Login() {
   const { data, setData, post, processing, errors } = useForm({
@@ -11,6 +14,7 @@ export default function Login() {
     e.preventDefault();
     post('/login');
   }
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#f4f8fc] via-white to-[#eef6ff] flex items-center justify-center px-4">
@@ -56,14 +60,27 @@ export default function Login() {
               )}
             </div>
 
-            <div>
+            <div className="relative">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Palavra-passe"
-                className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-[#0d8fe8]"
+                className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-[#0d8fe8] pr-12"
                 value={data.password}
                 onChange={(e) => setData("password", e.target.value)}
               />
+
+              {/* Button to show/hide password */}
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-3 flex items-center text-slate-400 hover:text-[#0d8fe8] transition"
+              >
+                {showPassword ? (
+                  <EyeOff size={18} />
+                ) : (
+                  <Eye size={18} />
+                )}
+              </button>
             </div>
 
             {/* Forgot password */}

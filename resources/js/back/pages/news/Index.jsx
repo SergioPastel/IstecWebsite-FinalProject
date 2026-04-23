@@ -1,5 +1,5 @@
-import { Link } from "@inertiajs/react";
-import { Inertia } from "@inertiajs/inertia";
+import { useState } from "react";
+import { Link, router } from "@inertiajs/react";
 import BackofficeLayout from "../../layouts/BackofficeLayout";
 import EmptyState from "../../components/ui/EmptyState";
 import PageHeader from "../../components/ui/PageHeader";
@@ -9,30 +9,47 @@ import StatusBadge from "../../components/ui/StatusBadge";
 export default function NewsIndexBack({ news }) {
   const rows = news ?? [];
 
-  function handleDelete(newsId) {
-    if (confirm("Tem certeza que deseja eliminar esta noticia?")) {
-      Inertia.delete(route("news.destroy", { news: newsId }));
-    }
+  const [showModal, setShowModal] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+
+  function openDeleteModal(id) {
+    setSelectedId(id);
+    setShowModal(true);
+  }
+
+  function closeModal() {
+    setShowModal(false);
+    setSelectedId(null);
+  }
+
+  function confirmDelete() {
+    router.delete(route("news.destroy", { news: selectedId }), {
+      preserveScroll: true,
+      preserveState: false,
+      onSuccess: () => {
+        closeModal();
+        router.visit(route("backoffice.news"));
+      },
+    });
   }
 
   return (
     <BackofficeLayout
-      title="Noticias"
+      title="Notícias"
       subtitle="Organize o conteudo editorial com uma base pronta para evoluir."
-      searchPlaceholder="Pesquisar noticias"
+      searchPlaceholder="Pesquisar Notícias"
     >
       <div className="space-y-6">
         <PageHeader
-          eyebrow="Editorial"
-          title="Gestao de noticias"
-          //description="Pagina redesenhada para encaixar no novo backoffice sem alterar a stack nem duplicar padroes."
+          eyebrow="Notícias"
+          title="Gestão de notícias"
           actions={[
             <Link
               key="create"
               href={route("news.create")}
               className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
             >
-              Nova noticia
+              Nova notícia
             </Link>,
           ]}
         />
@@ -44,7 +61,6 @@ export default function NewsIndexBack({ news }) {
           {rows.length === 0 ? (
             <EmptyState
               title="Nao existem noticias publicadas."
-              //description="Quando houver conteudo editorial no sistema, esta vista pode suportar estados, destaque e programacao."
             />
           ) : (
             <div className="grid gap-4 xl:grid-cols-2">
@@ -80,7 +96,7 @@ export default function NewsIndexBack({ news }) {
                     </Link>
                     <button
                       type="button"
-                      onClick={() => handleDelete(item.id)}
+                      onClick={() => openDeleteModal(item.id)}
                       className="inline-flex items-center justify-center rounded-2xl border border-rose-200 bg-rose-50 px-4 py-2.5 text-sm font-semibold text-rose-700 transition hover:bg-rose-100"
                     >
                       Eliminar
@@ -92,6 +108,37 @@ export default function NewsIndexBack({ news }) {
           )}
         </SectionCard>
       </div>
+    {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+            <h2 className="text-lg font-semibold text-slate-900">
+              Confirmar eliminação
+            </h2>
+
+            <p className="mt-2 text-sm text-slate-600">
+              Tens a certeza que queres eliminar esta notícia? Esta ação não pode ser revertida.
+            </p>
+
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={closeModal}
+                className="rounded-xl border border-slate-200 px-4 py-2 text-slate-600 hover:bg-slate-100"
+              >
+                Cancelar
+              </button>
+
+              <button
+                type="button"
+                onClick={confirmDelete}
+                className="rounded-xl bg-rose-600 px-4 py-2 text-white hover:bg-rose-700"
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </BackofficeLayout>
   );
 }

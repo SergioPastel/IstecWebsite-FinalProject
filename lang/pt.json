@@ -569,6 +569,28 @@
       "coursesButton": "Ver cursos"
     }
   },
+  "common": {
+        "saving": "A guardar..."
+        },
+
+    "backoffice": {
+      "courses": {
+        "form": {
+        "title_pt": "Título (PT)",
+        "title_en": "Título (EN)",
+        "category": "Categoria",
+        "select_category": "Selecionar categoria",
+        "no_title": "Sem título",
+        "duration_years": "Duração (anos)",
+        "study_regime": "Regime de estudo",
+        "study_regime_working": "Laboral",
+        "study_regime_after_work": "Pós-laboral",
+        "description_pt": "Descrição (PT)",
+        "create": "Criar curso",
+        "update": "Atualizar curso"
+        }
+      }
+    },
   "footer": {
     "istecPorto": "ISTEC Porto",
     "description": "Instituto Superior de Tecnologias Avançadas do Porto, com foco na inovação, formação prática e proximidade ao mercado.",

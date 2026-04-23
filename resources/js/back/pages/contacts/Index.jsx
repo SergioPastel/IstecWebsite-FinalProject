@@ -37,6 +37,7 @@ export default function ContactsIndex({ contacts = [] }) {
                     <th className="px-4 py-3 font-medium">Assunto</th>
                     <th className="px-4 py-3 font-medium">Estado</th>
                     <th className="px-4 py-3 font-medium">Recebido em</th>
+                    <th className="px-4 py-3 font-medium">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -62,6 +63,16 @@ export default function ContactsIndex({ contacts = [] }) {
                       </td>
                       <td className="px-4 py-4 text-slate-500">
                         {formatDate(contact.created_at)}
+                      </td>
+                      <td className="px-4 py-4">
+                        <Link
+                          href={route("backoffice.contacts.show", {
+                            contact: contact.id,
+                          })}
+                          className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
+                        >
+                          Ver detalhe
+                        </Link>
                       </td>
                     </tr>
                   ))}
