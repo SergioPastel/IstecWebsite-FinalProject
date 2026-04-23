@@ -48,12 +48,7 @@ export default function Login() {
                 value={data.email}
                 onChange={(e) => setData("email", e.target.value)}
               />
-              {errors.email && (
-                <p className="mt-2 text-sm text-red-500">
-                  Email ou palavra-passe incorretos.
-                </p>
-              )}
-            </div>
+              <div className="relative mt-3"></div>
 
             <div className="relative">
               <input
@@ -63,6 +58,13 @@ export default function Login() {
                 value={data.password}
                 onChange={(e) => setData("password", e.target.value)}
               />
+              {errors.email && (
+                <p className="mt-2 text-sm text-red-500">
+                  Email ou palavra-passe incorretos.
+                </p>
+              )}
+            </div>
+              
 
               {/* Button to show/hide password */}
               <button
@@ -88,21 +90,26 @@ export default function Login() {
               </a>
             </div>
 
-            <button
+           <button
+              type="submit"
               disabled={processing}
-              className="w-full bg-[#0d8fe8] text-white py-3 rounded-xl font-semibold hover:bg-[#0b7fd1] transition"
+              className="w-full bg-[#0d8fe8] text-white py-3 rounded-xl font-semibold hover:bg-[#0b7fd1] transition disabled:opacity-70"
             >
               {processing ? "A entrar..." : "Entrar"}
             </button>
-            <Link
-              href={route("home")}
-              className="block text-center text-sm text-slate-600 hover:text-[#0d8fe8] transition"
-            >
-              ← Voltar ao site
-            </Link>
-          </div>
+
+            <div className="pt-5 border-t border-slate-200">
+              <Link
+                href={route("home")}
+                className="mt-4 block text-center text-sm text-slate-600 hover:text-[#0d8fe8] transition"
+              >
+                ← Voltar ao site
+              </Link>
+            </div>
+            </div>
         </form>
       </div>
     </div>
   );
+  
 }
