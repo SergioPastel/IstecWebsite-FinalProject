@@ -58,7 +58,7 @@ class ContactController extends Controller
     public function adminIndex()
     {
         return Inertia('back/pages/contacts/Index', [
-            'contacts' => ContactMessage::latest()->get()
+            'contacts' => ContactMessage::get()->all()
         ]);
     }
 

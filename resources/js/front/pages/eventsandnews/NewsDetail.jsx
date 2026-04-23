@@ -54,9 +54,9 @@ export default function NewsDetail({ news = null }) {
         <section className="max-w-[1200px] mx-auto px-6 pt-16">
           <article className="overflow-hidden rounded-[28px] border border-[#ddd6cc] bg-white shadow-[0_10px_30px_rgba(15,23,42,0.08)]">
             <div className="h-[320px] md:h-[460px] w-full overflow-hidden bg-[#eae6df]">
-              {news.image ? (
+              {news.media ? (
                 <img
-                  src={news.image}
+                  src={news.media?.url}
                   alt={news.title}
                   className="w-full h-full object-cover"
                 />

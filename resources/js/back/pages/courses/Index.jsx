@@ -41,8 +41,7 @@ export default function CoursesIndexBack({ courses }) {
       <div className="space-y-6">
         <PageHeader
           eyebrow="Cursos"
-          title="Gestao de cursos"
-          //description="A estrutura abaixo reaproveita a stack atual e deixa a pagina pronta para crescer com filtros, formularios e detalhe editorial."
+          title="Gestao de cursos"        
           actions={[
             <Link
               key="create"

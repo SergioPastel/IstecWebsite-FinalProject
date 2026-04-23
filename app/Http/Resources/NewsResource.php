@@ -24,6 +24,7 @@ class NewsResource extends JsonResource
             'title' => $this->getTranslation('title', $locale) ?: $this->getTranslation('title', $locale),
             'excerpt' => $this->getTranslation('excerpt', $locale) ?: $this->getTranslation('excerpt', $locale),
             'content' => $this->getTranslation('content', $locale) ?: $this->getTranslation('excerpt', $locale),
+            'created_at' => $this->created_at
         ];
     }
 }

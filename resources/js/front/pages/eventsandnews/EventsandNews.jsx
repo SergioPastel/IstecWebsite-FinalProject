@@ -35,7 +35,7 @@ export default function EventsandNews({
     ? events.data.map((item) => ({...item,
             kind: "event",
             label: item.category || "Evento",
-            meta: `${item.date || "Data por definir"} • ${item.location || "Local por definir"}`,
+            meta: `${new Date(item.start_date).toLocaleDateString() || "Data por definir"} • ${item.location || "Local por definir"}`,
             summary:item.description || "Descobre este evento e participa numa experiência única com atividades práticas e interação com a comunidade.",
       }))
     : [];
@@ -45,9 +45,10 @@ export default function EventsandNews({
         ...item,
         kind: "news",
         label: item.category || "Notícia",
-        meta: item.date || "Data por definir",
+        meta: new Date(item.created_at).toLocaleDateString() || "Data por definir",
         summary:item.excerpt || "Fica a par das últimas novidades, atualizações e histórias relevantes da nossa comunidade.",
-      }))
+      }
+    ))
     : [];
 
   const allItems = [...eventItems, ...newsItems];
