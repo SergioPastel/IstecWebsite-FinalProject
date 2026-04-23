@@ -17,7 +17,8 @@ return new class extends Migration {
 
 
             $table->json('title');
-            $table->json('description');
+            $table->json('excerpt');
+            $table->json('content');
 
             $table->softDeletes();
             $table->timestamps();
