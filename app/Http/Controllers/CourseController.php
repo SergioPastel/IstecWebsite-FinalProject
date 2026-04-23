@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CourseCategoryResource;
 use App\Http\Resources\CourseResource;
+use App\Http\Resources\AdminCourseResource;
 use App\Models\CourseCategory;
 use Illuminate\Http\Request;
 use App\Models\Course;
@@ -91,8 +92,15 @@ class CourseController extends Controller
             'description.en' => 'required|string',
             'description.pt' => 'required|string',
 
+            'professional_outcomes' => 'required|array',
+            'professional_outcomes.en' => 'required|string',
+            'professional_outcomes.pt' => 'required|string',
+
             'course_category_id' => 'nullable|uuid|exists:course_categories,id',
             'duration_years' => 'nullable|integer',
+            'study_regime' => 'nullable|integer',
+            'tuition_monthly_pay' => 'nullable|numeric',
+            'tuition_months' => 'nullable|integer',
         ]);
 
         // Fix later to use images properly
@@ -113,7 +121,8 @@ class CourseController extends Controller
     public function edit(Course $course)
     {
         return Inertia('back/pages/courses/Edit', [
-            'course' => new CourseResource($course)
+            'course' => new AdminCourseResource($course),
+            'categories' => CourseCategory::get(),
         ]);
     }
 
@@ -128,8 +137,15 @@ class CourseController extends Controller
             'description.en' => 'required|string',
             'description.pt' => 'required|string',
 
+            'professional_outcomes' => 'required|array',
+            'professional_outcomes.en' => 'required|string',
+            'professional_outcomes.pt' => 'required|string',
+
             'course_category_id' => 'nullable|uuid|exists:course_categories,id',
             'duration_years' => 'nullable|integer',
+            'study_regime' => 'nullable|integer',
+            'tuition_monthly_pay' => 'nullable|numeric',
+            'tuition_months' => 'nullable|integer',
         ]);
 
         // Fix later to use images properly

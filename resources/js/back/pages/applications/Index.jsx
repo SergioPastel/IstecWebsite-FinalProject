@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/react";
 import BackofficeLayout from "../../layouts/BackofficeLayout";
 import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
@@ -43,6 +44,7 @@ export default function ApplicationsIndex({ applications = [] }) {
                     <th className="px-4 py-3 font-medium">Curso</th>
                     <th className="px-4 py-3 font-medium">Estado</th>
                     <th className="px-4 py-3 font-medium">Recebida em</th>
+                    <th className="px-4 py-3 font-medium">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -71,6 +73,16 @@ export default function ApplicationsIndex({ applications = [] }) {
                       <td className="px-4 py-4 text-slate-500">
                         {formatDate(application.created_at)}
                       </td>
+                      <td className="px-4 py-4">
+                        <Link
+                          href={route("admin.applications.show", {
+                            application: application.id,
+                          })}
+                          className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
+                        >
+                          Ver detalhe
+                        </Link>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -84,7 +96,13 @@ export default function ApplicationsIndex({ applications = [] }) {
 }
 
 function formatStatus(status) {
-  return status.charAt(0).toUpperCase() + status.slice(1);
+  const labels = {
+    pending: "Pendente",
+    approved: "Aprovada",
+    rejected: "Rejeitada",
+  };
+
+  return labels[status] ?? status;
 }
 
 function formatDate(value) {

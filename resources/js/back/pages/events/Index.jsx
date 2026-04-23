@@ -1,5 +1,5 @@
-import { Link } from "@inertiajs/react";
-import { Inertia } from "@inertiajs/inertia";
+import { useState } from "react";
+import { Link, router } from "@inertiajs/react";
 import BackofficeLayout from "../../layouts/BackofficeLayout";
 import EmptyState from "../../components/ui/EmptyState";
 import PageHeader from "../../components/ui/PageHeader";
@@ -9,10 +9,28 @@ import StatusBadge from "../../components/ui/StatusBadge";
 export default function EventsIndexBack({ events }) {
   const rows = events?.data ?? events ?? [];
 
-  function handleDelete(eventId) {
-    if (confirm("Tem certeza que deseja eliminar este evento?")) {
-      Inertia.delete(route("events.destroy", { event: eventId }));
-    }
+  const [showModal, setShowModal] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+
+  function openDeleteModal(id) {
+    setSelectedId(id);
+    setShowModal(true);
+  }
+
+  function closeModal() {
+    setShowModal(false);
+    setSelectedId(null);
+  }
+
+  function confirmDelete() {
+    router.delete(route("events.destroy", { event: selectedId }), {
+      preserveScroll: true,
+      preserveState: false,
+      onSuccess: () => {
+        closeModal();
+        router.visit(route("backoffice.events"));
+      },
+    });
   }
 
   return (
@@ -23,8 +41,8 @@ export default function EventsIndexBack({ events }) {
     >
       <div className="space-y-6">
         <PageHeader
-          eyebrow="Agenda"
-          title="Gestao de eventos"
+          eyebrow="Eventos"
+          title="Gestão de eventos"
           //description="Base visual consistente com o novo backoffice, pronta para detalhe, filtros temporais e estados editoriais."
           actions={[
             <Link
@@ -83,7 +101,7 @@ export default function EventsIndexBack({ events }) {
                     </Link>
                     <button
                       type="button"
-                      onClick={() => handleDelete(event.id)}
+                      onClick={() => openDeleteModal(event.id)}
                       className="inline-flex items-center justify-center rounded-2xl border border-rose-200 bg-rose-50 px-4 py-2.5 text-sm font-semibold text-rose-700 transition hover:bg-rose-100"
                     >
                       Eliminar
@@ -94,10 +112,41 @@ export default function EventsIndexBack({ events }) {
             </div>
           )}
         </SectionCard>
-      </div>
-    </BackofficeLayout>
-  );
-}
+      </div>  
+      {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+            <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+              <h2 className="text-lg font-semibold text-slate-900">
+                Confirmar eliminação
+              </h2>
+
+              <p className="mt-2 text-sm text-slate-600">
+                Tens a certeza que queres eliminar este evento? Esta ação não pode ser revertida.
+              </p>
+
+              <div className="mt-6 flex justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="rounded-xl border border-slate-200 px-4 py-2 text-slate-600 hover:bg-slate-100"
+                >
+                  Cancelar
+                </button>
+
+                <button
+                  type="button"
+                  onClick={confirmDelete}
+                  className="rounded-xl bg-rose-600 px-4 py-2 text-white hover:bg-rose-700"
+                >
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </BackofficeLayout>
+    );
+  }
 
 function formatDate(value) {
   if (!value) {
