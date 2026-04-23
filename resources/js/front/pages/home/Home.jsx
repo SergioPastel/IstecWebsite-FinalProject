@@ -160,16 +160,7 @@ export default function Home({
                     </p>
 
                     <div className="flex flex-wrap gap-[14px] justify-center">
-                      <button className="bg-white text-[#0d8fe8] px-7 py-3 rounded-full font-semibold shadow-md hover:shadow-lg hover:-translate-y-[2px] transition-all duration-300">
-                        {t("home.hero.viewCourses")}
-                      </button>
-
-                      <button
-                        onClick={() => setPage("about")}
-                        className="border border-white/80 text-white px-6 py-3 rounded-full font-bold hover:bg-white/10 transition"
-                      >
-                        {t("home.hero.aboutIstec")}
-                      </button>
+                                          
                     </div>
                   </div>
                 </div>
@@ -196,9 +187,7 @@ export default function Home({
                     </p>
 
                     <div className="flex flex-wrap gap-[14px] justify-center">
-                      <button className="bg-white text-[#0d8fe8] px-6 py-3 rounded-full font-bold shadow hover:bg-[#f8fbff] transition">
-                        {t("home.hero.exploreCourses")}
-                      </button>
+                     
                     </div>
                   </div>
                 </div>
@@ -225,9 +214,7 @@ export default function Home({
                     </p>
 
                     <div className="flex flex-wrap gap-[14px] justify-center">
-                      <button className="bg-white text-[#0d8fe8] px-6 py-3 rounded-full font-bold shadow hover:bg-[#f8fbff] transition">
-                        {t("home.hero.viewEvents")}
-                      </button>
+                      
                     </div>
                   </div>
                 </div>
