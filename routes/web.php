@@ -108,6 +108,10 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     // Application routes
     Route::get('/applications', [ApplicationController::class, 'adminIndex'])->name('backoffice.applications');
 
+    // User management routes
+    Route::get('/users/create', [DashboardController::class, 'createUser'])->name('backoffice.users.create');
+    Route::post('/users', [DashboardController::class, 'storeUser'])->name('backoffice.users.store');
+
     // Contact routes
     Route::get('/contacts', [ContactController::class, 'adminIndex'])->name('backoffice.contacts');
 

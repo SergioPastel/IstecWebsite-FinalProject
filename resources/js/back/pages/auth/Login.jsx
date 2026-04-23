@@ -24,13 +24,6 @@ export default function Login() {
           className="bg-white rounded-3xl shadow-[0_20px_60px_rgba(15,23,42,0.12)] border border-slate-200 overflow-hidden"
         >
 
-          {/* Botão voltar */}
-          <Link
-            href={route("home")}
-            className="absolute top-6 left-6 inline-flex items-center gap-2 bg-[#0d8fe8] text-white px-5 py-2.5 rounded-xl font-semibold shadow-[0_10px_25px_rgba(13,143,232,0.25)] hover:bg-[#0b7fd1] hover:-translate-y-[1px] transition-all duration-300">
-            ← Voltar ao site
-          </Link>
-
           {/* Header */}
           <div className="bg-[#0d8fe8] text-white px-8 py-10 relative">
   
@@ -56,7 +49,9 @@ export default function Login() {
                 onChange={(e) => setData("email", e.target.value)}
               />
               {errors.email && (
-                <p className="text-red-500 text-sm mt-2">{errors.email}</p>
+                <p className="mt-2 text-sm text-red-500">
+                  Email ou palavra-passe incorretos.
+                </p>
               )}
             </div>
 
@@ -99,6 +94,12 @@ export default function Login() {
             >
               {processing ? "A entrar..." : "Entrar"}
             </button>
+            <Link
+              href={route("home")}
+              className="block text-center text-sm text-slate-600 hover:text-[#0d8fe8] transition"
+            >
+              ← Voltar ao site
+            </Link>
           </div>
         </form>
       </div>
