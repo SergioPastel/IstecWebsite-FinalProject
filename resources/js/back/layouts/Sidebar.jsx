@@ -52,7 +52,7 @@ const navigationItems = [
   },
 ];
 
-export default function Sidebar({ isOpen, onClose }) {
+export default function Sidebar({ isOpen, isCollapsed, onClose, onToggleCollapse }) {
   const { props } = usePage();
 
   const isActive = (routeName) => {
@@ -75,22 +75,37 @@ export default function Sidebar({ isOpen, onClose }) {
       />
 
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-72 flex-col overflow-y-auto border-r border-white/10 bg-[#0C73B7] text-slate-100 transition-transform duration-300 md:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 flex ${
+          isCollapsed ? "w-24" : "w-72"
+        } flex-col overflow-y-auto border-r border-white/10 bg-[#0C73B7] text-slate-100 transition-[width,transform] duration-300 md:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="border-b border-white/10 px-6 py-6">
+        <div className={`border-b border-white/10 ${isCollapsed ? "px-3 py-6" : "px-6 py-6"}`}>
           <img src={logo} alt="ISTEC Porto" />
-
-          <h1 className="mt-3 text-2xl font-semibold tracking-tight text-white">
-            Backoffice
-          </h1>
-          <p className="mt-2 text-sm leading-6 text-slate-300">
-            Gestao institucional de cursos, conteudos e operacoes internas.
-          </p>
+          <div className={`flex ${isCollapsed ? "justify-center" : "items-start justify-between gap-3"}`}>
+            <div className={isCollapsed ? "flex justify-center" : ""}>
+              <div
+                className={`rounded-2xl border border-white/10 bg-white/5 ${
+                  isCollapsed ? "hidden" : "px-4 py-3"
+                }`}
+              >                
+                {!isCollapsed ? (
+                  <>
+                    <h1 className="backoffice-heading mt-3 text-2xl font-semibold tracking-tight text-white">
+                      Backoffice
+                    </h1>
+                    <p className="mt-2 text-sm leading-6 text-slate-300">
+                      Gestao institucional de cursos, conteudos e operacoes internas.
+                    </p>
+                  </>
+                ) : null}
+              </div>
+            </div>
+          </div>
         </div>
 
-        <nav className="flex-1 px-4 py-6">
+        <nav className={`flex-1 ${isCollapsed ? "px-3 py-6" : "px-4 py-6"}`}>
           <ul className="space-y-2">
             {navigationItems.map((item) => {
               const active = isActive(item.routeName);
@@ -101,11 +116,14 @@ export default function Sidebar({ isOpen, onClose }) {
                   <Link
                     href={item.href()}
                     onClick={onClose}
-                    className={`group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition ${
+                    className={`group flex items-center ${
+                      isCollapsed ? "justify-center px-3" : "gap-3 px-4"
+                    } rounded-2xl py-3 text-sm font-medium transition ${
                       active
                         ? "bg-[rgba(1, 164, 240, 0.18)] text-white shadow-[inset_0_0_0_1px_rgba(1, 164, 240, 0.45)]"
                         : "text-slate-300 hover:bg-white/5 hover:text-white"
                     }`}
+                    title={item.label}
                   >
                     <span
                       className={`flex h-10 w-10 items-center justify-center rounded-2xl transition ${
@@ -116,8 +134,8 @@ export default function Sidebar({ isOpen, onClose }) {
                     >
                       <Icon />
                     </span>
-                    <span className="flex-1">{item.label}</span>
-                    {active ? (
+                    {!isCollapsed ? <span className="flex-1">{item.label}</span> : null}
+                    {active && !isCollapsed ? (
                       <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-brand-secondary)]" />
                     ) : null}
                   </Link>
@@ -127,26 +145,44 @@ export default function Sidebar({ isOpen, onClose }) {
           </ul>
         </nav>
 
-        <div className="border-t border-white/10 px-4 py-4">
-          <div className="mb-4 rounded-2xl bg-white/5 px-4 py-4">
-            <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
-              Sessao atual
-            </p>
-            <p className="mt-2 text-sm font-semibold text-white">
-              {props.user?.name ?? "Administrador"}
-            </p>
-            <p className="mt-1 text-xs text-slate-400">
-              {props.user?.email ?? "admin@istec-porto.pt"}
-            </p>
-          </div>
+        <div className={`border-t border-white/10 ${isCollapsed ? "px-3 py-4" : "px-4 py-4"}`}>
+          {!isCollapsed ? (
+            <div className="mb-4 rounded-2xl bg-white/5 px-4 py-4">
+              <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
+                Sessao atual
+              </p>
+              <p className="mt-2 text-sm font-semibold text-white">
+                {props.user?.name ?? "Administrador"}
+              </p>
+              <p className="mt-1 text-xs text-slate-400">
+                {props.user?.email ?? "admin@istec-porto.pt"}
+              </p>
+            </div>
+          ) : null}
 
           <Link
             href={route("logout")}
             method="post"
             as="button"
             className="flex w-full items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
+            title="Terminar sessao"
           >
-            Terminar sessao
+            {isCollapsed ? (
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                className="h-5 w-5"
+                aria-hidden="true"
+              >
+                <path d="M15 17l5-5-5-5" />
+                <path d="M20 12H9" />
+                <path d="M12 19H7a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h5" />
+              </svg>
+            ) : (
+              "Terminar sessao"
+            )}
           </Link>
         </div>
       </aside>
