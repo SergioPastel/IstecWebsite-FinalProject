@@ -2,7 +2,7 @@ import { Link, useForm } from '@inertiajs/react';
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from 'react';
 import logo from "../../../front/assets/_logo_branco.png";
-
+import FlashToasts from "../../components/ui/FlashToast";
 
 export default function Login() {
   const { data, setData, post, processing, errors } = useForm({
@@ -18,6 +18,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#f4f8fc] via-white to-[#eef6ff] flex items-center justify-center px-4">
+      <FlashToasts />
       <div className="w-full max-w-md">
         <form
           onSubmit={submit}
@@ -74,7 +75,7 @@ export default function Login() {
             </div>
 
             {/* Forgot password */}
-            <div className="text-right">
+            <div className="text-right mb-3">
               <Link
                 href={route("password.request")}
                 className="text-sm text-[#0d8fe8] hover:underline"

@@ -72,12 +72,12 @@ Route::middleware('guest')->group(function () {
         return Inertia('back/pages/auth/PasswordRecovery');
     })->name('password.request'); // Returns the password recovery form
 
-Route::get('/reset-password/{token}', function (Request $request, $token) {
-    return Inertia('back/pages/auth/ResetPassword', [
-        'token' => $token,
-        'email' => $request->email,
-    ]);
-    })->name('password.reset'); // Returns the password reset form, with token and email as props
+    Route::get('/reset-password/{token}', function (Request $request, $token) {
+        return Inertia('back/pages/auth/ResetPassword', [
+            'token' => $token,
+            'email' => $request->email,
+        ]);
+        })->name('password.reset'); // Returns the password reset form, with token and email as props
 });
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.recover');
