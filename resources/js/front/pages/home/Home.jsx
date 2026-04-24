@@ -242,7 +242,7 @@ export default function Home({
               const Icon = item.icon;
 
               return (
-                <a
+                <Link
                   href={item.link}
                   key={item.id}
                   className="bg-white border border-[#dbe4ee] rounded-[20px] p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] hover:translate-y-[-4px] hover:shadow-[0_14px_34px_rgba(13,143,232,0.12)] transition-all duration-300 block"
@@ -260,7 +260,7 @@ export default function Home({
                   <span className="text-[#0d8fe8] font-bold">
                     {t("home.quickLinks.viewMore")}
                   </span>
-                </a>
+                </Link>
               );
             })}
             </div>
@@ -337,37 +337,41 @@ export default function Home({
             </div>
 
             <div className="grid grid-cols-3 gap-[22px] max-[1100px]:grid-cols-2 max-[768px]:grid-cols-1">
-              {latestActivity.data.map((event) => (
+              {latestActivity.data.map((item) => (
                 <div
-                  key={event.id}
+                  key={item.id}
                   className={`min-h-full bg-white border border-[#dbe4ee] rounded-[20px] p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] hover:-translate-y-1 transition-all duration-300 flex flex-col ${getEventCardHoverClasses(
-                    event.type,
+                    item.type,
                   )}`}
                 >
                   <span
                     className={`inline-flex self-start items-center min-h-[30px] px-3 py-[6px] rounded-full text-[0.8rem] font-extrabold ${getEventBadgeClasses(
-                      event.type,
+                      item.type,
                     )}`}
                   >
-                    {event.type}
+                    {item.type}
                   </span>
 
                   <h3 className="mt-[14px] mb-[10px] text-[1.2rem] leading-[1.3] font-semibold">
-                    {event.title}
+                    {item.title}
                   </h3>
 
                   <p className="mb-3 text-[0.95rem] font-bold text-[#4b5563]">
-                    {event.date}
+                    {item.date}
                   </p>
 
                   <p className="m-0 text-[#6b7280] leading-[1.7]">
-                    {event.description}
+                    {item.description}
                   </p>
 
                   <Link
-                    href={route("events.show", event.id)}
+                    href={
+                      item.type === "Event"
+                        ? route("events.show", item.id)
+                        : route("news.show", item.id)
+                    }
                     className={`inline-block mt-auto pt-4 font-bold hover:underline ${getEventLinkClasses(
-                      event.type,
+                      item.type,
                     )}`}
                   >
                     {t("home.eventsNewsSection.readMore")}
