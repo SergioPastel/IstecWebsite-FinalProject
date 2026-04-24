@@ -10,6 +10,8 @@ use App\Models\Application;
 use App\Models\Contact;
 use App\Http\Requests\StoreDashboardRequest;
 use App\Http\Requests\UpdateDashboardRequest;
+use App\Actions\Fortify\CreateNewUser;
+use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
@@ -49,6 +51,20 @@ class DashboardController extends Controller
             ]
         ]);
     }
+
+    public function createUser()
+    {
+        return Inertia::render('back/pages/users/Create');
+    }
+
+    public function storeUser(Request $request, CreateNewUser $creator)
+    {
+        $creator->create($request->all());
+
+        return redirect()->route('backoffice.users')
+            ->with('success', 'Utilizador criado com sucesso.');
+    }
+
 
     // GET /users - List of admin users
     public function users()

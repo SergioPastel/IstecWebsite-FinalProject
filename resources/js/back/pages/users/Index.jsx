@@ -1,17 +1,43 @@
+import { Link, router } from "@inertiajs/react";
+import { useState } from "react";
 import BackofficeLayout from "../../layouts/BackofficeLayout";
 import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
 import StatusBadge from "../../components/ui/StatusBadge";
-import { Inertia } from "@inertiajs/inertia";
 
 export default function UsersIndex({ users = [] }) {
-  function handleDelete(userId) {
-    if (confirm("Tem certeza que deseja eliminar este utilizador?")) {
-      Inertia.delete(route("backoffice.users.destroy", { user: userId }));
-    }
+    const [userToDelete, setUserToDelete] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  function confirmDelete(user) {
+    setUserToDelete(user);
+  }
+
+  function cancelDelete() {
+    setUserToDelete(null);
+  }
+
+  function handleDelete() {
+    if (!userToDelete) return;
+
+    setIsDeleting(true);
+
+    router.delete(route("backoffice.users.destroy", userToDelete.id), {
+      preserveScroll: true,
+      onSuccess: () => {
+        setUserToDelete(null);
+      },
+      onError: (errors) => {
+        console.log(errors);
+      },
+      onFinish: () => {
+        setIsDeleting(false);
+      },
+    });
   }
 
   return (
+    <>
     <BackofficeLayout
       title="Utilizadores"
       subtitle="Gestao base da equipa administrativa, perfis e niveis de acesso."
@@ -19,9 +45,18 @@ export default function UsersIndex({ users = [] }) {
     >
       <div className="space-y-6">
         <PageHeader
-          eyebrow="Team"
+          eyebrow="Utilizadores"
           title="Acessos e perfis"
           description="Base visual para uma futura gestao de permissoes, convites e auditoria de acesso."
+          actions={[
+            <Link
+              key="create"
+              href={route("backoffice.users.create")}
+              className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
+            >
+              Novo utilizador
+            </Link>,
+          ]}
         />
 
         <SectionCard
@@ -47,7 +82,7 @@ export default function UsersIndex({ users = [] }) {
                   />
 
                   <button
-                    onClick={() => !user.deleted_at && handleDelete(user.id)}
+                   onClick={() => !user.deleted_at && confirmDelete(user)}
                     disabled={!!user.deleted_at}
                     className={`ml-auto text-sm ${
                       user.deleted_at
@@ -66,9 +101,48 @@ export default function UsersIndex({ users = [] }) {
                 </div> */}
               </article>
             ))}
+           </div>
+          </SectionCard>
+        </div>
+      </BackofficeLayout>
+
+      {userToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+            <h2 className="text-lg font-bold text-slate-900">
+              Confirmar eliminação
+            </h2>
+
+            <p className="mt-3 text-sm text-slate-600">
+              Tem a certeza que deseja eliminar o utilizador{" "}
+              <span className="font-semibold text-slate-900">
+                {userToDelete.name}
+              </span>
+              ?
+            </p>
+
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={cancelDelete}
+                disabled={isDeleting}
+                className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              >
+                Cancelar
+              </button>
+
+              <button
+                type="button"
+                onClick={handleDelete}
+                disabled={isDeleting}
+                className="rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700"
+              >
+                {isDeleting ? "A eliminar..." : "Eliminar"}
+              </button>
+            </div>
           </div>
-        </SectionCard>
-      </div>
-    </BackofficeLayout>
+        </div>
+      )}
+    </>
   );
 }

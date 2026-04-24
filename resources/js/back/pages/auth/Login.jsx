@@ -24,13 +24,6 @@ export default function Login() {
           className="bg-white rounded-3xl shadow-[0_20px_60px_rgba(15,23,42,0.12)] border border-slate-200 overflow-hidden"
         >
 
-          {/* Botão voltar */}
-          <Link
-            href={route("home")}
-            className="absolute top-6 left-6 inline-flex items-center gap-2 bg-[#0d8fe8] text-white px-5 py-2.5 rounded-xl font-semibold shadow-[0_10px_25px_rgba(13,143,232,0.25)] hover:bg-[#0b7fd1] hover:-translate-y-[1px] transition-all duration-300">
-            ← Voltar ao site
-          </Link>
-
           {/* Header */}
           <div className="bg-[#0d8fe8] text-white px-8 py-10 relative">
   
@@ -55,10 +48,7 @@ export default function Login() {
                 value={data.email}
                 onChange={(e) => setData("email", e.target.value)}
               />
-              {errors.email && (
-                <p className="text-red-500 text-sm mt-2">{errors.email}</p>
-              )}
-            </div>
+              <div className="relative mt-3"></div>
 
             <div className="relative">
               <input
@@ -68,6 +58,13 @@ export default function Login() {
                 value={data.password}
                 onChange={(e) => setData("password", e.target.value)}
               />
+              {errors.email && (
+                <p className="mt-2 text-sm text-red-500">
+                  Email ou palavra-passe incorretos.
+                </p>
+              )}
+            </div>
+              
 
               {/* Button to show/hide password */}
               <button
@@ -93,15 +90,26 @@ export default function Login() {
               </a>
             </div>
 
-            <button
+           <button
+              type="submit"
               disabled={processing}
-              className="w-full bg-[#0d8fe8] text-white py-3 rounded-xl font-semibold hover:bg-[#0b7fd1] transition"
+              className="w-full bg-[#0d8fe8] text-white py-3 rounded-xl font-semibold hover:bg-[#0b7fd1] transition disabled:opacity-70"
             >
               {processing ? "A entrar..." : "Entrar"}
             </button>
-          </div>
+
+            <div className="pt-5 border-t border-slate-200">
+              <Link
+                href={route("home")}
+                className="mt-4 block text-center text-sm text-slate-600 hover:text-[#0d8fe8] transition"
+              >
+                ← Voltar ao site
+              </Link>
+            </div>
+            </div>
         </form>
       </div>
     </div>
   );
+  
 }
