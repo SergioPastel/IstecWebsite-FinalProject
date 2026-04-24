@@ -1,5 +1,6 @@
 import logo from "../assets/_logo_branco.png";
 import { Link, usePage } from "@inertiajs/react";
+import { useEffect, useState } from "react";
 
 const navigationItems = [
   {
@@ -54,6 +55,23 @@ const navigationItems = [
 
 export default function Sidebar({ isOpen, isCollapsed, onClose, onToggleCollapse }) {
   const { props } = usePage();
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const syncIsDesktop = (event) => {
+      setIsDesktop(event.matches);
+    };
+
+    setIsDesktop(mediaQuery.matches);
+    mediaQuery.addEventListener("change", syncIsDesktop);
+
+    return () => {
+      mediaQuery.removeEventListener("change", syncIsDesktop);
+    };
+  }, []);
+
+  const isDesktopCollapsed = isDesktop && isCollapsed;
 
   const isActive = (routeName) => {
     try {
@@ -67,10 +85,7 @@ export default function Sidebar({ isOpen, isCollapsed, onClose, onToggleCollapse
     <>
       <button
         type="button"
-        onClick={onClose}
-        className={`fixed inset-0 z-30 bg-slate-950/45 transition md:hidden ${
-          isOpen ? "opacity-100" : "pointer-events-none opacity-0"
-        }`}
+        className={`fixed inset-0 z-30 bg-slate-950/45 transition md:hidden`}
         aria-label="Fechar menu"
       />
 
@@ -190,6 +205,16 @@ export default function Sidebar({ isOpen, isCollapsed, onClose, onToggleCollapse
   );
 }
 
+function getInitials(name = "") {
+  const parts = name.trim().split(/\s+/).filter(Boolean).slice(0, 2);
+
+  if (parts.length === 0) {
+    return "AD";
+  }
+
+  return parts.map((part) => part[0]?.toUpperCase() ?? "").join("");
+}
+
 function IconShell({ children }) {
   return (
     <svg
@@ -201,6 +226,54 @@ function IconShell({ children }) {
       aria-hidden="true"
     >
       {children}
+    </svg>
+  );
+}
+
+function CollapseIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className="h-5 w-5"
+      aria-hidden="true"
+    >
+      <path d="M15 6 9 12l6 6" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className="h-5 w-5"
+      aria-hidden="true"
+    >
+      <path d="m6 6 12 12" />
+      <path d="M18 6 6 18" />
+    </svg>
+  );
+}
+
+function LogoutIcon({ className = "h-5 w-5" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M10 17v2a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v2" />
+      <path d="M15 12H4" />
+      <path d="m8 8-4 4 4 4" />
     </svg>
   );
 }

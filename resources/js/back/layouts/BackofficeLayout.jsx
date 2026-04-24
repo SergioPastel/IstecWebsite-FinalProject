@@ -11,8 +11,7 @@ export default function BackofficeLayout({
   subtitle,
   searchPlaceholder,
 }) {
-  const { props } = usePage();
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const { props } = usePage();  
   const [isDesktopSidebarCollapsed, setIsDesktopSidebarCollapsed] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -21,8 +20,7 @@ export default function BackofficeLayout({
     setIsDesktopSidebarCollapsed(savedState === "true");
   }, []);
 
-  useEffect(() => {
-    setIsMobileSidebarOpen(false);
+  useEffect(() => {    
     setSearchQuery("");
   }, [title]);
 
@@ -44,9 +42,7 @@ export default function BackofficeLayout({
       <Head title={title} />
 
       <Sidebar
-        isOpen={isMobileSidebarOpen}
         isCollapsed={isDesktopSidebarCollapsed}
-        onClose={() => setIsMobileSidebarOpen(false)}
         onToggleCollapse={handleDesktopSidebarToggle}
       />
 
@@ -54,7 +50,6 @@ export default function BackofficeLayout({
         <Topbar
           title={title}
           subtitle={subtitle}
-          onMenuClick={() => setIsMobileSidebarOpen(true)}
           onToggleSidebar={handleDesktopSidebarToggle}
           isSidebarCollapsed={isDesktopSidebarCollapsed}
           searchPlaceholder={searchPlaceholder}

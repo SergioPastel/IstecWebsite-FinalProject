@@ -18,9 +18,6 @@ import { Link, router } from "@inertiajs/react";
 export default function Home({
   courses,
   latestActivity,
-  setPage = () => {},
-  language = "pt",
-  setLanguage = () => {},
 }) {
 
   const { t } = useTranslation();
@@ -150,7 +147,7 @@ export default function Home({
               pauseOnMouseEnter: true,
             }}
             navigation
-            
+
           >
             <SwiperSlide>
               <div className="bg-[#0d8fe8] text-white h-[560px] flex items-center justify-center relative overflow-hidden">
@@ -170,7 +167,7 @@ export default function Home({
                     </p>
 
                     <div className="flex flex-wrap gap-[14px] justify-center">
-                                          
+
                     </div>
                   </div>
                 </div>
@@ -197,7 +194,7 @@ export default function Home({
                     </p>
 
                     <div className="flex flex-wrap gap-[14px] justify-center">
-                     
+
                     </div>
                   </div>
                 </div>
@@ -224,7 +221,7 @@ export default function Home({
                     </p>
 
                     <div className="flex flex-wrap gap-[14px] justify-center">
-                      
+
                     </div>
                   </div>
                 </div>
@@ -278,6 +275,13 @@ export default function Home({
                   {t("home.coursesSection.findRightCourse")}
                 </h2>
               </div>
+
+              <Link
+                href={route("courses.ctesp")}
+                className="text-[#0d8fe8] font-bold whitespace-nowrap hover:underline"
+              >
+                {t("home.coursesSection.viewAllOffer")}
+              </Link>
             </div>
 
             <div className="grid grid-cols-3 gap-[22px] max-[1100px]:grid-cols-2 max-[768px]:grid-cols-1">
@@ -422,7 +426,7 @@ export default function Home({
             </div>
 
             <div className="flex justify-center">
-              <button 
+              <button
                 className="mt-7 min-h-[52px] px-7 py-3 rounded-full bg-white text-[#0d8fe8] font-bold shadow-[0_8px_24px_rgba(15,23,42,0.06)] hover:bg-[#f8fbff] hover:-translate-y-[2px] transition-all duration-300"
                 onClick={() => router.visit(route('applications.courses.apply'))}
               >
@@ -456,7 +460,7 @@ export default function Home({
               </div>
 
               <div className="flex gap-3 flex-wrap">
-                <button 
+                <button
                 className="inline-flex items-center justify-center min-h-12 px-[22px] py-3 rounded-full border border-transparent bg-[#0d8fe8] text-white font-bold shadow-[0_10px_30px_rgba(13,143,232,0.08)] hover:bg-[#0a78c4] hover:-translate-y-[2px] transition-all duration-300"
                 onClick={() => router.visit(route('contacts'))}
                 >
