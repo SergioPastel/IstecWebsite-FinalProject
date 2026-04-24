@@ -83,6 +83,18 @@
         "title": "Courses",
         "description": "Explore training"
       },
+    "ctesp": {
+      "title": "CTeSP",
+      "description": "Explore CTeSP courses"
+    },
+    "licenciatura": {
+      "title": "Bachelor Degrees",
+      "description": "Explore bachelor degrees"
+    },
+    "pos": {
+      "title": "Postgraduate Courses",
+      "description": "Explore postgraduate courses"
+    },
       "applications": {
         "title": "Applications",
         "description": "Submit application"
@@ -567,7 +579,7 @@
     ],
     "ctaTitle": "Take your journey further",
     "ctaText": "Erasmus+ is an opportunity to grow academically and personally through an enriching international experience.",
-    "ctaButton": "Learn more"
+    "ctaButton": "Contact us"
   },
   "pedagogyPage": {
     "title": "Pedagogy XXI",
@@ -601,7 +613,7 @@
     ],
     "ctaTitle": "Innovating in teaching means preparing the future",
     "ctaText": "Pedagogy is an essential pillar in training qualified, critical professionals who are ready to respond to the challenges of the market and society.",
-    "ctaButton": "Learn more"
+    "ctaButton": "Talk to us"
   },
   "about": {
     "metaTitle": "About ISTEC",

@@ -86,6 +86,18 @@
       "courses": {
         "title": "Cursos",
         "description": "Explorar formação"
+    },
+    "ctesp": {
+      "title": "CTeSP",
+      "description": "Explorar cursos CTeSP"
+      },
+      "licenciatura": {
+        "title": "Licenciaturas",
+        "description": "Explorar licenciaturas"
+      },
+      "pos": {
+        "title": "Pós-Graduações",
+        "description": "Explorar pós-graduações"
       },
       "applications": {
         "title": "Candidaturas",
@@ -101,6 +113,7 @@
       },
       "viewMore": "Ver mais →"
     }
+    
   },
   "applicationsForm": {
     "common": {
@@ -515,7 +528,7 @@
     ],
     "ctaTitle": "Leva o teu percurso mais longe",
     "ctaText": "O Erasmus+ é uma oportunidade para crescer académica e pessoalmente, através de uma experiência internacional enriquecedora.",
-    "ctaButton": "Saber mais"
+    "ctaButton": "Entrar em contacto"
   },
   "pedagogyPage": {
     "title": "Pedagogia XXI",
@@ -549,7 +562,7 @@
     ],
     "ctaTitle": "Inovar no ensino é preparar o futuro",
     "ctaText": "A pedagogia é um pilar essencial na formação de profissionais qualificados, críticos e preparados para responder aos desafios do mercado e da sociedade.",
-    "ctaButton": "Saber mais"
+    "ctaButton": "Falar connosco"
   },
   "about": {
     "metaTitle": "Sobre o ISTEC",

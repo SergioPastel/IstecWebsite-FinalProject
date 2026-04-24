@@ -6,6 +6,8 @@ import Layout from "../../layouts/Layout";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
+import { GraduationCap, BookOpen, Calendar, Mail } from "lucide-react";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -26,27 +28,32 @@ export default function Home({
   const quickLinks = [
     {
       id: 1,
-      title: t("home.quickLinks.courses.title"),
-      description: t("home.quickLinks.courses.description"),
-      link: route("applications.courses.apply")
+      title: t("home.quickLinks.ctesp.title"),
+      description: t("home.quickLinks.ctesp.description"),
+      link: route("courses.ctesp"),
+      icon: GraduationCap,
     },
     {
       id: 2,
-      title: t("home.quickLinks.applications.title"),
-      description: t("home.quickLinks.applications.description"),
-      link: "#",
+      title: t("home.quickLinks.licenciatura.title"),
+      description: t("home.quickLinks.licenciatura.description"),
+      link: route("courses.licenciatura"),
+      icon: BookOpen,
     },
     {
       id: 3,
-      title: t("home.quickLinks.events.title"),
-      description: t("home.quickLinks.events.description"),
-      link: route("eventsandnews"),
+      title: t("home.quickLinks.pos.title"),
+      description: t("home.quickLinks.pos.description"),
+      link: route("courses.posGraduacao"),
+      icon: GraduationCap,
     },
     {
       id: 4,
-      title: t("home.quickLinks.contacts.title"),
-      description: t("home.quickLinks.contacts.description"),
-      link: route("contacts"),
+      title: t("home.quickLinks.events.title"),
+      description: t("home.quickLinks.events.description"),
+      link: route("eventsandnews"),
+      icon: Calendar,
+
     },
   ];
 
@@ -118,6 +125,9 @@ export default function Home({
   const getEventLinkClasses = () => {
   return "text-[#6b6257]";
 };
+
+
+
   return (
     <Layout title={"Home"}>
 
@@ -228,12 +238,19 @@ export default function Home({
         <section className="relative -mt-16 z-10">
           <div className="max-w-[1600px] mx-auto px-6">
             <div className="grid grid-cols-4 gap-[22px] max-[1100px]:grid-cols-2 max-[768px]:grid-cols-1">
-              {quickLinks.map((item) => (
+              {quickLinks.map((item) => {
+              const Icon = item.icon;
+
+              return (
                 <a
                   href={item.link}
                   key={item.id}
                   className="bg-white border border-[#dbe4ee] rounded-[20px] p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] hover:translate-y-[-4px] hover:shadow-[0_14px_34px_rgba(13,143,232,0.12)] transition-all duration-300 block"
                 >
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-[#eaf5ff]">
+                    <Icon size={22} className="text-[#0d8fe8]" />
+                  </div>
+
                   <h3 className="text-[1.2rem] font-semibold mb-2">
                     {item.title}
                   </h3>
@@ -244,7 +261,8 @@ export default function Home({
                     {t("home.quickLinks.viewMore")}
                   </span>
                 </a>
-              ))}
+              );
+            })}
             </div>
           </div>
         </section>
@@ -260,13 +278,6 @@ export default function Home({
                   {t("home.coursesSection.findRightCourse")}
                 </h2>
               </div>
-
-              <Link
-                href={route("courses")}
-                className="text-[#0d8fe8] font-bold whitespace-nowrap hover:underline"
-              >
-                {t("home.coursesSection.viewAllOffer")}
-              </Link>
             </div>
 
             <div className="grid grid-cols-3 gap-[22px] max-[1100px]:grid-cols-2 max-[768px]:grid-cols-1">
@@ -323,12 +334,6 @@ export default function Home({
                 </h2>
               </div>
 
-              <Link
-                href={route("events")}
-                className="text-[#0d8fe8] font-bold whitespace-nowrap hover:underline"
-              >
-                {t("home.eventsNewsSection.viewAll")}
-              </Link>
             </div>
 
             <div className="grid grid-cols-3 gap-[22px] max-[1100px]:grid-cols-2 max-[768px]:grid-cols-1">
@@ -415,7 +420,7 @@ export default function Home({
             <div className="flex justify-center">
               <button 
                 className="mt-7 min-h-[52px] px-7 py-3 rounded-full bg-white text-[#0d8fe8] font-bold shadow-[0_8px_24px_rgba(15,23,42,0.06)] hover:bg-[#f8fbff] hover:-translate-y-[2px] transition-all duration-300"
-                onClick={() => router.visit(route('applications.applyCourse'))}
+                onClick={() => router.visit(route('applications.courses.apply'))}
               >
                 {t("home.applicationsSection.startApplication")}
               </button>
@@ -452,10 +457,6 @@ export default function Home({
                 onClick={() => router.visit(route('contacts'))}
                 >
                   {t("home.contactsSection.goToContacts")}
-                </button>
-
-                <button className="inline-flex items-center justify-center min-h-12 px-[22px] py-3 rounded-full border border-[rgba(13,143,232,0.22)] bg-transparent text-[#0d8fe8] font-bold hover:bg-[#eaf5ff] hover:-translate-y-[2px] transition-all duration-300">
-                  {t("home.contactsSection.requestInfo")}
                 </button>
               </div>
             </div>

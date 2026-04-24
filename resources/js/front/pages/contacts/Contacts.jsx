@@ -53,17 +53,21 @@ export default function Contacts({departmentContacts }) {
           </Banner>
 
           {/* DEPARTAMENTOS */}
-          <section className="pt-16 pb-16">
-            <div className="max-w-7xl mx-auto px-6 md:px-10 text-center mb-10">
+          <section className="bg-[#f3f5f8] py-16">
+            <div className="mx-auto max-w-[1200px] px-6 md:px-10">
+              <div className="mb-10 text-center">
               <h2 className="text-3xl font-bold text-[#1697e6]">
                 {t("contacts.departments")}
               </h2>
             </div>
+            </div>
 
             <div className="max-w-7xl mx-auto px-6 md:px-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
               {departmentContacts.map((dept, i) => (
-                <div key={i} className="bg-white p-6 rounded-2xl shadow">
-                  <h3 className="font-bold mb-4">{dept.title}</h3>
+                <div key={i} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(13,143,232,0.12)]">
+                  <h3 className="min-h-[48px] font-bold text-slate-950">
+            {dept.title}
+          </h3>
                   <p className="text-sm text-gray-600 mb-4">{dept.email}</p>
 
                   <a

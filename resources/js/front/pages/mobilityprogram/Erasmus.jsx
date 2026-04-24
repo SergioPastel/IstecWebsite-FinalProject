@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "@inertiajs/react";
 import Layout from "../../layouts/Layout";
 import { useTranslation } from "react-i18next";
 import Banner from "../../components/common/Banner";
@@ -168,9 +169,12 @@ export default function Erasmus() {
                 {t("erasmusPage.ctaText")}
               </p>
 
-              <button className="mt-8 rounded-xl bg-[#1697e6] px-8 py-3 font-semibold text-white transition hover:bg-[#0f7fc2]">
-                {t("erasmusPage.ctaButton")}
-              </button>
+              <Link
+                  href={route("contacts")}
+                  className="mt-8 inline-block rounded-xl bg-[#1697e6] px-8 py-3 font-semibold text-white transition hover:bg-[#0f7fc2]"
+                >
+                  {t("erasmusPage.ctaButton")}
+            </Link>
             </div>
           </section>
         </main>

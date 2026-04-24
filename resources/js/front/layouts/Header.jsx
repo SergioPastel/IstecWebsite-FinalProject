@@ -322,24 +322,26 @@ function Header({}) {
                   className="flex items-center gap-2 ml-2 relative"
                   ref={searchRef}
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="relative flex items-center bg-[#eef6ff] rounded-full p-1 w-[110px]">
+                    <div
+                      className={`absolute h-8 w-[50px] bg-[#0c73b7] rounded-full shadow transition-all duration-300 ${
+                        i18n.language === "en" ? "translate-x-[52px]" : "translate-x-0"
+                      }`}
+                    ></div>
+
                     <button
-                      type="button"
                       onClick={() => setLanguage("pt")}
-                      className={`text-[15px] font-semibold hover:cursor-pointer ${
-                        i18n.language === "pt" ? "text-[#0c73b7]" : "text-[#1d1d1b]"
+                      className={`relative z-10 w-1/2 text-xs font-bold transition ${
+                        i18n.language === "pt" ? "text-white" : "text-[#0c73b7]"
                       }`}
                     >
                       PT
                     </button>
 
-                    <Divider className="h-5 mx-1! inline-block! bg-gray-800 self-center" />
-
                     <button
-                      type="button"
                       onClick={() => setLanguage("en")}
-                      className={`text-[15px] font-semibold hover:cursor-pointer ${
-                        i18n.language === "en" ? "text-[#0c73b7]" : "text-[#1d1d1b]"
+                      className={`relative z-10 w-1/2 text-xs font-bold transition ${
+                        i18n.language === "en" ? "text-white" : "text-[#0c73b7]"
                       }`}
                     >
                       EN

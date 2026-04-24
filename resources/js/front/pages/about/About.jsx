@@ -71,13 +71,6 @@ export default function About() {
               >
                 {t("about.cta.contactButton")}
               </Link>
-
-              <Link
-                href={route("courses")}
-                className="inline-flex items-center justify-center border border-[#0d8fe8] text-[#0d8fe8] px-6 py-3 rounded-full font-bold hover:bg-[#eef6ff] transition"
-              >
-                {t("about.cta.coursesButton")}
-              </Link>
             </div>
           </div>
         </section>
