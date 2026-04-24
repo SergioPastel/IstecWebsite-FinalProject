@@ -1,7 +1,7 @@
 export default function Topbar({
   title,
   subtitle,
-  onMenuClick,
+  onMobileMenuClick,
   searchPlaceholder = "Pesquisar no backoffice",
   user,
 }) {
@@ -14,7 +14,7 @@ export default function Topbar({
           <div className="flex items-start gap-3">
             <button
               type="button"
-              onClick={onMenuClick}
+              onClick={onMobileMenuClick}
               className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-slate-300 hover:text-slate-950 md:hidden"
               aria-label="Abrir menu"
             >
