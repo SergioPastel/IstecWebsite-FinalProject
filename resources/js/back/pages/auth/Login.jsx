@@ -48,36 +48,29 @@ export default function Login() {
                 value={data.email}
                 onChange={(e) => setData("email", e.target.value)}
               />
-              <div className="relative mt-3"></div>
 
-            <div className="relative">
+            <div className="relative mt-3">
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Palavra-passe"
-                className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-[#0d8fe8] pr-12"
+                className="w-full rounded-xl border border-slate-300 px-4 py-3 pr-12 text-sm outline-none focus:border-[#0d8fe8]"
                 value={data.password}
                 onChange={(e) => setData("password", e.target.value)}
               />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+               className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center text-slate-400 hover:text-[#0d8fe8]"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+
               {errors.email && (
                 <p className="mt-2 text-sm text-red-500">
                   Email ou palavra-passe incorretos.
                 </p>
               )}
-            </div>
-              
-
-              {/* Button to show/hide password */}
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-3 flex items-center text-slate-400 hover:text-[#0d8fe8] transition"
-              >
-                {showPassword ? (
-                  <EyeOff size={18} />
-                ) : (
-                  <Eye size={18} />
-                )}
-              </button>
             </div>
 
             {/* Forgot password */}
@@ -105,6 +98,7 @@ export default function Login() {
               >
                 ← Voltar ao site
               </Link>
+            </div>
             </div>
             </div>
         </form>

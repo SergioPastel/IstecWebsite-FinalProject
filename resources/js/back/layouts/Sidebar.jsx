@@ -1,5 +1,6 @@
 import logo from "../assets/_logo_branco.png";
 import { Link, usePage } from "@inertiajs/react";
+import { useEffect, useState } from "react";
 
 const navigationItems = [
   {
@@ -52,8 +53,30 @@ const navigationItems = [
   },
 ];
 
-export default function Sidebar({ isOpen, onClose }) {
+export default function Sidebar({
+  isMobileOpen,
+  isCollapsed,
+  onMobileClose,
+  onDesktopToggle,
+}) {
   const { props } = usePage();
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const syncIsDesktop = (event) => {
+      setIsDesktop(event.matches);
+    };
+
+    setIsDesktop(mediaQuery.matches);
+    mediaQuery.addEventListener("change", syncIsDesktop);
+
+    return () => {
+      mediaQuery.removeEventListener("change", syncIsDesktop);
+    };
+  }, []);
+
+  const isDesktopCollapsed = isDesktop && isCollapsed;
 
   const isActive = (routeName) => {
     try {
@@ -67,91 +90,194 @@ export default function Sidebar({ isOpen, onClose }) {
     <>
       <button
         type="button"
-        onClick={onClose}
+        onClick={onMobileClose}
         className={`fixed inset-0 z-30 bg-slate-950/45 transition md:hidden ${
-          isOpen ? "opacity-100" : "pointer-events-none opacity-0"
+          isMobileOpen ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         aria-label="Fechar menu"
       />
 
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-72 flex-col overflow-y-auto border-r border-white/10 bg-[#0C73B7] text-slate-100 transition-transform duration-300 md:translate-x-0 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed inset-y-0 left-0 z-40 flex overflow-y-auto border-r border-white/10 bg-[#0C73B7] text-slate-100 transition-[width,transform] duration-300 md:translate-x-0 ${
+          isDesktopCollapsed ? "md:w-24" : "md:w-72"
+        } ${isMobileOpen ? "w-72 translate-x-0" : "w-72 -translate-x-full"}`}
       >
-        <div className="border-b border-white/10 px-6 py-6">
-          <img src={logo} alt="ISTEC Porto" />
+        <div className="flex min-h-full w-full flex-col">
+          <div
+            className={`border-b border-white/10 ${
+              isDesktopCollapsed ? "px-3 py-4 md:px-4" : "px-6 py-6"
+            }`}
+          >
+            <div
+              className={`flex items-center ${
+                isDesktopCollapsed ? "justify-center" : "justify-between gap-3"
+              }`}
+            >
+              {isDesktopCollapsed ? (
+                <button
+                  type="button"
+                  onClick={onDesktopToggle}
+                  className="hidden h-12 w-12 items-center justify-center rounded-2xl border border-white/15 bg-white/10 text-white shadow-[0_14px_32px_rgba(0,0,0,0.18)] transition hover:bg-white/16 md:inline-flex"
+                  aria-label="Expandir sidebar"
+                  title="Expandir sidebar"
+                >
+                  <span className="text-sm font-semibold tracking-[0.2em]">
+                    IS
+                  </span>
+                </button>
+              ) : (
+                <>
+                  <div className="min-w-0">
+                    <img src={logo} alt="ISTEC Porto" className="max-w-[9.5rem]" />
 
-          <h1 className="mt-3 text-2xl font-semibold tracking-tight text-white">
-            Backoffice
-          </h1>
-          <p className="mt-2 text-sm leading-6 text-slate-300">
-            Gestao institucional de cursos, conteudos e operacoes internas.
-          </p>
-        </div>
+                    <h1 className="mt-3 text-2xl font-semibold tracking-tight text-white">
+                      Backoffice
+                    </h1>
+                    <p className="mt-2 text-sm leading-6 text-slate-300">
+                      Gestao institucional de cursos, conteudos e operacoes internas.
+                    </p>
+                  </div>
 
-        <nav className="flex-1 px-4 py-6">
-          <ul className="space-y-2">
-            {navigationItems.map((item) => {
-              const active = isActive(item.routeName);
-              const Icon = item.icon;
-
-              return (
-                <li key={item.routeName}>
-                  <Link
-                    href={item.href()}
-                    onClick={onClose}
-                    className={`group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition ${
-                      active
-                        ? "bg-[rgba(1, 164, 240, 0.18)] text-white shadow-[inset_0_0_0_1px_rgba(1, 164, 240, 0.45)]"
-                        : "text-slate-300 hover:bg-white/5 hover:text-white"
-                    }`}
+                  <button
+                    type="button"
+                    onClick={onDesktopToggle}
+                  className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/15 bg-white/10 text-white transition hover:bg-white/16 md:inline-flex"
+                    aria-label="Recolher sidebar"
+                    title="Recolher sidebar"
                   >
-                    <span
-                      className={`flex h-10 w-10 items-center justify-center rounded-2xl transition ${
-                        active
-                          ? "bg-[rgba(1, 164, 240, 0.18)] text-[var(--color-brand-secondary)]"
-                          : "bg-white/5 text-slate-300 group-hover:bg-white/10"
-                      }`}
-                    >
-                      <Icon />
-                    </span>
-                    <span className="flex-1">{item.label}</span>
-                    {active ? (
-                      <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-brand-secondary)]" />
-                    ) : null}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+                    <CollapseIcon />
+                  </button>
+                </>
+              )}
 
-        <div className="border-t border-white/10 px-4 py-4">
-          <div className="mb-4 rounded-2xl bg-white/5 px-4 py-4">
-            <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
-              Sessao atual
-            </p>
-            <p className="mt-2 text-sm font-semibold text-white">
-              {props.user?.name ?? "Administrador"}
-            </p>
-            <p className="mt-1 text-xs text-slate-400">
-              {props.user?.email ?? "admin@istec-porto.pt"}
-            </p>
+              <button
+                type="button"
+                onClick={onMobileClose}
+                className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/15 bg-white/10 text-white transition hover:bg-white/16 md:hidden"
+                aria-label="Fechar menu"
+              >
+                <CloseIcon />
+              </button>
+            </div>
           </div>
 
-          <Link
-            href={route("logout")}
-            method="post"
-            as="button"
-            className="flex w-full items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
+          <nav
+            className={`flex-1 ${
+              isDesktopCollapsed ? "px-2 py-5 md:px-3" : "px-4 py-6"
+            }`}
           >
-            Terminar sessao
-          </Link>
+            <ul className="space-y-2">
+              {navigationItems.map((item) => {
+                const active = isActive(item.routeName);
+                const Icon = item.icon;
+
+                return (
+                  <li key={item.routeName}>
+                    <Link
+                      href={item.href()}
+                      onClick={onMobileClose}
+                      title={isDesktopCollapsed ? item.label : undefined}
+                      aria-label={isDesktopCollapsed ? item.label : undefined}
+                      className={`group flex items-center rounded-2xl text-sm font-medium transition ${
+                        isDesktopCollapsed
+                          ? "justify-center px-2 py-3"
+                          : "gap-3 px-4 py-3"
+                      } ${
+                        active
+                          ? "bg-[rgba(1,164,240,0.18)] text-white shadow-[inset_0_0_0_1px_rgba(1,164,240,0.45)]"
+                          : "text-slate-300 hover:bg-white/5 hover:text-white"
+                      }`}
+                    >
+                      <span
+                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl transition ${
+                          active
+                            ? "bg-[rgba(1,164,240,0.18)] text-[var(--color-brand-secondary)]"
+                            : "bg-white/5 text-slate-300 group-hover:bg-white/10"
+                        }`}
+                      >
+                        <Icon />
+                      </span>
+
+                      {!isDesktopCollapsed ? (
+                        <>
+                          <span className="flex-1">{item.label}</span>
+                          {active ? (
+                            <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-brand-secondary)]" />
+                          ) : null}
+                        </>
+                      ) : null}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+
+          <div
+            className={`border-t border-white/10 ${
+              isDesktopCollapsed ? "px-3 py-4" : "px-4 py-4"
+            }`}
+          >
+            {!isDesktopCollapsed ? (
+              <div className="mb-4 rounded-2xl bg-white/5 px-4 py-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
+                  Sessao atual
+                </p>
+                <p className="mt-2 text-sm font-semibold text-white">
+                  {props.user?.name ?? "Administrador"}
+                </p>
+                <p className="mt-1 text-xs text-slate-400">
+                  {props.user?.email ?? "admin@istec-porto.pt"}
+                </p>
+              </div>
+            ) : (
+              <div className="mb-3 hidden justify-center md:flex">
+                <div
+                  className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/8 text-sm font-semibold text-white"
+                  title={props.user?.name ?? "Administrador"}
+                  aria-hidden="true"
+                >
+                  {getInitials(props.user?.name)}
+                </div>
+              </div>
+            )}
+
+            <Link
+              href={route("logout")}
+              method="post"
+              as="button"
+              title={isDesktopCollapsed ? "Terminar sessao" : undefined}
+              aria-label={isDesktopCollapsed ? "Terminar sessao" : undefined}
+              className={`flex rounded-2xl border border-white/10 bg-white/5 text-sm font-semibold text-slate-100 transition hover:bg-white/10 ${
+                isDesktopCollapsed
+                  ? "w-full items-center justify-center px-3 py-3 md:mx-auto md:w-12"
+                  : "w-full items-center justify-center gap-2 px-4 py-3"
+              }`}
+            >
+              {isDesktopCollapsed ? (
+                <LogoutIcon />
+              ) : (
+                <>
+                  <LogoutIcon className="h-4 w-4" />
+                  <span>Terminar sessao</span>
+                </>
+              )}
+            </Link>
+          </div>
         </div>
       </aside>
     </>
   );
+}
+
+function getInitials(name = "") {
+  const parts = name.trim().split(/\s+/).filter(Boolean).slice(0, 2);
+
+  if (parts.length === 0) {
+    return "AD";
+  }
+
+  return parts.map((part) => part[0]?.toUpperCase() ?? "").join("");
 }
 
 function IconShell({ children }) {
@@ -165,6 +291,54 @@ function IconShell({ children }) {
       aria-hidden="true"
     >
       {children}
+    </svg>
+  );
+}
+
+function CollapseIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className="h-5 w-5"
+      aria-hidden="true"
+    >
+      <path d="M15 6 9 12l6 6" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className="h-5 w-5"
+      aria-hidden="true"
+    >
+      <path d="m6 6 12 12" />
+      <path d="M18 6 6 18" />
+    </svg>
+  );
+}
+
+function LogoutIcon({ className = "h-5 w-5" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M10 17v2a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v2" />
+      <path d="M15 12H4" />
+      <path d="m8 8-4 4 4 4" />
     </svg>
   );
 }
