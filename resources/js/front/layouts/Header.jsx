@@ -253,16 +253,18 @@ function Header({}) {
                   setSearchOpen(false);
                   setPrivateOpen((prev) => !prev);
                 }}
-                className="flex items-center gap-2 text-[15px] font-bold text-[#1d1d1b] hover:text-[#0c73b7] transition"
+                className="flex items-center gap-2 text-[15px] font-basic text-[#1d1d1b] hover:text-[#0c73b7] transition"
               >
                 {t("header.privateArea")}
                 <svg
-                  className={`w-4 h-4 transition-transform duration-300 ${privateOpen ? "rotate-180" : ""}`}
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
+                    className={`w-5 h-5 text-[#0c73b7] transition-transform duration-300 ${
+                      privateOpen ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.8"
+                    viewBox="0 0 24 24"
+                  >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -356,35 +358,47 @@ function Header({}) {
                         setPrivateOpen(false);
                         setSearchOpen(true);
                       }}
-                      className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 transition hover:bg-[#0d8fe8] hover:text-white"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-[#0c73b7] hover:bg-[#f5faff] hover:text-[#0c73b7]"
+                      aria-label="Pesquisar"
                     >
-                      🔍
+                      <svg className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m1.1-5.15a6.25 6.25 0 11-12.5 0 6.25 6.25 0 0112.5 0z" />
+                      </svg>
                     </button>
                   ) : (
-                    <div className="flex items-center gap-2">
-                      <input
-                        type="text"
-                        autoFocus
-                        placeholder={t("header.searchPlaceholder")}
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            e.preventDefault();
-                            submitSearch();
-                          }
+                    <form
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          submitSearch();
                         }}
-                        className="w-[190px] h-[34px] border border-[#dbe4ee] rounded-full px-3 text-[14px] outline-none focus:border-[#0c73b7] focus:ring-2 focus:ring-[#0c73b7]/20"
+                        className="flex items-center gap-2"
+                      >
+                        <input
+                          type="text"
+                          autoFocus
+                          placeholder={t("header.searchPlaceholder")}
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                              submitSearch();
+                            }
+                        }}
+                        className="h-9 w-[210px] rounded-full border border-slate-200 bg-white px-4 text-[14px] text-slate-700 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-[#0c73b7] focus:ring-4 focus:ring-[#0c73b7]/10"
                       />
 
                       <button
                         type="button"
                         onClick={submitSearch}
-                        className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 transition hover:bg-[#0d8fe8] hover:text-white"
+                        className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0c73b7] text-white shadow-sm transition hover:bg-[#095f98]"
+                        aria-label="Submeter pesquisa"
                       >
-                        🔍
+                        <svg className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m1.1-5.15a6.25 6.25 0 11-12.5 0 6.25 6.25 0 0112.5 0z" />
+                        </svg>
                       </button>
-                    </div>
+                    </form>
                   )}
                 </div>
           </div>

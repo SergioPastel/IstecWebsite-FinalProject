@@ -32,8 +32,8 @@
       "description": "Submeter candidatura"
     },
     "events": {
-      "title": "Eventos",
-      "description": "Ver eventos"
+      "title": "Eventos e notícias",
+      "description": "Ver eventos e notícias"
     },
     "contacts": {
       "title": "Contactos",
@@ -42,13 +42,13 @@
     "viewMore": "Ver mais →",
     "coursesSection": {
       "trainingOffer": "Oferta Formativa",
-      "findRightCourse": "Encontra o curso certo para ti",
+      "findRightCourse": "Novos caminhos começam aqui",
       "viewAllOffer": "Ver toda a oferta →",
       "learnMore": "Saber mais"
     },
     "eventsNewsSection": {
       "eventsNews": "Eventos & Notícias",
-      "stayUpdated": "Fica a par do que está a acontecer",
+      "stayUpdated": "Não percas nada do que está a acontecer",
       "viewAll": "Ver tudo →",
       "readMore": "Ler mais"
     },

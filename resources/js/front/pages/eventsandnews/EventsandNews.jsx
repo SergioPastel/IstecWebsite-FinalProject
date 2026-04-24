@@ -142,105 +142,101 @@ export default function EventsandNews({
       </Banner>
 
       <section className="relative -mt-8 z-10 pb-2">
-        <div className="max-w-[1600px] mx-auto px-6">
-          <div className="bg-white border border-[#e5e7eb] rounded-[24px] shadow-[0_12px_30px_rgba(15,23,42,0.06)] p-5 md:p-6 flex flex-col gap-4">
-            <div className="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
-            <div className="flex flex-wrap gap-3">
-                 <button
-                    onClick={() => {
-                      setActiveFilter("all");
-                      setSubFilter("all");
-                    }}
-                    className={`px-5 py-2.5 rounded-full font-semibold transition-all duration-300 ${
-                      activeFilter === "all"
-                        ? "bg-[#0d8fe8] text-white shadow"
-                        : "bg-[#f3f4f6] text-[#374151] hover:bg-[#e8eef5]"
-                    }`}
-                  >
-                    {t("updates.filters.all", "Todos")}
-                  </button>
+  <div className="max-w-[1600px] mx-auto px-6">
+    <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-4">
+        <div className="relative">
+          <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-[#94a3b8]">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="h-4 w-4"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="16.5" y1="16.5" x2="21" y2="21" />
+            </svg>
+          </div>
 
-                  <button
-                    onClick={() => {
-                      setActiveFilter("events");
-                      setSubFilter("all");
-                    }}
-                    className={`px-5 py-2.5 rounded-full font-semibold transition-all duration-300 ${
-                      activeFilter === "events"
-                        ? "bg-[#0d8fe8] text-white shadow"
-                        : "bg-[#f3f4f6] text-[#374151] hover:bg-[#e8eef5]"
-                    }`}
-                  >
-                    {t("updates.filters.events", "Eventos")}
-                  </button>
+          <input
+            type="text"
+            placeholder={t("updates.search.placeholder", "Pesquisar notícias ou eventos...")}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full rounded-[18px] border border-[#dbe4ee] bg-white px-11 py-4 pr-32 text-sm text-[#1f2937] outline-none focus:ring-2 focus:ring-[#0d8fe8]"
+          />
 
-                  <button
-                    onClick={() => {
-                      setActiveFilter("news");
-                      setSubFilter("all");
-                    }}
-                    className={`px-5 py-2.5 rounded-full font-semibold transition-all duration-300 ${
-                      activeFilter === "news"
-                        ? "bg-[#0d8fe8] text-white shadow"
-                        : "bg-[#f3f4f6] text-[#374151] hover:bg-[#e8eef5]"
-                    }`}
-                  >
-                    {t("updates.filters.news", "Notícias")}
-                  </button>
-                </div>
+          <div className="absolute right-2 top-1/2 -translate-y-1/2">
+            <button
+              type="button"
+              className="rounded-full bg-[#0d8fe8] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#0a78c4]"
+            >
+              Pesquisar
+            </button>
+          </div>
+        </div>
 
-                <div className="w-full lg:w-[340px] max-[640px]:min-w-0">
-                  <input
-                    type="text"
-                    placeholder={t(
-                      "updates.search.placeholder",
-                      "Pesquisar notícias ou eventos..."
-                    )}
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="w-full rounded-full border border-[#e5e7eb] bg-[#f9fafb] px-5 py-3 outline-none transition focus:border-[#0d8fe8] focus:bg-white"
-                  />
-                </div>
-              </div>
+        <select
+          value={activeFilter}
+          onChange={(e) => {
+            setActiveFilter(e.target.value);
+            setSubFilter("all");
+            setCurrentPage(1);
+          }}
+          className="w-full rounded-[18px] border border-[#dbe4ee] bg-white px-4 py-4 text-sm text-[#1f2937] outline-none focus:ring-2 focus:ring-[#0d8fe8]"
+        >
+          <option value="all">{t("updates.filters.all", "Todos")}</option>
+          <option value="events">{t("updates.filters.events", "Eventos")}</option>
+          <option value="news">{t("updates.filters.news", "Notícias")}</option>
+        </select>
+      </div>
 
-              {activeFilter === "events" && (
-                <div className="flex flex-wrap gap-3 pt-1">
-                  {eventSubFilters.map((filter) => (
-                    <button
-                      key={filter.key}
-                      onClick={() => setSubFilter(filter.key)}
-                      className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
-                        subFilter === filter.key
-                          ? "bg-[#0d8fe8] text-white shadow"
-                          : "bg-white border border-[#dbe4ee] text-[#374151] hover:bg-[#f8fafc]"
-                      }`}
-                    >
-                      {filter.label}
-                    </button>
-                  ))}
-                </div>
-              )}
+      {activeFilter === "events" && (
+        <div className="flex flex-wrap gap-3">
+          {eventSubFilters.map((filter) => (
+            <button
+              key={filter.key}
+              onClick={() => {
+                setSubFilter(filter.key);
+                setCurrentPage(1);
+              }}
+              className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                subFilter === filter.key
+                  ? "bg-[#0d8fe8] text-white shadow"
+                  : "bg-white border border-[#dbe4ee] text-[#374151] hover:bg-[#f8fafc]"
+              }`}
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
+      )}
 
-              {activeFilter === "news" && (
-                <div className="flex flex-wrap gap-3 pt-1">
-                  {newsSubFilters.map((filter) => (
-                    <button
-                      key={filter.key}
-                      onClick={() => setSubFilter(filter.key)}
-                      className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
-                        subFilter === filter.key
-                          ? "bg-[#0d8fe8] text-white shadow"
-                          : "bg-white border border-[#dbe4ee] text-[#374151] hover:bg-[#f8fafc]"
-                      }`}
-                    >
-                      {filter.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-            </div>
-        </section>
+      {activeFilter === "news" && (
+        <div className="flex flex-wrap gap-3">
+          {newsSubFilters.map((filter) => (
+            <button
+              key={filter.key}
+              onClick={() => {
+                setSubFilter(filter.key);
+                setCurrentPage(1);
+              }}
+              className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                subFilter === filter.key
+                  ? "bg-[#0d8fe8] text-white shadow"
+                  : "bg-white border border-[#dbe4ee] text-[#374151] hover:bg-[#f8fafc]"
+              }`}
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</section>
 
       {featuredItem && (
         <section className="py-10">

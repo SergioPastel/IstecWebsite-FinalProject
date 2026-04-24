@@ -1,5 +1,6 @@
 import { Link } from "@inertiajs/react";
 import React from "react";
+import { FaInstagram, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 
 export default function Footer() {
@@ -19,7 +20,36 @@ export default function Footer() {
             <p className="max-w-[320px] text-gray-400 leading-7">
               {t('footer.description')}
             </p>
+           <div className="mt-6 flex items-center gap-4">
+  <a
+    href="https://www.instagram.com/istec.porto/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="p-2 rounded-xl border border-white/10 bg-white/5 hover:bg-[#0d8fe8] transition group"
+  >
+    <FaInstagram className="w-5 h-5 text-gray-300 group-hover:text-white" />
+  </a>
+
+  <a
+    href="https://www.facebook.com/ISTECP/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="p-2 rounded-xl border border-white/10 bg-white/5 hover:bg-[#0d8fe8] transition group"
+  >
+    <FaFacebookF className="w-5 h-5 text-gray-300 group-hover:text-white" />
+  </a>
+
+  <a
+    href="https://www.linkedin.com/school/istecporto/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="p-2 rounded-xl border border-white/10 bg-white/5 hover:bg-[#0d8fe8] transition group"
+  >
+    <FaLinkedinIn className="w-5 h-5 text-gray-300 group-hover:text-white" />
+  </a>
+</div>
           </div>
+          
 
           <div>
             <h4 className="mb-4 text-[1rem] font-semibold text-white">
