@@ -13,11 +13,19 @@ function getCourseText(value, lang) {
     return String(value);
 }
 
+function normalizeText(value) {
+    return String(value ?? '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+}
+
 export default function CtespIndex({ courses, filters = {} }) {
     const { t, i18n } = useTranslation();
     const lang = i18n.language?.startsWith('en') ? 'en' : 'pt';
 
     const [query, setQuery] = useState(filters?.q ?? '');
+    const [searchTerm, setSearchTerm] = useState(filters?.q ?? '');
     const [sortBy, setSortBy] = useState('relevance');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
@@ -29,7 +37,16 @@ export default function CtespIndex({ courses, filters = {} }) {
     }, [courses]);
 
     const sortedCourseItems = useMemo(() => {
-        const items = [...courseItems];
+        const search = normalizeText(query.trim());
+
+        let items = [...courseItems];
+
+        if (search) {
+            items = items.filter((course) => {
+                const title = normalizeText(getCourseText(course.title, lang));
+                return title.includes(search);
+            });
+        }
 
         if (sortBy === 'name_asc') {
             items.sort((a, b) => {
@@ -46,7 +63,7 @@ export default function CtespIndex({ courses, filters = {} }) {
         }
 
         return items;
-    }, [courseItems, sortBy, lang]);
+    }, [courseItems, sortBy, lang, query]);
 
     const totalPages = Math.ceil(sortedCourseItems.length / itemsPerPage);
 
@@ -68,15 +85,10 @@ export default function CtespIndex({ courses, filters = {} }) {
 
     const resultsCount = courses?.total ?? sortedCourseItems.length;
 
-    const applyFilters = (next = {}) => {
-        // router.get(
-        //     route('courses.ctesp'),
-        //     {
-        //         q: next.q ?? query ?? undefined,
-        //     },
-        //     { preserveScroll: true, preserveState: true, replace: true }
-        // );
-    };
+     const applyFilters = (next = {}) => {
+    setSearchTerm(next.q ?? query);
+    setCurrentPage(1);
+};
 
     return (
         <Layout title={t('courses.ctesp.pageTitle')}>

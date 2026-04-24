@@ -313,7 +313,7 @@ function Header({}) {
                 <Link
                   href={route("dashboard")}
                   onClick={() => setPrivateOpen(false)}
-                  className="block px-4 py-3 text-[14px] font-semibold text-[#1d1d1b] hover:bg-[#f5f8fc] hover:text-[#0c73b7] transition"
+                  className="block px-4 py-3 text-[14px] font-normal text-[#1d1d1b] hover:bg-[#f5f8fc] hover:text-[#0c73b7] transition"
                 >
                   {t("header.administration")}
                 </Link>

@@ -3,6 +3,13 @@ import { Link } from "@inertiajs/react";
 import Layout from "../../layouts/Layout";
 import { useTranslation } from "react-i18next";
 import Banner from "../../components/common/Banner";
+import fuero from "../../assets/fuero-games.png";
+import torino from "../../assets/instituto-torino.png";
+import centre from "../../assets/centre-estudis-politecnics.png";
+import nkey from "../../assets/Nkey.png";
+import politecnica from "../../assets/Politecnica.png";
+import reyjuan from "../../assets/Reyjuan.jpg";
+import ds from "../../assets/DSConsulting.jpg";
 
 export default function Erasmus() {
   const { t } = useTranslation();
@@ -19,10 +26,15 @@ export default function Erasmus() {
     { value: "100%", label: t("erasmusPage.highlights.2") },
   ];
 
-  const partners = [
-    { id: 1, name: "Universidade X", logo: "/logos/uni1.png" },
-    { id: 2, name: "Empresa Y", logo: "/logos/empresa2.png" },
-  ];
+ const partners = [
+  { id: 1, name: "Fuero Games", logo: fuero },
+  { id: 2, name: "Instituto Torino", logo: torino },
+  { id: 3, name: "Centre d'Estudis Politècnics", logo: centre },
+  { id: 4, name: "NKey", logo: nkey },
+  { id: 5, name: "Politécnica", logo: politecnica },
+  { id: 6, name: "Rey Juan Carlos", logo: reyjuan },
+  { id: 7, name: "DS Consulting", logo: ds },
+];
 
 
   const steps = [
@@ -135,21 +147,28 @@ export default function Erasmus() {
           </section>
 
           <section className="pb-16">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
+            <div className="max-w-7xl mx-auto px-6 md:px-10">
+              <div className="mb-10">
+                <h2 className="text-3xl font-bold text-slate-800">
+                  Protocolos Internacionais
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-x-20 gap-y-14 items-center">
                 {partners.map((partner) => (
                   <div
                     key={partner.id}
-                    className="flex items-center justify-center p-4 bg-white rounded-xl border border-[#e2e8f0] hover:shadow-md transition"
+                    className="flex items-center justify-center min-h-[120px]"
                   >
                     <img
                       src={partner.logo}
                       alt={partner.name}
-                      className="h-10 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition duration-300"
+                      className="max-h-[90px] max-w-[200px] object-contain"
                     />
                   </div>
                 ))}
               </div>
-            
+            </div>
           </section>
 
           <section className="pb-16">

@@ -51,6 +51,7 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
     const lang = i18n.language?.startsWith('en') ? 'en' : 'pt';
 
     const [query, setQuery] = useState(filters?.q ?? '');
+    const [searchTerm, setSearchTerm] = useState(filters?.q ?? '');
     const [sortBy, setSortBy] = useState('relevance');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
@@ -62,8 +63,17 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
     }, [courses]);
 
    
- const sortedCourseItems = useMemo(() => {
-    const items = [...courseItems];
+const sortedCourseItems = useMemo(() => {
+    const search = normalizeText(query.trim());
+
+    let items = [...courseItems];
+
+    if (search) {
+        items = items.filter((course) => {
+            const title = normalizeText(getCourseText(course.title, lang));
+            return title.includes(search);
+        });
+    }
 
     if (sortBy === 'name_asc') {
         items.sort((a, b) => {
@@ -80,7 +90,7 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
     }
 
     return items;
-}, [courseItems, sortBy, lang]);
+}, [courseItems, sortBy, lang, query]);
 
     const totalPages = Math.ceil(sortedCourseItems.length / itemsPerPage);
 
@@ -103,13 +113,8 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
     const resultsCount = sortedCourseItems.length;
 
     const applyFilters = (next = {}) => {
-        router.get(
-            window.location?.pathname ?? '/courses/pos-graduacoes',
-            {
-                q: next.q ?? query ?? undefined,
-            },
-            { preserveScroll: true, preserveState: true, replace: true }
-        );
+        setSearchTerm(next.q ?? query);
+        setCurrentPage(1);
     };
 
     return (
@@ -320,14 +325,14 @@ export default function PosGraduacoesIndex({ courses, filters = {} }) {
                                                 <div className="mt-auto flex gap-3 pt-6">
                                                     <Link
                                                         href={route('courses.show', course.id)}
-                                                        className="flex-1 rounded-full bg-[#7c3aed] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#6d28d9]"
+                                                        className="flex-1 rounded-full bg-[#0d8fe8] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#0a78c4]"
                                                     >
                                                         {t('courses.moreInfo')}
                                                     </Link>
 
                                                     <button
                                                         type="button"
-                                                        className="flex-1 rounded-full border border-[rgba(124,58,237,0.22)] bg-transparent px-4 py-3 text-sm font-bold text-[#7c3aed] transition hover:bg-[#f3e8ff]"
+                                                       className="flex-1 rounded-full border border-[#0d8fe8] bg-white px-4 py-3 text-sm font-bold text-[#0d8fe8] transition hover:bg-[#e7f3ff] hover:text-[#0a78c4]"
                                                         onClick={() => {
                                                             window.umami?.track('pos_graduacao_apply_click', {
                                                                 course_id: course.id,
