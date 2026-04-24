@@ -329,7 +329,7 @@ export default function CourseCreateForm({
   course = null,
   isEdit = false,
 }) {
-
+  const initialCourse = course?.data ?? course ?? {}; // ← add this
   const buildInitialSemesters = () => {
     const years = initialCourse.duration_years ?? 1;
     const count = years * 2;
