@@ -2,17 +2,16 @@ import { Link } from "@inertiajs/react";
 import BackofficeLayout from "../../layouts/BackofficeLayout";
 import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
-import EmptyState from "../../components/ui/EmptyState";
 import CourseCreateForm from "../../components/common/CourseCreateForm";
 
-export default function CreateCourse({categories = []}) {
+export default function CreateCourse({ categories = [], subjects = [] }) {
   return (
     <BackofficeLayout
       title="Novo curso"
       subtitle="Criação de um novo curso."
       searchPlaceholder="Pesquisar cursos"
     >
-     <div className="space-y-6">
+      <div className="space-y-6">
         <PageHeader
           eyebrow="Novo Curso"
           title="Criar curso"
@@ -28,10 +27,11 @@ export default function CreateCourse({categories = []}) {
           ]}
         />
 
-        <SectionCard 
-        title="Formulario" 
-        subtitle="Dados principais do curso">
-          <CourseCreateForm categories={categories}/>
+        <SectionCard
+          title="Formulário"
+          subtitle="Dados principais do curso"
+        >
+          <CourseCreateForm categories={categories} subjects={subjects} />
         </SectionCard>
       </div>
     </BackofficeLayout>

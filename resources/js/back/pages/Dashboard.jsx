@@ -1,4 +1,5 @@
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
+import { useEffect } from "react";
 import BackofficeLayout from "../layouts/BackofficeLayout";
 import PageHeader from "../components/ui/PageHeader";
 import SectionCard from "../components/ui/SectionCard";
@@ -61,6 +62,16 @@ const latestContacts = [
 ];
 
 export default function Dashboard({ analytics = {}, user }) {
+  useEffect(() => {
+    router.post(
+      "/locale",
+      { locale: "pt" },
+      {
+        preserveScroll: true,
+      }
+    );
+  }, []);
+
   const metrics = [
     {
       label: "Total de cursos",
