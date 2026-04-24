@@ -15,7 +15,6 @@ export default function CreateCourse() {
         <PageHeader
           eyebrow="Academics"
           title="Criar curso"
-          description="A base visual ja esta integrada no novo backoffice. O formulario final pode ser ligado aqui sem refazer a estrutura."
           actions={[
             <Link
               key="back"
@@ -30,8 +29,7 @@ export default function CreateCourse() {
         <SectionCard title="Formulario" subtitle="Placeholder preparado para evolucao.">
           <EmptyState
             compact
-            title="Formulario de criacao ainda por ligar."
-            description="Mantive a pagina integrada com o novo layout para que o modulo continue coerente enquanto o backend e os campos finais sao fechados."
+            title="Formulario de criacao."
           />
         </SectionCard>
       </div>

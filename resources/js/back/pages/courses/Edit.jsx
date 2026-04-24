@@ -8,7 +8,6 @@ export default function EditCourse({ course }) {
   return (
     <BackofficeLayout
       title="Editar curso"
-      subtitle="Espaco preparado para edicao sem quebrar a navegacao do novo backoffice."
       searchPlaceholder="Pesquisar no modulo de cursos"
     >
       <div className="space-y-6">
@@ -31,7 +30,6 @@ export default function EditCourse({ course }) {
           <EmptyState
             compact
             title="Edicao detalhada ainda por concluir."
-            description="A pagina ja esta alinhada com o novo sistema visual e pronta para receber os campos reais do curso."
           />
         </SectionCard>
       </div>

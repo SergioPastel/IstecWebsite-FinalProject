@@ -19,7 +19,6 @@ export default function CoursesIndexBack({ courses }) {
   return (
     <BackofficeLayout
       title="Cursos"
-      subtitle="Organize a oferta formativa e prepare a area para futuras operacoes editoriais."
       searchPlaceholder="Pesquisar cursos"
     >
       {({ searchQuery }) => {
@@ -51,7 +50,6 @@ export default function CoursesIndexBack({ courses }) {
           {rows.length === 0 ? (
             <EmptyState
               title="Ainda nao existem cursos registados."
-              description="Quando a equipa adicionar a oferta formativa, esta vista pode evoluir para incluir filtros, estados, imagens e destaque institucional."
             />
           ) : filteredRows.length === 0 ? (
             <EmptyState
