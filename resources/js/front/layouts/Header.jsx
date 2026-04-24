@@ -101,11 +101,18 @@ function Header({}) {
     );
   };
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    console.log("Pesquisar:", search);
-  };
+  const submitSearch = () => {
+  const trimmedSearch = search.trim();
 
+  console.log("submitSearch", trimmedSearch);
+
+  if (!trimmedSearch) return;
+
+  window.location.href = `/search?q=${encodeURIComponent(trimmedSearch)}`;
+
+  setSearchOpen(false);
+  setSearch("");
+};
     const topLinks = [
     {
       type: "external",
@@ -132,7 +139,7 @@ function Header({}) {
   const mainNav = [
     {
       key: "istec-porto",
-      titleKey: "istecPorto",      
+      titleKey: "istecPorto",
       children: [
         { href: route("home"), labelKey: "home" },
         { href: route("about"), labelKey: "aboutIstec" },
@@ -144,7 +151,7 @@ function Header({}) {
       children: [
         { href: route('courses.ctesp'), labelKey: "ctesp" },
         { href: route('courses.licenciatura'), labelKey: "licenciatura" },
-        { href: route('courses.posGraduacao'), labelKey: "pos-graduacao" },    
+        { href: route('courses.posGraduacao'), labelKey: "pos-graduacao" },
         { href: route('applications.courses.apply'), labelKey: "applications" },
       ],
     },
@@ -311,66 +318,81 @@ function Header({}) {
               </div>
             </div>
 
-            <div
-              className="flex items-center gap-2 ml-2 relative"
-              ref={searchRef}
-            >
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setLanguage("pt")}
-                  className={`text-[15px] font-semibold hover:cursor-pointer ${
-                    i18n.language === "pt" ? "text-[#0c73b7]" : "text-[#1d1d1b]"
-                  }`}
+              <div
+                  className="flex items-center gap-2 ml-2 relative"
+                  ref={searchRef}
                 >
-                  PT
-                </button>
+                  <div className="relative flex items-center bg-[#eef6ff] rounded-full p-1 w-[110px]">
+                    <div
+                      className={`absolute h-8 w-[50px] bg-[#0c73b7] rounded-full shadow transition-all duration-300 ${
+                        i18n.language === "en" ? "translate-x-[52px]" : "translate-x-0"
+                      }`}
+                    ></div>
 
-                <Divider className="h-5 mx-1! inline-block! bg-gray-800 self-center" />
+                    <button
+                      onClick={() => setLanguage("pt")}
+                      className={`relative z-10 w-1/2 text-xs font-bold transition ${
+                        i18n.language === "pt" ? "text-white" : "text-[#0c73b7]"
+                      }`}
+                    >
+                      PT
+                    </button>
 
-                <button
-                  onClick={() => setLanguage("en")}
-                  className={`text-[15px] font-semibold hover:cursor-pointer ${
-                    i18n.language === "en" ? "text-[#0c73b7]" : "text-[#1d1d1b]"
-                  }`}
-                >
-                  EN
-                </button>
-              </div>
+                    <button
+                      onClick={() => setLanguage("en")}
+                      className={`relative z-10 w-1/2 text-xs font-bold transition ${
+                        i18n.language === "en" ? "text-white" : "text-[#0c73b7]"
+                      }`}
+                    >
+                      EN
+                    </button>
+                  </div>
 
-              <div className="flex flex-row-reverse items-center gap-2">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setPrivateOpen(false);
-                    setSearchOpen((prev) => !prev);
-                  }}
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 transition hover:bg-[#0d8fe8] hover:text-white"
-                >
-                  🔍
-                </button>
+                  {!searchOpen ? (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setPrivateOpen(false);
+                        setSearchOpen(true);
+                      }}
+                      className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 transition hover:bg-[#0d8fe8] hover:text-white"
+                    >
+                      🔍
+                    </button>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        autoFocus
+                        placeholder={t("header.searchPlaceholder")}
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault();
+                            submitSearch();
+                          }
+                        }}
+                        className="w-[190px] h-[34px] border border-[#dbe4ee] rounded-full px-3 text-[14px] outline-none focus:border-[#0c73b7] focus:ring-2 focus:ring-[#0c73b7]/20"
+                      />
 
-                <form
-                  onSubmit={handleSearchSubmit}
-                  className={`overflow-hidden transition-all duration-300 ${
-                    searchOpen ? "w-[190px] opacity-100" : "w-0 opacity-0"
-                  }`}
-                >
-                  <input
-                    type="text"
-                    placeholder={t("header.searchPlaceholder")}
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="w-full h-[34px] border border-[#dbe4ee] rounded-full px-3 text-[14px] outline-none focus:border-[#0c73b7] focus:ring-2 focus:ring-[#0c73b7]/20"
-                  />
-                </form>
-              </div>
-            </div>
+                      <button
+                        type="button"
+                        onClick={submitSearch}
+                        className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 transition hover:bg-[#0d8fe8] hover:text-white"
+                      >
+                        🔍
+                      </button>
+                    </div>
+                  )}
+                </div>
           </div>
         </div>
       </div>
 
       <div className={`${scrolled ? "shadow-md" : ""} bg-[#0C73B7]`}>
-      
+
         <div
           className={`${
             menuOpen ? "flex" : "hidden"

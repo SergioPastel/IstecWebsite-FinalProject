@@ -2,37 +2,36 @@ import { Link } from "@inertiajs/react";
 import BackofficeLayout from "../../layouts/BackofficeLayout";
 import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
-import EmptyState from "../../components/ui/EmptyState";
+import NewsCreateForm from "../../components/common/NewsCreateForm";
 
 export default function CreateNews() {
   return (
     <BackofficeLayout
-      title="Nova noticia"
-      subtitle="Espaco reservado para criacao editorial."
-      searchPlaceholder="Pesquisar no modulo de noticias"
+      title="Nova notícia"
+      subtitle="Criação de uma nova notícia."
+      searchPlaceholder="Pesquisar Notícias"
     >
       <div className="space-y-6">
         <PageHeader
-          eyebrow="Editorial"
-          title="Criar noticia"
-          //description="A pagina ficou pronta para receber um formulario real sem voltar a mexer no layout estrutural."
+          eyebrow="Notícias"
+          title="Criar notícia"
+          description="Preenche o formulário abaixo para criar uma nova notícia."
           actions={[
             <Link
               key="back"
               href={route("backoffice.news")}
               className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
             >
-              Voltar a noticias
+              Voltar à lista de notícias
             </Link>,
           ]}
         />
 
-        <SectionCard title="Formulario" subtitle="Placeholder preparado para evolucao.">
-          <EmptyState
-            compact
-            title="Formulario de noticia ainda por ligar."
-            description="Mantive a integracao visual pronta para que a equipa possa evoluir este modulo sem duplicar estrutura."
-          />
+        <SectionCard
+          title="Formulário"
+          subtitle="Dados principais da notícia"
+        >
+          <NewsCreateForm />
         </SectionCard>
       </div>
     </BackofficeLayout>

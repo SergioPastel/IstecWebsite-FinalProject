@@ -1,3 +1,4 @@
+import logo from "../assets/_logo_branco.png";
 import { Link, usePage } from "@inertiajs/react";
 
 const navigationItems = [
@@ -79,9 +80,8 @@ export default function Sidebar({ isOpen, onClose }) {
         }`}
       >
         <div className="border-b border-white/10 px-6 py-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--color-brand-secondary)]">
-            ISTEC Porto
-          </p>
+          <img src={logo} alt="ISTEC Porto" />
+
           <h1 className="mt-3 text-2xl font-semibold tracking-tight text-white">
             Backoffice
           </h1>

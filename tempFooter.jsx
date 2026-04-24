@@ -36,14 +36,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href={route("courses")}
-                  className="transition-colors duration-300 hover:text-[#0d8fe8]"
-                >
-                  {t('footer.courses')}
-                </Link>
-              </li>
-              <li>
-                <Link
                   href={route("eventsandnews")}
                   className="transition-colors duration-300 hover:text-[#0d8fe8]"
                 >

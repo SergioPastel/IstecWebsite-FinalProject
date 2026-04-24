@@ -1,8 +1,22 @@
 <x-mail::message>
-# Obrigado por entrar em contacto com o Istec Porto!
+
+<p style="text-align: center; margin-bottom: 20px;">
+    <img src="{{ asset('/storage/media/logo/istec-logo.png') }}" alt="Logo" style="max-height: 60px;">
+</p>
+
+# Obrigado pelo seu contacto!
 
 Olá {{ $contact->name }},
 
-Nós recebemos a sua mensagem e entraremos em contacto logo.
+Recebemos a sua mensagem com sucesso. 👍
+
+<x-mail::panel>
+A nossa equipa irá analisar o seu pedido e responder o mais brevemente possível.
+</x-mail::panel>
+
+Se precisar de acrescentar alguma informação, basta responder a este email.
+
+Cumprimentos,  
+**Equipa Istec Porto**
 
 </x-mail::message>

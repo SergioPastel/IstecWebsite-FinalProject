@@ -86,6 +86,18 @@
       "courses": {
         "title": "Cursos",
         "description": "Explorar formação"
+    },
+    "ctesp": {
+      "title": "CTeSP",
+      "description": "Explorar cursos CTeSP"
+      },
+      "licenciatura": {
+        "title": "Licenciaturas",
+        "description": "Explorar licenciaturas"
+      },
+      "pos": {
+        "title": "Pós-Graduações",
+        "description": "Explorar pós-graduações"
       },
       "applications": {
         "title": "Candidaturas",
@@ -101,6 +113,7 @@
       },
       "viewMore": "Ver mais →"
     }
+    
   },
   "applicationsForm": {
     "common": {
@@ -125,7 +138,11 @@
       "noValue": "—",
       "cv": "CV",
       "identityDocument": "Documento de identificação",
-      "certificate": "Certificado / comprovativo"
+      "certificate": "Certificado / comprovativo",
+      "acceptPrefix": "Aceito os",
+      "terms": "Termos e Condições",
+      "and": "e a",
+      "privacy": "Política de Privacidade"
     },
     "course": {
       "pageTitle": "Candidatura a Curso",
@@ -215,6 +232,7 @@
   "nav": {
     "home": "Início",
     "aboutIstec": "Sobre ISTEC",
+    "courses": "Cursos",
     "mission": "Finalidade e Projeto Educativo",
     "orgaos": "Órgãos do Instituto",
     "organograma": "Organograma",
@@ -294,6 +312,63 @@
     "months": "meses",
     "learnMore": "Saber +",
     "enroll": "Inscrever",
+    "detail": {
+      "fallbackTitle": "Nome do curso",
+      "fallbackCategory": "Curso",
+      "fallbackDescription": "Descrição do curso a definir.",
+      "heroEyebrow": "Formação avançada em tecnologia e inovação",
+      "consult": "Consultar",
+      "tabs": {
+        "overview": "Apresentação",
+        "plan": "Plano de estudos",
+        "outcomes": "Saídas profissionais"
+      },
+      "overview": {
+        "title": "Um percurso pensado para o teu futuro",
+        "description": "Este modelo organiza a informação essencial do curso de forma clara, com destaque para apresentação, objetivos, plano curricular, acesso e saídas profissionais."
+      },
+      "plan": {
+        "title": "Organização curricular",
+        "description": "Área preparada para listar semestres e unidades curriculares associadas ao curso.",
+        "semester": "{{number}}.º Semestre",
+        "subjectFallback": "Unidade curricular",
+        "subjectsPending": "Unidades curriculares a definir.",
+        "empty": "O plano de estudos ainda não foi carregado para este curso."
+      },
+      "outcomes": {
+        "title": "Possíveis percursos após o curso",
+        "empty": "As saídas profissionais serão apresentadas aqui quando estiverem associadas ao curso."
+      },
+      "sidebar": {
+        "title": "Informação do curso"
+      },
+      "labels": {
+        "duration": "Duração",
+        "regime": "Regime",
+        "tuition": "Propina",
+        "schedule": "Horário",
+        "modality": "Modalidade"
+      },
+      "duration": {
+        "year": "1 ano",
+        "years": "{{count}} anos"
+      },
+      "regime": {
+        "afterHours": "Pós-laboral",
+        "daytime": "Laboral"
+      },
+      "tuition": {
+        "monthly": "{{value}}€/mês",
+        "consult": "Consultar propina"
+      },
+      "modality": {
+        "presential": "Presencial"
+      },
+      "actions": {
+        "apply": "Candidatar agora",
+        "moreInfo": "Pedir mais informações"
+      }
+    },
     "tuitionOnRequest": "Consultar propina",
     "moreInfo": "Mais Informações",
     "apply": "Candidatar-me",
@@ -400,7 +475,13 @@
     "subtitle": "Estamos disponíveis para responder às tuas perguntas.",
     "departments": "Contactos por departamento",
     "location": "Onde estamos localizados",
-    "message": "Envia-nos uma mensagem"
+    "message": "Envia-nos uma mensagem",
+    "sendEmail": "Enviar Email",
+    "placeholders": {
+      "name": "Nome",
+      "subject": "Assunto",
+      "message": "Mensagem"
+    }
   },
   "erasmusPage": {
     "title": "Erasmus+",
@@ -447,7 +528,7 @@
     ],
     "ctaTitle": "Leva o teu percurso mais longe",
     "ctaText": "O Erasmus+ é uma oportunidade para crescer académica e pessoalmente, através de uma experiência internacional enriquecedora.",
-    "ctaButton": "Saber mais"
+    "ctaButton": "Entrar em contacto"
   },
   "pedagogyPage": {
     "title": "Pedagogia XXI",
@@ -481,7 +562,7 @@
     ],
     "ctaTitle": "Inovar no ensino é preparar o futuro",
     "ctaText": "A pedagogia é um pilar essencial na formação de profissionais qualificados, críticos e preparados para responder aos desafios do mercado e da sociedade.",
-    "ctaButton": "Saber mais"
+    "ctaButton": "Falar connosco"
   },
   "about": {
     "metaTitle": "Sobre o ISTEC",
@@ -501,6 +582,28 @@
       "coursesButton": "Ver cursos"
     }
   },
+  "common": {
+        "saving": "A guardar..."
+        },
+
+    "backoffice": {
+      "courses": {
+        "form": {
+        "title_pt": "Título (PT)",
+        "title_en": "Título (EN)",
+        "category": "Categoria",
+        "select_category": "Selecionar categoria",
+        "no_title": "Sem título",
+        "duration_years": "Duração (anos)",
+        "study_regime": "Regime de estudo",
+        "study_regime_working": "Laboral",
+        "study_regime_after_work": "Pós-laboral",
+        "description_pt": "Descrição (PT)",
+        "create": "Criar curso",
+        "update": "Atualizar curso"
+        }
+      }
+    },
   "footer": {
     "istecPorto": "ISTEC Porto",
     "description": "Instituto Superior de Tecnologias Avançadas do Porto, com foco na inovação, formação prática e proximidade ao mercado.",
@@ -522,3 +625,5 @@
     "fixedLineNote": "Custo de chamada para rede fixa/móvel nacional, de acordo com o seu tarifário"
   }
 }
+
+

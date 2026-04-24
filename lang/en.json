@@ -83,6 +83,18 @@
         "title": "Courses",
         "description": "Explore training"
       },
+    "ctesp": {
+      "title": "CTeSP",
+      "description": "Explore CTeSP courses"
+    },
+    "licenciatura": {
+      "title": "Bachelor Degrees",
+      "description": "Explore bachelor degrees"
+    },
+    "pos": {
+      "title": "Postgraduate Courses",
+      "description": "Explore postgraduate courses"
+    },
       "applications": {
         "title": "Applications",
         "description": "Submit application"
@@ -121,7 +133,11 @@
       "noValue": "—",
       "cv": "CV",
       "identityDocument": "Identification document",
-      "certificate": "Certificate / proof"
+      "certificate": "Certificate / proof",
+      "acceptPrefix": "I accept the",
+      "terms": "Terms and Conditions",
+      "and": "and the",
+      "privacy": "Privacy Policy"
     },
     "course": {
       "pageTitle": "Course application",
@@ -211,6 +227,7 @@
   "nav": {
     "home": "Home",
     "aboutIstec": "About ISTEC",
+    "courses": "Courses",
     "mission": "Mission and Educational Project",
     "orgaos": "Institute Bodies",
     "organograma": "Organization Chart",
@@ -290,6 +307,63 @@
     "months": "months",
     "learnMore": "Learn +",
     "enroll": "Enroll",
+    "detail": {
+      "fallbackTitle": "Course name",
+      "fallbackCategory": "Course",
+      "fallbackDescription": "Course description to be defined.",
+      "heroEyebrow": "Advanced training in technology and innovation",
+      "consult": "Check details",
+      "tabs": {
+        "overview": "Overview",
+        "plan": "Study plan",
+        "outcomes": "Career outcomes"
+      },
+      "overview": {
+        "title": "A path designed for your future",
+        "description": "This layout organizes the essential course information clearly, highlighting overview, objectives, curriculum, entry requirements and career outcomes."
+      },
+      "plan": {
+        "title": "Curricular structure",
+        "description": "Section prepared to list semesters and course units associated with this program.",
+        "semester": "{{number}} semester",
+        "subjectFallback": "Course unit",
+        "subjectsPending": "Course units to be defined.",
+        "empty": "The study plan has not yet been uploaded for this course."
+      },
+      "outcomes": {
+        "title": "Possible paths after the course",
+        "empty": "Career outcomes will be shown here when they are associated with the course."
+      },
+      "sidebar": {
+        "title": "Course information"
+      },
+      "labels": {
+        "duration": "Duration",
+        "regime": "Schedule type",
+        "tuition": "Tuition",
+        "schedule": "Schedule",
+        "modality": "Modality"
+      },
+      "duration": {
+        "year": "1 year",
+        "years": "{{count}} years"
+      },
+      "regime": {
+        "afterHours": "After hours",
+        "daytime": "Daytime"
+      },
+      "tuition": {
+        "monthly": "{{value}}€/month",
+        "consult": "Check tuition"
+      },
+      "modality": {
+        "presential": "On campus"
+      },
+      "actions": {
+        "apply": "Apply now",
+        "moreInfo": "Request more information"
+      }
+    },
     "tuitionOnRequest": "Check tuition",
     "moreInfo": "More Information",
     "apply": "Apply",
@@ -452,7 +526,13 @@
     "subtitle": "We're available to answer your questions.",
     "departments": "Contacts by department",
     "location": "Where we're located",
-    "message": "Send us a message"
+    "message": "Send us a message",
+    "sendEmail": "Send an Email",
+    "placeholders": {
+      "name": "Name",
+      "subject": "Subject",
+      "message": "Message"
+    }
   },
   "erasmusPage": {
     "title": "Erasmus+",
@@ -499,7 +579,7 @@
     ],
     "ctaTitle": "Take your journey further",
     "ctaText": "Erasmus+ is an opportunity to grow academically and personally through an enriching international experience.",
-    "ctaButton": "Learn more"
+    "ctaButton": "Contact us"
   },
   "pedagogyPage": {
     "title": "Pedagogy XXI",
@@ -533,7 +613,7 @@
     ],
     "ctaTitle": "Innovating in teaching means preparing the future",
     "ctaText": "Pedagogy is an essential pillar in training qualified, critical professionals who are ready to respond to the challenges of the market and society.",
-    "ctaButton": "Learn more"
+    "ctaButton": "Talk to us"
   },
   "about": {
     "metaTitle": "About ISTEC",
@@ -553,6 +633,27 @@
       "coursesButton": "View courses"
     }
   },
+  "common": {
+        "saving": "Saving..."
+        },
+    "backoffice": {
+    "courses": {
+        "form": {
+        "title_pt": "Title (PT)",
+        "title_en": "Title (EN)",
+        "category": "Category",
+        "select_category": "Select a category",
+        "no_title": "No title",
+        "duration_years": "Duration (years)",
+        "study_regime": "Study regime",
+        "study_regime_working": "Working hours",
+        "study_regime_after_work": "After working hours",
+        "description_pt": "Description (PT)",
+        "create": "Create course",
+        "update": "Update course"
+        }
+      }
+    },
   "footer": {
     "istecPorto": "ISTEC Porto",
     "description": "Higher Institute of Advanced Technologies of Porto, focused on innovation, practical training and proximity to the market.",
@@ -574,3 +675,5 @@
     "fixedLineNote": "Call rates to domestic landlines and mobile phones, according to your plan"
   }
 }
+
+

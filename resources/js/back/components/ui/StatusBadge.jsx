@@ -9,7 +9,7 @@ const toneClasses = {
 export default function StatusBadge({ label, tone = "neutral" }) {
   return (
     <span
-      className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ring-1 ring-inset ${
+      className={`inline-flex items-center whitespace-nowrap rounded-full px-3 py-1 text-xs font-semibold ring-1 ring-inset ${
         toneClasses[tone] ?? toneClasses.neutral
       }`}
     >

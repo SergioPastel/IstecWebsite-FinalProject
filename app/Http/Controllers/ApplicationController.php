@@ -31,11 +31,13 @@ class ApplicationController extends Controller
     {
         if ($course) {
             $course->load('category');
-        }
+        }        
 
         $courseCategories = CourseCategoryResource::collection(
             CourseCategory::with('courses')->get()
         )->resolve();
+
+        // dd($courseCategories);
 
         return Inertia('front/pages/applications/ApplicationsCourse', [
             'course' => $course,

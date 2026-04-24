@@ -1,20 +1,34 @@
 <x-mail::message>
+
+<p style="text-align: center; margin-bottom: 20px;">
+    <img src="{{ asset('/storage/media/logo/istec-logo.png') }}" alt="Logo" style="max-height: 60px;">
+</p>
+
 @isset($application->course)
-# Obrigado por se canditar ao curso {{ $application->course->title }} no Istec!
+# Candidatura Recebida 🎓
 @endisset
 
 @isset($application->event)
-# Obrigado por se inscrever ao evento {{ $application->event->name }} no Istec!
+# Inscrição Confirmada 📅
 @endisset
 
 Olá {{ $application->name }},
 
 @isset($application->course)
-Nós recebemos a sua candidatura ao curso {{ $application->course->title }}. Irémos entrar em contacto logo.
+Recebemos a sua candidatura ao curso **{{ $application->course->title }}**.
 @endisset
 
 @isset($application->event)
-Nós recebemos a sua candidatura ao evento {{ $application->event->title }}. Irémos entrar em contacto logo.
+Recebemos a sua inscrição no evento **{{ $application->event->title }}**.
 @endisset
+
+<x-mail::panel>
+A nossa equipa irá analisar a sua submissão e entraremos em contacto brevemente.
+</x-mail::panel>
+
+Obrigado pelo seu interesse! 🙌  
+
+Cumprimentos,  
+**Equipa Istec**
 
 </x-mail::message>

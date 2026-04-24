@@ -3,8 +3,11 @@ import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
 import StatusBadge from "../../components/ui/StatusBadge";
 import EmptyState from "../../components/ui/EmptyState";
+import { Link } from "@inertiajs/react";
 
-export default function ContactsIndex({ contacts = [] }) {
+export default function ContactsIndex({ contacts }) {
+  const rows = contacts ?? [];
+
   return (
     <BackofficeLayout
       title="Contactos"
@@ -33,9 +36,9 @@ export default function ContactsIndex({ contacts = [] }) {
               <table className="min-w-full text-left text-sm">
                 <thead className="border-b border-slate-200 text-slate-500">
                   <tr>
-                    <th className="px-4 py-3 font-medium">Remetente</th>
+                    <th className="px-4 py-3 font-medium">Remetente</th>                    
                     <th className="px-4 py-3 font-medium">Assunto</th>
-                    <th className="px-4 py-3 font-medium">Estado</th>
+                    <th className="px-4 py-3 font-medium">Mensagem</th>
                     <th className="px-4 py-3 font-medium">Recebido em</th>
                   </tr>
                 </thead>
@@ -55,14 +58,13 @@ export default function ContactsIndex({ contacts = [] }) {
                         {contact.subject ?? "Mensagem geral"}
                       </td>
                       <td className="px-4 py-4">
-                        <StatusBadge
-                          label={contact.status ?? "Novo"}
-                          tone={contact.status === "Respondido" ? "success" : "info"}
-                        />
+                        {contact.message.length > 100
+                          ? `${contact.message.substring(0, 100)}...`
+                          : contact.message}
                       </td>
                       <td className="px-4 py-4 text-slate-500">
                         {formatDate(contact.created_at)}
-                      </td>
+                      </td>                      
                     </tr>
                   ))}
                 </tbody>

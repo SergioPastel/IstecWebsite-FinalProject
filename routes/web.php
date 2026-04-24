@@ -13,8 +13,9 @@ use App\Http\Controllers\EventsandnewsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Fortify;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
+use Illuminate\Http\Request;
 
 
 /**
@@ -62,16 +63,32 @@ Route::post('/locale', function (Request $request) {
 
 // Fortify GET authentication routes (POST routes are defined fortify)
 
-// Guest routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', function () { // No controller for get views, instead just return the inertia pages
         return Inertia('back/pages/auth/Login');
     })->name('login');
+
+    Route::get('/forgot-password', function () {
+        return Inertia('back/pages/auth/PasswordRecovery');
+    })->name('password.request'); // Returns the password recovery form
+
+Route::get('/reset-password/{token}', function (Request $request, $token) {
+    return Inertia('back/pages/auth/ResetPassword', [
+        'token' => $token,
+        'email' => $request->email,
+    ]);
+    })->name('password.reset'); // Returns the password reset form, with token and email as props
 });
+
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.recover');
+
+// Guest routes
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/about', [HomeController::class, 'about'])->name('about');
+
+
 
 // Auth protected routes. Prefix allow for route separation
 Route::middleware(['auth'])->prefix('backoffice')->group(function () {
@@ -82,7 +99,7 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
     Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
     Route::get('/courses/{course:id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
-    Route::patch('/courses/{course:id}', [CourseController::class, 'update'])->name('courses.update');
+    Route::put('/courses/{course:id}', [CourseController::class, 'update'])->name('courses.update');
     Route::delete('/courses/{course:id}', [CourseController::class, 'destroy'])->name('courses.destroy');
 
     // Event routes
@@ -90,7 +107,7 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
     Route::post('/events', [EventController::class, 'store'])->name('events.store');
     Route::get('/events/{event:id}/edit', [EventController::class, 'edit'])->name('events.edit');
-    Route::patch('/events/{event:id}', [EventController::class, 'update'])->name('events.update');
+    Route::put('/events/{event:id}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/events/{event:id}', [EventController::class, 'destroy'])->name('events.destroy');
 
     // News routes
@@ -98,11 +115,15 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
     Route::post('/news', [NewsController::class, 'store'])->name('news.store');
     Route::get('/news/{news:id}/edit', [NewsController::class, 'edit'])->name('news.edit');
-    Route::patch('/news/{news:id}', [NewsController::class, 'update'])->name('news.update');
+    Route::put('/news/{news:id}', [NewsController::class, 'update'])->name('news.update');
     Route::delete('/news/{news:id}', [NewsController::class, 'destroy'])->name('news.destroy');
 
     // Application routes
     Route::get('/applications', [ApplicationController::class, 'adminIndex'])->name('backoffice.applications');
+
+    // User management routes
+    Route::get('/users/create', [DashboardController::class, 'createUser'])->name('backoffice.users.create');
+    Route::post('/users', [DashboardController::class, 'storeUser'])->name('backoffice.users.store');
 
     // Contact routes
     Route::get('/contacts', [ContactController::class, 'adminIndex'])->name('backoffice.contacts');

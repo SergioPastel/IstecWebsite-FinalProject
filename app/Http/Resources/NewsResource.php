@@ -22,7 +22,9 @@ class NewsResource extends JsonResource
             'media' => $this->media_id ? new MediaResource($this->media) : null,
             'category' => $this->category->getTranslation('title', $locale) ?: $this->getTranslation('title', 'pt'),
             'title' => $this->getTranslation('title', $locale) ?: $this->getTranslation('title', $locale),
-            'description' => $this->getTranslation('description', $locale) ?: $this->getTranslation('description', $locale),
+            'excerpt' => $this->getTranslation('excerpt', $locale) ?: $this->getTranslation('excerpt', $locale),
+            'content' => $this->getTranslation('content', $locale) ?: $this->getTranslation('excerpt', $locale),
+            'created_at' => $this->created_at
         ];
     }
 }

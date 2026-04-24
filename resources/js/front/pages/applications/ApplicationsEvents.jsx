@@ -432,72 +432,82 @@ export default function ApplicationsEvents({
 
                 {currentStep === 2 && (
                   <div className="space-y-6">
-                    <div>
-                      <h2 className="text-2xl font-bold text-slate-900">
-                        {t("applicationsForm.event.sectionTwoTitle")}
-                      </h2>
-                      <p className="mt-2 text-sm text-slate-500">
-                        {t("applicationsForm.event.sectionTwoDescription")}
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 gap-5 p-6 md:grid-cols-2">
-                      <Input
-                        label={t("applicationsForm.common.firstName")}
-                        value={formData.first_name}
-                        onChange={(v) => updateField("first_name", v)}
-                        error={errors.first_name}
-                        required
-                      />
-                      <Input
-                        label={t("applicationsForm.common.lastName")}
-                        value={formData.last_name}
-                        onChange={(v) => updateField("last_name", v)}
-                        error={errors.last_name}
-                        required
-                      />
-                      <Input
-                        label={t("applicationsForm.common.email")}
-                        type="email"
-                        value={formData.email}
-                        onChange={(v) => updateField("email", v)}
-                        error={errors.email}
-                        required
-                      />
-                      <div>
-                          <label className="mb-2 block text-sm font-semibold text-slate-700">
-                            {t("applicationsForm.common.phone")} <span className="text-red-500">*</span>
-                          </label>
-
-                          <div className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus-within:border-[#0d8fe8]">
-                            <PhoneInput
-                              international
-                              defaultCountry="PT"
-                              value={formData.phone}
-                              onChange={(value) => updateField("phone", value || "")}
-                              className="w-full"
-                            />
-                          </div>
-
-                          {errors.phone && (
-                            <p className="mt-2 text-sm text-red-500">{errors.phone}</p>
-                          )}
-                       </div>
-                      <Input
-                        label={t("applicationsForm.common.identificationNumber")}
-                        value={formData.identification_number}
-                        onChange={(v) =>
-                          updateField(
-                            "identification_number",
-                            v.replace(/\D/g, "").slice(0, 9)
-                          )
-                        }
-                        error={errors.identification_number}
-                        maxLength={9}
-                        inputMode="numeric"
-                      />
-                    </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-slate-900">
+                      {t("applicationsForm.event.sectionThreeTitle")}
+                    </h2>
+                    <p className="mt-2 text-sm text-slate-500">
+                      {t("applicationsForm.event.sectionThreeDescription")}
+                    </p>
                   </div>
+
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                      <ReviewItem
+                        label={t("applicationsForm.event.reviewCategory")}
+                        value={selectedCategoryName || t("applicationsForm.common.notSelected")}
+                      />
+                      <ReviewItem
+                        label={t("applicationsForm.event.reviewEvent")}
+                        value={selectedEventName || t("applicationsForm.common.notSelected")}
+                      />
+                      <ReviewItem
+                        label={t("applicationsForm.common.name")}
+                        value={
+                          `${formData.first_name} ${formData.last_name}`.trim() ||
+                          t("applicationsForm.common.noValue")
+                        }
+                      />
+                      <ReviewItem
+                        label={t("applicationsForm.common.email")}
+                        value={formData.email || t("applicationsForm.common.noValue")}
+                      />
+                      <ReviewItem
+                        label={t("applicationsForm.common.phone")}
+                        value={formData.phone || t("applicationsForm.common.noValue")}
+                      />
+                      <ReviewItem
+                        label={t("applicationsForm.common.identificationNumber")}
+                        value={formData.identification_number || t("applicationsForm.common.noValue")}
+                      />
+                    </div>
+
+                    <label className="mt-6 flex items-start gap-3 rounded-xl border border-slate-200 p-4 text-sm text-slate-600">
+                      <input
+                        type="checkbox"
+                        checked={formData.terms}
+                        onChange={(e) => updateField("terms", e.target.checked)}
+                        className="mt-1"
+                      />
+                      <span>
+                        {t("applicationsForm.common.acceptPrefix")}{" "}
+
+                        <Link
+                          href={route("terms")}
+                          className="text-[#0d8fe8] underline hover:opacity-80"
+                        >
+                          {t("applicationsForm.common.terms")}
+                        </Link>{" "}
+
+                        {t("applicationsForm.common.and")}{" "}
+
+                        <Link
+                          href={route("privacy")}
+                          className="text-[#0d8fe8] underline hover:opacity-80"
+                        >
+                          {t("applicationsForm.common.privacy")}
+                        </Link>
+                        .
+                      </span>
+                    </label>
+
+                    {errors.terms && (
+                      <p className="mt-2 text-sm text-red-500">
+                        {errors.terms}
+                      </p>
+                    )}
+                  </div>
+                </div>
                 )}
 
                 <div className="mt-8 flex flex-col gap-4 border-t border-slate-200 pt-6 md:flex-row md:items-center md:justify-between">
