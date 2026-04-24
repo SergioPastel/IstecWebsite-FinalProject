@@ -67,9 +67,11 @@ function SubjectCombobox({ subjects = [], onSelect, excludeIds = [] }) {
 }
 
 // ─── Inline new-subject creator ──────────────────────────────────────────────
+// ─── Inline new-subject creator ──────────────────────────────────────────────
 function NewSubjectForm({ onAdd, onCancel }) {
-  const [form, setForm] = useState({ name: { pt: "", en: "" }, ects: 6 });
-  const valid = form.name.pt.trim() || form.name.en.trim();
+  const [form, setForm] = useState({ name: { pt: "", en: "" }, ects: 6, file: null });
+  const fileInputRef = useRef(null);
+  const valid = (form.name.pt.trim() || form.name.en.trim()) && form.file;
 
   return (
     <div className="mt-2 p-3 border border-dashed border-brand-border rounded-lg bg-slate-50 space-y-3">
@@ -83,10 +85,7 @@ function NewSubjectForm({ onAdd, onCancel }) {
             type="text"
             value={form.name.pt}
             onChange={(e) =>
-              setForm((f) => ({
-                ...f,
-                name: { ...f.name, pt: e.target.value },
-              }))
+              setForm((f) => ({ ...f, name: { ...f.name, pt: e.target.value } }))
             }
             className="p-2 border rounded border-brand-border text-sm outline-none focus:ring-2 focus:ring-brand-secondary"
           />
@@ -97,15 +96,13 @@ function NewSubjectForm({ onAdd, onCancel }) {
             type="text"
             value={form.name.en}
             onChange={(e) =>
-              setForm((f) => ({
-                ...f,
-                name: { ...f.name, en: e.target.value },
-              }))
+              setForm((f) => ({ ...f, name: { ...f.name, en: e.target.value } }))
             }
             className="p-2 border rounded border-brand-border text-sm outline-none focus:ring-2 focus:ring-brand-secondary"
           />
         </div>
       </div>
+
       <div className="flex flex-col gap-1 w-32">
         <label className="text-xs text-slate-500">ECTS</label>
         <input
@@ -119,6 +116,52 @@ function NewSubjectForm({ onAdd, onCancel }) {
           className="p-2 border rounded border-brand-border text-sm outline-none focus:ring-2 focus:ring-brand-secondary"
         />
       </div>
+
+      <div className="flex flex-col gap-1">
+        <label className="text-xs text-slate-500">
+          Ficha de disciplina (PDF) <span className="text-red-400">*</span>
+        </label>
+        {form.file ? (
+          <div className="flex items-center gap-2 px-3 py-2 bg-white border border-brand-border rounded text-sm">
+            <svg className="w-4 h-4 text-red-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
+            </svg>
+            <span className="truncate text-slate-700 flex-1">{form.file.name}</span>
+            <button
+              type="button"
+              onClick={() => {
+                setForm((f) => ({ ...f, file: null }));
+                if (fileInputRef.current) fileInputRef.current.value = "";
+              }}
+              className="text-slate-300 hover:text-red-400 transition text-lg leading-none"
+            >
+              ×
+            </button>
+          </div>
+        ) : (
+          <div
+            onClick={() => fileInputRef.current?.click()}
+            className="flex items-center gap-2 px-3 py-2 border border-dashed border-brand-border rounded cursor-pointer hover:border-brand-secondary transition bg-white text-sm text-slate-400"
+          >
+            <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12V4m0 0L8 8m4-4l4 4" />
+            </svg>
+            Carregar PDF
+          </div>
+        )}
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="application/pdf"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) setForm((f) => ({ ...f, file }));
+          }}
+          className="hidden"
+        />
+      </div>
+
       <div className="flex gap-2">
         <button
           type="button"
