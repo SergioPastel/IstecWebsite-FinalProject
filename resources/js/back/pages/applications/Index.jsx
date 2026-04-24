@@ -42,9 +42,7 @@ export default function ApplicationsIndex({ applications = [] }) {
                   <tr>
                     <th className="px-4 py-3 font-medium">Candidato</th>
                     <th className="px-4 py-3 font-medium">Curso</th>
-                    <th className="px-4 py-3 font-medium">Estado</th>
                     <th className="px-4 py-3 font-medium">Recebida em</th>
-                    <th className="px-4 py-3 font-medium">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -55,7 +53,7 @@ export default function ApplicationsIndex({ applications = [] }) {
                     >
                       <td className="px-4 py-4">
                         <p className="font-medium text-slate-900">
-                          {application.name ?? "Candidatura sem nome"}
+                          {application.full_name ?? "Candidatura sem nome"}
                         </p>
                         <p className="text-slate-500">{application.email}</p>
                       </td>
@@ -64,24 +62,24 @@ export default function ApplicationsIndex({ applications = [] }) {
                           application.course?.title ??
                           "Curso por atribuir"}
                       </td>
-                      <td className="px-4 py-4">
+                      {/* <td className="px-4 py-4">
                         <StatusBadge
                           label={formatStatus(application.status ?? "pending")}
                           tone={statusToneMap[application.status] ?? "warning"}
                         />
-                      </td>
+                      </td> */}
                       <td className="px-4 py-4 text-slate-500">
                         {formatDate(application.created_at)}
                       </td>
                       <td className="px-4 py-4">
-                        <Link
-                          href={route("admin.applications.show", {
+                        {/* <Link
+                          href={route("admin.applications", {
                             application: application.id,
                           })}
                           className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
                         >
                           Ver detalhe
-                        </Link>
+                        </Link> */}
                       </td>
                     </tr>
                   ))}

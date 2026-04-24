@@ -269,18 +269,15 @@ class CourseController extends Controller
             // ── 1. Handle media upload ──────────────────────────────────────────
             $mediaId = $course->media_id; // keep existing media by default
 
+            // ── 1. Handle media upload ──────────────────────────────────────────
+            $mediaId = $course->media_id; // keep existing by default
+            $oldMedia = $course->media;   // grab reference before we touch anything
+
             if ($request->hasFile('media') && $request->file('media')->isValid()) {
                 $file = $request->file('media');
-                $extension = $file->getClientOriginalExtension();
-                $filename = \Illuminate\Support\Str::uuid() . '.' . $extension;
+                $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
 
                 Storage::disk('public')->put("media/{$filename}", file_get_contents($file));
-
-                // Delete old media record if exists
-                if ($course->media) {
-                    Storage::disk('public')->delete($course->media->file_path);
-                    $course->media->delete();
-                }
 
                 $media = Media::create([
                     'type' => 'image',
@@ -291,6 +288,15 @@ class CourseController extends Controller
                     'alt_text' => null,
                 ]);
                 $mediaId = $media->id;
+
+                // ① Point the course at the new media first (removes the FK reference)
+                $course->update(['media_id' => $mediaId]);
+
+                // ② Now it's safe to delete the old record and its file
+                if ($oldMedia) {
+                    Storage::disk('public')->delete($oldMedia->file_path);
+                    $oldMedia->delete();
+                }
             }
 
             // ── 2. Update the course ────────────────────────────────────────────
@@ -304,7 +310,6 @@ class CourseController extends Controller
                 'study_regime' => (int) $validated['study_regime'],
                 'tuition_monthly_pay' => (int) $validated['tuition_monthly_pay'],
                 'tuition_months' => (int) $validated['tuition_months'],
-                'media_id' => $mediaId,
             ]);
 
             // ── 3. Sync semesters + subjects ────────────────────────────────────
@@ -350,4 +355,12 @@ class CourseController extends Controller
         return to_route('backoffice.courses')
             ->with('success', 'Curso atualizado com sucesso.');
     }
+    public function destroy(Course $course)
+    {
+        $course->delete();
+
+        return redirect()->route('backoffice.courses')
+            ->with('success', 'Curso eliminado com sucesso.');
+    }
+
 }

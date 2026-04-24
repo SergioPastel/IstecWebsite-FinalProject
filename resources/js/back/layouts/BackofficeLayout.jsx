@@ -12,6 +12,7 @@ export default function BackofficeLayout({
 }) {
   const { props } = usePage();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   useEffect(() => {
     setIsSidebarOpen(false);
@@ -23,14 +24,21 @@ export default function BackofficeLayout({
       <Head title={title} />
 
       <Sidebar
-        isOpen={isSidebarOpen}
-        onClose={() => setIsSidebarOpen(false)}
+        isMobileOpen={isSidebarOpen}
+        isCollapsed={isSidebarCollapsed}
+        onMobileClose={() => setIsSidebarOpen(false)}
+        onDesktopToggle={() => setIsSidebarCollapsed((current) => !current)}
       />
-      <div className="min-h-screen md:pl-72">
+
+      <div
+        className={`min-h-screen transition-[padding-left] duration-300 ${
+          isSidebarCollapsed ? "md:pl-24" : "md:pl-72"
+        }`}
+      >
         <Topbar
           title={title}
           subtitle={subtitle}
-          onMenuClick={() => setIsSidebarOpen(true)}
+          onMobileMenuClick={() => setIsSidebarOpen(true)}
           searchPlaceholder={searchPlaceholder}
           user={props.user}
         />
