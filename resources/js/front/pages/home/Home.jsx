@@ -75,13 +75,13 @@ export default function Home({
   const getCourseBadgeClasses = (category) => {
     switch (category) {
       case "CTeSP":
-        return "bg-[#eaf5ff] text-[#0d8fe8]";
-      case "Licenciatura":
-        return "bg-[#eafaf1] text-[#16a34a]";
-      case "Pós-Graduação":
-        return "bg-[#f3e8ff] text-[#7c3aed]";
-      default:
-        return "bg-[#eaf5ff] text-[#0d8fe8]";
+      return "bg-[#eaf5ff] text-[#0d8fe8] px-3 py-1 rounded-full text-[0.75rem]";
+    case "Licenciatura":
+      return "bg-[#eafaf1] text-[#16a34a] px-3 py-1 rounded-full text-[0.75rem]";
+    case "Pós-Graduação":
+      return "bg-[#f3e8ff] text-[#7c3aed] px-3 py-1 rounded-full text-[0.75rem]";
+    default:
+      return "bg-[#eaf5ff] text-[#0d8fe8] px-3 py-1 rounded-full text-[0.75rem]";
     }
   };
 
@@ -240,10 +240,10 @@ export default function Home({
 
               return (
                 <Link
-                  href={item.link}
-                  key={item.id}
-                  className="bg-white border border-[#dbe4ee] rounded-[20px] p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] hover:translate-y-[-4px] hover:shadow-[0_14px_34px_rgba(13,143,232,0.12)] transition-all duration-300 block"
-                >
+                    href={item.link}
+                    key={item.id}
+                    className="group bg-white border border-[#dbe4ee] rounded-[20px] p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] hover:translate-y-[-4px] hover:shadow-[0_14px_34px_rgba(13,143,232,0.12)] transition-all duration-300 block"
+                  >
                   <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-[#eaf5ff]">
                     <Icon size={22} className="text-[#0d8fe8]" />
                   </div>
@@ -254,7 +254,7 @@ export default function Home({
 
                   <p className="text-[#6b7280] mb-3">{item.description}</p>
 
-                  <span className="text-[#0d8fe8] font-bold">
+                  <span className="mt-1 inline-flex w-fit items-center justify-center rounded-full bg-[#0d8fe8] px-6 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(13,143,232,0.22)] transition-all duration-300 group-hover:bg-[#0a78c4] group-hover:-translate-y-[1px]">
                     {t("home.quickLinks.viewMore")}
                   </span>
                 </Link>
@@ -293,12 +293,13 @@ export default function Home({
                   )}`}
                 >
                   <span
-                    className={`inline-flex self-start items-center px-3 py-[6px] rounded-full text-[0.8rem] font-extrabold ${getCourseBadgeClasses(
+                    className={`inline-flex self-start items-center font-extrabold ${getCourseBadgeClasses(
                       course.category,
                     )}`}
                   >
-                    {course.category}
+                    {course.category?.startsWith("CTeSP") ? "CTeSP" : course.category}
                   </span>
+                  
 
                   <h3 className="mt-[14px] mb-[10px] text-[1.2rem] leading-[1.3] font-semibold">
                     {course.title}
@@ -314,11 +315,11 @@ export default function Home({
 
                   <Link
                     href={route("courses.show", course.id)}
-                    className={`inline-block mt-auto pt-4 font-bold hover:underline ${getCourseLinkClasses(
-                      course.category,
-                    )}`}
+                    className="mt-auto pt-4"
                   >
-                    {t("home.coursesSection.learnMore")}
+                    <span className="inline-flex items-center justify-center rounded-full bg-[#0d8fe8] px-5 py-2 text-sm font-bold text-white shadow-[0_8px_20px_rgba(13,143,232,0.22)] transition-all duration-300 hover:bg-[#0a78c4] hover:-translate-y-[1px]">
+                      {t("home.coursesSection.learnMore")}
+                    </span>
                   </Link>
                 </div>
               ))}
@@ -374,11 +375,11 @@ export default function Home({
                         ? route("events.show", item.id)
                         : route("news.show", item.id)
                     }
-                    className={`inline-block mt-auto pt-4 font-bold hover:underline ${getEventLinkClasses(
-                      item.type,
-                    )}`}
+                    className="mt-auto pt-4"
                   >
-                    {t("home.eventsNewsSection.readMore")}
+                    <span className="inline-flex items-center justify-center rounded-full bg-[#0d8fe8] px-5 py-2 text-sm font-bold text-white shadow-[0_8px_20px_rgba(13,143,232,0.22)] transition-all duration-300 hover:bg-[#0a78c4] hover:-translate-y-[1px]">
+                      {t("home.eventsNewsSection.readMore")}
+                    </span>
                   </Link>
                 </div>
               ))}
@@ -386,19 +387,19 @@ export default function Home({
           </div>
         </section>
 
-        <section className="bg-gradient-to-br from-[#0d8fe8] to-[#38b6ff] text-white py-20">
+      <section className="bg-[#e2e8f0] text-[#1f2937] py-20">
           <div className="max-w-[1600px] mx-auto px-6">
             <div className="text-center flex justify-center mb-10">
               <div>
-                <p className="inline-block text-[0.8rem] font-extrabold uppercase tracking-[1.2px] text-white/90 mb-[10px]">
+                <p className="inline-block text-[0.8rem] font-extrabold uppercase tracking-[1.2px] /90 mb-[10px]">
                   {t("home.applicationsSection.applications")}
                 </p>
 
-                <h2 className="text-[clamp(2rem,3vw,2.5rem)] leading-[1.15] tracking-[-0.5px] m-0 mb-[14px]">
+                <h2 className="text-[clamp(2rem,3vw,2.5rem)] text-[#1f2937]">
                   {t("home.applicationsSection.startApplication3Steps")}
                 </h2>
 
-                <p className="max-w-[720px] mx-auto text-white/90 leading-[1.8] m-0">
+                <p className="max-w-[720px] mx-auto text-[#6b7280] leading-[1.8] m-0">
                   {t("home.applicationsSection.futureStartsClick")}
                 </p>
               </div>
@@ -408,17 +409,17 @@ export default function Home({
               {steps.map((step) => (
                 <div
                   key={step.id}
-                  className="rounded-[20px] p-6 max-[768px]:p-5 bg-white/15 border border-white/20 backdrop-blur-[4px]"
+                  className="rounded-[20px] p-6 max-[768px]:p-5 bg-white border border-[#dbe4ee] shadow-[0_8px_24px_rgba(13,143,232,0.08)]"
                 >
-                  <div className="w-[42px] h-[42px] rounded-full bg-white text-[#0d8fe8] inline-flex items-center justify-center font-extrabold mb-4 shadow-[0_8px_20px_rgba(255,255,255,0.18)]">
+                  <div className="w-[42px] h-[42px] rounded-full bg-[#0d8fe8] text-white inline-flex items-center justify-center font-extrabold mb-4 shadow-[0_8px_20px_rgba(13,143,232,0.22)]">
                     {step.id}
                   </div>
 
-                  <h3 className="m-0 mb-[10px] text-[1.15rem] font-semibold">
+                  <h3 className="m-0 mb-[10px] text-[1.15rem] font-semibold text-[#1f2937]">
                     {step.title}
                   </h3>
 
-                  <p className="m-0 text-white/90 leading-[1.7]">
+                  <p className="m-0 text-[#6b7280] leading-[1.7]">
                     {step.description}
                   </p>
                 </div>
@@ -426,12 +427,12 @@ export default function Home({
             </div>
 
             <div className="flex justify-center">
-              <button
-                className="mt-7 min-h-[52px] px-7 py-3 rounded-full bg-white text-[#0d8fe8] font-bold shadow-[0_8px_24px_rgba(15,23,42,0.06)] hover:bg-[#f8fbff] hover:-translate-y-[2px] transition-all duration-300"
-                onClick={() => router.visit(route('applications.courses.apply'))}
-              >
-                {t("home.applicationsSection.startApplication")}
-              </button>
+              <button 
+              className="mt-7 min-h-[52px] px-7 py-3 rounded-full bg-[#0d8fe8] text-white font-bold shadow-[0_8px_24px_rgba(13,143,232,0.22)] hover:bg-[#0a78c4] hover:-translate-y-[2px] transition-all duration-300"
+              onClick={() => router.visit(route('applications.courses.apply'))}
+            >
+              {t("home.applicationsSection.startApplication")}
+            </button>
             </div>
           </div>
         </section>

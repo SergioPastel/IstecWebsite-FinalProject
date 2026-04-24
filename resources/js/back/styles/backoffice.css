@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@500;700&display=swap");
+
+.backoffice-shell {
+  font-family: var(--font-sans);
+}
+
+.backoffice-shell h1,
+.backoffice-shell h2,
+.backoffice-shell h3,
+.backoffice-shell h4,
+.backoffice-shell h5,
+.backoffice-shell h6,
+.backoffice-shell .backoffice-heading {
+  font-family: var(--font-heading);
+}
+
+.backoffice-shell input,
+.backoffice-shell button,
+.backoffice-shell select,
+.backoffice-shell textarea {
+  font-family: inherit;
+}

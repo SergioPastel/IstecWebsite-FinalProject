@@ -20,11 +20,10 @@ export default function Erasmus() {
   ];
 
   const partners = [
-    t("erasmusPage.partners.0"),
-    t("erasmusPage.partners.1"),
-    t("erasmusPage.partners.2"),
-    t("erasmusPage.partners.3"),
+    { id: 1, name: "Universidade X", logo: "/logos/uni1.png" },
+    { id: 2, name: "Empresa Y", logo: "/logos/empresa2.png" },
   ];
+
 
   const steps = [
     {
@@ -136,27 +135,21 @@ export default function Erasmus() {
           </section>
 
           <section className="pb-16">
-            <div className="max-w-7xl mx-auto px-6 md:px-10">
-              <div className="mb-10 text-center">
-                <h2 className="text-3xl font-bold text-[#1697e6]">
-                  {t("erasmusPage.partnersTitle")}
-                </h2>
-                <p className="mt-3 text-slate-600">
-                  {t("erasmusPage.partnersDescription")}
-                </p>
-              </div>
-
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-                {partners.map((partner, index) => (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 items-center">
+                {partners.map((partner) => (
                   <div
-                    key={index}
-                    className="rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm"
+                    key={partner.id}
+                    className="flex items-center justify-center p-4 bg-white rounded-xl border border-[#e2e8f0] hover:shadow-md transition"
                   >
-                    <p className="font-semibold text-slate-900">{partner}</p>
+                    <img
+                      src={partner.logo}
+                      alt={partner.name}
+                      className="h-10 object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition duration-300"
+                    />
                   </div>
                 ))}
               </div>
-            </div>
+            
           </section>
 
           <section className="pb-16">

@@ -5,6 +5,7 @@ import EmptyState from "../../components/ui/EmptyState";
 import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
 import StatusBadge from "../../components/ui/StatusBadge";
+import { filterCollectionByQuery } from "../../utils/search";
 
 export default function NewsIndexBack({ news }) {
   const rows = news ?? [];
@@ -34,81 +35,100 @@ export default function NewsIndexBack({ news }) {
   }
 
   return (
-    <BackofficeLayout
-      title="Notícias"
-      subtitle="Organize o conteudo editorial com uma base pronta para evoluir."
-      searchPlaceholder="Pesquisar Notícias"
-    >
-      <div className="space-y-6">
-        <PageHeader
-          eyebrow="Notícias"
-          title="Gestão de notícias"
-          actions={[
-            <Link
-              key="create"
-              href={route("news.create")}
-              className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
-            >
-              Nova notícia
-            </Link>,
-          ]}
-        />
+    <>
+      <BackofficeLayout
+        title="Notícias"
+        subtitle="Organize o conteudo editorial com uma base pronta para evoluir."
+        searchPlaceholder="Pesquisar Notícias"
+      >
+        {({ searchQuery }) => {
+          const filteredRows = filterCollectionByQuery(rows, searchQuery, (item) => [
+            item.title,
+            item.description,
+            item.excerpt,
+            item.published_at ? "publicado" : "rascunho",
+          ]);
 
-        <SectionCard
-          title="Publicacoes"
-          subtitle={`${rows.length} entradas prontas para administracao editorial.`}
-        >
-          {rows.length === 0 ? (
-            <EmptyState
-              title="Nao existem noticias publicadas."
-            />
-          ) : (
-            <div className="grid gap-4 xl:grid-cols-2">
-              {rows.map((item) => (
-                <article
-                  key={item.id}
-                  className="rounded-[28px] border border-slate-200 bg-slate-50/80 p-6"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <h2 className="text-xl font-semibold text-slate-950">
-                        {item.title?.pt ?? item.title}
-                      </h2>
-                      <p className="mt-2 text-sm leading-6 text-slate-500">
-                        {item.description?.pt ??
-                          item.excerpt?.pt ??
-                          item.excerpt ??
-                          "Sem resumo disponivel."}
-                      </p>
-                    </div>
-                    <StatusBadge
-                      label={item.published_at ? "Publicado" : "Rascunho"}
-                      tone={item.published_at ? "success" : "warning"}
-                    />
-                  </div>
+          return (
+            <div className="space-y-6">
+              <PageHeader
+                eyebrow="Notícias"
+                title="Gestão de notícias"
+                actions={[
+                  <Link
+                    key="create"
+                    href={route("news.create")}
+                    className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
+                  >
+                    Nova notícia
+                  </Link>,
+                ]}
+              />
 
-                  <div className="mt-5 flex flex-wrap items-center gap-3">
-                    <Link
-                      href={route("news.edit", { news: item.id })}
-                      className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
-                    >
-                      Editar
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={() => openDeleteModal(item.id)}
-                      className="inline-flex items-center justify-center rounded-2xl border border-rose-200 bg-rose-50 px-4 py-2.5 text-sm font-semibold text-rose-700 transition hover:bg-rose-100"
-                    >
-                      Eliminar
-                    </button>
+              <SectionCard
+                title="Publicacoes"
+                subtitle={`${filteredRows.length} de ${rows.length} entradas prontas para administracao editorial.`}
+              >
+                {rows.length === 0 ? (
+                  <EmptyState title="Nao existem noticias publicadas." />
+                ) : filteredRows.length === 0 ? (
+                  <EmptyState
+                    title="Nenhuma noticia corresponde a esta pesquisa."
+                    description="A pesquisa funciona por titulo, resumo, descricao e estado."
+                  />
+                ) : (
+                  <div className="grid gap-4 xl:grid-cols-2">
+                    {filteredRows.map((item) => (
+                      <article
+                        key={item.id}
+                        className="rounded-[28px] border border-slate-200 bg-slate-50/80 p-6"
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div>
+                            <h2 className="text-xl font-semibold text-slate-950">
+                              {item.title?.pt ?? item.title}
+                            </h2>
+                            <p className="mt-2 text-sm leading-6 text-slate-500">
+                              {item.description?.pt ??
+                                item.excerpt?.pt ??
+                                item.excerpt ??
+                                "Sem resumo disponivel."}
+                            </p>
+                          </div>
+
+                          <StatusBadge
+                            label={item.published_at ? "Publicado" : "Rascunho"}
+                            tone={item.published_at ? "success" : "warning"}
+                          />
+                        </div>
+
+                        <div className="mt-5 flex flex-wrap items-center gap-3">
+                          <Link
+                            href={route("news.edit", { news: item.id })}
+                            className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
+                          >
+                            Editar
+                          </Link>
+
+                          <button
+                            type="button"
+                            onClick={() => openDeleteModal(item.id)}
+                            className="inline-flex items-center justify-center rounded-2xl border border-rose-200 bg-rose-50 px-4 py-2.5 text-sm font-semibold text-rose-700 transition hover:bg-rose-100"
+                          >
+                            Eliminar
+                          </button>
+                        </div>
+                      </article>
+                    ))}
                   </div>
-                </article>
-              ))}
+                )}
+              </SectionCard>
             </div>
-          )}
-        </SectionCard>
-      </div>
-    {showModal && (
+          );
+        }}
+      </BackofficeLayout>
+
+      {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
           <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
             <h2 className="text-lg font-semibold text-slate-900">
@@ -139,6 +159,6 @@ export default function NewsIndexBack({ news }) {
           </div>
         </div>
       )}
-    </BackofficeLayout>
+    </>
   );
 }

@@ -1,8 +1,12 @@
 export default function Topbar({
   title,
   subtitle,
-  onMobileMenuClick,
+  onMenuClick,
+  onToggleSidebar,
+  isSidebarCollapsed,
   searchPlaceholder = "Pesquisar no backoffice",
+  searchQuery,
+  onSearchChange,
   user,
 }) {
   const initials = getInitials(user?.name);
@@ -11,10 +15,9 @@ export default function Topbar({
     <header className="sticky top-0 z-20 border-b border-[var(--color-brand-border)]/80 bg-white/90 backdrop-blur">
       <div className="flex flex-col gap-4 px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-start justify-between gap-4">
-          <div className="flex items-start gap-3">
+          <div className="flex min-w-0 items-start gap-3">
             <button
               type="button"
-              onClick={onMobileMenuClick}
               className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-slate-300 hover:text-slate-950 md:hidden"
               aria-label="Abrir menu"
             >
@@ -31,15 +34,37 @@ export default function Topbar({
               </svg>
             </button>
 
-            <div>
+            <button
+              type="button"
+              onClick={onToggleSidebar}
+              className="hidden h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-slate-300 hover:text-slate-950 md:inline-flex"
+              aria-label={isSidebarCollapsed ? "Expandir sidebar" : "Recolher sidebar"}
+              title={isSidebarCollapsed ? "Expandir sidebar" : "Recolher sidebar"}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                className="h-5 w-5"
+              >
+                {isSidebarCollapsed ? (
+                  <path d="m9 6 6 6-6 6" />
+                ) : (
+                  <path d="m15 6-6 6 6 6" />
+                )}
+              </svg>
+            </button>
+
+            <div className="min-w-0">
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--color-brand-primary)]">
                 Painel administrativo
               </p>
-              <h2 className="mt-1 text-2xl font-semibold tracking-tight text-[var(--color-brand-black)]">
+              <h2 className="backoffice-heading mt-1 text-2xl font-semibold tracking-tight text-[var(--color-brand-black)] sm:text-3xl">
                 {title}
               </h2>
               {subtitle ? (
-                <p className="mt-1 text-sm leading-6 text-slate-500">
+                <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-500">
                   {subtitle}
                 </p>
               ) : null}
@@ -81,7 +106,7 @@ export default function Topbar({
         </div>
 
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <label className="relative block w-full md:max-w-md">
+          <label className="relative block w-full md:max-w-xl">
             <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
               <svg
                 viewBox="0 0 24 24"
@@ -97,6 +122,8 @@ export default function Topbar({
             <input
               type="search"
               placeholder={searchPlaceholder}
+              value={searchQuery}
+              onChange={(event) => onSearchChange(event.target.value)}
               className="w-full rounded-2xl border border-[var(--color-brand-border)] bg-white py-3 pl-12 pr-4 text-sm text-slate-700 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-[var(--color-brand-secondary)] focus:ring-4 focus:ring-[rgba(45,167,223,0.18)]"
             />
           </label>
