@@ -17,9 +17,6 @@ return new class extends Migration
         Schema::create('site_infos', function (Blueprint $table) {
             $table->id(); // id: 1
 
-            $table->foreignUuid('logo_media_id')->constrained('media');
-            $table->foreignUuid('favicon_media_id')->constrained('media');
-
             $table->json('slogan');
             $table->json('mission');
             $table->json('whoWeAre');

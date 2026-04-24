@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
@@ -72,11 +73,11 @@ Route::middleware('guest')->group(function () {
         return Inertia('back/pages/auth/PasswordRecovery');
     })->name('password.request'); // Returns the password recovery form
 
-Route::get('/reset-password/{token}', function (Request $request, $token) {
-    return Inertia('back/pages/auth/ResetPassword', [
-        'token' => $token,
-        'email' => $request->email,
-    ]);
+    Route::get('/reset-password/{token}', function (Request $request, $token) {
+        return Inertia('back/pages/auth/ResetPassword', [
+            'token' => $token,
+            'email' => $request->email,
+        ]);
     })->name('password.reset'); // Returns the password reset form, with token and email as props
 });
 
@@ -132,50 +133,8 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::get('/users', [DashboardController::class, 'users'])->name('backoffice.users');
     Route::delete('/users/{user:id}', [DashboardController::class, 'destroyUser'])->name('backoffice.users.destroy');
 
-    Route::get('/settings', function () {
-        return Inertia('back/pages/settings/Index', [
-            'settingsGroups' => [
-                [
-                    'id' => 'notifications',
-                    'title' => 'Notificacoes',
-                    'description' => 'Preferencias base para alertas operacionais e fluxos editoriais.',
-                    'items' => [
-                        [
-                            'label' => 'Alertas de candidaturas',
-                            'helpText' => 'Receber aviso sempre que entrar uma nova candidatura.',
-                            'value' => 'Ativo',
-                            'enabled' => true,
-                        ],
-                        [
-                            'label' => 'Resumo diario',
-                            'helpText' => 'Compilar atividade editorial e operacional num unico envio.',
-                            'value' => 'Ativo',
-                            'enabled' => true,
-                        ],
-                    ],
-                ],
-                [
-                    'id' => 'experience',
-                    'title' => 'Experiencia interna',
-                    'description' => 'Parametros iniciais para ajustar a experiencia do backoffice.',
-                    'items' => [
-                        [
-                            'label' => 'Pesquisa global',
-                            'helpText' => 'Ativar pesquisa transversal a cursos, noticias e eventos.',
-                            'value' => 'Beta',
-                            'enabled' => false,
-                        ],
-                        [
-                            'label' => 'Modo de aprovacao',
-                            'helpText' => 'Fluxo manual para validacao editorial antes da publicacao.',
-                            'value' => 'Manual',
-                            'enabled' => true,
-                        ],
-                    ],
-                ],
-            ],
-        ]);
-    })->name('backoffice.settings');
+    Route::get('/settings', [SettingsController::class, 'index'])->name('backoffice.settings');
+    Route::post('/settings/siteinfo', [SettingsController::class, 'update'])->name('backoffice.settings.update');
 });
 
 // Public routes
@@ -225,6 +184,10 @@ Route::get('/privacy', function () {
 
 
 // Erasmus and pedagogy pages
-Route::get('/erasmus', function () {return Inertia::render('front/pages/mobilityprogram/Erasmus');})->name('erasmus');
+Route::get('/erasmus', function () {
+    return Inertia::render('front/pages/mobilityprogram/Erasmus');
+})->name('erasmus');
 
-Route::get('/pedagogia-xxi', function () {return Inertia::render('front/pages/pedagogy/Pedagogy');})->name('pedagogia');
+Route::get('/pedagogia-xxi', function () {
+    return Inertia::render('front/pages/pedagogy/Pedagogy');
+})->name('pedagogia');
