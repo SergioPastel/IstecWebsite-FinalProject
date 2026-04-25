@@ -261,7 +261,7 @@ export default function Home({ courses, latestActivity, bannerImages = [] }) {
                     {course.title}
                   </h3>
                   <p className="mb-3 text-[0.95rem] font-bold text-[#4b5563]">
-                    {course.duration_years}
+                    {course.duration_years} anos
                   </p>
                   <p className="m-0 text-[#6b7280] leading-[1.7]">
                     {course.description}
