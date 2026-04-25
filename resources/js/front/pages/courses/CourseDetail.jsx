@@ -303,6 +303,21 @@ export default function CourseDetail({ course = {} }) {
                                                                             <span className="font-semibold text-[#374151]">
                                                                                 {getCourseText(subject.name, lang) || t('courses.detail.plan.subjectFallback', 'Unidade curricular')}
                                                                             </span>
+
+                                                                            {subject.file_path ? (
+                                                                                <a
+                                                                                    href={route('subjects.pdf.download', subject.id)}
+                                                                                    className="mt-2 inline-flex items-center gap-2 text-xs font-bold text-[#0d8fe8] hover:underline"
+                                                                                >
+                                                                                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                                                        <path d="M12 3v12" />
+                                                                                        <path d="M7 10l5 5 5-5" />
+                                                                                        <path d="M5 21h14" />
+                                                                                    </svg>
+                                                                                    {t('courses.detail.plan.downloadPdf', 'Download PDF')}
+                                                                                </a>
+                                                                            ) : null}
+
                                                                             {subject.ects ? (
                                                                                 <span className="rounded-full bg-[#eaf5ff] px-3 py-1 text-xs font-bold text-[#0d8fe8]">
                                                                                     {subject.ects} ECTS
