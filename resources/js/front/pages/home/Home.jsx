@@ -140,7 +140,6 @@ export default function Home({ courses, latestActivity, bannerImages = [] }) {
               pauseOnMouseEnter: true,
             }}
             navigation
-            pagination={{ clickable: true }}
           >
             {bannerImages.length > 0 ? (
               bannerImages.map((image) => (
@@ -155,7 +154,7 @@ export default function Home({ courses, latestActivity, bannerImages = [] }) {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0d8fe8]/80 via-[#0d8fe8]/20 to-transparent" />
                     {(image.title || image.subtitle) && (
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="min-w-[340px] max-w-[680px] w-fit bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-8 py-6">
+                        <div className="min-w-[340px] max-w-[1360px] w-fit bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-8 py-6">
                           {image.title && (
                             <h1 className="text-[clamp(1.8rem,3.5vw,3rem)] font-extrabold leading-tight tracking-tight text-white drop-shadow-lg text-center">
                               {image.title}

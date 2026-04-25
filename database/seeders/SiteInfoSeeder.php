@@ -26,9 +26,9 @@ class SiteInfoSeeder extends Seeder
                     'en' => 'ISTEC Porto is part of a higher education network focused on technology, innovation, and the development of practical skills. Our mission is to prepare qualified professionals by promoting direct contact with the job market and real-world experiences throughout the academic journey.',
                 ],
                 'site_name'        => config('app.name'),
-                'phone_number'     => '📞+351 225 193 220',
-                'email'            => '📧secretaria-porto@istec.pt',
-                'address'          => '📍R. de Silva Tapada 115, 4200-501 Porto',
+                'phone_number'     => '+351 225 193 220',
+                'email'            => 'secretaria-porto@istec.pt',
+                'address'          => 'R. de Silva Tapada 115, 4200-501 Porto',
             ]
         );
     }
