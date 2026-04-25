@@ -107,7 +107,16 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         return Inertia('back/pages/events/Edit', [
-            'event'           => new EventResource($event),
+            'event' => [
+                'id'                => $event->id,
+                'event_category_id' => $event->event_category_id,
+                'media'             => $event->media ? ['url' => Media::getUrl('public', $event->media->file_path)] : null,
+                'title'             => $event->getTranslations('title'),
+                'description'       => $event->getTranslations('description'),
+                'location'          => $event->location,
+                'start_date'        => $event->start_date,
+                'end_date'          => $event->end_date,
+            ],
             'eventCategories' => EventCategory::select('id', 'title')->get(),
         ]);
     }
