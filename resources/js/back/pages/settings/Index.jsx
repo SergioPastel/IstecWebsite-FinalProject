@@ -326,74 +326,134 @@ export default function SettingsIndex({ siteInfo = null, locales = ["pt", "en"],
         });
     }
 
-    return (
-        <BackofficeLayout title="Definições" searchPlaceholder="Pesquisar definições">
-            <div className="space-y-6">
-                <PageHeader
-                    eyebrow="Configuration"
-                    title="Informações do site"
-                    description="Dados gerais da instituição apresentados publicamente no site."
-                />
+   return (
+  <BackofficeLayout
+    title="Definições"
+    searchPlaceholder="Pesquisar definições"
+    actions={[
+      <button
+        key="save"
+        type="submit"
+        form="settings-form"
+        disabled={processing}
+        className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)] disabled:opacity-50"
+      >
+        {processing ? "A guardar..." : "Guardar alterações"}
+      </button>,
+    ]}
+  >
+    <div className="space-y-6">
+      {errors.general && (
+        <div className="rounded border border-red-200 bg-red-50 p-3 text-sm text-red-600">
+          {errors.general}
+        </div>
+      )}
 
-                {errors.general && (
-                    <div className="p-3 bg-red-50 border border-red-200 rounded text-sm text-red-600">
-                        {errors.general}
-                    </div>
-                )}
-
-                <form onSubmit={submit} className="max-w-4xl space-y-10 rounded-xl">
-                    <Section title="Identidade">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="flex flex-col gap-2">
-                                <label className="font-semibold text-brand-black">Telefone</label>
-                                <TextInput value={fields.phone_number} onChange={(e) => setField("phone_number", e.target.value)} error={errors.phone_number} placeholder="+351 000 000 000" />
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <label className="font-semibold text-brand-black">Email</label>
-                                <TextInput type="email" value={fields.email} onChange={(e) => setField("email", e.target.value)} error={errors.email} placeholder="geral@exemplo.pt" />
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <label className="font-semibold text-brand-black">Morada</label>
-                                <TextareaInput rows={2} value={fields.address} onChange={(e) => setField("address", e.target.value)} error={errors.address} placeholder="Rua Exemplo, n.º 1, 0000-000 Porto" />
-                            </div>
-                        </div>
-                    </Section>
-
-                    <Section title="Conteúdo">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <TranslatableField label="Slogan" locales={locales} value={fields.slogan}
-                                onChange={(loc, val) => setField("slogan", { ...fields.slogan, [loc]: val })} error={errors.slogan} />
-                            <div className="hidden md:block" />
-                            <TranslatableField label="Missão" locales={locales} value={fields.mission} multiline rows={4}
-                                onChange={(loc, val) => setField("mission", { ...fields.mission, [loc]: val })} error={errors.mission} />
-                            <TranslatableField label="Quem somos" locales={locales} value={fields.whoWeAre} multiline rows={4}
-                                onChange={(loc, val) => setField("whoWeAre", { ...fields.whoWeAre, [loc]: val })} error={errors.whoWeAre} />
-                        </div>
-                    </Section>
-
-                    <Section title="Favicon">
-                        <ImageUpload label="Favicon" currentUrl={faviconUrl} onChange={(file) => setField("favicon", file)} error={errors.favicon} />
-                    </Section>
-
-                    <Section title="Banner">
-                        <BannerManager
-                            slides={slides}
-                            locales={locales}
-                            onChange={handleSlidesChange}
-                        />
-                    </Section>
-
-                    <div className="flex items-center gap-4">
-                        <button type="submit" disabled={processing}
-                            className="px-8 py-3 bg-brand-primary text-white font-bold rounded-lg hover:bg-brand-secondary transition-colors disabled:opacity-50">
-                            {processing ? "A guardar..." : "Guardar alterações"}
-                        </button>
-                        {success && (
-                            <span className="text-sm font-medium text-emerald-600">Guardado ✓</span>
-                        )}
-                    </div>
-                </form>
+      <form
+        id="settings-form"
+        onSubmit={submit}
+        className="max-w-4xl space-y-10 rounded-xl"
+      >
+        <Section title="Identidade">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="flex flex-col gap-2">
+              <label className="font-semibold text-brand-black">Telefone</label>
+              <TextInput
+                value={fields.phone_number}
+                onChange={(e) => setField("phone_number", e.target.value)}
+                error={errors.phone_number}
+                placeholder="+351 000 000 000"
+              />
             </div>
-        </BackofficeLayout>
-    );
+
+            <div className="flex flex-col gap-2">
+              <label className="font-semibold text-brand-black">Email</label>
+              <TextInput
+                type="email"
+                value={fields.email}
+                onChange={(e) => setField("email", e.target.value)}
+                error={errors.email}
+                placeholder="geral@exemplo.pt"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="font-semibold text-brand-black">Morada</label>
+              <TextareaInput
+                rows={2}
+                value={fields.address}
+                onChange={(e) => setField("address", e.target.value)}
+                error={errors.address}
+                placeholder="Rua Exemplo, n.º 1, 0000-000 Porto"
+              />
+            </div>
+          </div>
+        </Section>
+
+        <Section title="Conteúdo">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <TranslatableField
+              label="Slogan"
+              locales={locales}
+              value={fields.slogan}
+              onChange={(loc, val) =>
+                setField("slogan", { ...fields.slogan, [loc]: val })
+              }
+              error={errors.slogan}
+            />
+
+            <div className="hidden md:block" />
+
+            <TranslatableField
+              label="Missão"
+              locales={locales}
+              value={fields.mission}
+              multiline
+              rows={4}
+              onChange={(loc, val) =>
+                setField("mission", { ...fields.mission, [loc]: val })
+              }
+              error={errors.mission}
+            />
+
+            <TranslatableField
+              label="Quem somos"
+              locales={locales}
+              value={fields.whoWeAre}
+              multiline
+              rows={4}
+              onChange={(loc, val) =>
+                setField("whoWeAre", { ...fields.whoWeAre, [loc]: val })
+              }
+              error={errors.whoWeAre}
+            />
+          </div>
+        </Section>
+
+        <Section title="Favicon">
+          <ImageUpload
+            label="Favicon"
+            currentUrl={faviconUrl}
+            onChange={(file) => setField("favicon", file)}
+            error={errors.favicon}
+          />
+        </Section>
+
+        <Section title="Banner">
+          <BannerManager
+            slides={slides}
+            locales={locales}
+            onChange={handleSlidesChange}
+          />
+        </Section>
+
+        {success && (
+          <span className="text-sm font-medium text-emerald-600">
+            Guardado ✓
+          </span>
+        )}
+      </form>
+    </div>
+  </BackofficeLayout>
+);
 }
