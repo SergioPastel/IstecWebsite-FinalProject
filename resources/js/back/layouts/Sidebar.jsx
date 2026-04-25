@@ -92,7 +92,7 @@ export default function Sidebar({ isOpen, isCollapsed, onClose, onToggleCollapse
       <aside
         className={`fixed inset-y-0 left-0 z-40 flex ${
           isCollapsed ? "w-24" : "w-72"
-        } flex-col overflow-y-auto border-r border-white/10 bg-[#0C73B7] text-slate-100 transition-[width,transform] duration-300 md:translate-x-0 ${
+        } flex-col overflow-y-auto border-r border-white/10 bg-[#000000] text-slate-100 transition-[width,transform] duration-300 md:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >

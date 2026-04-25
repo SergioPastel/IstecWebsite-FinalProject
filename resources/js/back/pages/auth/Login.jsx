@@ -19,6 +19,7 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#f4f8fc] via-white to-[#eef6ff] flex items-center justify-center px-4">
       <FlashToasts />
+      
       <div className="w-full max-w-md">
         <form
           onSubmit={submit}

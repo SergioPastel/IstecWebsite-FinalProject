@@ -71,23 +71,7 @@ export default function Topbar({
             </div>
           </div>
 
-          <div className="hidden items-center gap-3 md:flex">
-            <button
-              type="button"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-slate-300 hover:text-slate-950"
-              aria-label="Notificacoes"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                className="h-5 w-5"
-              >
-                <path d="M15 17h5l-1.4-1.4a2 2 0 0 1-.6-1.4v-3.2a6 6 0 1 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5" />
-                <path d="M10 17a2 2 0 0 0 4 0" />
-              </svg>
-            </button>
+          <div className="hidden items-center gap-3 md:flex">            
 
             <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-3 py-2 shadow-sm">
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--color-brand-surface-strong)] text-sm font-semibold text-[var(--color-brand-primary)]">
