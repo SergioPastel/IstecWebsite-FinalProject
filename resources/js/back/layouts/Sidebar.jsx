@@ -168,7 +168,7 @@ export default function Sidebar({ isOpen, isCollapsed, onClose, onToggleCollapse
             method="post"
             as="button"
             className="flex w-full items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
-            title="Terminar sessao"
+            title="Terminar sessão"
           >
             {isCollapsed ? (
               <svg
@@ -184,7 +184,7 @@ export default function Sidebar({ isOpen, isCollapsed, onClose, onToggleCollapse
                 <path d="M12 19H7a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h5" />
               </svg>
             ) : (
-              "Terminar sessao"
+              "Terminar sessão"
             )}
           </Link>
         </div>

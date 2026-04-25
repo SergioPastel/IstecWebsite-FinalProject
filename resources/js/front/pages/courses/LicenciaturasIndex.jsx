@@ -187,23 +187,14 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
 
                                 <input
                                     value={query}
-                                    onChange={(e) => setQuery(e.target.value)}
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter') applyFilters({ q: e.currentTarget.value });
+                                    onChange={(e) => { // Update query state and apply filters immediately on input change
+                                        const value = e.target.value;
+                                        setQuery(value);
+                                        applyFilters({ q: value });
                                     }}
                                     placeholder={t('courses.licenciatura.searchPlaceholder')}
                                     className="w-full rounded-[18px] border border-[#dbe4ee] bg-white px-11 py-4 pr-32 text-sm text-[#1f2937] outline-none focus:ring-2 focus:ring-[#0d8fe8]"
                                 />
-
-                                <div className="absolute right-2 top-1/2 -translate-y-1/2">
-                                    <button
-                                        type="button"
-                                        onClick={() => applyFilters({ q: query })}
-                                        className="rounded-full bg-[#0d8fe8] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#0a78c4]"
-                                    >
-                                        {t('courses.licenciatura.searchButton')}
-                                    </button>
-                                </div>
                             </div>
 
                             <select

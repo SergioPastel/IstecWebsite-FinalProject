@@ -102,7 +102,8 @@ export default function EventsIndexBack({ events }) {
                         </div>
 
                         <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                          {formatDate(event.start_date)} a {formatDate(event.end_date)}
+                          {formatDate(event.start_date)}
+                          {event.end_date && ` a ${formatDate(event.end_date)}`} {/* Only renders end_date message if it exists */}
                         </p>
 
                         <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -167,7 +168,7 @@ export default function EventsIndexBack({ events }) {
 }
 
 function formatDate(value) {
-  if (!value) return "Data por definir";
+  if (!value) return "";
 
   return new Date(value).toLocaleDateString("pt-PT", {
     day: "2-digit",

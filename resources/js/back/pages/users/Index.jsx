@@ -8,7 +8,7 @@ import StatusBadge from "../../components/ui/StatusBadge";
 import EmptyState from "../../components/ui/EmptyState";
 import { filterCollectionByQuery } from "../../utils/search";
 
-export default function UsersIndex({ users = [] }) {
+export default function UsersIndex({ users = [], activeUser }) {
     const [userToDelete, setUserToDelete] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -101,19 +101,21 @@ export default function UsersIndex({ users = [] }) {
                             tone={user.deleted_at ? "danger" : "success"}
                           />
 
-                          <button
-                            onClick={() =>
-                              !user.deleted_at && confirmDelete(user)
-                            }
-                            disabled={!!user.deleted_at}
-                            className={`text-sm ${
-                              user.deleted_at
-                                ? "cursor-not-allowed text-gray-400"
-                                : "text-red-600 hover:text-red-800"
-                            }`}
-                          >
-                            Eliminar
-                          </button>
+                          {user.id !== activeUser.id && ( // Only renders deletion button IF the active user is different from the                                           
+                            <button                       // user being displayed. Preventing admins from being locked out of the backoffice
+                              onClick={() =>
+                                !user.deleted_at && confirmDelete(user)
+                              }
+                              disabled={!!user.deleted_at}
+                              className={`text-sm ${
+                                user.deleted_at
+                                  ? "cursor-not-allowed text-gray-400"
+                                  : "text-red-600 hover:text-red-800"
+                              }`}
+                            >
+                              Eliminar
+                            </button>
+                          )}
                         </div>
                       </div>
                     </article>

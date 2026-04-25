@@ -13,8 +13,7 @@ export default function EventsandNews({
   const { t } = useTranslation();
   const [activeFilter, setActiveFilter] = useState("all");
   const [subFilter, setSubFilter] = useState("all");
-  const [searchInput, setSearchInput] = useState("");
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(""); // the value used for filtering, updated on search
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
@@ -92,13 +91,6 @@ export default function EventsandNews({
   const featuredItem =
     filteredItems.find((item) => item.featured) || filteredItems[0] || null;
 
-  const otherItems = featuredItem
-    ? filteredItems.filter(
-        (item) =>
-          `${item.kind}-${item.id}` !== `${featuredItem.kind}-${featuredItem.id}`
-      )
-    : filteredItems;
-
   const getItemHref = (item) => {
     if (item.kind === "event") {
       return route("events.show", item.id);
@@ -117,11 +109,6 @@ export default function EventsandNews({
   const start = (currentPage - 1) * itemsPerPage;
   return filteredItems.slice(start, start + itemsPerPage);
 }, [filteredItems, currentPage]);
-
-  const handleSearch = () => {
-  setSearch(searchInput.trim());
-  setCurrentPage(1);
-};
 
   return (
   <Layout title={t("updates.metaTitle", "Eventos e Notícias")}>
@@ -175,23 +162,13 @@ export default function EventsandNews({
               <input
                 type="text"
                 placeholder={t("updates.search.placeholder", "Pesquisar notícias ou eventos...")}
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") handleSearch();
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setCurrentPage(1);
                 }}
                 className="w-full rounded-[18px] border border-[#dbe4ee] bg-white px-11 py-4 pr-32 text-sm text-[#1f2937] outline-none focus:ring-2 focus:ring-[#0d8fe8]"
-              />
-
-              <div className="absolute right-2 top-1/2 -translate-y-1/2">
-              <button
-                type="button"
-                onClick={handleSearch}
-                className="rounded-full bg-[#0d8fe8] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#0a78c4]"
-              >
-                {t("updates.search.button", "Pesquisar")}
-              </button>
-              </div>
+              />       
             </div>
 
             <select
