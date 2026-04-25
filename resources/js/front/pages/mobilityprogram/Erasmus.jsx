@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import Layout from "../../layouts/Layout";
 import { useTranslation } from "react-i18next";
 import Banner from "../../components/common/Banner";
@@ -12,8 +12,14 @@ import reyjuan from "../../assets/Reyjuan.jpg";
 import ds from "../../assets/DSConsulting.jpg";
 
 export default function Erasmus() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { siteInfo } = usePage().props;
+  const lang = i18n.language?.startsWith("en") ? "en" : "pt";
 
+  const banner = siteInfo?.pageBanners?.erasmus ?? null;
+  const bannerTitle = banner?.title?.[lang] ?? banner?.title?.pt ?? null;
+  const bannerSubtitle =
+    banner?.subtitle?.[lang] ?? banner?.subtitle?.pt ?? null;
   const benefits = [
     t("erasmusPage.benefits.0"),
     t("erasmusPage.benefits.1"),
@@ -26,16 +32,15 @@ export default function Erasmus() {
     { value: "100%", label: t("erasmusPage.highlights.2") },
   ];
 
- const partners = [
-  { id: 1, name: "Fuero Games", logo: fuero },
-  { id: 2, name: "Instituto Torino", logo: torino },
-  { id: 3, name: "Centre d'Estudis Politècnics", logo: centre },
-  { id: 4, name: "NKey", logo: nkey },
-  { id: 5, name: "Politécnica", logo: politecnica },
-  { id: 6, name: "Rey Juan Carlos", logo: reyjuan },
-  { id: 7, name: "DS Consulting", logo: ds },
-];
-
+  const partners = [
+    { id: 1, name: "Fuero Games", logo: fuero },
+    { id: 2, name: "Instituto Torino", logo: torino },
+    { id: 3, name: "Centre d'Estudis Politècnics", logo: centre },
+    { id: 4, name: "NKey", logo: nkey },
+    { id: 5, name: "Politécnica", logo: politecnica },
+    { id: 6, name: "Rey Juan Carlos", logo: reyjuan },
+    { id: 7, name: "DS Consulting", logo: ds },
+  ];
 
   const steps = [
     {
@@ -55,22 +60,26 @@ export default function Erasmus() {
     <Layout title={t("erasmusPage.title")}>
       <div className="min-h-screen bg-white">
         <main className="">
-         <Banner>
+          <Banner
+            imageUrl={banner?.url ?? null}
+            title={bannerTitle}
+            subtitle={bannerSubtitle}
+          >
             <div className="max-w-[1600px] mx-auto px-6 py-20">
               <p className="text-sm uppercase tracking-[2px] font-extrabold text-white/80 mb-4">
                 {t("erasmusPage.subtitle")}
               </p>
-        
+
               <h1 className="text-[clamp(2.5rem,4vw,4rem)] font-extrabold leading-tight">
-               {t("erasmusPage.title")}
+                {t("erasmusPage.title")}
               </h1>
-        
+
               <p className="mt-6 max-w-[700px] text-white/90 leading-relaxed">
                 {t("erasmusPage.description")}
               </p>
             </div>
           </Banner>
-           <section className="py-16">
+          <section className="py-16">
             <div className="max-w-7xl mx-auto px-6 md:px-10">
               <div className="grid gap-6 md:grid-cols-3">
                 {highlights.map((item, index) => (
@@ -182,11 +191,11 @@ export default function Erasmus() {
               </p>
 
               <Link
-                  href={route("contacts")}
-                  className="mt-8 inline-block rounded-xl bg-[#1697e6] px-8 py-3 font-semibold text-white transition hover:bg-[#0f7fc2]"
-                >
-                  {t("erasmusPage.ctaButton")}
-            </Link>
+                href={route("contacts")}
+                className="mt-8 inline-block rounded-xl bg-[#1697e6] px-8 py-3 font-semibold text-white transition hover:bg-[#0f7fc2]"
+              >
+                {t("erasmusPage.ctaButton")}
+              </Link>
             </div>
           </section>
         </main>
@@ -194,4 +203,3 @@ export default function Erasmus() {
     </Layout>
   );
 }
-   

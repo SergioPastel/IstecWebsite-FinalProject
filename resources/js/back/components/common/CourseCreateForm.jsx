@@ -70,7 +70,11 @@ function SubjectCombobox({ subjects = [], onSelect, excludeIds = [] }) {
 // ─── Inline new-subject creator ──────────────────────────────────────────────
 // ─── Inline new-subject creator ──────────────────────────────────────────────
 function NewSubjectForm({ onAdd, onCancel }) {
-  const [form, setForm] = useState({ name: { pt: "", en: "" }, ects: 6, file: null });
+  const [form, setForm] = useState({
+    name: { pt: "", en: "" },
+    ects: 6,
+    file: null,
+  });
   const fileInputRef = useRef(null);
   const valid = (form.name.pt.trim() || form.name.en.trim()) && form.file;
 
@@ -86,7 +90,10 @@ function NewSubjectForm({ onAdd, onCancel }) {
             type="text"
             value={form.name.pt}
             onChange={(e) =>
-              setForm((f) => ({ ...f, name: { ...f.name, pt: e.target.value } }))
+              setForm((f) => ({
+                ...f,
+                name: { ...f.name, pt: e.target.value },
+              }))
             }
             className="p-2 border rounded border-brand-border text-sm outline-none focus:ring-2 focus:ring-brand-secondary"
           />
@@ -97,7 +104,10 @@ function NewSubjectForm({ onAdd, onCancel }) {
             type="text"
             value={form.name.en}
             onChange={(e) =>
-              setForm((f) => ({ ...f, name: { ...f.name, en: e.target.value } }))
+              setForm((f) => ({
+                ...f,
+                name: { ...f.name, en: e.target.value },
+              }))
             }
             className="p-2 border rounded border-brand-border text-sm outline-none focus:ring-2 focus:ring-brand-secondary"
           />
@@ -124,10 +134,16 @@ function NewSubjectForm({ onAdd, onCancel }) {
         </label>
         {form.file ? (
           <div className="flex items-center gap-2 px-3 py-2 bg-white border border-brand-border rounded text-sm">
-            <svg className="w-4 h-4 text-red-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <svg
+              className="w-4 h-4 text-red-400 shrink-0"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
               <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
             </svg>
-            <span className="truncate text-slate-700 flex-1">{form.file.name}</span>
+            <span className="truncate text-slate-700 flex-1">
+              {form.file.name}
+            </span>
             <button
               type="button"
               onClick={() => {
@@ -144,9 +160,18 @@ function NewSubjectForm({ onAdd, onCancel }) {
             onClick={() => fileInputRef.current?.click()}
             className="flex items-center gap-2 px-3 py-2 border border-dashed border-brand-border rounded cursor-pointer hover:border-brand-secondary transition bg-white text-sm text-slate-400"
           >
-            <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12V4m0 0L8 8m4-4l4 4" />
+            <svg
+              className="w-4 h-4 shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12V4m0 0L8 8m4-4l4 4"
+              />
             </svg>
             Carregar PDF
           </div>
@@ -261,7 +286,6 @@ function SemesterCard({ semesterNumber, subjects, allSubjects, onChange }) {
           ))}
         </ul>
       )}
-
       {!showNewForm && (
         <SubjectCombobox
           subjects={allSubjects}
@@ -469,14 +493,29 @@ export default function CourseCreateForm({
     setProcessing(true);
     setErrors({});
 
+    // Extract new subject files into a flat array with a reference key
+    // so the controller can match file[i] → subject by _fileIndex
+    let fileIndex = 0;
+    const newSubjectFiles = [];
+    const semesters = data.semesters.map((sem) => ({
+      ...sem,
+      subjects: sem.subjects.map((subj) => {
+        if (subj._type !== "new") return subj;
+        const idx = fileIndex++;
+        newSubjectFiles.push(subj.file);
+        return { ...subj, file: undefined, _fileIndex: idx };
+      }),
+    }));
+
     const payload = {
       ...data,
+      semesters,
       modality: data.modality || null,
       course_category_id: data.course_category_id || null,
+      new_subject_files: newSubjectFiles,
     };
 
     const options = {
-      preserveScroll: true,
       forceFormData: true,
       onError: (errs) => {
         setErrors(errs);

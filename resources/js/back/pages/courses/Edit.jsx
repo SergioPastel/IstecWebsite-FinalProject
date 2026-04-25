@@ -4,7 +4,7 @@ import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
 import CourseCreateForm from "../../components/common/CourseCreateForm";
 
-export default function EditCourse({ course, categories = [] }) {
+export default function EditCourse({ course, categories = [], subjects = [] }) {
   const currentCourse = course?.data ?? course ?? {};
 
   return (
@@ -28,6 +28,7 @@ export default function EditCourse({ course, categories = [] }) {
         >
           <CourseCreateForm
             categories={categories}
+            subjects={subjects}
             course={currentCourse}
             isEdit={true}
           />

@@ -42,7 +42,14 @@ class HandleInertiaRequests extends Middleware
         $siteInfo = null;
 
         if (Schema::hasTable('site_infos')) {
-            $record = SiteInfo::first();
+            $record = SiteInfo::with([
+                'ctespBannerMedia',
+                'licenciaturaBannerMedia',
+                'posGraduacaoBannerMedia',
+                'eventosNoticiasBannerMedia',
+                'erasmusBannerMedia',
+                'pedagogiaBannerMedia',
+            ])->first();
 
             if ($record) {
                 $siteInfo = new SiteInfoResource($record);
@@ -57,11 +64,11 @@ class HandleInertiaRequests extends Middleware
             'locale' => app()->getLocale(),
             'languages' => config('app.available_locales'),
             'siteInfo' => $siteInfo,
-            
+
             // For the toast notifs
             'flash' => [
-                'success' => fn () => $request->session()->get('success'),
-                'error'   => fn () => $request->session()->get('error'),
+                'success' => fn() => $request->session()->get('success'),
+                'error' => fn() => $request->session()->get('error'),
             ],
         ];
     }

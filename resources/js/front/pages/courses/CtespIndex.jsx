@@ -1,10 +1,9 @@
 import Layout from '../../layouts/Layout';
 import { useTranslation } from 'react-i18next';
-import { Link, router } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import { useEffect, useMemo, useState } from 'react';
 import Banner from '../../components/common/Banner';
 import { route } from 'ziggy-js';
-
 
 function getCourseText(value, lang) {
     if (value == null) return '';
@@ -24,6 +23,11 @@ export default function CtespIndex({ courses, filters = {} }) {
     const { t, i18n } = useTranslation();
     const lang = i18n.language?.startsWith('en') ? 'en' : 'pt';
 
+    const { siteInfo } = usePage().props;
+    const banner = siteInfo?.pageBanners?.ctesp ?? null;
+    const bannerTitle    = banner?.title?.[lang]    ?? banner?.title?.pt    ?? null;
+    const bannerSubtitle = banner?.subtitle?.[lang] ?? banner?.subtitle?.pt ?? null;
+
     const [query, setQuery] = useState(filters?.q ?? '');
     const [searchTerm, setSearchTerm] = useState(filters?.q ?? '');
     const [sortBy, setSortBy] = useState('relevance');
@@ -38,7 +42,6 @@ export default function CtespIndex({ courses, filters = {} }) {
 
     const sortedCourseItems = useMemo(() => {
         const search = normalizeText(query.trim());
-
         let items = [...courseItems];
 
         if (search) {
@@ -49,17 +52,9 @@ export default function CtespIndex({ courses, filters = {} }) {
         }
 
         if (sortBy === 'name_asc') {
-            items.sort((a, b) => {
-                const ta = getCourseText(a.title, lang).toLowerCase();
-                const tb = getCourseText(b.title, lang).toLowerCase();
-                return ta.localeCompare(tb, lang);
-            });
+            items.sort((a, b) => getCourseText(a.title, lang).toLowerCase().localeCompare(getCourseText(b.title, lang).toLowerCase(), lang));
         } else if (sortBy === 'name_desc') {
-            items.sort((a, b) => {
-                const ta = getCourseText(a.title, lang).toLowerCase();
-                const tb = getCourseText(b.title, lang).toLowerCase();
-                return tb.localeCompare(ta, lang);
-            });
+            items.sort((a, b) => getCourseText(b.title, lang).toLowerCase().localeCompare(getCourseText(a.title, lang).toLowerCase(), lang));
         }
 
         return items;
@@ -68,14 +63,8 @@ export default function CtespIndex({ courses, filters = {} }) {
     const totalPages = Math.ceil(sortedCourseItems.length / itemsPerPage);
 
     useEffect(() => {
-        if (totalPages === 0 && currentPage !== 1) {
-            setCurrentPage(1);
-            return;
-        }
-
-        if (totalPages > 0 && currentPage > totalPages) {
-            setCurrentPage(totalPages);
-        }
+        if (totalPages === 0 && currentPage !== 1) { setCurrentPage(1); return; }
+        if (totalPages > 0 && currentPage > totalPages) setCurrentPage(totalPages);
     }, [currentPage, totalPages]);
 
     const paginatedCourseItems = useMemo(() => {
@@ -85,31 +74,29 @@ export default function CtespIndex({ courses, filters = {} }) {
 
     const resultsCount = courses?.total ?? sortedCourseItems.length;
 
-     const applyFilters = (next = {}) => {
-    setSearchTerm(next.q ?? query);
-    setCurrentPage(1);
-};
+    const applyFilters = (next = {}) => {
+        setSearchTerm(next.q ?? query);
+        setCurrentPage(1);
+    };
 
     return (
         <Layout title={t('courses.ctesp.pageTitle')}>
             <div className="w-full bg-[#f5f8fc] text-[#1f2937]">
-                <Banner>
+                <Banner imageUrl={banner?.url ?? null} title={bannerTitle} subtitle={bannerSubtitle}>
+                    {/* Fallback content — only shown when no title/subtitle configured in CMS */}
                     <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 sm:px-6 lg:px-8">
                         <div className="max-w-3xl">
                             <p className="mb-4 text-[0.85rem] font-extrabold uppercase tracking-[1.5px] text-white/90">
                                 {t('courses.ctesp.hero.badge')}
                             </p>
-
                             <h1 className="text-[clamp(2.2rem,4vw,3.8rem)] font-extrabold leading-[1.08] tracking-[-1px]">
                                 {t('courses.ctesp.hero.title')}
                             </h1>
-
                             <p className="mt-5 max-w-2xl text-[1.05rem] leading-[1.8] text-white/90">
                                 {t('courses.ctesp.hero.description')}
                             </p>
                         </div>
                     </div>
-
                     <div className="absolute right-[-120px] bottom-[-80px] h-[320px] w-[320px] rounded-full bg-white/10 blur-xl"></div>
                 </Banner>
 
@@ -119,11 +106,9 @@ export default function CtespIndex({ courses, filters = {} }) {
                             <p className="mb-3 inline-block text-[0.8rem] font-extrabold uppercase tracking-[1.2px] text-[#0d8fe8]">
                                 {t('courses.ctesp.about.badge')}
                             </p>
-
                             <h2 className="mb-4 text-[clamp(1.8rem,3vw,2.4rem)] font-semibold leading-[1.15] tracking-[-0.5px] text-[#1f2937]">
                                 {t('courses.ctesp.about.title')}
                             </h2>
-
                             <div className="max-w-4xl space-y-4 text-[0.98rem] leading-[1.8] text-[#6b7280]">
                                 <p>{t('courses.ctesp.about.paragraph1')}</p>
                                 <p>{t('courses.ctesp.about.paragraph2')}</p>
@@ -140,12 +125,10 @@ export default function CtespIndex({ courses, filters = {} }) {
                                 <p className="mb-[10px] inline-block text-[0.8rem] font-extrabold uppercase tracking-[1.2px] text-[#0d8fe8]">
                                     {t('courses.ctesp.listing.badge')}
                                 </p>
-
                                 <h2 className="text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.15] tracking-[-0.5px] text-[#1f2937]">
                                     {t('courses.ctesp.listing.title')}
                                 </h2>
                             </div>
-
                             <div className="text-sm text-[#6b7280]">
                                 <span className="font-bold text-[#1f2937]">{resultsCount}</span>{' '}
                                 {resultsCount === 1 ? t('courses.oneCourse') : t('courses.multipleCourses')}
@@ -155,31 +138,18 @@ export default function CtespIndex({ courses, filters = {} }) {
                         <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_220px]">
                             <div className="relative">
                                 <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-[#94a3b8]">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        className="h-4 w-4"
-                                    >
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4">
                                         <circle cx="11" cy="11" r="7" />
                                         <line x1="16.5" y1="16.5" x2="21" y2="21" />
                                     </svg>
                                 </div>
-
                                 <input
                                     value={query}
-                                    onChange={(e) => { // Update query state and apply filters immediately on input change
-                                        const value = e.target.value;
-                                        setQuery(value);
-                                        applyFilters({ q: value });
-                                    }}
+                                    onChange={(e) => { setQuery(e.target.value); applyFilters({ q: e.target.value }); }}
                                     placeholder={t('courses.ctesp.searchPlaceholder')}
                                     className="w-full rounded-[18px] border border-[#dbe4ee] bg-white px-11 py-4 pr-32 text-sm text-[#1f2937] outline-none focus:ring-2 focus:ring-[#0d8fe8]"
-                                />                                
+                                />
                             </div>
-
                             <select
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
@@ -205,102 +175,44 @@ export default function CtespIndex({ courses, filters = {} }) {
                                     {paginatedCourseItems.map((course) => {
                                         const title = getCourseText(course.title, lang);
                                         const desc = getCourseText(course.description, lang);
-                                        const duration = course.duration_years
-                                            ? `${course.duration_years} ${t('courses.years')}`
-                                            : `2 ${t('courses.years')}`;
-                                        const regimeLabel = course.study_regime
-                                            ? t('courses.posLaboralLabel')
-                                            : t('courses.laboralLabel');
-                                        const modality = course.modality === 'hibrido'
-                                                        ? t('courses.modality.hybrid')
-                                                        : course.modality === 'online'
-                                                        ? t('courses.modality.remote')
-                                                        : t('courses.modality.inPerson');
-                                        const ects = course.semesters
-                                                    .flatMap(semester => semester.subjects)
-                                                    .reduce((sum, subject) => sum + subject.ects, 0);
+                                        const duration = course.duration_years ? `${course.duration_years} ${t('courses.years')}` : `2 ${t('courses.years')}`;
+                                        const regimeLabel = course.study_regime ? t('courses.posLaboralLabel') : t('courses.laboralLabel');
+                                        const modality = course.modality === 'hibrido' ? t('courses.modality.hybrid') : course.modality === 'online' ? t('courses.modality.remote') : t('courses.modality.inPerson');
+                                        const ects = course.semesters.flatMap(s => s.subjects).reduce((sum, s) => sum + s.ects, 0);
 
                                         return (
-                                            <article
-                                                key={course.id}
-                                                className="flex h-full flex-col rounded-[20px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(13,143,232,0.12)]"
-                                            >
+                                            <article key={course.id} className="flex h-full flex-col rounded-[20px] border border-[#dbe4ee] bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(13,143,232,0.12)]">
                                                 <div className="relative mb-4 h-48 w-full overflow-hidden rounded-xl">
-                                                    <img
-                                                        src={course.media?.url}
-                                                        alt={title}
-                                                        className="h-full w-full object-cover opacity-60 transition duration-700 group-hover:scale-105"
-                                                    />
-
+                                                    <img src={course.media?.url} alt={title} className="h-full w-full object-cover opacity-60 transition duration-700 group-hover:scale-105" />
                                                     <span className="absolute top-3 left-3 inline-flex rounded-full bg-[#eaf5ff] px-3 py-[6px] text-[0.8rem] font-extrabold text-[#0d8fe8] shadow">
                                                         {t('courses.ctesp.cardBadge')}
                                                     </span>
                                                 </div>
-
-                                                <h3 className="mt-[14px] text-[1.2rem] font-semibold leading-[1.3] text-[#1f2937]">
-                                                    {title}
-                                                </h3>
-
+                                                <h3 className="mt-[14px] text-[1.2rem] font-semibold leading-[1.3] text-[#1f2937]">{title}</h3>
                                                 {desc ? (
-                                                    <p className="mt-3 text-sm leading-[1.7] text-[#6b7280] line-clamp-3">
-                                                        {desc}
-                                                    </p>
+                                                    <p className="mt-3 text-sm leading-[1.7] text-[#6b7280] line-clamp-3">{desc}</p>
                                                 ) : (
-                                                    <p className="mt-3 text-sm leading-[1.7] text-[#6b7280]">
-                                                        {t('courses.ctesp.defaultDescription')}
-                                                    </p>
+                                                    <p className="mt-3 text-sm leading-[1.7] text-[#6b7280]">{t('courses.ctesp.defaultDescription')}</p>
                                                 )}
-
                                                 <div className="mt-4 flex flex-wrap gap-2 text-xs text-[#4b5563]">
-                                                    <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">
-                                                        {regimeLabel}
-                                                    </span>
-
-                                                    <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">
-                                                        {duration}
-                                                    </span>
-
-                                                    <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">
-                                                        {modality}
-                                                    </span>
-
-                                                    <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">
-                                                        {ects} ects
-                                                    </span>
+                                                    <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">{regimeLabel}</span>
+                                                    <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">{duration}</span>
+                                                    <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">{modality}</span>
+                                                    <span className="inline-flex items-center rounded-full bg-[#f1f5f9] px-2.5 py-1 font-medium">{ects} ects</span>
                                                 </div>
-
                                                 <div className="mt-5 text-sm text-[#6b7280]">
                                                     {course.tuition_monthly_pay ? (
-                                                        <span className="font-bold text-[#1f2937]">
-                                                            {course.tuition_monthly_pay}
-                                                            {t('courses.perMonth')}
-                                                        </span>
+                                                        <span className="font-bold text-[#1f2937]">{course.tuition_monthly_pay}{t('courses.perMonth')}</span>
                                                     ) : (
-                                                        <span className="font-bold text-[#1f2937]">
-                                                            {t('courses.ctesp.tuitionInfo')}
-                                                        </span>
+                                                        <span className="font-bold text-[#1f2937]">{t('courses.ctesp.tuitionInfo')}</span>
                                                     )}
                                                 </div>
-
                                                 <div className="mt-auto flex gap-3 pt-6">
-                                                    <Link
-                                                        href={route('courses.show', course.id)}
-                                                        className="flex-1 rounded-full bg-[#0d8fe8] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#0a78c4]"
-                                                    >
+                                                    <Link href={route('courses.show', course.id)} className="flex-1 rounded-full bg-[#0d8fe8] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#0a78c4]">
                                                         {t('courses.ctesp.moreInfo')}
                                                     </Link>
-
-                                                    <button
-                                                        type="button"
-                                                        className="flex-1 rounded-full border border-[rgba(13,143,232,0.22)] bg-transparent px-4 py-3 text-sm font-bold text-[#0d8fe8] transition hover:bg-[#eaf5ff]"
-                                                        onClick={() => {
-                                                            window.umami?.track('ctesp_apply_click', {
-                                                                course_id: course.id,
-                                                            });
-
-                                                            router.visit(route('applications.courses.apply', course));
-                                                        }}
-                                                    >
+                                                    <button type="button" className="flex-1 rounded-full border border-[rgba(13,143,232,0.22)] bg-transparent px-4 py-3 text-sm font-bold text-[#0d8fe8] transition hover:bg-[#eaf5ff]"
+                                                        onClick={() => { window.umami?.track('ctesp_apply_click', { course_id: course.id }); router.visit(route('applications.courses.apply', course)); }}>
                                                         {t('courses.ctesp.apply')}
                                                     </button>
                                                 </div>
@@ -312,41 +224,18 @@ export default function CtespIndex({ courses, filters = {} }) {
                                 {totalPages > 1 && (
                                     <div className="mt-12 flex justify-center">
                                         <div className="flex flex-wrap items-center gap-2">
-                                            <button
-                                                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                                                disabled={currentPage === 1}
-                                                className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
-                                                    currentPage === 1
-                                                        ? 'cursor-not-allowed border-[#e5e7eb] bg-[#f9fafb] text-[#9ca3af]'
-                                                        : 'border-[#dbe4ee] bg-white text-[#374151] hover:bg-[#f8fafc]'
-                                                }`}
-                                            >
+                                            <button onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))} disabled={currentPage === 1}
+                                                className={`rounded-md border px-4 py-2 text-sm font-medium transition ${currentPage === 1 ? 'cursor-not-allowed border-[#e5e7eb] bg-[#f9fafb] text-[#9ca3af]' : 'border-[#dbe4ee] bg-white text-[#374151] hover:bg-[#f8fafc]'}`}>
                                                 {t('pagination.previous')}
                                             </button>
-
                                             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                                                <button
-                                                    key={page}
-                                                    onClick={() => setCurrentPage(page)}
-                                                    className={`h-[40px] min-w-[40px] rounded-md border text-sm font-medium transition ${
-                                                        currentPage === page
-                                                            ? 'border-[#0d8fe8] bg-[#0d8fe8] text-white'
-                                                            : 'border-[#dbe4ee] bg-white text-[#374151] hover:bg-[#f8fafc]'
-                                                    }`}
-                                                >
+                                                <button key={page} onClick={() => setCurrentPage(page)}
+                                                    className={`h-[40px] min-w-[40px] rounded-md border text-sm font-medium transition ${currentPage === page ? 'border-[#0d8fe8] bg-[#0d8fe8] text-white' : 'border-[#dbe4ee] bg-white text-[#374151] hover:bg-[#f8fafc]'}`}>
                                                     {page}
                                                 </button>
                                             ))}
-
-                                            <button
-                                                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                                                disabled={currentPage === totalPages}
-                                                className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
-                                                    currentPage === totalPages
-                                                        ? 'cursor-not-allowed border-[#e5e7eb] bg-[#f9fafb] text-[#9ca3af]'
-                                                        : 'border-[#dbe4ee] bg-white text-[#374151] hover:bg-[#f8fafc]'
-                                                }`}
-                                            >
+                                            <button onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))} disabled={currentPage === totalPages}
+                                                className={`rounded-md border px-4 py-2 text-sm font-medium transition ${currentPage === totalPages ? 'cursor-not-allowed border-[#e5e7eb] bg-[#f9fafb] text-[#9ca3af]' : 'border-[#dbe4ee] bg-white text-[#374151] hover:bg-[#f8fafc]'}`}>
                                                 {t('pagination.next')}
                                             </button>
                                         </div>

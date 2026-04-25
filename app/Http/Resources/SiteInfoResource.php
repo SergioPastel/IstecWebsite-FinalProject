@@ -17,16 +17,36 @@ class SiteInfoResource extends JsonResource
     {
         $locale = app()->getLocale();
 
+        $pageBannerKeys = [
+            'ctesp' => 'ctespBannerMedia',
+            'licenciatura' => 'licenciaturaBannerMedia',
+            'pos_graduacao' => 'posGraduacaoBannerMedia',
+            'eventos_noticias' => 'eventosNoticiasBannerMedia',
+            'erasmus' => 'erasmusBannerMedia',
+            'pedagogia' => 'pedagogiaBannerMedia',
+        ];
+
+        $pageBanners = [];
+        foreach ($pageBannerKeys as $key => $relation) {
+            $media = $this->$relation;
+            $pageBanners[$key] = [
+                'url' => $media ? \App\Models\Media::getUrl('public', $media->file_path) : null,
+                'title' => $this->getTranslation($key . '_banner_title', $locale) ?: $this->getTranslation($key . '_banner_title', 'pt'),
+                'subtitle' => $this->getTranslation($key . '_banner_subtitle', $locale) ?: $this->getTranslation($key . '_banner_subtitle', 'pt'),
+            ];
+        }
+
         return [
             'slogan' => $this->getTranslation('slogan', $locale) ?: $this->getTranslation('slogan', 'pt'),
             'mission' => $this->getTranslation('mission', $locale) ?: $this->getTranslation('mission', 'pt'),
             'whoWeAre' => $this->getTranslation('whoWeAre', $locale) ?: $this->getTranslation('whoWeAre', 'pt'),
             'site_name' => $this->site_name,
-            'phone_number'=> $this->phone_number,
+            'phone_number' => $this->phone_number,
             'email' => $this->email,
             'address' => $this->address,
             'logoMedia' => new MediaResource($this->logo),
             'faviconMedia' => new MediaResource($this->favicon),
+            'pageBanners' => $pageBanners,
         ];
     }
 }
