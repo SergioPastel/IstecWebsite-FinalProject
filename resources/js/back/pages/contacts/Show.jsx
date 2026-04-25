@@ -7,15 +7,15 @@ import StatusBadge from "../../components/ui/StatusBadge";
 export default function ContactShow({ contact }) {
   return (
     <BackofficeLayout
-      title="Detalhe da mensagem"
-      subtitle="Consulta da mensagem recebida através do formulário de contacto."
+      title="Mensagem"
+      subtitle="Consulta da mensagem recebida através do formulário de contacto"
       searchPlaceholder="Pesquisar mensagens"
     >
       <div className="space-y-6">
         <PageHeader
           eyebrow="Contactos"
           title={contact?.name ?? "Mensagem"}
-          description="Consulta os dados enviados pelo utilizador."
+          description="Consulte os dados enviados pelo utilizador."
           actions={[
             <Link
               key="back"
@@ -55,7 +55,7 @@ export default function ContactShow({ contact }) {
             <div className="md:col-span-2">
               <p className="text-sm text-slate-500">Mensagem</p>
               <p className="whitespace-pre-line font-medium text-slate-900">
-                {contact?.message ?? "Sem conteúdo."}
+                {contact?.message ?? "Sem conteúdo"}
               </p>
             </div>
           </div>

@@ -11,15 +11,15 @@ import { filterCollectionByQuery } from "../utils/search";
 const recentActivity = [
   {
     id: 1,
-    title: "Novo curso em revisao editorial",
-    detail: "CTeSP em Ciberseguranca aguardando validacao final.",
-    status: "Em revisao",
+    title: "Novo curso em revisão editorial",
+    detail: "CTeSP em Ciberseguranca aguardando validação final.",
+    status: "Em revisão",
     tone: "warning",
   },
   {
     id: 2,
-    title: "Noticia institucional publicada",
-    detail: "Comunicado sobre parcerias academicas atualizado.",
+    title: "Notícia institucional publicada",
+    detail: "Comunicado sobre parcerias académicas atualizado.",
     status: "Publicado",
     tone: "success",
   },
@@ -36,16 +36,16 @@ const latestContacts = [
   {
     id: 1,
     name: "Mariana Costa",
-    subject: "Pedido de informacao sobre licenciaturas",
+    subject: "Pedido de informação sobre licenciaturas",
     receivedAt: "Hoje, 10:14",
     status: "Novo",
   },
   {
     id: 2,
     name: "Tiago Pereira",
-    subject: "Esclarecimento sobre equivalencias",
+    subject: "Esclarecimento sobre equivalências",
     receivedAt: "Hoje, 09:02",
-    status: "Em analise",
+    status: "Em análise",
   },
   {
     id: 3,
@@ -112,7 +112,7 @@ export default function Dashboard({ analytics = {}, counts = {}, user }) {
           href={route("backoffice.news")}
           className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
         >
-          Ver noticias
+          Ver notícias
         </Link>,
       ]}
     >
@@ -182,14 +182,14 @@ export default function Dashboard({ analytics = {}, counts = {}, user }) {
               </SectionCard>
 
               <SectionCard
-                title="Ultimos contactos"
+                title="Últimos contactos"
                 subtitle={searchQuery ? `${filteredContacts.length} resultado(s) encontrados.` : undefined}
                 action={
                   <Link
                     href={route("backoffice.contacts")}
                     className="text-sm font-semibold text-[var(--color-brand-primary)] transition hover:text-[var(--color-brand-black)]"
                   >
-                    Abrir inbox
+                    Abrir caixa de entrada
                   </Link>
                 }
               >
@@ -234,7 +234,7 @@ export default function Dashboard({ analytics = {}, counts = {}, user }) {
           <SectionCard title="Pesquisa no dashboard">
             <EmptyState
               title="Sem resultados para esta pesquisa."
-              description="Experimenta procurar por modulos, estados, contactos ou atividade recente."
+              description="Experimenta procurar por módulos, estados, contactos ou atividade recente."
             />
           </SectionCard>
         )}

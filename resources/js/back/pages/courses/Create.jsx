@@ -8,7 +8,7 @@ export default function CreateCourse({ categories = [], subjects = [] }) {
   return (
    <BackofficeLayout
   title="Novo curso"
-  subtitle="Criação de um novo curso."
+  subtitle="Criação de um novo curso"
   searchPlaceholder="Pesquisar cursos"
   actions={[
     <Link

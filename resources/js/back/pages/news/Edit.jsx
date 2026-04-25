@@ -10,9 +10,9 @@ export default function EditNews({ news }) {
 
   return (
     <BackofficeLayout
-      title="Editar noticia"
-      subtitle="Atualização dos dados da notícia."
-      searchPlaceholder="Pesquisar noticias"
+      title="Editar notícia"
+      subtitle="Atualização dos dados da notícia"
+      searchPlaceholder="Pesquisar notícias"
       actions={[
         <Link
           key="back"
@@ -26,7 +26,7 @@ export default function EditNews({ news }) {
 
         <SectionCard
           title="Formulário"
-          subtitle="Edita os dados principais da notícia"
+          subtitle="Edite os dados principais da notícia"
         >
           <NewsCreateForm
             news={currentNews}
