@@ -43,8 +43,6 @@ class CourseController extends Controller
     {
         $courses = Course::latest()->paginate(10)->onEachSide(1);
 
-        // dd($courses->pluck('title'));
-
         return Inertia('front/pages/courses/LicenciaturasIndex', [
             'courses' => CourseResource::collection($courses)
         ]);

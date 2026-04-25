@@ -35,7 +35,7 @@ export default function About() {
             </h2>
 
             <p className="text-lg text-[#4b5563] leading-relaxed mb-6">
-              {pageProps.siteInfo.mission}
+              {pageProps.siteInfo.whoWeAre}
             </p>
           </div>
         </section>

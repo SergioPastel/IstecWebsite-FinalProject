@@ -566,9 +566,6 @@ export default function ApplicationsEvents({
                     <h2 className="text-2xl font-bold text-slate-900">
                       {t("applicationsForm.event.sectionThreeTitle")}
                     </h2>
-                    <p className="mt-2 text-sm text-slate-500">
-                      {successMessage || errorMessage}
-                    </p>
                   </div>
 
                   {successMessage ? (

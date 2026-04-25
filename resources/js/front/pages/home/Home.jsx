@@ -13,10 +13,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useTranslation } from "react-i18next";
 import { route } from "ziggy-js";
-import { Link, router } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
 
 export default function Home({ courses, latestActivity, bannerImages = [] }) {
   const { t } = useTranslation();
+  const { props: pageProps } = usePage();
 
   const quickLinks = [
     {
@@ -389,9 +390,9 @@ export default function Home({ courses, latestActivity, bannerImages = [] }) {
                   {t("home.contactsSection.teamAvailable")}
                 </p>
                 <ul className="mt-4 pl-[18px] leading-[1.8] text-[#6b7280]">
-                  <li>{t("home.contactsSection.location")}</li>
-                  <li>{t("home.contactsSection.email")}</li>
-                  <li>{t("home.contactsSection.phone")}</li>
+                  <li>📍{pageProps.siteInfo.address}</li>
+                  <li>📧{pageProps.siteInfo.email}</li>
+                  <li>📞{pageProps.siteInfo.phone_number}</li>
                 </ul>
               </div>
               <div className="flex gap-3 flex-wrap">

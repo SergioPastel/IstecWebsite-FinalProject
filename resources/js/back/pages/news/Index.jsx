@@ -55,7 +55,6 @@ export default function NewsIndexBack({ news }) {
             item.title,
             item.description,
             item.excerpt,
-            item.published_at ? "publicado" : "rascunho",
           ]);
 
           return (
@@ -91,11 +90,6 @@ export default function NewsIndexBack({ news }) {
                                 "Sem resumo disponivel."}
                             </p>
                           </div>
-
-                          <StatusBadge
-                            label={item.published_at ? "Publicado" : "Rascunho"}
-                            tone={item.published_at ? "success" : "warning"}
-                          />
                         </div>
 
                         <div className="mt-5 flex flex-wrap items-center gap-3">
