@@ -137,7 +137,8 @@
       "acceptPrefix": "I accept the",
       "terms": "Terms and Conditions",
       "and": "and the",
-      "privacy": "Privacy Policy"
+      "privacy": "Privacy Policy",
+      "newApplication": "New application."
     },
     "course": {
       "pageTitle": "Course application",
@@ -198,7 +199,9 @@
       "selectedCategoryLabel": "Selected category:",
       "submittedFor": "You have submitted an application for",
       "invalidIdentificationNumber": "The identification number must have exactly 9 digits.",
-      "desiredEventLabel": "Desired event"
+      "desiredEventLabel": "Desired event",
+      "successTitle": "Application submitted successfully.",
+      "successFollowUp": "You will receive a confirmation message shortly."
     }
   },
   "header": {
@@ -532,6 +535,10 @@
       "name": "Name",
       "subject": "Subject",
       "message": "Message"
+    },
+    "processing": {
+      "send": "Send message",
+      "sending": "Sending..."
     }
   },
   "erasmusPage": {

@@ -63,7 +63,7 @@ class NewsController extends Controller
         News::create($validated);
 
         return redirect()->route('backoffice.news')
-            ->with('success', 'Notícia criada com sucesso.');
+            ->with('success', __('flashes.success.newsCreated'));
     }
 
     public function edit(News $news)
@@ -90,7 +90,7 @@ class NewsController extends Controller
         $news->update($validated);
 
         return redirect()->route('backoffice.news')
-            ->with('success', 'Notícia atualizada com sucesso.');
+            ->with('success', __('flashes.success.newsUpdated'));
     }
 
     public function destroy(News $news)
@@ -98,6 +98,6 @@ class NewsController extends Controller
         $news->delete();
 
         return redirect()->route('backoffice.news')
-            ->with('success', 'Notícia eliminada com sucesso.');
+            ->with('success', __('flashes.success.newsDeleted'));
     }
 }

@@ -22,9 +22,11 @@ export default function ApplicationsEvents({
 
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState({});
+  const [storedSuccessMessage, setStoredSuccessMessage] = useState(null);
+  const [storedErrorMessage, setStoredErrorMessage] = useState(null);
 
-  const successMessage = flash?.success;
-  const errorMessage = flash?.error;
+  const successMessage = storedSuccessMessage || flash?.success;
+  const errorMessage = storedErrorMessage || flash?.error;
   const hasResult = Boolean(successMessage || errorMessage);
 
   const initialFormData = {
@@ -194,13 +196,24 @@ export default function ApplicationsEvents({
   useEffect(() => {
     if (hasResult) {
       setCurrentStep(3);
+      // Store flash messages in local state so they persist across language changes
+      if (flash?.success) {
+        setStoredSuccessMessage(flash.success);
+        setStoredErrorMessage(null);
+      }
+      if (flash?.error) {
+        setStoredErrorMessage(flash.error);
+        setStoredSuccessMessage(null);
+      }
     }
-  }, [hasResult]);
+  }, [hasResult, flash]);
 
   const resetForm = () => {
     setCurrentStep(1);
     setErrors({});
     setFormData({ ...initialFormData });
+    setStoredSuccessMessage(null);
+    setStoredErrorMessage(null);
     router.reload({ preserveScroll: true });
   };
 
@@ -567,9 +580,6 @@ export default function ApplicationsEvents({
                           "Application submitted"
                         )}
                       </h3>
-                      <p className="mt-2 text-sm text-green-700">
-                        {successMessage}
-                      </p>
                       <p className="mt-4 text-sm text-slate-600">
                         {t(
                           "applicationsForm.event.successFollowUp",

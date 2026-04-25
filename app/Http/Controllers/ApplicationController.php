@@ -92,7 +92,7 @@ class ApplicationController extends Controller
         Mail::to($application->email)->send(new ApplicationAutoReply($application));
 
         // Redirect back with success message
-        return redirect()->back()->with('success', 'Application submitted successfully!');
+        return redirect()->back()->with('success', __('flashes.success.applicationSubmitted'));
     }
 
     public function storeEvent(StoreEventApplicationRequest $request){        
@@ -108,7 +108,7 @@ class ApplicationController extends Controller
 
         $event = Event::findOrFail($validated['event_id']);
 
-        return redirect()->back()->with('success', 'Candidatura submetida com sucesso.');
+        return redirect()->back()->with('success', __('flashes.success.applicationSubmitted'));
     }
 
     /*
@@ -142,7 +142,7 @@ class ApplicationController extends Controller
         ]);
 
         return redirect()->route('admin.applications.index')
-            ->with('success', 'Estado da candidatura atualizado.');
+            ->with('success', __('flashes.success.applicationStatusUpdated'));
     }
 
     public function destroy(Application $application)
@@ -150,6 +150,6 @@ class ApplicationController extends Controller
         $application->delete();
 
         return redirect()->route('admin.applications.index')
-            ->with('success', 'Candidatura eliminada com sucesso.');
+            ->with('success', __('flashes.success.applicationDeleted'));
     }
 }

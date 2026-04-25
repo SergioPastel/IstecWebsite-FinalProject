@@ -21,8 +21,11 @@ export default function ApplicationsCourse({
   const [errors, setErrors] = useState({});
 
   const { flash } = usePage().props;
-  const successMessage = flash?.success;
-  const errorMessage = flash?.error;
+  const [storedSuccessMessage, setStoredSuccessMessage] = useState(null);
+  const [storedErrorMessage, setStoredErrorMessage] = useState(null);
+  
+  const successMessage = storedSuccessMessage || flash?.success;
+  const errorMessage = storedErrorMessage || flash?.error;
   const hasResult = Boolean(successMessage || errorMessage);
 
   const pageTitle = t("applicationsForm.course.pageTitle");
@@ -214,6 +217,15 @@ export default function ApplicationsCourse({
     const timer = setTimeout(() => { // timer is needed to wait for the flash messages
       if (flash?.success || flash?.error) {
         setCurrentStep(4);
+        // Store flash messages in local state so they persist across language changes
+        if (flash?.success) {
+          setStoredSuccessMessage(flash.success);
+          setStoredErrorMessage(null);
+        }
+        if (flash?.error) {
+          setStoredErrorMessage(flash.error);
+          setStoredSuccessMessage(null);
+        }
       }
     }, 0);
 
@@ -641,6 +653,8 @@ export default function ApplicationsCourse({
                         type="button"
                         onClick={() => {
                           setCurrentStep(1);
+                          setStoredSuccessMessage(null);
+                          setStoredErrorMessage(null);
                           setFormData({
                             course_level: "",
                             applicable_id: "",
@@ -687,7 +701,11 @@ export default function ApplicationsCourse({
 
                         <button
                           type="button"
-                          onClick={() => setCurrentStep(1)}
+                          onClick={() => {
+                            setCurrentStep(1);
+                            setStoredSuccessMessage(null);
+                            setStoredErrorMessage(null);
+                          }}
                           className="rounded-xl border border-red-300 px-6 py-3 text-sm font-semibold text-red-700 hover:bg-red-100"
                         >
                           {t("applicationsForm.common.restart", "Restart")}
