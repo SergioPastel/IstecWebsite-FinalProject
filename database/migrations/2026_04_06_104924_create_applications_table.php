@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('email');
             $table->string('phone');
-            $table->date('birth_date');
+            $table->date('birth_date')->nullable();
 
             $table->foreignUuid('course_category_id')
                     ->nullable()
@@ -31,6 +31,8 @@ return new class extends Migration
                     ->nullOnDelete();
 
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 
