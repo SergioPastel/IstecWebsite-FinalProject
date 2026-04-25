@@ -272,7 +272,7 @@ export default function Home({ courses, latestActivity, bannerImages = [] }) {
                     href={route("courses.show", course.id)}
                     className="mt-auto pt-4"
                   >
-                    <span className="inline-flex items-center justify-center rounded-full bg-[#0d8fe8] px-5 py-2 text-sm font-bold text-white shadow-[0_8px_20px_rgba(13,143,232,0.22)] transition-all duration-300 hover:bg-[#0a78c4] hover:-translate-y-[1px]">
+                   <span className="inline-flex w-[130px] items-center justify-center rounded-full bg-[#0d8fe8] px-5 py-2 text-sm font-bold text-white shadow-[0_8px_20px_rgba(13,143,232,0.22)] transition-all duration-300 hover:bg-[#0a78c4] hover:-translate-y-[1px]">
                       {t("home.coursesSection.learnMore")}
                     </span>
                   </Link>
@@ -322,7 +322,7 @@ export default function Home({ courses, latestActivity, bannerImages = [] }) {
                     }
                     className="mt-auto pt-4"
                   >
-                    <span className="inline-flex items-center justify-center rounded-full bg-[#0d8fe8] px-5 py-2 text-sm font-bold text-white shadow-[0_8px_20px_rgba(13,143,232,0.22)] transition-all duration-300 hover:bg-[#0a78c4] hover:-translate-y-[1px]">
+                    <span className="inline-flex w-[130px] items-center justify-center rounded-full bg-[#0d8fe8] px-5 py-2 text-sm font-bold text-white shadow-[0_8px_20px_rgba(13,143,232,0.22)] transition-all duration-300 hover:bg-[#0a78c4] hover:-translate-y-[1px]">
                       {t("home.eventsNewsSection.readMore")}
                     </span>
                   </Link>
@@ -336,7 +336,7 @@ export default function Home({ courses, latestActivity, bannerImages = [] }) {
           <div className="max-w-[1600px] mx-auto px-6">
             <div className="text-center flex justify-center mb-10">
               <div>
-                <p className="inline-block text-[0.8rem] font-extrabold uppercase tracking-[1.2px] /90 mb-[10px]">
+                <p className="inline-block text-[0.8rem] font-extrabold uppercase tracking-[1.2px] text-[#0d8fe8] mb-[10px]">
                   {t("home.applicationsSection.applications")}
                 </p>
                 <h2 className="text-[clamp(2rem,3vw,2.5rem)] text-[#1f2937]">

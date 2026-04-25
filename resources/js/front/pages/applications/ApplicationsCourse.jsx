@@ -464,32 +464,84 @@ export default function ApplicationsCourse({
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 gap-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:grid-cols-2">
-                    <FileInput
-                      label={t("applicationsForm.common.cv")}
-                      onChange={(file) => updateField("cv_file", file)}
-                      error={errors.cv_file}
-                    />
-                    <FileInput
-                      label={t("applicationsForm.common.identityDocument")}
-                      onChange={(file) =>
-                        updateField("identification_file", file)
-                      }
-                      error={errors.identification_file}
-                    />
-                    <div className="md:col-span-2">
+                  <div className="space-y-6">
+                    {/* CV */}
+                    <div>
+                      <p className="text-sm font-semibold text-slate-700">
+                        {t("applicationsForm.common.cv")}
+                      </p>
+                      <p className="text-xs text-slate-400 mb-2">
+                        Formato recomendado: PDF
+                      </p>
+
                       <FileInput
-                        label={t("applicationsForm.common.certificate")}
-                        onChange={(file) =>
-                          updateField("certificate_file", file)
-                        }
+                        error={errors.cv_file}
+                        onChange={(file) => {
+                          if (file === "invalid") {
+                            setErrors((prev) => ({
+                              ...prev,
+                              cv_file: "O ficheiro tem de ser PDF.",
+                            }));
+                            return;
+                          }
+
+                          updateField("cv_file", file);
+                        }}
+                      />
+                    </div>
+
+                    {/* Documento de identificação */}
+                    <div>
+                      <p className="text-sm font-semibold text-slate-700">
+                        {t("applicationsForm.common.identityDocument")}
+                      </p>
+                      <p className="text-xs text-slate-400 mb-2">
+                        Formato recomendado: PDF
+                      </p>
+
+                      <FileInput
+                        error={errors.identification_file}
+                        onChange={(file) => {
+                          if (file === "invalid") {
+                            setErrors((prev) => ({
+                              ...prev,
+                              identification_file: "Só são permitidos ficheiros PDF.",
+                            }));
+                            return;
+                          }
+
+                          updateField("identification_file", file);
+                        }}
+                      />
+                    </div>
+
+                    {/* Certificado */}
+                    <div>
+                      <p className="text-sm font-semibold text-slate-700">
+                        {t("applicationsForm.common.certificate")}
+                      </p>
+                      <p className="text-xs text-slate-400 mb-2">
+                        Formato recomendado: PDF
+                      </p>
+
+                      <FileInput
                         error={errors.certificate_file}
+                        onChange={(file) => {
+                          if (file === "invalid") {
+                            setErrors((prev) => ({
+                              ...prev,
+                              certificate_file: "Só são permitidos ficheiros PDF.",
+                            }));
+                            return;
+                          }
+
+                          updateField("certificate_file", file);
+                        }}
                       />
                     </div>
                   </div>
                 </div>
               )}
-
               {currentStep === 3 && (
                 <div className="space-y-6">
                   <div>
@@ -714,17 +766,39 @@ function Input({
   );
 }
 
+
 function FileInput({ label, onChange, error }) {
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+
+    if (!file) {
+      onChange(null);
+      return;
+    }
+
+    // ✅ validação PDF
+    if (file.type !== "application/pdf") {
+      e.target.value = "";
+      onChange("invalid");
+      return;
+    }
+
+    onChange(file);
+  };
+
   return (
     <div>
       <label className="mb-2 block text-sm font-semibold text-slate-700">
         {label}
       </label>
+
       <input
         type="file"
-        onChange={(e) => onChange(e.target.files[0])}
+        accept="application/pdf,.pdf"
+        onChange={handleFileChange}
         className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition file:mr-4 file:rounded-lg file:border-0 file:bg-[#eef7fe] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#0d8fe8]"
       />
+
       {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
     </div>
   );

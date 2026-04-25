@@ -39,7 +39,7 @@
       "title": "Contactos",
       "description": "Falar connosco"
     },
-    "viewMore": "Ver mais →",
+    "viewMore": "Saber mais",
     "coursesSection": {
       "trainingOffer": "Oferta Formativa",
       "findRightCourse": "Novos caminhos começam aqui",
@@ -50,7 +50,7 @@
       "eventsNews": "Eventos & Notícias",
       "stayUpdated": "Não percas nada do que está a acontecer",
       "viewAll": "Ver tudo →",
-      "readMore": "Ler mais"
+      "readMore": "Saber mais"
     },
     "applicationsSection": {
       "applications": "Candidaturas",
@@ -104,14 +104,14 @@
         "description": "Submeter candidatura"
       },
       "events": {
-        "title": "Eventos",
-        "description": "Ver eventos"
+        "title": "Eventos e notícias",
+        "description": "Ver eventos e notícias"
       },
       "contacts": {
         "title": "Contactos",
         "description": "Falar connosco"
       },
-      "viewMore": "Ver mais →"
+      "viewMore": "Saber mais"
     }
     
   },
@@ -138,7 +138,7 @@
       "noValue": "—",
       "cv": "CV",
       "identityDocument": "Documento de identificação",
-      "certificate": "Certificado / comprovativo",
+      "certificate": "Certificado de habilitações",
       "acceptPrefix": "Aceito os",
       "terms": "Termos e Condições",
       "and": "e a",
@@ -456,7 +456,7 @@
     "description": "Ver eventos",
     "buttons": {
       "viewEvent": "Ver evento",
-      "viewDetails": "Ver detalhes"
+      "viewDetails": "Saber mais"
     },
     "detail": {
       "date": "Data",

@@ -57,7 +57,7 @@ class HandleInertiaRequests extends Middleware
             'locale' => app()->getLocale(),
             'languages' => config('app.available_locales'),
             'siteInfo' => $siteInfo,
-            'user' => Auth::user(),
+            
             // For the toast notifs
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),

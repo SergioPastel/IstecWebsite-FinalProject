@@ -41,6 +41,7 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
     const lang = i18n.language?.startsWith('en') ? 'en' : 'pt';
 
     const [query, setQuery] = useState(filters?.q ?? '');
+    
     const [sortBy, setSortBy] = useState('relevance');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
@@ -52,24 +53,33 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
     }, [courses]);
 
     const sortedCourseItems = useMemo(() => {
-    const items = [...courseItems];
+        const search = normalizeText(query.trim());
 
-    if (sortBy === 'name_asc') {
-        items.sort((a, b) => {
-            const ta = getCourseText(a.title, lang).toLowerCase();
-            const tb = getCourseText(b.title, lang).toLowerCase();
-            return ta.localeCompare(tb, lang);
-        });
-    } else if (sortBy === 'name_desc') {
-        items.sort((a, b) => {
-            const ta = getCourseText(a.title, lang).toLowerCase();
-            const tb = getCourseText(b.title, lang).toLowerCase();
-            return tb.localeCompare(ta, lang);
-        });
-    }
+        let items = [...courseItems];
 
-    return items;
-}, [courseItems, sortBy, lang]);
+        if (search) {
+            items = items.filter((course) => {
+                const title = normalizeText(getCourseText(course.title, lang));
+                return title.includes(search);
+            });
+        }
+
+        if (sortBy === 'name_asc') {
+            items.sort((a, b) => {
+                const ta = getCourseText(a.title, lang).toLowerCase();
+                const tb = getCourseText(b.title, lang).toLowerCase();
+                return ta.localeCompare(tb, lang);
+            });
+        } else if (sortBy === 'name_desc') {
+            items.sort((a, b) => {
+                const ta = getCourseText(a.title, lang).toLowerCase();
+                const tb = getCourseText(b.title, lang).toLowerCase();
+                return tb.localeCompare(ta, lang);
+            });
+        }
+
+        return items;
+    }, [courseItems, sortBy, lang, query]);
 
     const totalPages = Math.ceil(sortedCourseItems.length / itemsPerPage);
 
@@ -89,16 +99,10 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
         return sortedCourseItems.slice(start, start + itemsPerPage);
     }, [sortedCourseItems, currentPage]);
 
-    const resultsCount = courses?.total ?? sortedCourseItems.length;
+    const resultsCount = sortedCourseItems.length;
 
-    const applyFilters = (next = {}) => {
-        router.get(
-            window.location?.pathname ?? '/courses/licenciaturas',
-            {
-                q: next.q ?? query ?? undefined,
-            },
-            { preserveScroll: true, preserveState: true, replace: true }
-        );
+   const applyFilters = (next = {}) => {
+        setCurrentPage(1);
     };
 
     return (
@@ -307,14 +311,14 @@ export default function LicenciaturasIndex({ courses, filters = {} }) {
                                                 <div className="mt-auto flex gap-3 pt-6">
                                                     <Link
                                                         href={`/courses/${course.id}`}
-                                                        className="flex-1 rounded-full bg-[#16a34a] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#15803d]"
+                                                        className="flex-1 rounded-full bg-[#0d8fe8] px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-[#0a78c4]"
                                                     >
                                                         {t('courses.moreInfo')}
                                                     </Link>
 
                                                     <button
                                                         type="button"
-                                                        className="flex-1 rounded-full border border-[rgba(22,163,74,0.22)] bg-transparent px-4 py-3 text-sm font-bold text-[#16a34a] transition hover:bg-[#eafaf1]"
+                                                         className="flex-1 rounded-full border border-[#0d8fe8] bg-white px-4 py-3 text-sm font-bold text-[#0d8fe8] transition hover:bg-[#e7f3ff] hover:text-[#0a78c4]"
                                                         onClick={() => {
                                                             window.umami?.track('licenciatura_apply_click', {
                                                                 course_id: course.id,

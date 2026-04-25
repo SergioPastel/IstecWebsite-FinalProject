@@ -2,7 +2,7 @@ import { Link, useForm } from '@inertiajs/react';
 import logo from "../../../front/assets/_logo_branco.png";
 
 export default function ForgotPassword() {
-  const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
+  const { data, setData, post, processing, errors, wasSuccessful } = useForm({
     email: '',
   });
 
@@ -18,14 +18,6 @@ export default function ForgotPassword() {
           onSubmit={submit}
           className="bg-white rounded-3xl shadow-[0_20px_60px_rgba(15,23,42,0.12)] border border-slate-200 overflow-hidden"
         >
-
-          {/* Back button */}
-          <Link
-            href={route("login")}
-            className="absolute top-6 left-6 inline-flex items-center gap-2 bg-[#0d8fe8] text-white px-5 py-2.5 rounded-xl font-semibold shadow-[0_10px_25px_rgba(13,143,232,0.25)] hover:bg-[#0b7fd1] transition-all duration-300">
-            ← Voltar ao login
-          </Link>
-
           {/* Header */}
           <div className="bg-[#0d8fe8] text-white px-8 py-10 text-center">
             <img
@@ -56,7 +48,7 @@ export default function ForgotPassword() {
             </div>
 
             {/* Success message */}
-            {recentlySuccessful && (
+            {wasSuccessful && (
               <p className="text-green-600 text-sm">
                 Se o email existir, receberá um link de recuperação em breve.
               </p>
