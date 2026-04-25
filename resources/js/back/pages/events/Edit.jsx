@@ -24,16 +24,16 @@ export default function EventEdit({ event, eventCategories = [] }) {
       ]}
     >
 
-        <SectionCard
-          title="Formulário"
-          subtitle="Edita os dados principais do evento"
-        >
-          <EventCreateForm
-            event={currentEvent}
-            isEdit={true}
-            eventCategories={eventCategories}
-          />
-        </SectionCard>
+    <SectionCard
+      title="Formulário"
+      subtitle="Edita os dados principais do evento"
+    >
+      <EventCreateForm
+        event={currentEvent}
+        isEdit={true}
+        eventCategories={eventCategories}
+      />
+    </SectionCard>
       
     </BackofficeLayout>
   );

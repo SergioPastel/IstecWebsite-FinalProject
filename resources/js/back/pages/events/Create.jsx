@@ -21,12 +21,12 @@ export default function CreateEvent({ eventCategories = [] }) {
       ]}
     >
 
-        <SectionCard
-          title="Formulário"
-          subtitle="Dados principais do evento"
-        >
-          <EventCreateForm eventCategories={eventCategories} />
-        </SectionCard>
+    <SectionCard
+      title="Formulário"
+      subtitle="Dados principais do evento"
+    >
+      <EventCreateForm eventCategories={eventCategories} />
+    </SectionCard>
       
     </BackofficeLayout>
   );

@@ -24,15 +24,15 @@ export default function EditNews({ news }) {
       ]}
     >
 
-        <SectionCard
-          title="Formulário"
-          subtitle="Edita os dados principais da notícia"
-        >
-          <NewsCreateForm
-            news={currentNews}
-            isEdit={true}
-          />
-        </SectionCard>
+    <SectionCard
+      title="Formulário"
+      subtitle="Edita os dados principais da notícia"
+    >
+      <NewsCreateForm
+        news={currentNews}
+        isEdit={true}
+      />
+    </SectionCard>
       
     </BackofficeLayout>
   );

@@ -111,6 +111,7 @@ class CourseController extends Controller
                 'semesters.*.semester_number' => 'required|numeric|min:1',
                 'semesters.*.subjects' => 'nullable|array',
                 'semesters.*.subjects.*.id' => 'nullable|uuid|exists:subjects,id',
+                'semesters.*.subjects.*._type' => 'nullable|string|in:existing,new',
                 'semesters.*.subjects.*.name' => 'nullable|array',
                 'semesters.*.subjects.*.name.pt' => 'nullable|string|max:255',
                 'semesters.*.subjects.*.name.en' => 'nullable|string|max:255',
