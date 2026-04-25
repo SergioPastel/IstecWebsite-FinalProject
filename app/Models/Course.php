@@ -12,8 +12,6 @@ use Spatie\Translatable\HasTranslations;
 class Course extends Model
 {
     use HasUuids, HasFactory, HasTranslations, SoftDeletes;
-    public $incrementing = false;
-    protected $keyType = 'string';
 
     protected $fillable = [
         'title',

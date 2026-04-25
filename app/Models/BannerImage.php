@@ -4,18 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class BannerImage extends Model
 {
-    use HasUuids;
+    use HasUuids, HasTranslations;
+
     protected $fillable = [
-        'order',
         'media_id',
+        'order',
+        'title',
+        'subtitle',
     ];
 
-    public function images(){
+    public $translatable = ['title', 'subtitle'];
+
+    public function media()
+    {
         return $this->belongsTo(Media::class);
     }
-
-
 }

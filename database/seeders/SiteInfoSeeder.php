@@ -29,8 +29,6 @@ class SiteInfoSeeder extends Seeder
                 'phone_number'     => '📞+351 225 193 220',
                 'email'            => '📧secretaria-porto@istec.pt',
                 'address'          => '📍R. de Silva Tapada 115, 4200-501 Porto',
-                'logo_media_id'    => $logo->id,
-                'favicon_media_id' => $icon->id,
             ]
         );
     }

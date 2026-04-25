@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CourseResource;
 use App\Http\Resources\EventNewsResource;
+use App\Models\BannerImage;
+use App\Models\Media;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Course;
@@ -11,6 +13,7 @@ use App\Models\Event;
 use App\Models\News;
 use App\Services\UmamiService;
 use Illuminate\Support\Facades\Cache;
+use Storage;
 
 class HomeController extends Controller
 {
@@ -23,7 +26,7 @@ class HomeController extends Controller
     private function getLatestActivity(int $number)
     {
         $events = Event::orderBy('created_at', 'desc')  // latest first
-                ->take($number)                         // get top N
+            ->take($number)                         // get top N
             ->get()
             ->map(function ($item) {                    // insert type
                 $item->type = 'Event';
@@ -51,21 +54,28 @@ class HomeController extends Controller
     public function index()
     {
         $latestActivity = $this->getLatestActivity(3);
+        $locale = app()->getLocale();
 
-        // new homepage, should before pull request change file paths to appropriate place
-        // will change from:
-        //      'front/pages/Home' -> 'front/pages/home/Home'
-        //      for testing purposes, we leave as is to easily switch between either of them
+        $bannerImages = BannerImage::with('media')
+            ->orderBy('order')
+            ->get()
+            ->map(fn($b) => [
+                'id' => $b->id,
+                'url' => Media::getUrl('public', $b->media->file_path),
+                'alt' => $b->media->getTranslation('alt_text', $locale, false),
+                'title' => $b->getTranslation('title', $locale, false),
+                'subtitle' => $b->getTranslation('subtitle', $locale, false),
+            ]);
+
+
+
 
         return Inertia('front/pages/home/Home', [
             'courses' => CourseResource::collection(Course::latest()->take(3)->get()),
             'latestActivity' => EventNewsResource::collection($latestActivity),
+            'bannerImages' => $bannerImages,
         ]);
 
-        // old homepage
-        // return Inertia('front/pages/Home', [
-        //     'courses' => Course::latest()->take(6)->get(),
-        // ]);
     }
 
     /** GET /about

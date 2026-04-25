@@ -12,7 +12,6 @@ class MediaFactory extends Factory
     public function definition(): array
     {
         return [
-            'type' => 'image',
             'file_disk' => 'public',
             'file_path' => function () {
                 $filename = Str::uuid() . '.jpg';

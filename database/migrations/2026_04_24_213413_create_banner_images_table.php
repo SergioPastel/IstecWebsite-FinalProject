@@ -4,15 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('banner_images', function (Blueprint $table) {
-            $table->uuid('primary')->primary();
+            $table->uuid('id')->primary();
+
+            $table->json('title')->nullable();
+            $table->json('subtitle')->nullable();
 
             $table->foreignUuid('media_id')->constrained('media');
             $table->integer('order')->default(0);

@@ -13,7 +13,6 @@ return new class extends Migration {
         Schema::create('media', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->enum('type', ['image', 'video', 'gif']);
             $table->string('file_path');
             $table->string('file_disk')->default('public');
             $table->string('thumbnail_disk')->nullable();

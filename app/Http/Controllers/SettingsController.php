@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BannerImage;
+use App\Models\Media;
 use App\Models\SiteInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class SettingsController extends Controller
@@ -22,6 +25,17 @@ class SettingsController extends Controller
     {
         $siteInfo = SiteInfo::first();
 
+        $bannerImages = BannerImage::with('media')
+            ->orderBy('order')
+            ->get()
+            ->map(fn($b) => [
+                'id'       => $b->id,
+                'url'      => Media::getUrl('public', $b->media->file_path),
+                'order'    => $b->order,
+                'title'    => $b->getTranslations('title'),
+                'subtitle' => $b->getTranslations('subtitle'),
+            ]);
+
         return Inertia::render('back/pages/settings/Index', [
             'siteInfo' => $siteInfo ? [
                 'phone_number' => $siteInfo->phone_number,
@@ -31,46 +45,119 @@ class SettingsController extends Controller
                 'mission'      => $siteInfo->getTranslations('mission'),
                 'whoWeAre'     => $siteInfo->getTranslations('whoWeAre'),
             ] : null,
-            'locales'    => config('app.supported_locales', ['pt', 'en']),
-            'faviconUrl' => $this->publicDisk()->url('favicon.ico'),
+            'locales'      => config('app.supported_locales', ['pt', 'en']),
+            'faviconUrl'   => $this->publicDisk()->url('favicon.ico'),
+            'bannerImages' => $bannerImages,
         ]);
     }
 
     public function update(Request $request)
     {
         $request->validate([
-            'phone_number' => ['required', 'string', 'max:50'],
-            'email'        => ['required', 'email', 'max:255'],
-            'address'      => ['required', 'string', 'max:500'],
-            'slogan'       => ['nullable', 'array'],
-            'mission'      => ['nullable', 'array'],
-            'whoWeAre'     => ['nullable', 'array'],
-            'favicon'      => ['nullable', 'image', 'max:2048'],
+            'phone_number'            => ['required', 'string', 'max:50'],
+            'email'                   => ['required', 'email', 'max:255'],
+            'address'                 => ['required', 'string', 'max:500'],
+            'slogan'                  => ['nullable', 'array'],
+            'mission'                 => ['nullable', 'array'],
+            'whoWeAre'                => ['nullable', 'array'],
+            'favicon'                 => ['nullable', 'image', 'max:2048'],
+            'banner_images'           => ['nullable', 'array'],
+            'banner_images.*'         => ['image', 'max:4096'],
+            'banner_deleted'          => ['nullable', 'array'],
+            'banner_deleted.*'        => ['uuid'],
+            'banner_order'            => ['nullable', 'array'],
+            'banner_order.*'          => ['uuid'],
+            'banner_texts'            => ['nullable', 'array'],
+            'banner_texts.*.id'       => ['required', 'uuid'],
+            'banner_texts.*.title'    => ['nullable', 'array'],
+            'banner_texts.*.subtitle' => ['nullable', 'array'],
         ]);
 
-        $siteInfo = SiteInfo::firstOrNew(['id' => 1]);
+        try {
+            // ── SiteInfo ───────────────────────────────────────────────────
+            $siteInfo = SiteInfo::firstOrNew(['id' => 1]);
 
-        $siteInfo->phone_number = $request->phone_number;
-        $siteInfo->email        = $request->email;
-        $siteInfo->address      = $request->address;
+            $siteInfo->phone_number = $request->phone_number;
+            $siteInfo->email        = $request->email;
+            $siteInfo->address      = $request->address;
 
-        foreach (['slogan', 'mission', 'whoWeAre'] as $field) {
-            if ($request->has($field)) {
-                foreach ($request->input($field) as $locale => $value) {
-                    $siteInfo->setTranslation($field, $locale, $value);
+            foreach (['slogan', 'mission', 'whoWeAre'] as $field) {
+                if ($request->has($field)) {
+                    foreach ($request->input($field) as $locale => $value) {
+                        $siteInfo->setTranslation($field, $locale, $value ?? '');
+                    }
                 }
             }
+
+            if ($request->hasFile('favicon')) {
+                $this->publicDisk()->put(
+                    'favicon.ico',
+                    file_get_contents($request->file('favicon'))
+                );
+            }
+
+            $siteInfo->save();
+
+            // ── Banner: delete removed slides ──────────────────────────────
+            foreach ($request->input('banner_deleted', []) as $id) {
+                $banner = BannerImage::find($id);
+                if ($banner?->media) {
+                    $media = $banner->media;
+                    $banner->delete();
+                    Storage::disk('public')->delete($media->file_path);
+                    $media->delete();
+                }
+            }
+
+            // ── Banner: save titles/subtitles for existing slides ──────────
+            foreach ($request->input('banner_texts', []) as $item) {
+                $banner = BannerImage::find($item['id']);
+                if (!$banner) continue;
+
+                foreach ($item['title'] ?? [] as $locale => $value) {
+                    $banner->setTranslation('title', $locale, $value ?? '');
+                }
+                foreach ($item['subtitle'] ?? [] as $locale => $value) {
+                    $banner->setTranslation('subtitle', $locale, $value ?? '');
+                }
+                $banner->save();
+            }
+
+            // ── Banner: upload new slides ──────────────────────────────────
+            $nextOrder = (BannerImage::max('order') ?? -1) + 1;
+
+            foreach ($request->file('banner_images', []) as $file) {
+                $path = 'media/' . Str::uuid() . '.' . $file->getClientOriginalExtension();
+                Storage::disk('public')->put($path, file_get_contents($file));
+
+                $media = Media::create([
+                    'file_path' => $path,
+                    'alt_text'  => null,
+                ]);
+
+                BannerImage::create([
+                    'media_id' => $media->id,
+                    'order'    => $nextOrder++,
+                ]);
+            }
+
+            // ── Banner: persist reordering ─────────────────────────────────
+            foreach ($request->input('banner_order', []) as $position => $id) {
+                BannerImage::find($id)?->update(['order' => $position]);
+            }
+
+            // redirect() not back() — forces Inertia to reload fresh props from index()
+            return redirect()->route('backoffice.settings')
+                ->with('success', 'Informações do site guardadas.');
+
+        } catch (\Throwable $e) {
+            \Log::error('SettingsController@update failed', [
+                'message' => $e->getMessage(),
+                'file'    => $e->getFile(),
+                'line'    => $e->getLine(),
+            ]);
+
+            return back()->withErrors(['general' => 'Erro ao guardar: ' . $e->getMessage()]);
         }
-
-        if ($request->hasFile('favicon')) {
-            $this->publicDisk()->put(
-                'favicon.ico',
-                file_get_contents($request->file('favicon'))
-            );
-        }
-
-        $siteInfo->save();
-
-        return back()->with('success', 'Informações do site guardadas.');
     }
 }

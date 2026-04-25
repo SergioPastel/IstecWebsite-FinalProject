@@ -134,7 +134,7 @@ Route::middleware(['auth'])->prefix('backoffice')->group(function () {
     Route::delete('/users/{user:id}', [DashboardController::class, 'destroyUser'])->name('backoffice.users.destroy');
 
     Route::get('/settings', [SettingsController::class, 'index'])->name('backoffice.settings');
-    Route::post('/settings/siteinfo', [SettingsController::class, 'update'])->name('backoffice.settings.update');
+    Route::put('/settings', [SettingsController::class, 'update'])->name('backoffice.settings.update');
 });
 
 // Public routes
