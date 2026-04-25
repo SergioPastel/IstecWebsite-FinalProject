@@ -38,8 +38,8 @@ export default function NewsIndexBack({ news }) {
     <>
       <BackofficeLayout
         title="Notícias"
-        subtitle="Organize o conteudo editorial com uma base pronta para evoluir."
-        searchPlaceholder="Pesquisar Notícias"
+        subtitle="Organize o conteúdo editorial com uma base pronta para evoluir."
+        searchPlaceholder="Pesquisar notícias"
         actions={[
           <Link
             key="create"
@@ -61,15 +61,15 @@ export default function NewsIndexBack({ news }) {
             <div className="space-y-6">
               
               <SectionCard
-                title="Publicacoes"
-                subtitle={`${filteredRows.length} de ${rows.length} entradas prontas para administracao editorial.`}
+                title="Publicações"
+                subtitle={`${filteredRows.length} de ${rows.length} entradas prontas para administração editorial.`}
               >
                 {rows.length === 0 ? (
-                  <EmptyState title="Nao existem noticias publicadas." />
+                  <EmptyState title="Nao existem notícias  publicadas." />
                 ) : filteredRows.length === 0 ? (
                   <EmptyState
-                    title="Nenhuma noticia corresponde a esta pesquisa."
-                    description="A pesquisa funciona por titulo, resumo, descricao e estado."
+                    title="Nenhuma notícia corresponde a esta pesquisa."
+                    description="Pode pesquisar por título, resumo, descrição e estado."
                   />
                 ) : (
                   <div className="grid gap-4 xl:grid-cols-2">
@@ -126,7 +126,7 @@ export default function NewsIndexBack({ news }) {
             </h2>
 
             <p className="mt-2 text-sm text-slate-600">
-              Tens a certeza que queres eliminar esta notícia? Esta ação não pode ser revertida.
+              Tem a certeza de que pretende eliminar esta notícia? Esta ação não pode ser revertida.
             </p>
 
             <div className="mt-6 flex justify-end gap-3">

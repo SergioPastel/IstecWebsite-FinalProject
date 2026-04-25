@@ -85,7 +85,7 @@ function ImageUpload({ label, currentUrl = null, onChange, error }) {
                     <svg className="w-8 h-8 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12V4m0 0L8 8m4-4l4 4" />
                     </svg>
-                    <span className="text-sm text-slate-400">Clica para fazer upload</span>
+                    <span className="text-sm text-slate-400">Clique para carregar</span>
                 </div>
             )}
             {preview && !isNew && (
@@ -452,7 +452,7 @@ export default function SettingsIndex({ siteInfo = null, locales = ["pt", "en"],
 
                     {success && (
                         <span className="text-sm font-medium text-emerald-600">
-                            Guardado ✓
+                            Alterações guardadas ✓
                         </span>
                     )}
                 </form>

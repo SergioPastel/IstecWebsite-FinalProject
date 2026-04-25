@@ -16,7 +16,7 @@ export default function ApplicationsIndex({ applications = [] }) {
   return (
     <BackofficeLayout
       title="Candidaturas"
-      subtitle="Acompanhe o estado das submissoes e prepare a triagem operacional."
+      subtitle="Acompanhe o estado das submissões e prepare a triagem operacional."
       searchPlaceholder="Pesquisar candidaturas"
     >
       {({ searchQuery }) => {
@@ -38,14 +38,14 @@ export default function ApplicationsIndex({ applications = [] }) {
         />
 
         <SectionCard
-          title="Submissoes recentes"
+          title="Submissões recentes"
           subtitle={`${filteredApplications.length} de ${applications.length} registo(s) visiveis na triagem.`}
         >
           {applications.length === 0 ? (
             <EmptyState
               compact
-              title="Ainda nao existem candidaturas."
-              description="Assim que existirem entradas no sistema, esta tabela pode exibir o estado, o curso associado e a data de submissao."
+              title="Ainda não existem candidaturas."
+              description="Aqui serão listadas as candidaturas, incluindo o estado, o curso associado e a data de submissão."
             />
           ) : filteredApplications.length === 0 ? (
             <EmptyState
@@ -126,19 +126,11 @@ export default function ApplicationsIndex({ applications = [] }) {
   );
 }
 
-// function formatStatus(status) {
-//   const labels = {
-//     pending: "Pendente",
-//     approved: "Aprovada",
-//     rejected: "Rejeitada",
-//   };
 
-//   return labels[status] ?? (status.charAt(0).toUpperCase() + status.slice(1));
-// }
 
 function formatDate(value) {
   if (!value) {
-    return "Agora mesmo";
+    return "Sem data";
   }
 
   return new Date(value).toLocaleDateString("pt-PT", {

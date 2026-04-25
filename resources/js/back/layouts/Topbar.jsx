@@ -93,7 +93,7 @@ export default function Topbar({
 
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
   
-        {/* Pesquisa */}
+        {/* Search */}
         <label className="relative block w-full md:max-w-xl">
           <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
@@ -125,7 +125,7 @@ export default function Topbar({
             <button
               type="button"
               className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-600 shadow-sm"
-              aria-label="Notificacoes"
+              aria-label="Notificações"
             >
               <svg
                 viewBox="0 0 24 24"

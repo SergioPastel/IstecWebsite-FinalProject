@@ -33,7 +33,7 @@ export default function ResetPassword({ token, email }) {
               alt="ISTEC Porto"
               className="mx-auto h-20 mb-4"
             />
-            <h1 className="text-2xl font-bold">Definir Nova Palavra-passe</h1>
+            <h1 className="text-2xl font-bold">Definir nova palavra-passe</h1>
             <p className="text-sm opacity-90 mt-2">
               Introduza a sua nova palavra-passe
             </p>

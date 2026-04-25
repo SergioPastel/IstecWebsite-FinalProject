@@ -43,7 +43,7 @@ export default function UsersIndex({ users = [], activeUser }) {
   <>
     <BackofficeLayout
       title="Utilizadores"
-      subtitle="Gestao base da equipa administrativa, perfis e niveis de acesso."
+      subtitle="Gestão base da equipa administrativa, perfis e níveis de acesso."
       searchPlaceholder="Pesquisar utilizadores"
       actions={[
         <Link
@@ -69,8 +69,8 @@ export default function UsersIndex({ users = [], activeUser }) {
               {users.length === 0 ? (
                 <EmptyState
                   compact
-                  title="Ainda nao existem utilizadores."
-                  description="Quando houver mais contas administrativas, elas vao aparecer aqui."
+                  title="Ainda não existem utilizadores."
+                  description="Quando existirem mais contas administrativas, serão apresentadas aqui."
                 />
               ) : filteredUsers.length === 0 ? (
                 <EmptyState
@@ -136,7 +136,7 @@ export default function UsersIndex({ users = [], activeUser }) {
           </h2>
 
           <p className="mt-3 text-sm text-slate-600">
-            Tem a certeza que deseja eliminar o utilizador{" "}
+            Tem a certeza de que pretende eliminar o utilizador{" "}
             <span className="font-semibold text-slate-900">
               {userToDelete.name}
             </span>

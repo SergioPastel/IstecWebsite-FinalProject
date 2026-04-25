@@ -25,9 +25,9 @@ export default function ForgotPassword() {
               alt="ISTEC Porto"
               className="mx-auto h-20 mb-4"
             />
-            <h1 className="text-2xl font-bold">Recuperar Palavra-passe</h1>
+            <h1 className="text-2xl font-bold">Recuperar palavra-passe</h1>
             <p className="text-sm opacity-90 mt-2">
-              Introduza o seu email para receber o link de recuperação
+              Introduza o seu email para receber um link de recuperação
             </p>
           </div>
 
@@ -36,7 +36,7 @@ export default function ForgotPassword() {
             <div>
               <input
                 type="email"
-                placeholder="Email"
+                placeholder="Endereço de email"
                 className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-[#0d8fe8]"
                 value={data.email}
                 onChange={(e) => setData("email", e.target.value)}

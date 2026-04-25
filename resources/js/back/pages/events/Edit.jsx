@@ -11,7 +11,7 @@ export default function EventEdit({ event, eventCategories = [] }) {
   return (
     <BackofficeLayout
       title="Editar evento"
-      subtitle="Atualização dos dados do evento."
+      subtitle="Atualize os dados do evento"
       searchPlaceholder="Pesquisar eventos"
       actions={[
         <Link
@@ -24,16 +24,16 @@ export default function EventEdit({ event, eventCategories = [] }) {
       ]}
     >
 
-    <SectionCard
-      title="Formulário"
-      subtitle="Edita os dados principais do evento"
-    >
-      <EventCreateForm
-        event={currentEvent}
-        isEdit={true}
-        eventCategories={eventCategories}
-      />
-    </SectionCard>
+        <SectionCard
+          title="Formulário"
+          subtitle="Edite os dados principais do evento"
+        >
+          <EventCreateForm
+            event={currentEvent}
+            isEdit={true}
+            eventCategories={eventCategories}
+          />
+        </SectionCard>
       
     </BackofficeLayout>
   );

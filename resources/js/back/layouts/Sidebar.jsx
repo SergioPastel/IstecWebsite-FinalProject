@@ -16,7 +16,7 @@ const navigationItems = [
     icon: CoursesIcon,
   },
   {
-    label: "Noticias",
+    label: "Notícias",
     routeName: "backoffice.news",
     href: () => route("backoffice.news"),
     icon: NewsIcon,
@@ -46,7 +46,7 @@ const navigationItems = [
     icon: UsersIcon,
   },
   {
-    label: "Definicoes",
+    label: "Definições",
     routeName: "backoffice.settings",
     href: () => route("backoffice.settings"),
     icon: SettingsIcon,
@@ -83,6 +83,41 @@ export default function Sidebar({ isOpen, isCollapsed, onClose, onToggleCollapse
 
   return (
     <>
+      <style>
+      {`
+        aside::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        aside::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.04);
+        }
+
+        aside::-webkit-scrollbar-thumb {
+          background: linear-gradient(
+            180deg,
+            rgba(1, 164, 240, 1),
+            rgba(1, 164, 240, 0.35)
+          );
+          border-radius: 999px;
+          box-shadow: 0 0 12px rgba(1, 164, 240, 0.45);
+        }
+
+        aside::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(
+            180deg,
+            rgba(1, 164, 240, 1),
+            rgba(0, 119, 255, 0.75)
+          );
+        }
+
+        aside {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(1, 164, 240, 0.85) rgba(255, 255, 255, 0.04);
+        }
+      `}
+    </style>
+
       <button
         type="button"
         className={`fixed inset-0 z-30 bg-slate-950/45 transition md:hidden`}
@@ -101,7 +136,7 @@ export default function Sidebar({ isOpen, isCollapsed, onClose, onToggleCollapse
           <div className={`flex ${isCollapsed ? "justify-center" : "items-start justify-between gap-3"}`}>
             <div className={isCollapsed ? "flex justify-center" : ""}>
               <div
-                  className={`mt-5 rounded-3xl border border-white/10 bg-white/[0.04] px-4 py-4 shadow-[0_18px_45px_rgba(0,0,0,0.35)] ${
+                   className={`mt-6 w-full rounded-3xl border border-white/10 bg-white/[0.04] px-8 py-8 text-center shadow-[0_18px_45px_rgba(0,0,0,0.35)] ${
                     isCollapsed ? "hidden" : ""
                   }`}
                 >

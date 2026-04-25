@@ -35,7 +35,7 @@ export default function Login() {
               alt="ISTEC Porto"
               className="mx-auto h-20 mb-4"
             />
-            <h1 className="text-2xl font-bold">Área Administrativa</h1>
+            <h1 className="text-2xl font-bold">Área administrativa</h1>
           </div>
 
         </div>
@@ -81,7 +81,7 @@ export default function Login() {
                 href={route("password.request")}
                 className="text-sm text-[#0d8fe8] hover:underline"
               >
-                Esqueceu-se da palavra-passe?
+                Esqueceu-se da sua palavra-passe?
               </Link>
             </div>
 
