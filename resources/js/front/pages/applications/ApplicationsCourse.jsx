@@ -645,10 +645,6 @@ export default function ApplicationsCourse({
                         {t("applicationsForm.course.successTitle", "Application submitted")}
                       </h2>
 
-                      <p className="mt-2 text-sm text-green-700">
-                        {successMessage}
-                      </p>
-
                       <button
                         type="button"
                         onClick={() => {
