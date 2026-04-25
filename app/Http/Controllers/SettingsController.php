@@ -54,23 +54,26 @@ class SettingsController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'phone_number'            => ['required', 'string', 'max:50'],
-            'email'                   => ['required', 'email', 'max:255'],
-            'address'                 => ['required', 'string', 'max:500'],
-            'slogan'                  => ['nullable', 'array'],
-            'mission'                 => ['nullable', 'array'],
-            'whoWeAre'                => ['nullable', 'array'],
-            'favicon'                 => ['nullable', 'image', 'max:2048'],
-            'banner_images'           => ['nullable', 'array'],
-            'banner_images.*'         => ['image', 'max:4096'],
-            'banner_deleted'          => ['nullable', 'array'],
-            'banner_deleted.*'        => ['uuid'],
-            'banner_order'            => ['nullable', 'array'],
-            'banner_order.*'          => ['uuid'],
-            'banner_texts'            => ['nullable', 'array'],
-            'banner_texts.*.id'       => ['required', 'uuid'],
-            'banner_texts.*.title'    => ['nullable', 'array'],
-            'banner_texts.*.subtitle' => ['nullable', 'array'],
+            'phone_number'                => ['required', 'string', 'max:50'],
+            'email'                       => ['required', 'email', 'max:255'],
+            'address'                     => ['required', 'string', 'max:500'],
+            'slogan'                      => ['nullable', 'array'],
+            'mission'                     => ['nullable', 'array'],
+            'whoWeAre'                    => ['nullable', 'array'],
+            'favicon'                     => ['nullable', 'image', 'max:2048'],
+            'banner_images'               => ['nullable', 'array'],
+            'banner_images.*'             => ['image', 'max:4096'],
+            'banner_deleted'              => ['nullable', 'array'],
+            'banner_deleted.*'            => ['uuid'],
+            'banner_order'                => ['nullable', 'array'],
+            'banner_order.*'              => ['uuid'],
+            'banner_texts'                => ['nullable', 'array'],
+            'banner_texts.*.id'           => ['required', 'uuid'],
+            'banner_texts.*.title'        => ['nullable', 'array'],
+            'banner_texts.*.subtitle'     => ['nullable', 'array'],
+            'banner_new_texts'            => ['nullable', 'array'],
+            'banner_new_texts.*.title'    => ['nullable', 'array'],
+            'banner_new_texts.*.subtitle' => ['nullable', 'array'],
         ]);
 
         try {
@@ -123,10 +126,11 @@ class SettingsController extends Controller
                 $banner->save();
             }
 
-            // ── Banner: upload new slides ──────────────────────────────────
-            $nextOrder = (BannerImage::max('order') ?? -1) + 1;
+            // ── Banner: upload new slides (with text) ──────────────────────
+            $nextOrder  = (BannerImage::max('order') ?? -1) + 1;
+            $newTexts   = $request->input('banner_new_texts', []);
 
-            foreach ($request->file('banner_images', []) as $file) {
+            foreach ($request->file('banner_images', []) as $index => $file) {
                 $path = 'media/' . Str::uuid() . '.' . $file->getClientOriginalExtension();
                 Storage::disk('public')->put($path, file_get_contents($file));
 
@@ -135,10 +139,21 @@ class SettingsController extends Controller
                     'alt_text'  => null,
                 ]);
 
-                BannerImage::create([
+                $banner = BannerImage::create([
                     'media_id' => $media->id,
                     'order'    => $nextOrder++,
                 ]);
+
+                // Save title/subtitle entered before the first save
+                if (isset($newTexts[$index])) {
+                    foreach ($newTexts[$index]['title'] ?? [] as $locale => $value) {
+                        $banner->setTranslation('title', $locale, $value ?? '');
+                    }
+                    foreach ($newTexts[$index]['subtitle'] ?? [] as $locale => $value) {
+                        $banner->setTranslation('subtitle', $locale, $value ?? '');
+                    }
+                    $banner->save();
+                }
             }
 
             // ── Banner: persist reordering ─────────────────────────────────
@@ -146,7 +161,6 @@ class SettingsController extends Controller
                 BannerImage::find($id)?->update(['order' => $position]);
             }
 
-            // redirect() not back() — forces Inertia to reload fresh props from index()
             return redirect()->route('backoffice.settings')
                 ->with('success', 'Informações do site guardadas.');
 

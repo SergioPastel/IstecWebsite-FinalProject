@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { router } from "@inertiajs/react";
 import BackofficeLayout from "../../layouts/BackofficeLayout";
 import PageHeader from "../../components/ui/PageHeader";
@@ -270,6 +270,13 @@ export default function SettingsIndex({ siteInfo = null, locales = ["pt", "en"],
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
 
+    // When Inertia redirects back after save, bannerImages prop updates
+    // but useState doesn't reinitialize — this syncs slides to the fresh prop.
+    useEffect(() => {
+        setSlides(initSlides(bannerImages));
+        setDeleted([]);
+    }, [bannerImages]);
+
     const [fields, setFields] = useState({
         phone_number: siteInfo?.phone_number ?? "",
         email:        siteInfo?.email        ?? "",
@@ -296,8 +303,6 @@ export default function SettingsIndex({ siteInfo = null, locales = ["pt", "en"],
         e.preventDefault();
         setSuccess(false);
 
-        // Pass a plain object with File values — Inertia's forceFormData will
-        // serialize this correctly into multipart/form-data including file objects.
         const payload = {
             _method:        "PUT",
             phone_number:   fields.phone_number,
@@ -309,6 +314,10 @@ export default function SettingsIndex({ siteInfo = null, locales = ["pt", "en"],
             whoWeAre:       fields.whoWeAre,
             banner_deleted: deleted,
             banner_images:  slides.filter((s) => !s.id).map((s) => s.file),
+            banner_new_texts: slides.filter((s) => !s.id).map((s) => ({
+                title:    s.title    ?? {},
+                subtitle: s.subtitle ?? {},
+            })),
             banner_order:   slides.filter((s) => s.id).map((s) => s.id),
             banner_texts:   slides.filter((s) => s.id).map((s) => ({
                 id:       s.id,
@@ -326,134 +335,128 @@ export default function SettingsIndex({ siteInfo = null, locales = ["pt", "en"],
         });
     }
 
-   return (
-  <BackofficeLayout
-    title="Definições"
-    searchPlaceholder="Pesquisar definições"
-    actions={[
-      <button
-        key="save"
-        type="submit"
-        form="settings-form"
-        disabled={processing}
-        className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)] disabled:opacity-50"
-      >
-        {processing ? "A guardar..." : "Guardar alterações"}
-      </button>,
-    ]}
-  >
-    <div className="space-y-6">
-      {errors.general && (
-        <div className="rounded border border-red-200 bg-red-50 p-3 text-sm text-red-600">
-          {errors.general}
-        </div>
-      )}
+    return (
+        <BackofficeLayout
+            title="Definições"
+            searchPlaceholder="Pesquisar definições"
+            actions={[
+                <button
+                    key="save"
+                    type="submit"
+                    form="settings-form"
+                    disabled={processing}
+                    className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)] disabled:opacity-50"
+                >
+                    {processing ? "A guardar..." : "Guardar alterações"}
+                </button>,
+            ]}
+        >
+            <div className="space-y-6">
+                {errors.general && (
+                    <div className="rounded border border-red-200 bg-red-50 p-3 text-sm text-red-600">
+                        {errors.general}
+                    </div>
+                )}
 
-      <form
-        id="settings-form"
-        onSubmit={submit}
-        className="max-w-4xl space-y-10 rounded-xl"
-      >
-        <Section title="Identidade">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div className="flex flex-col gap-2">
-              <label className="font-semibold text-brand-black">Telefone</label>
-              <TextInput
-                value={fields.phone_number}
-                onChange={(e) => setField("phone_number", e.target.value)}
-                error={errors.phone_number}
-                placeholder="+351 000 000 000"
-              />
+                <form
+                    id="settings-form"
+                    onSubmit={submit}
+                    className="max-w-4xl space-y-10 rounded-xl"
+                >
+                    <Section title="Identidade">
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                            <div className="flex flex-col gap-2">
+                                <label className="font-semibold text-brand-black">Telefone</label>
+                                <TextInput
+                                    value={fields.phone_number}
+                                    onChange={(e) => setField("phone_number", e.target.value)}
+                                    error={errors.phone_number}
+                                    placeholder="+351 000 000 000"
+                                />
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                                <label className="font-semibold text-brand-black">Email</label>
+                                <TextInput
+                                    type="email"
+                                    value={fields.email}
+                                    onChange={(e) => setField("email", e.target.value)}
+                                    error={errors.email}
+                                    placeholder="geral@exemplo.pt"
+                                />
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                                <label className="font-semibold text-brand-black">Morada</label>
+                                <TextareaInput
+                                    rows={2}
+                                    value={fields.address}
+                                    onChange={(e) => setField("address", e.target.value)}
+                                    error={errors.address}
+                                    placeholder="Rua Exemplo, n.º 1, 0000-000 Porto"
+                                />
+                            </div>
+                        </div>
+                    </Section>
+
+                    <Section title="Conteúdo">
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                            <TranslatableField
+                                label="Slogan"
+                                locales={locales}
+                                value={fields.slogan}
+                                onChange={(loc, val) => setField("slogan", { ...fields.slogan, [loc]: val })}
+                                error={errors.slogan}
+                            />
+
+                            <div className="hidden md:block" />
+
+                            <TranslatableField
+                                label="Missão"
+                                locales={locales}
+                                value={fields.mission}
+                                multiline
+                                rows={4}
+                                onChange={(loc, val) => setField("mission", { ...fields.mission, [loc]: val })}
+                                error={errors.mission}
+                            />
+
+                            <TranslatableField
+                                label="Quem somos"
+                                locales={locales}
+                                value={fields.whoWeAre}
+                                multiline
+                                rows={4}
+                                onChange={(loc, val) => setField("whoWeAre", { ...fields.whoWeAre, [loc]: val })}
+                                error={errors.whoWeAre}
+                            />
+                        </div>
+                    </Section>
+
+                    <Section title="Favicon">
+                        <ImageUpload
+                            label="Favicon"
+                            currentUrl={faviconUrl}
+                            onChange={(file) => setField("favicon", file)}
+                            error={errors.favicon}
+                        />
+                    </Section>
+
+                    <Section title="Banner">
+                        <BannerManager
+                            slides={slides}
+                            locales={locales}
+                            onChange={handleSlidesChange}
+                        />
+                    </Section>
+
+                    {success && (
+                        <span className="text-sm font-medium text-emerald-600">
+                            Guardado ✓
+                        </span>
+                    )}
+                </form>
             </div>
-
-            <div className="flex flex-col gap-2">
-              <label className="font-semibold text-brand-black">Email</label>
-              <TextInput
-                type="email"
-                value={fields.email}
-                onChange={(e) => setField("email", e.target.value)}
-                error={errors.email}
-                placeholder="geral@exemplo.pt"
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label className="font-semibold text-brand-black">Morada</label>
-              <TextareaInput
-                rows={2}
-                value={fields.address}
-                onChange={(e) => setField("address", e.target.value)}
-                error={errors.address}
-                placeholder="Rua Exemplo, n.º 1, 0000-000 Porto"
-              />
-            </div>
-          </div>
-        </Section>
-
-        <Section title="Conteúdo">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <TranslatableField
-              label="Slogan"
-              locales={locales}
-              value={fields.slogan}
-              onChange={(loc, val) =>
-                setField("slogan", { ...fields.slogan, [loc]: val })
-              }
-              error={errors.slogan}
-            />
-
-            <div className="hidden md:block" />
-
-            <TranslatableField
-              label="Missão"
-              locales={locales}
-              value={fields.mission}
-              multiline
-              rows={4}
-              onChange={(loc, val) =>
-                setField("mission", { ...fields.mission, [loc]: val })
-              }
-              error={errors.mission}
-            />
-
-            <TranslatableField
-              label="Quem somos"
-              locales={locales}
-              value={fields.whoWeAre}
-              multiline
-              rows={4}
-              onChange={(loc, val) =>
-                setField("whoWeAre", { ...fields.whoWeAre, [loc]: val })
-              }
-              error={errors.whoWeAre}
-            />
-          </div>
-        </Section>
-
-        <Section title="Favicon">
-          <ImageUpload
-            label="Favicon"
-            currentUrl={faviconUrl}
-            onChange={(file) => setField("favicon", file)}
-            error={errors.favicon}
-          />
-        </Section>
-
-        <Section title="Banner">
-          <BannerManager
-            slides={slides}
-            locales={locales}
-            onChange={handleSlidesChange}
-          />
-        </Section>
-
-        {success && (
-          <span className="text-sm font-medium text-emerald-600">
-            Guardado ✓
-          </span>
-        )}
-      </form>
-    </div>
-  </BackofficeLayout>
-);
+        </BackofficeLayout>
+    );
 }
