@@ -7,8 +7,8 @@ import EventCreateForm from "../../components/common/EventCreateForm";
 export default function CreateEvent({ eventCategories = [] }) {
   return (
     <BackofficeLayout
-      title="Novo evento"
-      subtitle="Criação de um novo evento."
+      title="Criar evento"
+      subtitle="Preencha os dados para criar um novo evento"
       searchPlaceholder="Pesquisar eventos"
       actions={[
         <Link
@@ -21,12 +21,12 @@ export default function CreateEvent({ eventCategories = [] }) {
       ]}
     >
 
-        <SectionCard
-          title="Formulário"
-          subtitle="Dados principais do evento"
-        >
-          <EventCreateForm eventCategories={eventCategories} />
-        </SectionCard>
+    <SectionCard
+      title="Formulário"
+      subtitle="Dados principais do evento"
+    >
+      <EventCreateForm eventCategories={eventCategories} />
+    </SectionCard>
       
     </BackofficeLayout>
   );

@@ -8,8 +8,8 @@ export default function CreateNews() {
   return (
     <BackofficeLayout
       title="Nova notícia"
-      subtitle="Criação de uma nova notícia."
-      searchPlaceholder="Pesquisar Notícias"
+      subtitle="Criação de uma nova notícia"
+      searchPlaceholder="Pesquisar notícias"
       actions={[
         <Link
           key="back"
@@ -21,12 +21,13 @@ export default function CreateNews() {
       ]}
     >
 
-        <SectionCard
-          title="Formulário"
-          subtitle="Dados principais da notícia"
-        >
-          <NewsCreateForm />
-        </SectionCard>
+    <SectionCard
+      title="Formulário"
+      subtitle="Dados principais da notícia"
+    >
+      <NewsCreateForm />
+    </SectionCard>
+    
     </BackofficeLayout>
   );
 }

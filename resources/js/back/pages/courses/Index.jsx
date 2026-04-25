@@ -35,7 +35,7 @@ export default function CoursesIndexBack({ courses }) {
   return (
     <BackofficeLayout
       title="Cursos"
-      subtitle="Organize a oferta formativa e prepare a área para futuras operacões editoriais."
+      subtitle="Organize a oferta formativa e prepare a área para futuras operações editoriais."
       searchPlaceholder="Pesquisar cursos"
       actions={[
         <Link
@@ -58,15 +58,15 @@ export default function CoursesIndexBack({ courses }) {
           <div className="space-y-6">
            
             <SectionCard
-              title="Catalogo atual"
-              subtitle={`${filteredRows.length} de ${rows.length} registos disponiveis para administracao.`}
+              title="Catálogo atual"
+              subtitle={`${filteredRows.length} de ${rows.length} registos disponíveis para administração.`}
             >
               {rows.length === 0 ? (
-                <EmptyState title="Ainda nao existem cursos registados." />
+                <EmptyState title="Ainda não existem cursos registados." />
               ) : filteredRows.length === 0 ? (
                 <EmptyState
                   title="Nenhum curso corresponde a esta pesquisa."
-                  description="A pesquisa funciona por titulo, descricao e duracao."
+                  description="A pesquisa funciona por título, descrição e duração."
                 />
               ) : (
                 <div className="grid gap-4 xl:grid-cols-2">
@@ -83,14 +83,14 @@ export default function CoursesIndexBack({ courses }) {
                           <p className="mt-2 text-sm leading-6 text-slate-500">
                             {course.description?.pt ??
                               course.description ??
-                              "Sem descricao resumida."}
+                              "Sem descrição resumida."}
                           </p>
                         </div>
                         <StatusBadge
                           label={
                             course.duration_years
                               ? `${course.duration_years} anos`
-                              : "Sem duracao"
+                              : "Sem duração"
                           }
                           tone="info"
                         />
@@ -125,7 +125,7 @@ export default function CoursesIndexBack({ courses }) {
                   </h2>
 
                   <p className="mt-2 text-sm text-slate-600">
-                    Tens a certeza que queres eliminar este curso? Esta ação não pode ser revertida.
+                    Tem a certeza que quer eliminar este curso? Esta ação não pode ser revertida.
                   </p>
 
                   <div className="mt-6 flex justify-end gap-3">

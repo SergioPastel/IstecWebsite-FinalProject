@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { router } from "@inertiajs/react";
+import { route } from "ziggy-js";
 
 // ─── Searchable combobox ─────────────────────────────────────────────────────
 function SubjectCombobox({ subjects = [], onSelect, excludeIds = [] }) {

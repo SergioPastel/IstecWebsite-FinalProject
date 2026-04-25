@@ -12,7 +12,7 @@ export default function ContactsIndex({ contacts }) {
   return (
     <BackofficeLayout
       title="Contactos"
-      subtitle="Centralize mensagens recebidas e prepare o fluxo de resposta institucional."
+      subtitle="Centralize as mensagens recebidas e prepare o fluxo de resposta institucional."
       searchPlaceholder="Pesquisar mensagens"
     >
       {({ searchQuery }) => {
@@ -26,19 +26,19 @@ export default function ContactsIndex({ contacts }) {
 
         return <div className="space-y-6">
         <PageHeader
-          eyebrow="Inbox"
+          eyebrow="Caixa de entrada"
           title="Mensagens recebidas"
         />
 
         <SectionCard
-          title="Ultimos contactos"
-          subtitle={`${filteredContacts.length} de ${contacts.length} mensagem(ns) visiveis.`}
+          title="Últimos contactos"
+          subtitle={`${filteredContacts.length} de ${contacts.length} mensagem(ns) visíveis.`}
         >
           {contacts.length === 0 ? (
             <EmptyState
               compact
-              title="Nao existem mensagens por mostrar."
-              description="Quando o backend estiver ligado a este fluxo, os contactos recebidos vao aparecer aqui com estado e prioridade."
+              title="Não existem mensagens por mostrar."
+              description="As mensagens recebidas serão apresentadas aqui com o respetivo estado e prioridade."
             />
           ) : filteredContacts.length === 0 ? (
             <EmptyState

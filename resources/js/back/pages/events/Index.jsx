@@ -63,18 +63,18 @@ export default function EventsIndexBack({ events }) {
             <div className="space-y-6">
               
               <SectionCard
-                title="Calendario editorial"
+                title="Calendário editorial"
                 subtitle={`${filteredRows.length} de ${rows.length} eventos preparados para acompanhamento.`}
               >
                 {rows.length === 0 ? (
                   <EmptyState
                     title="Nao existem eventos configurados."
-                    description="Assim que a agenda for populada, esta area pode mostrar estados, localizacao, periodo e destaque institucional."
+                    description="Os eventos serão apresentados aqui com estado, localização, período e destaque."
                   />
                 ) : filteredRows.length === 0 ? (
                   <EmptyState
                     title="Nenhum evento corresponde a esta pesquisa."
-                    description="A pesquisa funciona por titulo, descricao, local e datas."
+                    description="Pode pesquisar por título, descrição, local e datas."
                   />
                 ) : (
                   <div className="grid gap-4 xl:grid-cols-2">
@@ -140,7 +140,7 @@ export default function EventsIndexBack({ events }) {
             </h2>
 
             <p className="mt-2 text-sm text-slate-600">
-              Tens a certeza que queres eliminar este evento? Esta ação não pode ser revertida.
+              Tem a certeza de que pretende eliminar este evento? Esta ação não pode ser revertida.
             </p>
 
             <div className="mt-6 flex justify-end gap-3">

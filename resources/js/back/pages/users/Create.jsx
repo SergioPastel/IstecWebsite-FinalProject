@@ -8,7 +8,7 @@ export default function CreateUser() {
   return (
     <BackofficeLayout
         title="Novo utilizador"
-        subtitle="Criação de um novo utilizador."
+        subtitle="Criação de um novo utilizador"
         searchPlaceholder="Pesquisar utilizadores"
         actions={[
           <Link

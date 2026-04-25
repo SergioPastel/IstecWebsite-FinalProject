@@ -1,4 +1,4 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import React from "react";
 import { FaInstagram, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 export default function Footer() {
   // Translation hook used to get footer texts from the language files
   const { t } = useTranslation();
+  const { props: pageProps } = usePage();
 
   return (
     // Main footer container with background color and text styling
@@ -25,7 +26,7 @@ export default function Footer() {
             </div>
             {/* Footer description text */}
             <p className="max-w-[320px] text-gray-400 leading-7">
-              {t('footer.description')}
+              {pageProps.siteInfo.slogan}
             </p>
             {/* Social media links */}
            <div className="mt-6 flex items-center gap-4">
@@ -98,16 +99,16 @@ export default function Footer() {
             <ul className="space-y-3 text-gray-400">
               <li className="flex items-start gap-3">
                 <span className="text-[#0d8fe8]">📍</span>
-                <span>{t('footer.location')}</span>
+                <span>{pageProps.siteInfo.address}</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-[#0d8fe8]">📧</span>
-                <span>{t('footer.email')}</span>
+                <span>{pageProps.siteInfo.email}</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-[#0d8fe8]">📞</span>
                 <div>
-                  <span>{t('footer.phone')}</span>
+                  <span>{pageProps.siteInfo.phone_number}</span>
 
                   {/* Extra note about the fixed phone line */}
                   <p className="text-xs text-gray-500 mt-1">

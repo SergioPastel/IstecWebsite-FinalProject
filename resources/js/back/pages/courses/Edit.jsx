@@ -10,7 +10,7 @@ export default function EditCourse({ course, categories = [] }) {
   return (
     <BackofficeLayout
   title="Editar curso"
-  subtitle="Atualização dos dados do curso."
+  subtitle="Atualização dos dados do curso"
   searchPlaceholder="Pesquisar cursos"
   actions={[
     <Link
@@ -24,7 +24,7 @@ export default function EditCourse({ course, categories = [] }) {
 >
         <SectionCard
           title="Formulário"
-          subtitle="Edita os dados principais do curso"
+          subtitle="Edite os dados principais do curso"
         >
           <CourseCreateForm
             categories={categories}
