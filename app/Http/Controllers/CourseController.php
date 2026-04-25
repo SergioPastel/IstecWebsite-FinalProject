@@ -191,7 +191,7 @@ class CourseController extends Controller
 
 
         return to_route('backoffice.courses')
-            ->with('success', 'Curso criado com sucesso.');
+            ->with('success', __('flashes.success.courseCreated'));
     }
     public function edit(Course $course)
     {
@@ -347,14 +347,14 @@ class CourseController extends Controller
         });
 
         return to_route('backoffice.courses')
-            ->with('success', 'Curso atualizado com sucesso.');
+            ->with('success', __('flashes.success.courseUpdated'));
     }
     public function destroy(Course $course)
     {
         $course->delete();
 
         return redirect()->route('backoffice.courses')
-            ->with('success', 'Curso eliminado com sucesso.');
+            ->with('success', __('flashes.success.courseDeleted'));
     }
 
 }

@@ -162,7 +162,7 @@ class SettingsController extends Controller
             }
 
             return redirect()->route('backoffice.settings')
-                ->with('success', 'Informações do site guardadas.');
+                ->with('success', __('flashes.success.siteInfoSaved'));
 
         } catch (\Throwable $e) {
             \Log::error('SettingsController@update failed', [

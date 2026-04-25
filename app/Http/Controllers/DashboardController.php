@@ -67,7 +67,7 @@ class DashboardController extends Controller
         $creator->create($request->all());
 
         return redirect()->route('backoffice.users')
-            ->with('success', 'Utilizador criado com sucesso.');
+            ->with('success', __('flashes.success.userCreated'));
     }
 
 
@@ -88,12 +88,12 @@ class DashboardController extends Controller
     {
         // Prevents self deletion
         if ($user->id === Auth::id()) {
-            return back()->with('error', 'Administradores não eliminar a si mesmos.');
+            return back()->with('error', __('flashes.error.adminCanNotDeleteSelf'));
         }
 
         $user->delete();
 
-        return back()->with('success', 'Gestor eliminado com sucesso.');
+        return back()->with('success', __('flashes.success.managerDeleted'));
     }
 
 }

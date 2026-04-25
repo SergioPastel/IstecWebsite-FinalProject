@@ -153,7 +153,7 @@ export default function Contacts({departmentContacts }) {
                     className="bg-[#1697e6] text-white px-6 py-3 rounded-full"
                     type="submit"
                   >
-                    {processing ? "A enviar..." : "Enviar mensagem"}
+                    {processing ? t('contacts.processing.sending') : t('contacts.processing.send')}
                   </button>
                 </form>
               </div>

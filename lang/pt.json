@@ -142,7 +142,8 @@
       "acceptPrefix": "Aceito os",
       "terms": "Termos e Condições",
       "and": "e a",
-      "privacy": "Política de Privacidade"
+      "privacy": "Política de Privacidade",
+      "newApplication": "Nova candidatura."
     },
     "course": {
       "pageTitle": "Candidatura a Curso",
@@ -203,7 +204,9 @@
       "selectedCategoryLabel": "Categoria escolhida:",
       "submittedFor": "Submeteu uma candidatura para",
       "invalidIdentificationNumber": "O número de identificação tem de ter exatamente 9 dígitos.",
-      "desiredEventLabel": "Evento desejado"
+      "desiredEventLabel": "Evento desejado",
+      "successTitle": "Canditura submetida com sucesso.",
+      "successFollowUp": "Você ira receber um email de confirmação brevemente."
     }
   },
   "header": {
@@ -481,6 +484,10 @@
       "name": "Nome",
       "subject": "Assunto",
       "message": "Mensagem"
+    },
+    "processing": {
+      "send": "Enviar mensagem",
+      "sending": "A enviar..."
     }
   },
   "erasmusPage": {
@@ -585,7 +592,6 @@
   "common": {
         "saving": "A guardar..."
         },
-
     "backoffice": {
       "courses": {
         "form": {

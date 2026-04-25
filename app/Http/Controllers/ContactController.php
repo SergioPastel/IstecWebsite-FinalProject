@@ -48,7 +48,7 @@ class ContactController extends Controller
         Mail::to($contact->email)->send(new ContactAutoReply($contact));
 
         return redirect()->route('contacts')
-            ->with('success', 'Mensagem enviada com sucesso.');
+            ->with('success', __('flashes.success.messageSent'));
     }
 
     /*
@@ -74,6 +74,6 @@ class ContactController extends Controller
         /*$contact->delete();
 
         return redirect()->route('admin.contacts.index')
-            ->with('success', 'Mensagem eliminada com sucesso.'); */
+            ->with('success', __('flashes.success.messageDeleted')); */
     }
 }

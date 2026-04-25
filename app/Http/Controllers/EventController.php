@@ -71,7 +71,7 @@ class EventController extends Controller
         Event::create($validated);
 
         return redirect()->route('backoffice.events')
-            ->with('success', 'Evento criado com sucesso.');
+            ->with('success', __('flashes.success.eventCreated'));
     }
 
     public function edit(Event $event)
@@ -106,7 +106,7 @@ class EventController extends Controller
         $event->update($validated);
 
         return redirect()->route('backoffice.events')
-            ->with('success', 'Evento atualizado com sucesso.');
+            ->with('success', __('flashes.success.eventUpdated'));
     }
 
     public function destroy(Event $event)
@@ -114,6 +114,6 @@ class EventController extends Controller
         $event->delete();
 
         return redirect()->route('backoffice.events')
-            ->with('success', 'Evento eliminado com sucesso.');
+            ->with('success', __('flashes.success.eventDeleted'));
     }
 }
