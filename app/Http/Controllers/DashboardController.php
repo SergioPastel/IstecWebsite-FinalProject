@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dashboard;
 use App\Models\Course;
 use App\Models\Event;
 use App\Models\News;
 use App\Models\Application;
-use App\Models\Contact;
+use App\Models\ContactMessage;
 use App\Http\Requests\StoreDashboardRequest;
 use App\Http\Requests\UpdateDashboardRequest;
 use App\Actions\Fortify\CreateNewUser;
@@ -40,15 +39,19 @@ class DashboardController extends Controller
         $courseCheckCount = collect($eventMetrics)
             ->firstWhere('x', 'course_check_click')['y'] ?? 0;
 
-
         return Inertia('back/pages/Dashboard', [
             'analytics' => [ // Analytics will have all our frontend statistics
                 // data_get is a "nicer" way to get specific data from an array
                 'visitors' => data_get($stats, 'visitors'),
                 'pageviews' => data_get($stats, 'pageviews'),
                 // The information is already stored, so you don't need to check the array
-                'course_check' => $courseCheckCount
-            ]
+                'course_check' => $courseCheckCount,
+            ],
+            'counts' => [
+                'active_events' => Event::where('end_date', '>=', now())->count(),
+                'applications' => Application::count(),
+                'contacts' => ContactMessage::count(),
+            ],
         ]);
     }
 

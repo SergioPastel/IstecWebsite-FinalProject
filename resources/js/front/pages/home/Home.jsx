@@ -246,7 +246,7 @@ export default function Home({
                   >
                   <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-[#eaf5ff]">
                     <Icon size={22} className="text-[#0d8fe8]" />
-                  </div>
+                  </div>                  
 
                   <h3 className="text-[1.2rem] font-semibold mb-2">
                     {item.title}

@@ -8,13 +8,6 @@ import StatusBadge from "../components/ui/StatusBadge";
 import EmptyState from "../components/ui/EmptyState";
 import { filterCollectionByQuery } from "../utils/search";
 
-const fallbackMetrics = {
-  courses: 18,
-  news: 12,
-  events: 5,
-  applications: 47,
-};
-
 const recentActivity = [
   {
     id: 1,
@@ -63,7 +56,7 @@ const latestContacts = [
   },
 ];
 
-export default function Dashboard({ analytics = {}, user }) {
+export default function Dashboard({ analytics = {}, counts = {}, user }) {
   useEffect(() => {
     router.post(
       "/locale",
@@ -76,27 +69,27 @@ export default function Dashboard({ analytics = {}, user }) {
 
   const metrics = [
     {
-      label: "Total de cursos",
-      value: fallbackMetrics.courses,
-      trend: "+2 este semestre",
-      accent: "primary",
-    },
-    {
-      label: "Noticias publicadas",
-      value: fallbackMetrics.news,
+      label: "Visitantes",
+      value: analytics.visitors ?? 0,
       trend: `${analytics.pageviews ?? 0} pageviews`,
       accent: "light",
     },
     {
       label: "Eventos ativos",
-      value: fallbackMetrics.events,
-      trend: `${analytics.visitors ?? 0} visitantes`,
-      accent: "soft",
+      value: counts.active_events ?? 0,
+      trend: `${counts.active_events ?? 0} eventos ainda ativos`,
+      accent: "light",
     },
     {
       label: "Candidaturas recebidas",
-      value: fallbackMetrics.applications,
+      value: counts.applications ?? 0,
       trend: `${analytics.course_check ?? 0} cliques em cursos`,
+      accent: "light",
+    },
+    {
+      label: "Contactos recebidos",
+      value: counts.contacts ?? 0,
+      trend: "Mensagens do inbox",
       accent: "light",
     },
   ];

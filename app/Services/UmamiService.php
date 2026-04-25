@@ -49,7 +49,8 @@ class UmamiService
     private function range()
     {
         return [
-            'startAt' => now()->subDays(7)->timestamp * 1000,
+            // Track for 1 month
+            'startAt' => now()->subDays(30)->timestamp * 1000,
             'endAt'   => now()->timestamp * 1000,
         ];
     }
