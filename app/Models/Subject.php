@@ -18,6 +18,7 @@ class Subject extends Model
     protected $fillable = [
         'name',
         'ects',
+        'file_path'
     ];
 
     /**
