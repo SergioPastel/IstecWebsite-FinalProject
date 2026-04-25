@@ -1,4 +1,4 @@
-import { Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from 'react';
 import logo from "../../../front/assets/_logo_branco.png";
@@ -20,6 +20,7 @@ export default function Login() {
     <div className="min-h-screen bg-gradient-to-br from-[#f4f8fc] via-white to-[#eef6ff] flex items-center justify-center px-4">
       <FlashToasts />
       
+      <Head title="Login - Área administrativa" />
       <div className="w-full max-w-md">
         <form
           onSubmit={submit}

@@ -631,6 +631,104 @@
     "copyright": "© {{ year }} ISTEC Porto. Todos os direitos reservados.",
     "developed": "Desenvolvido para projeto académico",
     "fixedLineNote": "Custo de chamada para rede fixa/móvel nacional, de acordo com o seu tarifário"
+  },
+  "termsPage": {
+    "title": "Termos e Condições",
+    "subtitle": "Informação Legal",
+    "description": "Estes Termos e Condições regulam a utilização deste website e dos formulários disponibilizados pelo ISTEC Porto.",
+    "sections": [
+      {
+        "title": "1. Objeto",
+        "content": "O presente website tem como finalidade disponibilizar informação institucional, académica e administrativa, incluindo conteúdos sobre cursos, eventos, notícias e candidaturas."
+      },
+      {
+        "title": "2. Utilização do website",
+        "content": "O utilizador compromete-se a utilizar este website de forma responsável, lícita e em conformidade com a legislação aplicável, abstendo-se de praticar qualquer ato que possa comprometer a segurança, integridade ou funcionamento da plataforma."
+      },
+      {
+        "title": "3. Conteúdos e informação",
+        "content": "O ISTEC Porto procura garantir que toda a informação disponibilizada neste website é clara, rigorosa e atualizada. Ainda assim, poderá proceder a alterações de conteúdos, horários, ofertas formativas, eventos ou outras informações sem aviso prévio."
+      },
+      {
+        "title": "4. Candidaturas e formulários",
+        "content": "O preenchimento e submissão de formulários através deste website não dispensa a verificação posterior dos dados submetidos nem substitui eventuais procedimentos administrativos exigidos pela instituição. O utilizador declara que os dados fornecidos são verdadeiros, completos e atualizados, sendo responsável por qualquer erro ou omissão na informação submetida."
+      },
+      {
+        "title": "5. Propriedade intelectual",
+        "content": "Os conteúdos deste website, incluindo textos, imagens, elementos gráficos, logótipos e estrutura, estão protegidos por direitos de propriedade intelectual e não podem ser reproduzidos, distribuídos ou utilizados sem autorização prévia, salvo nos casos legalmente permitidos."
+      },
+      {
+        "title": "6. Limitação de responsabilidade",
+        "content": "O ISTEC Porto não se responsabiliza por interrupções temporárias do serviço, falhas técnicas, indisponibilidade da plataforma ou danos resultantes de utilização indevida do website por parte do utilizador ou de terceiros."
+      },
+      {
+        "title": "7. Ligações externas",
+        "content": "Sempre que este website contenha ligações para páginas externas, o ISTEC Porto não se responsabiliza pelos conteúdos, políticas ou práticas desses websites de terceiros."
+      },
+      {
+        "title": "8. Alterações aos termos",
+        "content": "O ISTEC Porto reserva-se o direito de alterar os presentes Termos e Condições a qualquer momento. As alterações entram em vigor após a sua publicação no website."
+      },
+      {
+        "title": "9. Contactos",
+        "content": "Para qualquer questão relacionada com a utilização deste website, o utilizador poderá entrar em contacto através dos meios disponibilizados na página de contactos."
+      }
+    ],
+    "lastUpdate": "Última atualização:"
+  },
+  "privacyPage": {
+    "title": "Política de Privacidade",
+    "subtitle": "Proteção de Dados",
+    "description": "Esta Política de Privacidade explica como os dados pessoais recolhidos através deste website são tratados pelo ISTEC Porto.",
+    "sections": [
+      {
+        "title": "1. Responsável pelo tratamento",
+        "content": "O responsável pelo tratamento dos dados pessoais recolhidos através deste website é o ISTEC Porto, no âmbito das suas atividades institucionais, académicas e administrativas."
+      },
+      {
+        "title": "2. Dados recolhidos",
+        "content": "Poderão ser recolhidos dados como nome, email, contacto telefónico, data de nascimento, número de identificação e outros elementos necessários ao processamento de pedidos, candidaturas ou contactos efetuados pelo utilizador."
+      },
+      {
+        "title": "3. Finalidade da recolha",
+        "content": "Os dados pessoais são recolhidos para gestão de candidaturas, inscrição em eventos, resposta a pedidos de contacto, prestação de informações institucionais e cumprimento de obrigações legais aplicáveis."
+      },
+      {
+        "title": "4. Fundamento de licitude",
+        "content": "O tratamento dos dados poderá basear-se no consentimento do titular, na execução de diligências pré-contratuais, no cumprimento de obrigações legais ou no interesse legítimo da instituição, conforme aplicável em cada situação."
+      },
+      {
+        "title": "5. Conservação dos dados",
+        "content": "Os dados pessoais serão conservados apenas pelo período necessário para as finalidades que motivaram a sua recolha, sem prejuízo dos prazos legais de conservação obrigatória."
+      },
+      {
+        "title": "6. Partilha de dados",
+        "content": "Os dados pessoais não serão vendidos nem cedidos a terceiros, exceto quando tal seja necessário para cumprimento de obrigações legais, processamento administrativo ou prestação de serviços essenciais ao funcionamento da instituição."
+      },
+      {
+        "title": "7. Direitos do titular dos dados",
+        "content": "Nos termos da legislação aplicável, o titular dos dados pode solicitar o acesso, retificação, apagamento, limitação do tratamento, oposição ao tratamento e portabilidade dos seus dados, quando aplicável."
+      },
+      {
+        "title": "8. Segurança",
+        "content": "O ISTEC Porto adota medidas técnicas e organizativas adequadas para proteger os dados pessoais contra perda, uso indevido, acesso não autorizado, divulgação ou destruição."
+      },
+      {
+        "title": "9. Contacto para questões de privacidade",
+        "content": "Para qualquer questão relacionada com privacidade ou proteção de dados, o utilizador poderá contactar o ISTEC Porto através dos canais oficiais disponibilizados no website."
+      }
+    ],
+    "lastUpdate": "Última atualização:"
+  },
+  "search": {
+    "title": "Pesquisa",
+    "writeToSearch": "Escreve algo para pesquisar",
+    "resultsFor": "Resultados para: {{ query }}",
+    "noResults": "Não foram encontrados resultados para {{ query }}.",
+    "courses": "Cursos",
+    "events": "Eventos",
+    "news": "Notícias",
+    "viewMore": "Ver mais"
   }
 }
 

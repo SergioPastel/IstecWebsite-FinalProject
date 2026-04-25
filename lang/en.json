@@ -682,6 +682,104 @@
     "copyright": "© {{ year }} ISTEC Porto. All rights reserved.",
     "developed": "Developed for academic project",
     "fixedLineNote": "Call rates to domestic landlines and mobile phones, according to your plan"
+  },
+  "termsPage": {
+    "title": "Terms and Conditions",
+    "subtitle": "Legal Information",
+    "description": "These Terms and Conditions govern the use of this website and the forms provided by ISTEC Porto.",
+    "sections": [
+      {
+        "title": "1. Object",
+        "content": "This website is intended to provide institutional, academic and administrative information, including content about courses, events, news and applications."
+      },
+      {
+        "title": "2. Website usage",
+        "content": "The user undertakes to use this website responsibly, lawfully and in accordance with applicable legislation, refraining from any act that may compromise the security, integrity or functioning of the platform."
+      },
+      {
+        "title": "3. Content and information",
+        "content": "ISTEC Porto strives to ensure that all information provided on this website is clear, rigorous and up-to-date. However, it may change content, schedules, training offers, events or other information without prior notice."
+      },
+      {
+        "title": "4. Applications and forms",
+        "content": "The completion and submission of forms through this website does not dispense with the subsequent verification of the submitted data nor does it replace any administrative procedures required by the institution. The user declares that the data provided is true, complete and up-to-date, being responsible for any error or omission in the submitted information."
+      },
+      {
+        "title": "5. Intellectual property",
+        "content": "The contents of this website, including texts, images, graphic elements, logos and structure, are protected by intellectual property rights and may not be reproduced, distributed or used without prior authorization, except in legally permitted cases."
+      },
+      {
+        "title": "6. Limitation of liability",
+        "content": "ISTEC Porto is not liable for temporary interruptions in service, technical failures, platform unavailability or damages resulting from improper use of the website by the user or third parties."
+      },
+      {
+        "title": "7. External links",
+        "content": "Whenever this website contains links to external pages, ISTEC Porto is not responsible for the content, policies or practices of those third-party websites."
+      },
+      {
+        "title": "8. Changes to terms",
+        "content": "ISTEC Porto reserves the right to change these Terms and Conditions at any time. Changes take effect upon publication on the website."
+      },
+      {
+        "title": "9. Contacts",
+        "content": "For any questions related to the use of this website, the user may contact ISTEC Porto through the means provided on the contacts page."
+      }
+    ],
+    "lastUpdate": "Last update:"
+  },
+  "privacyPage": {
+    "title": "Privacy Policy",
+    "subtitle": "Data Protection",
+    "description": "This Privacy Policy explains how personal data collected through this website is processed by ISTEC Porto.",
+    "sections": [
+      {
+        "title": "1. Data controller",
+        "content": "The data controller for personal data collected through this website is ISTEC Porto, within the scope of its institutional, academic and administrative activities."
+      },
+      {
+        "title": "2. Data collected",
+        "content": "Data such as name, email, telephone contact, date of birth, identification number and other elements necessary for processing requests, applications or contacts made by the user may be collected."
+      },
+      {
+        "title": "3. Purpose of collection",
+        "content": "Personal data is collected for application management, event registration, response to contact requests, provision of institutional information and compliance with applicable legal obligations."
+      },
+      {
+        "title": "4. Lawful basis",
+        "content": "The processing of data may be based on the data subject's consent, the execution of pre-contractual diligences, compliance with legal obligations or the institution's legitimate interest, as applicable in each situation."
+      },
+      {
+        "title": "5. Data retention",
+        "content": "Personal data will be retained only for the period necessary for the purposes that motivated their collection, without prejudice to the mandatory legal retention periods."
+      },
+      {
+        "title": "6. Data sharing",
+        "content": "Personal data will not be sold or transferred to third parties, except when necessary for compliance with legal obligations, administrative processing or provision of essential services for the institution's functioning."
+      },
+      {
+        "title": "7. Data subject's rights",
+        "content": "In accordance with applicable legislation, the data subject may request access, rectification, erasure, limitation of processing, opposition to processing and portability of their data, when applicable."
+      },
+      {
+        "title": "8. Security",
+        "content": "ISTEC Porto adopts adequate technical and organizational measures to protect personal data against loss, misuse, unauthorized access, disclosure or destruction."
+      },
+      {
+        "title": "9. Contact for privacy questions",
+        "content": "For any questions related to privacy or data protection, the user may contact ISTEC Porto through the official channels provided on the website."
+      }
+    ],
+    "lastUpdate": "Last update:"
+  },
+  "search": {
+    "title": "Search",
+    "writeToSearch": "Write something to search",
+    "resultsFor": "Results for: {{ query }}",
+    "noResults": "No results found for {{ query }}.",
+    "courses": "Courses",
+    "events": "Events",
+    "news": "News",
+    "viewMore": "View more"
   }
 }
 
