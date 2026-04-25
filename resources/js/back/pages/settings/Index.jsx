@@ -65,12 +65,17 @@ function ImageUpload({ label, currentUrl = null, onChange, error }) {
     const [isNew, setIsNew] = useState(false);
     const inputRef = useRef(null);
 
+    // Sync preview when currentUrl changes (after save/redirect)
+    useEffect(() => {
+        if (!isNew) setPreview(currentUrl ?? null);
+    }, [currentUrl]);
+
     return (
         <div className="flex flex-col gap-2">
             <label className="font-semibold text-brand-black">{label}</label>
             {preview ? (
-                <div className="relative w-16 h-16 rounded-lg border border-brand-border bg-slate-50 flex items-center justify-center overflow-hidden">
-                    <img src={preview} alt={label} className="max-w-full max-h-full object-contain p-1" />
+                <div className="relative w-32 h-20 rounded-lg border border-brand-border bg-slate-50 flex items-center justify-center overflow-hidden">
+                    <img src={preview} alt={label} className="max-w-full max-h-full object-cover" />
                     {isNew && (
                         <button type="button"
                             onClick={() => { onChange(null); setPreview(currentUrl); setIsNew(false); if (inputRef.current) inputRef.current.value = ""; }}
@@ -81,8 +86,8 @@ function ImageUpload({ label, currentUrl = null, onChange, error }) {
                 </div>
             ) : (
                 <div onClick={() => inputRef.current?.click()}
-                    className={`flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded-lg p-8 cursor-pointer transition bg-slate-50 ${error ? "border-red-400" : "border-brand-border hover:border-brand-secondary"}`}>
-                    <svg className="w-8 h-8 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    className={`flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded-lg p-6 cursor-pointer transition bg-slate-50 ${error ? "border-red-400" : "border-brand-border hover:border-brand-secondary"}`}>
+                    <svg className="w-6 h-6 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 12V4m0 0L8 8m4-4l4 4" />
                     </svg>
                     <span className="text-sm text-slate-400">Clica para fazer upload</span>
@@ -129,6 +134,32 @@ function InlineTranslatable({ label, locales, value = {}, onChange }) {
                 onChange={(e) => onChange(active, e.target.value)}
                 placeholder={`${label} (${active})`}
                 className="p-2 border rounded border-brand-border focus:ring-2 focus:ring-brand-secondary outline-none text-sm w-full bg-white"
+            />
+        </div>
+    );
+}
+
+// Single page banner editor — image + translatable title + subtitle
+function PageBannerEditor({ label, locales, value, onChange }) {
+    return (
+        <div className="border border-brand-border rounded-lg p-4 bg-white space-y-4">
+            <h4 className="text-sm font-semibold text-slate-700">{label}</h4>
+            <ImageUpload
+                label="Imagem"
+                currentUrl={value.url ?? null}
+                onChange={(file) => onChange({ ...value, image: file })}
+            />
+            <InlineTranslatable
+                label="Título"
+                locales={locales}
+                value={value.title ?? {}}
+                onChange={(loc, val) => onChange({ ...value, title: { ...(value.title ?? {}), [loc]: val } })}
+            />
+            <InlineTranslatable
+                label="Subtítulo"
+                locales={locales}
+                value={value.subtitle ?? {}}
+                onChange={(loc, val) => onChange({ ...value, subtitle: { ...(value.subtitle ?? {}), [loc]: val } })}
             />
         </div>
     );
@@ -263,19 +294,45 @@ function initSlides(bannerImages) {
     }));
 }
 
-export default function SettingsIndex({ siteInfo = null, locales = ["pt", "en"], faviconUrl = null, bannerImages = [] }) {
+const PAGE_BANNER_LABELS = {
+    ctesp:            "CTeSP",
+    licenciatura:     "Licenciaturas",
+    pos_graduacao:    "Pós-Graduação",
+    eventos_noticias: "Eventos e Notícias",
+    erasmus:          "Erasmus",
+    pedagogia:        "Pedagogia",
+};
+
+function initPageBanners(pageBanners) {
+    const result = {};
+    for (const key of Object.keys(PAGE_BANNER_LABELS)) {
+        const raw = pageBanners?.[key] ?? {};
+        result[key] = {
+            url:      raw.url      ?? null,
+            image:    null, // File object, set when user picks a new image
+            title:    parseTranslatable(raw.title),
+            subtitle: parseTranslatable(raw.subtitle),
+        };
+    }
+    return result;
+}
+
+export default function SettingsIndex({ siteInfo = null, locales = ["pt", "en"], faviconUrl = null, bannerImages = [], pageBanners = {} }) {
     const [slides, setSlides] = useState(() => initSlides(bannerImages));
     const [deleted, setDeleted] = useState([]);
     const [processing, setProcessing] = useState(false);
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
+    const [pageBannerFields, setPageBannerFields] = useState(() => initPageBanners(pageBanners));
 
-    // When Inertia redirects back after save, bannerImages prop updates
-    // but useState doesn't reinitialize — this syncs slides to the fresh prop.
     useEffect(() => {
         setSlides(initSlides(bannerImages));
         setDeleted([]);
     }, [bannerImages]);
+
+    useEffect(() => {
+        setPageBannerFields(initPageBanners(pageBanners));
+    }, [pageBanners]);
 
     const [fields, setFields] = useState({
         phone_number: siteInfo?.phone_number ?? "",
@@ -304,26 +361,36 @@ export default function SettingsIndex({ siteInfo = null, locales = ["pt", "en"],
         setSuccess(false);
 
         const payload = {
-            _method:        "PUT",
-            phone_number:   fields.phone_number,
-            email:          fields.email,
-            address:        fields.address,
-            favicon:        fields.favicon,
-            slogan:         fields.slogan,
-            mission:        fields.mission,
-            whoWeAre:       fields.whoWeAre,
-            banner_deleted: deleted,
-            banner_images:  slides.filter((s) => !s.id).map((s) => s.file),
+            _method:          "PUT",
+            phone_number:     fields.phone_number,
+            email:            fields.email,
+            address:          fields.address,
+            favicon:          fields.favicon,
+            slogan:           fields.slogan,
+            mission:          fields.mission,
+            whoWeAre:         fields.whoWeAre,
+            banner_deleted:   deleted,
+            banner_images:    slides.filter((s) => !s.id).map((s) => s.file),
             banner_new_texts: slides.filter((s) => !s.id).map((s) => ({
                 title:    s.title    ?? {},
                 subtitle: s.subtitle ?? {},
             })),
-            banner_order:   slides.filter((s) => s.id).map((s) => s.id),
-            banner_texts:   slides.filter((s) => s.id).map((s) => ({
+            banner_order:     slides.filter((s) => s.id).map((s) => s.id),
+            banner_texts:     slides.filter((s) => s.id).map((s) => ({
                 id:       s.id,
                 title:    s.title    ?? {},
                 subtitle: s.subtitle ?? {},
             })),
+            page_banners: Object.fromEntries(
+                Object.entries(pageBannerFields).map(([key, val]) => [
+                    key,
+                    {
+                        image:    val.image ?? null,
+                        title:    val.title    ?? {},
+                        subtitle: val.subtitle ?? {},
+                    },
+                ])
+            ),
         };
 
         router.post(route("backoffice.settings"), payload, {
@@ -442,12 +509,29 @@ export default function SettingsIndex({ siteInfo = null, locales = ["pt", "en"],
                         />
                     </Section>
 
-                    <Section title="Banner">
+                    <Section title="Banner (Homepage)">
                         <BannerManager
                             slides={slides}
                             locales={locales}
                             onChange={handleSlidesChange}
                         />
+                    </Section>
+
+                    <Section title="Banners de página">
+                        <p className="text-xs text-slate-400 mb-4">
+                            Imagem de fundo e texto para o banner de cada página. Se não tiver imagem, o banner usa o fundo azul padrão.
+                        </p>
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                            {Object.entries(PAGE_BANNER_LABELS).map(([key, label]) => (
+                                <PageBannerEditor
+                                    key={key}
+                                    label={label}
+                                    locales={locales}
+                                    value={pageBannerFields[key] ?? { url: null, image: null, title: {}, subtitle: {} }}
+                                    onChange={(next) => setPageBannerFields((prev) => ({ ...prev, [key]: next }))}
+                                />
+                            ))}
+                        </div>
                     </Section>
 
                     {success && (

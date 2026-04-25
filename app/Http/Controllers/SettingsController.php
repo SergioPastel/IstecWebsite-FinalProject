@@ -12,6 +12,15 @@ use Inertia\Inertia;
 
 class SettingsController extends Controller
 {
+    const PAGE_BANNER_RELATIONS = [
+        'ctesp'             => 'ctespBannerMedia',
+        'licenciatura'      => 'licenciaturaBannerMedia',
+        'pos_graduacao'     => 'posGraduacaoBannerMedia',
+        'eventos_noticias'  => 'eventosNoticiasBannerMedia',
+        'erasmus'           => 'erasmusBannerMedia',
+        'pedagogia'         => 'pedagogiaBannerMedia',
+    ];
+
     private function publicDisk()
     {
         return Storage::build([
@@ -21,9 +30,23 @@ class SettingsController extends Controller
         ]);
     }
 
+    private function pageBannerData(SiteInfo $siteInfo): array
+    {
+        $data = [];
+        foreach (self::PAGE_BANNER_RELATIONS as $key => $relation) {
+            $media = $siteInfo->$relation;
+            $data[$key] = [
+                'url'      => $media ? Media::getUrl('public', $media->file_path) : null,
+                'title'    => $siteInfo->getTranslations($key . '_banner_title'),
+                'subtitle' => $siteInfo->getTranslations($key . '_banner_subtitle'),
+            ];
+        }
+        return $data;
+    }
+
     public function index()
     {
-        $siteInfo = SiteInfo::first();
+        $siteInfo = SiteInfo::with(array_values(self::PAGE_BANNER_RELATIONS))->first();
 
         $bannerImages = BannerImage::with('media')
             ->orderBy('order')
@@ -48,12 +71,20 @@ class SettingsController extends Controller
             'locales'      => config('app.supported_locales', ['pt', 'en']),
             'faviconUrl'   => $this->publicDisk()->url('favicon.ico'),
             'bannerImages' => $bannerImages,
+            'pageBanners'  => $siteInfo ? $this->pageBannerData($siteInfo) : [],
         ]);
     }
 
     public function update(Request $request)
     {
-        $request->validate([
+        $pageBannerRules = [];
+        foreach (array_keys(self::PAGE_BANNER_RELATIONS) as $key) {
+            $pageBannerRules["page_banners.{$key}.image"]    = ['nullable', 'image', 'max:4096'];
+            $pageBannerRules["page_banners.{$key}.title"]    = ['nullable', 'array'];
+            $pageBannerRules["page_banners.{$key}.subtitle"] = ['nullable', 'array'];
+        }
+
+        $request->validate(array_merge([
             'phone_number'                => ['required', 'string', 'max:50'],
             'email'                       => ['required', 'email', 'max:255'],
             'address'                     => ['required', 'string', 'max:500'],
@@ -74,7 +105,7 @@ class SettingsController extends Controller
             'banner_new_texts'            => ['nullable', 'array'],
             'banner_new_texts.*.title'    => ['nullable', 'array'],
             'banner_new_texts.*.subtitle' => ['nullable', 'array'],
-        ]);
+        ], $pageBannerRules));
 
         try {
             // ── SiteInfo ───────────────────────────────────────────────────
@@ -97,6 +128,35 @@ class SettingsController extends Controller
                     'favicon.ico',
                     file_get_contents($request->file('favicon'))
                 );
+            }
+
+            // ── Page banners ───────────────────────────────────────────────
+            foreach (self::PAGE_BANNER_RELATIONS as $key => $relation) {
+                $bannerData = $request->input("page_banners.{$key}", []);
+
+                if ($request->hasFile("page_banners.{$key}.image")) {
+                    $file = $request->file("page_banners.{$key}.image");
+                    $path = 'media/' . Str::uuid() . '.' . $file->getClientOriginalExtension();
+                    Storage::disk('public')->put($path, file_get_contents($file));
+
+                    // Delete old media using the correct relation name
+                    $oldMedia = $siteInfo->$relation;
+                    if ($oldMedia) {
+                        Storage::disk('public')->delete($oldMedia->file_path);
+                        $siteInfo->{$key . '_banner'} = null;
+                        $oldMedia->delete();
+                    }
+
+                    $media = Media::create(['file_path' => $path, 'alt_text' => null]);
+                    $siteInfo->{$key . '_banner'} = $media->id;
+                }
+
+                foreach ($bannerData['title'] ?? [] as $locale => $value) {
+                    $siteInfo->setTranslation($key . '_banner_title', $locale, $value ?? '');
+                }
+                foreach ($bannerData['subtitle'] ?? [] as $locale => $value) {
+                    $siteInfo->setTranslation($key . '_banner_subtitle', $locale, $value ?? '');
+                }
             }
 
             $siteInfo->save();
@@ -127,24 +187,20 @@ class SettingsController extends Controller
             }
 
             // ── Banner: upload new slides (with text) ──────────────────────
-            $nextOrder  = (BannerImage::max('order') ?? -1) + 1;
-            $newTexts   = $request->input('banner_new_texts', []);
+            $nextOrder = (BannerImage::max('order') ?? -1) + 1;
+            $newTexts  = $request->input('banner_new_texts', []);
 
             foreach ($request->file('banner_images', []) as $index => $file) {
                 $path = 'media/' . Str::uuid() . '.' . $file->getClientOriginalExtension();
                 Storage::disk('public')->put($path, file_get_contents($file));
 
-                $media = Media::create([
-                    'file_path' => $path,
-                    'alt_text'  => null,
-                ]);
+                $media = Media::create(['file_path' => $path, 'alt_text' => null]);
 
                 $banner = BannerImage::create([
                     'media_id' => $media->id,
                     'order'    => $nextOrder++,
                 ]);
 
-                // Save title/subtitle entered before the first save
                 if (isset($newTexts[$index])) {
                     foreach ($newTexts[$index]['title'] ?? [] as $locale => $value) {
                         $banner->setTranslation('title', $locale, $value ?? '');

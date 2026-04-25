@@ -1,12 +1,18 @@
 import React from "react";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import Layout from "../../layouts/Layout";
 import { useTranslation } from "react-i18next";
 import Banner from "../../components/common/Banner";
 
 export default function Pedagogy() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language?.startsWith("en") ? "en" : "pt";
 
+  const { siteInfo } = usePage().props;
+  const banner = siteInfo?.pageBanners?.ctesp ?? null;
+  const bannerTitle = banner?.title?.[lang] ?? banner?.title?.pt ?? null;
+  const bannerSubtitle =
+    banner?.subtitle?.[lang] ?? banner?.subtitle?.pt ?? null;
   const areas = [
     {
       title: t("pedagogyPage.areas.0.title"),
@@ -33,7 +39,11 @@ export default function Pedagogy() {
     <Layout title={t("pedagogyPage.title")}>
       <div className="min-h-screen bg-white">
         <main className="">
-          <Banner>
+          <Banner
+            imageUrl={banner?.url ?? null}
+            title={bannerTitle}
+            subtitle={bannerSubtitle}
+          >
             <div className="max-w-[1600px] mx-auto px-6 py-20">
               <p className="text-sm uppercase tracking-[2px] font-extrabold text-white/80 mb-4">
                 {t("pedagogyPage.subtitle")}
@@ -120,9 +130,9 @@ export default function Pedagogy() {
               </p>
 
               <Link
-                  href={route("contacts")}
-                  className="mt-8 inline-block rounded-xl bg-[#1697e6] px-8 py-3 font-semibold text-white transition hover:bg-[#0f7fc2]"
-                >
+                href={route("contacts")}
+                className="mt-8 inline-block rounded-xl bg-[#1697e6] px-8 py-3 font-semibold text-white transition hover:bg-[#0f7fc2]"
+              >
                 {t("pedagogyPage.ctaButton")}
               </Link>
             </div>
