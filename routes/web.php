@@ -11,6 +11,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventsandnewsController;
+use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Fortify;
@@ -172,7 +173,11 @@ Route::post('/applications/events', [ApplicationController::class, 'storeEvent']
 Route::get('/contacts', [ContactController::class, 'create'])->name('contacts');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
 
-//Terms and privacy routes
+// Route for PDF download
+Route::get('/subjects/{subject}/pdf', [SubjectController::class, 'downloadPdf'])
+    ->name('subjects.pdf.download');
+
+// Terms and privacy routes
 Route::get('/terms', function () {
     return Inertia('front/pages/termsandprivacy/Terms');
 })->name('terms');
