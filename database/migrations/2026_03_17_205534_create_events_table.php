@@ -15,7 +15,6 @@ return new class extends Migration {
             $table->foreignUuid('media_id')->nullable()->constrained('media');
             $table->foreignUuid('event_category_id')->constrained('event_categories');
 
-            $table->unsignedInteger('applications')->default(0);
             $table->dateTime('start_date');
             $table->dateTime('end_date')->nullable();
             $table->string('location');

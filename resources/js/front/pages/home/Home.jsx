@@ -153,25 +153,23 @@ export default function Home({ courses, latestActivity, bannerImages = [] }) {
                     />
                     {/* Blue-tinted gradient anchored to the bottom — always present for legibility */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0d8fe8]/80 via-[#0d8fe8]/20 to-transparent" />
-
                     {(image.title || image.subtitle) && (
-                      <div className="absolute inset-0 flex items-end">
-                        <div className="max-w-[1600px] w-full mx-auto px-10 pb-16">
-                          <div className="max-w-[680px]">
-                            {image.title && (
-                              <h1 className="text-[clamp(1.8rem,3.5vw,3rem)] font-extrabold leading-tight tracking-tight text-white drop-shadow-lg">
-                                {image.title}
-                              </h1>
-                            )}
-                            {image.subtitle && (
-                              <p className="mt-3 text-[1.05rem] leading-relaxed text-white/85 drop-shadow max-w-[560px]">
-                                {image.subtitle}
-                              </p>
-                            )}
-                          </div>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="min-w-[340px] max-w-[680px] w-fit bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-8 py-6">
+                          {image.title && (
+                            <h1 className="text-[clamp(1.8rem,3.5vw,3rem)] font-extrabold leading-tight tracking-tight text-white drop-shadow-lg text-center">
+                              {image.title}
+                            </h1>
+                          )}
+                          {image.subtitle && (
+                            <p className="mt-3 text-[1.05rem] leading-relaxed text-white/85 drop-shadow text-center">
+                              {image.subtitle}
+                            </p>
+                          )}
                         </div>
                       </div>
                     )}
+                    )
                   </div>
                 </SwiperSlide>
               ))
@@ -272,7 +270,7 @@ export default function Home({ courses, latestActivity, bannerImages = [] }) {
                     href={route("courses.show", course.id)}
                     className="mt-auto pt-4"
                   >
-                   <span className="inline-flex w-[130px] items-center justify-center rounded-full bg-[#0d8fe8] px-5 py-2 text-sm font-bold text-white shadow-[0_8px_20px_rgba(13,143,232,0.22)] transition-all duration-300 hover:bg-[#0a78c4] hover:-translate-y-[1px]">
+                    <span className="inline-flex w-[130px] items-center justify-center rounded-full bg-[#0d8fe8] px-5 py-2 text-sm font-bold text-white shadow-[0_8px_20px_rgba(13,143,232,0.22)] transition-all duration-300 hover:bg-[#0a78c4] hover:-translate-y-[1px]">
                       {t("home.coursesSection.learnMore")}
                     </span>
                   </Link>
