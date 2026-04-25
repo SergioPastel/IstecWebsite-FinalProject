@@ -4,7 +4,7 @@ import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
 import CourseCreateForm from "../../components/common/CourseCreateForm";
 
-export default function CreateCourse({ categories = [], subjects = [], subjects = [] }) {
+export default function CreateCourse({ categories = [], subjects = [] }) {
   return (
    <BackofficeLayout
   title="Novo curso"
