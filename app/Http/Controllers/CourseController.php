@@ -113,7 +113,6 @@ class CourseController extends Controller
                 'semesters.*.semester_number' => 'required|numeric|min:1',
                 'semesters.*.subjects' => 'nullable|array',
                 'semesters.*.subjects.*.id' => 'nullable|uuid|exists:subjects,id',
-                'semesters.*.subjects.*._type' => 'nullable|string|in:existing,new',
                 'semesters.*.subjects.*.name' => 'nullable|array',
                 'semesters.*.subjects.*.name.pt' => 'nullable|string|max:255',
                 'semesters.*.subjects.*.name.en' => 'nullable|string|max:255',
@@ -140,7 +139,6 @@ class CourseController extends Controller
             }
 
             $media = Media::create([
-                'type' => $isVideo ? 'video' : 'image',
                 'file_path' => 'media/' . $filename,
                 'file_disk' => 'public',
                 'thumbnail_disk' => null,
@@ -267,9 +265,6 @@ class CourseController extends Controller
         DB::transaction(function () use ($request, $validated, $course) {
 
             // ── 1. Handle media upload ──────────────────────────────────────────
-            $mediaId = $course->media_id; // keep existing media by default
-
-            // ── 1. Handle media upload ──────────────────────────────────────────
             $mediaId = $course->media_id; // keep existing by default
             $oldMedia = $course->media;   // grab reference before we touch anything
 
@@ -280,7 +275,6 @@ class CourseController extends Controller
                 Storage::disk('public')->put("media/{$filename}", file_get_contents($file));
 
                 $media = Media::create([
-                    'type' => 'image',
                     'file_path' => "media/{$filename}",
                     'file_disk' => 'public',
                     'thumbnail_disk' => null,
