@@ -237,12 +237,6 @@ export default function Home({ courses, latestActivity, bannerImages = [] }) {
                   {t("home.coursesSection.findRightCourse")}
                 </h2>
               </div>
-              <Link
-                href={route("courses.ctesp")}
-                className="text-[#0d8fe8] font-bold whitespace-nowrap hover:underline"
-              >
-                {t("home.coursesSection.viewAllOffer")}
-              </Link>
             </div>
             <div className="grid grid-cols-3 gap-[22px] max-[1100px]:grid-cols-2 max-[768px]:grid-cols-1">
               {courses.data.map((course) => (
