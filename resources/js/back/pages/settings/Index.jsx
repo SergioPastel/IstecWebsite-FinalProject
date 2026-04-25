@@ -65,7 +65,6 @@ function ImageUpload({ label, currentUrl = null, onChange, error }) {
     const [isNew, setIsNew] = useState(false);
     const inputRef = useRef(null);
 
-    // Sync preview when currentUrl changes (after save/redirect)
     useEffect(() => {
         if (!isNew) setPreview(currentUrl ?? null);
     }, [currentUrl]);
@@ -139,27 +138,15 @@ function InlineTranslatable({ label, locales, value = {}, onChange }) {
     );
 }
 
-// Single page banner editor — image + translatable title + subtitle
-function PageBannerEditor({ label, locales, value, onChange }) {
+// Page banner editor — image only, no title/subtitle
+function PageBannerEditor({ label, value, onChange }) {
     return (
-        <div className="border border-brand-border rounded-lg p-4 bg-white space-y-4">
+        <div className="border border-brand-border rounded-lg p-4 bg-white space-y-3">
             <h4 className="text-sm font-semibold text-slate-700">{label}</h4>
             <ImageUpload
                 label="Imagem"
                 currentUrl={value.url ?? null}
                 onChange={(file) => onChange({ ...value, image: file })}
-            />
-            <InlineTranslatable
-                label="Título"
-                locales={locales}
-                value={value.title ?? {}}
-                onChange={(loc, val) => onChange({ ...value, title: { ...(value.title ?? {}), [loc]: val } })}
-            />
-            <InlineTranslatable
-                label="Subtítulo"
-                locales={locales}
-                value={value.subtitle ?? {}}
-                onChange={(loc, val) => onChange({ ...value, subtitle: { ...(value.subtitle ?? {}), [loc]: val } })}
             />
         </div>
     );
@@ -308,10 +295,8 @@ function initPageBanners(pageBanners) {
     for (const key of Object.keys(PAGE_BANNER_LABELS)) {
         const raw = pageBanners?.[key] ?? {};
         result[key] = {
-            url:      raw.url      ?? null,
-            image:    null, // File object, set when user picks a new image
-            title:    parseTranslatable(raw.title),
-            subtitle: parseTranslatable(raw.subtitle),
+            url:   raw.url ?? null,
+            image: null,
         };
     }
     return result;
@@ -384,11 +369,7 @@ export default function SettingsIndex({ siteInfo = null, locales = ["pt", "en"],
             page_banners: Object.fromEntries(
                 Object.entries(pageBannerFields).map(([key, val]) => [
                     key,
-                    {
-                        image:    val.image ?? null,
-                        title:    val.title    ?? {},
-                        subtitle: val.subtitle ?? {},
-                    },
+                    { image: val.image ?? null },
                 ])
             ),
         };
@@ -519,15 +500,14 @@ export default function SettingsIndex({ siteInfo = null, locales = ["pt", "en"],
 
                     <Section title="Banners de página">
                         <p className="text-xs text-slate-400 mb-4">
-                            Imagem de fundo e texto para o banner de cada página. Se não tiver imagem, o banner usa o fundo azul padrão.
+                            Imagem de fundo para o banner de cada página. Se não tiver imagem, o banner usa o fundo azul padrão.
                         </p>
                         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                             {Object.entries(PAGE_BANNER_LABELS).map(([key, label]) => (
                                 <PageBannerEditor
                                     key={key}
                                     label={label}
-                                    locales={locales}
-                                    value={pageBannerFields[key] ?? { url: null, image: null, title: {}, subtitle: {} }}
+                                    value={pageBannerFields[key] ?? { url: null, image: null }}
                                     onChange={(next) => setPageBannerFields((prev) => ({ ...prev, [key]: next }))}
                                 />
                             ))}

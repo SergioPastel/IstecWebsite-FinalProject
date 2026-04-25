@@ -27,28 +27,16 @@ return new class extends Migration
 
 
             $table->foreignUuid('ctesp_banner')->nullable()->constrained('media')->nullOnDelete();
-            $table->json('ctesp_banner_title')->nullable();
-            $table->json('ctesp_banner_subtitle')->nullable();
 
             $table->foreignUuid('licenciatura_banner')->nullable()->constrained('media')->nullOnDelete();
-            $table->json('licenciatura_banner_title')->nullable();
-            $table->json('licenciatura_banner_subtitle')->nullable();
 
             $table->foreignUuid('pos_graduacao_banner')->nullable()->constrained('media')->nullOnDelete();
-            $table->json('pos_graduacao_banner_title')->nullable();
-            $table->json('pos_graduacao_banner_subtitle')->nullable();
 
             $table->foreignUuid('eventos_noticias_banner')->nullable()->constrained('media')->nullOnDelete();
-            $table->json('eventos_noticias_banner_title')->nullable();
-            $table->json('eventos_noticias_banner_subtitle')->nullable();
 
             $table->foreignUuid('erasmus_banner')->nullable()->constrained('media')->nullOnDelete();
-            $table->json('erasmus_banner_title')->nullable();
-            $table->json('erasmus_banner_subtitle')->nullable();
 
             $table->foreignUuid('pedagogia_banner')->nullable()->constrained('media')->nullOnDelete();
-            $table->json('pedagogia_banner_title')->nullable();
-            $table->json('pedagogia_banner_subtitle')->nullable();
 
             $table->timestamps();
         });

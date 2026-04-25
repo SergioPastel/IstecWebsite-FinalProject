@@ -31,8 +31,6 @@ class SiteInfoResource extends JsonResource
             $media = $this->$relation;
             $pageBanners[$key] = [
                 'url' => $media ? \App\Models\Media::getUrl('public', $media->file_path) : null,
-                'title' => $this->getTranslation($key . '_banner_title', $locale) ?: $this->getTranslation($key . '_banner_title', 'pt'),
-                'subtitle' => $this->getTranslation($key . '_banner_subtitle', $locale) ?: $this->getTranslation($key . '_banner_subtitle', 'pt'),
             ];
         }
 

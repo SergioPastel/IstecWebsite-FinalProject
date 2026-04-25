@@ -36,9 +36,7 @@ class SettingsController extends Controller
         foreach (self::PAGE_BANNER_RELATIONS as $key => $relation) {
             $media = $siteInfo->$relation;
             $data[$key] = [
-                'url'      => $media ? Media::getUrl('public', $media->file_path) : null,
-                'title'    => $siteInfo->getTranslations($key . '_banner_title'),
-                'subtitle' => $siteInfo->getTranslations($key . '_banner_subtitle'),
+                'url' => $media ? Media::getUrl('public', $media->file_path) : null,
             ];
         }
         return $data;
@@ -79,9 +77,7 @@ class SettingsController extends Controller
     {
         $pageBannerRules = [];
         foreach (array_keys(self::PAGE_BANNER_RELATIONS) as $key) {
-            $pageBannerRules["page_banners.{$key}.image"]    = ['nullable', 'image', 'max:4096'];
-            $pageBannerRules["page_banners.{$key}.title"]    = ['nullable', 'array'];
-            $pageBannerRules["page_banners.{$key}.subtitle"] = ['nullable', 'array'];
+            $pageBannerRules["page_banners.{$key}.image"] = ['nullable', 'image', 'max:4096'];
         }
 
         $request->validate(array_merge([
@@ -132,8 +128,6 @@ class SettingsController extends Controller
 
             // ── Page banners ───────────────────────────────────────────────
             foreach (self::PAGE_BANNER_RELATIONS as $key => $relation) {
-                $bannerData = $request->input("page_banners.{$key}", []);
-
                 if ($request->hasFile("page_banners.{$key}.image")) {
                     $file = $request->file("page_banners.{$key}.image");
                     $path = 'media/' . Str::uuid() . '.' . $file->getClientOriginalExtension();
@@ -151,12 +145,6 @@ class SettingsController extends Controller
                     $siteInfo->{$key . '_banner'} = $media->id;
                 }
 
-                foreach ($bannerData['title'] ?? [] as $locale => $value) {
-                    $siteInfo->setTranslation($key . '_banner_title', $locale, $value ?? '');
-                }
-                foreach ($bannerData['subtitle'] ?? [] as $locale => $value) {
-                    $siteInfo->setTranslation($key . '_banner_subtitle', $locale, $value ?? '');
-                }
             }
 
             $siteInfo->save();
