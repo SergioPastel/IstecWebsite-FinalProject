@@ -169,7 +169,9 @@
       "finalSummaryTitle": "Final summary",
       "selectedLevelLabel": "Selected level:",
       "submittedFor": "You have submitted an application for",
-      "invalidIdentificationNumber": "The identification number must have 9 digits."
+      "invalidIdentificationNumber": "The identification number must have 9 digits.",
+      "successTitle": "Application submitted successfully.",
+      "successFollowUp": "You will receive a confirmation message shortly."
     },
     "event": {
       "pageTitle": "Event application",

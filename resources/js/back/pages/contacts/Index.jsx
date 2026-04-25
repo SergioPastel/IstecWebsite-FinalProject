@@ -5,6 +5,7 @@ import StatusBadge from "../../components/ui/StatusBadge";
 import EmptyState from "../../components/ui/EmptyState";
 import { Link } from "@inertiajs/react";
 import { filterCollectionByQuery } from "../../utils/search";
+
 export default function ContactsIndex({ contacts }) {
 
   const rows = contacts ?? [];

@@ -645,6 +645,13 @@ export default function ApplicationsCourse({
                         {t("applicationsForm.course.successTitle", "Application submitted")}
                       </h2>
 
+                      <p className="mt-4 text-sm text-slate-600">
+                        {t(
+                          "applicationsForm.event.successFollowUp",
+                          "You will receive a confirmation message shortly."
+                        )}
+                      </p>
+
                       <button
                         type="button"
                         onClick={() => {

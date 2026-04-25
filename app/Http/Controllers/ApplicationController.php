@@ -37,8 +37,6 @@ class ApplicationController extends Controller
             CourseCategory::with('courses')->get()
         )->resolve();
 
-        // dd($courseCategories);
-
         return Inertia('front/pages/applications/ApplicationsCourse', [
             'course' => $course,
             'courseCategories' => $courseCategories,
@@ -117,9 +115,13 @@ class ApplicationController extends Controller
 
     public function adminIndex()
     {
+        $applications = Application::with('course')->latest()->get();
+        $eventApplications = EventApplication::with('event')->latest()->get();
+        
         return Inertia('back/pages/applications/Index', [
-            'applications' => Application::with('course')->latest()->get()
-        ]);
+            'applications' => $applications,
+            'eventApplications' => $eventApplications
+            ]);
     }
 
     public function adminShow(Application $application)
