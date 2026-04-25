@@ -54,6 +54,7 @@ class DashboardController extends Controller
                 'event_applications' => EventApplication::count(),
                 'contacts' => ContactMessage::count(),
             ],
+            'contacts' => ContactMessage::get()->all()
         ]);
     }
 

@@ -8,55 +8,7 @@ import StatusBadge from "../components/ui/StatusBadge";
 import EmptyState from "../components/ui/EmptyState";
 import { filterCollectionByQuery } from "../utils/search";
 
-const recentActivity = [
-  {
-    id: 1,
-    title: "Novo curso em revisão editorial",
-    detail: "CTeSP em Ciberseguranca aguardando validação final.",
-    status: "Em revisão",
-    tone: "warning",
-  },
-  {
-    id: 2,
-    title: "Notícia institucional publicada",
-    detail: "Comunicado sobre parcerias académicas atualizado.",
-    status: "Publicado",
-    tone: "success",
-  },
-  {
-    id: 3,
-    title: "Evento com destaque na homepage",
-    detail: "Open Day promovido para a agenda principal.",
-    status: "Ativo",
-    tone: "info",
-  },
-];
-
-const latestContacts = [
-  {
-    id: 1,
-    name: "Mariana Costa",
-    subject: "Pedido de informação sobre licenciaturas",
-    receivedAt: "Hoje, 10:14",
-    status: "Novo",
-  },
-  {
-    id: 2,
-    name: "Tiago Pereira",
-    subject: "Esclarecimento sobre equivalências",
-    receivedAt: "Hoje, 09:02",
-    status: "Em análise",
-  },
-  {
-    id: 3,
-    name: "Rita Almeida",
-    subject: "Contacto institucional para parceria",
-    receivedAt: "Ontem, 17:46",
-    status: "Respondido",
-  },
-];
-
-export default function Dashboard({ analytics = {}, counts = {}, user }) {
+export default function Dashboard({ analytics = {}, counts = {}, contacts }) {
   useEffect(() => {
     router.post(
       "/locale",
@@ -123,20 +75,14 @@ export default function Dashboard({ analytics = {}, counts = {}, user }) {
           metric.value,
         ]);
 
-        const filteredActivity = filterCollectionByQuery(recentActivity, searchQuery, (item) => [
-          item.title,
-          item.detail,
-          item.status,
-        ]);
-
         const filteredContacts = filterCollectionByQuery(
-          latestContacts,
+          contacts,
           searchQuery,
-          (contact) => [contact.name, contact.subject, contact.receivedAt, contact.status],
+          (contact) => [contact.name, contact.subject, contact.created_at],
         );
 
         const hasResults =
-          filteredMetrics.length > 0 || filteredActivity.length > 0 || filteredContacts.length > 0;
+          filteredMetrics.length > 0 || filteredContacts.length > 0;
 
         return <div className="space-y-6">
 
@@ -148,38 +94,7 @@ export default function Dashboard({ analytics = {}, counts = {}, user }) {
               ))}
             </div>
 
-            <div className="grid gap-6 xl:grid-cols-[1.35fr_0.95fr]">
-              <SectionCard
-                title="Atividade recente"
-                subtitle={searchQuery ? `${filteredActivity.length} resultado(s) encontrados.` : undefined}
-              >
-                {filteredActivity.length === 0 ? (
-                  <EmptyState
-                    compact
-                    title="Sem atividade correspondente."
-                    description="Ajusta a pesquisa para encontrar modulos, estados ou detalhes recentes."
-                  />
-                ) : (
-                  <div className="space-y-4">
-                    {filteredActivity.map((item) => (
-                      <div
-                        key={item.id}
-                        className="flex flex-col gap-3 rounded-[24px] border border-slate-200 bg-slate-50/75 px-5 py-5 md:flex-row md:items-center md:justify-between"
-                      >
-                        <div>
-                          <h3 className="text-base font-semibold text-slate-950">
-                            {item.title}
-                          </h3>
-                          <p className="mt-1 text-sm leading-6 text-slate-500">
-                            {item.detail}
-                          </p>
-                        </div>
-                        <StatusBadge label={item.status} tone={item.tone} />
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </SectionCard>
+            <div className="grid gap-6 xl:grid-cols-[1.35fr_0.95fr]">            
 
               <SectionCard
                 title="Últimos contactos"
@@ -201,7 +116,7 @@ export default function Dashboard({ analytics = {}, counts = {}, user }) {
                   />
                 ) : (
                   <div className="space-y-4">
-                    {filteredContacts.map((contact) => (
+                    {contacts.map((contact) => (
                       <div
                         key={contact.id}
                         className="rounded-[24px] border border-slate-200 bg-white px-5 py-4"
@@ -215,13 +130,9 @@ export default function Dashboard({ analytics = {}, counts = {}, user }) {
                               {contact.subject}
                             </p>
                           </div>
-                          <StatusBadge
-                            label={contact.status}
-                            tone={contact.status === "Respondido" ? "success" : "info"}
-                          />
                         </div>
                         <p className="mt-3 text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
-                          {contact.receivedAt}
+                          {formatDate(contact.created_at)}
                         </p>
                       </div>
                     ))}
@@ -242,4 +153,16 @@ export default function Dashboard({ analytics = {}, counts = {}, user }) {
       }}
     </BackofficeLayout>
   );
+}
+
+function formatDate(value) {
+  if (!value) {
+    return "Agora mesmo";
+  }
+
+  return new Date(value).toLocaleDateString("pt-PT", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
 }

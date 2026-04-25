@@ -174,7 +174,9 @@
       "finalSummaryTitle": "Resumo final",
       "selectedLevelLabel": "Nível escolhido:",
       "submittedFor": "Submeteu uma candidatura para",
-      "invalidIdentificationNumber": "O número de identificação deve ter 9 dígitos."
+      "invalidIdentificationNumber": "O número de identificação deve ter 9 dígitos.",
+      "successTitle": "Canditura submetida com sucesso.",
+      "successFollowUp": "Você ira receber um email de confirmação brevemente."
     },
     "event": {
       "pageTitle": "Candidatura a Evento",
