@@ -10,6 +10,7 @@ use App\Models\ContactMessage;
 use App\Http\Requests\StoreDashboardRequest;
 use App\Http\Requests\UpdateDashboardRequest;
 use App\Actions\Fortify\CreateNewUser;
+use App\Models\EventApplication;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
@@ -50,6 +51,7 @@ class DashboardController extends Controller
             'counts' => [
                 'active_events' => Event::where('end_date', '>=', now())->count(),
                 'applications' => Application::count(),
+                'event_applications' => EventApplication::count(),
                 'contacts' => ContactMessage::count(),
             ],
         ]);
@@ -72,10 +74,12 @@ class DashboardController extends Controller
     // GET /users - List of admin users
     public function users()
     {
+        $activeUser = Auth::user();
         $users = User::withTrashed()->get(); // Get all users, including soft-deleted ones
 
         return Inertia('back/pages/users/Index', [
-            'users' => $users
+            'users' => $users,
+            'activeUser' => $activeUser
         ]);
     }
 

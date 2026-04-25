@@ -71,25 +71,25 @@ export default function Dashboard({ analytics = {}, counts = {}, user }) {
     {
       label: "Visitantes",
       value: analytics.visitors ?? 0,
-      trend: `${analytics.pageviews ?? 0} pageviews`,
+      trend: `${analytics.pageviews ?? 0} visualizações`,
       accent: "light",
     },
     {
       label: "Eventos ativos",
       value: counts.active_events ?? 0,
-      trend: `${counts.active_events ?? 0} eventos ainda ativos`,
+      trend: `${counts.event_applications ?? 0} candidaturas a eventos`,
       accent: "light",
     },
     {
       label: "Candidaturas recebidas",
       value: counts.applications ?? 0,
-      trend: `${analytics.course_check ?? 0} cliques em cursos`,
+      trend: `${analytics.course_check ?? 0} visitas aos cursos`,
       accent: "light",
     },
     {
       label: "Contactos recebidos",
       value: counts.contacts ?? 0,
-      trend: "Mensagens do inbox",
+      trend: "Mensagens ao inbox",
       accent: "light",
     },
   ];
