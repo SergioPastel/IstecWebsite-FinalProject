@@ -25,7 +25,9 @@ class CourseController extends Controller
 
     public function ctesp()
     {
-        $courses = Course::latest()->paginate(10)->onEachSide(1);
+        $ctesp = CourseCategory::where('title->en', '=', 'CTeSP (Higher Technical Professional Course)')->first();
+
+        $courses = Course::latest()->where('course_category_id', '=', $ctesp->id)->paginate(10)->onEachSide(1);
         return Inertia('front/pages/courses/CtespIndex', [
             'courses' => CourseResource::collection($courses),
         ]);
@@ -33,7 +35,9 @@ class CourseController extends Controller
 
     public function licenciatura()
     {
-        $courses = Course::latest()->paginate(10)->onEachSide(1);
+        $bachelors = CourseCategory::where('title->en', '=', 'Bachelors')->first();
+
+        $courses = Course::latest()->where('course_category_id', '=', $bachelors->id)->paginate(10)->onEachSide(1);
         return Inertia('front/pages/courses/LicenciaturasIndex', [
             'courses' => CourseResource::collection($courses),
         ]);
@@ -41,7 +45,9 @@ class CourseController extends Controller
 
     public function posGraduacao()
     {
-        $courses = Course::latest()->paginate(10)->onEachSide(1);
+        $postGraduate = CourseCategory::where('title->en', '=', 'Post-Graduate')->first();
+
+        $courses = Course::latest()->where('course_category_id', '=', $postGraduate->id)->paginate(10)->onEachSide(1);
         return Inertia('front/pages/courses/PosGraduacoesIndex', [
             'courses' => CourseResource::collection($courses),
         ]);
