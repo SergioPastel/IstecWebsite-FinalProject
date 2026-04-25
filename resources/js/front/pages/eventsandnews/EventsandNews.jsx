@@ -21,7 +21,7 @@ export default function EventsandNews({
   const itemsPerPage = 6;
 
   const { siteInfo } = usePage().props;
-  const banner = siteInfo?.pageBanners?.ctesp ?? null;
+  const banner = siteInfo?.pageBanners?.eventos_noticias ?? null;
   const bannerTitle = banner?.title?.[lang] ?? banner?.title?.pt ?? null;
   const bannerSubtitle =
     banner?.subtitle?.[lang] ?? banner?.subtitle?.pt ?? null;
