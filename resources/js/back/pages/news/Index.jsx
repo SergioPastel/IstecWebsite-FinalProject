@@ -40,6 +40,15 @@ export default function NewsIndexBack({ news }) {
         title="Notícias"
         subtitle="Organize o conteudo editorial com uma base pronta para evoluir."
         searchPlaceholder="Pesquisar Notícias"
+        actions={[
+          <Link
+            key="create"
+            href={route("news.create")}
+            className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
+          >
+            Nova notícia
+          </Link>,
+        ]}
       >
         {({ searchQuery }) => {
           const filteredRows = filterCollectionByQuery(rows, searchQuery, (item) => [
@@ -51,20 +60,7 @@ export default function NewsIndexBack({ news }) {
 
           return (
             <div className="space-y-6">
-              <PageHeader
-                eyebrow="Notícias"
-                title="Gestão de notícias"
-                actions={[
-                  <Link
-                    key="create"
-                    href={route("news.create")}
-                    className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
-                  >
-                    Nova notícia
-                  </Link>,
-                ]}
-              />
-
+              
               <SectionCard
                 title="Publicacoes"
                 subtitle={`${filteredRows.length} de ${rows.length} entradas prontas para administracao editorial.`}

@@ -99,6 +99,22 @@ export default function Dashboard({ analytics = {}, counts = {}, user }) {
       title="Dashboard"
       subtitle="Vista geral do ecossistema digital do ISTEC Porto com foco operacional."
       searchPlaceholder="Pesquisar modulos, paginas ou conteudos"
+      actions={[
+        <Link
+          key="courses"
+          href={route("backoffice.courses")}
+          className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
+        >
+          Gerir cursos
+        </Link>,
+        <Link
+          key="news"
+          href={route("backoffice.news")}
+          className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
+        >
+          Ver noticias
+        </Link>,
+      ]}
     >
       {({ searchQuery }) => {
         const filteredMetrics = filterCollectionByQuery(metrics, searchQuery, (metric) => [
@@ -123,26 +139,6 @@ export default function Dashboard({ analytics = {}, counts = {}, user }) {
           filteredMetrics.length > 0 || filteredActivity.length > 0 || filteredContacts.length > 0;
 
         return <div className="space-y-6">
-        <PageHeader
-          eyebrow="Overview"
-          title={`Bem-vindo${user?.name ? `, ${user.name}` : ""}`}
-          actions={[
-            <Link
-              key="courses"
-              href={route("backoffice.courses")}
-              className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
-            >
-              Gerir cursos
-            </Link>,
-            <Link
-              key="news"
-              href={route("backoffice.news")}
-              className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
-            >
-              Ver noticias
-            </Link>,
-          ]}
-        />
 
         {hasResults ? (
           <>

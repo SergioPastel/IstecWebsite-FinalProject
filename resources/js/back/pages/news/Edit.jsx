@@ -13,22 +13,16 @@ export default function EditNews({ news }) {
       title="Editar noticia"
       subtitle="Atualização dos dados da notícia."
       searchPlaceholder="Pesquisar noticias"
+      actions={[
+        <Link
+          key="back"
+          href={route("backoffice.news")}
+          className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
+        >
+          Voltar à lista de notícias
+        </Link>,
+      ]}
     >
-      <div className="space-y-6">
-        <PageHeader
-          eyebrow="Notícias"
-          title={currentNews?.title ?? "Editar notícia"}
-          description={`Edição do registo ${currentNews?.id ?? ""}.`}
-          actions={[
-            <Link
-              key="back"
-              href={route("backoffice.news")}
-              className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
-            >
-              Voltar à lista de notícias
-            </Link>,
-          ]}
-        />
 
         <SectionCard
           title="Formulário"
@@ -39,7 +33,7 @@ export default function EditNews({ news }) {
             isEdit={true}
           />
         </SectionCard>
-      </div>
+      
     </BackofficeLayout>
   );
 }

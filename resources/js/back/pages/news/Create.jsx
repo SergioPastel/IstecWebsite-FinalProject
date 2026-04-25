@@ -10,22 +10,16 @@ export default function CreateNews() {
       title="Nova notícia"
       subtitle="Criação de uma nova notícia."
       searchPlaceholder="Pesquisar Notícias"
+      actions={[
+        <Link
+          key="back"
+          href={route("backoffice.news")}
+          className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
+        >
+          Voltar à lista de notícias
+        </Link>,
+      ]}
     >
-      <div className="space-y-6">
-        <PageHeader
-          eyebrow="Notícias"
-          title="Criar notícia"
-          description="Preenche o formulário abaixo para criar uma nova notícia."
-          actions={[
-            <Link
-              key="back"
-              href={route("backoffice.news")}
-              className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
-            >
-              Voltar à lista de notícias
-            </Link>,
-          ]}
-        />
 
         <SectionCard
           title="Formulário"
@@ -33,7 +27,6 @@ export default function CreateNews() {
         >
           <NewsCreateForm />
         </SectionCard>
-      </div>
     </BackofficeLayout>
   );
 }

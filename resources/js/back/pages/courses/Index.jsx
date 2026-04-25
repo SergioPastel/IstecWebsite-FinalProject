@@ -37,6 +37,15 @@ export default function CoursesIndexBack({ courses }) {
       title="Cursos"
       subtitle="Organize a oferta formativa e prepare a área para futuras operacões editoriais."
       searchPlaceholder="Pesquisar cursos"
+      actions={[
+        <Link
+          key="create"
+          href={route("courses.create")}
+          className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
+        >
+          Novo curso
+        </Link>,
+      ]}
     >
       {({ searchQuery }) => {
         const filteredRows = filterCollectionByQuery(rows, searchQuery, (course) => [
@@ -47,20 +56,7 @@ export default function CoursesIndexBack({ courses }) {
 
         return (
           <div className="space-y-6">
-            <PageHeader
-              eyebrow="Cursos"
-              title="Gestao de cursos"
-              actions={[
-                <Link
-                  key="create"
-                  href={route("courses.create")}
-                  className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
-                >
-                  Novo curso
-                </Link>,
-              ]}
-            />
-
+           
             <SectionCard
               title="Catalogo atual"
               subtitle={`${filteredRows.length} de ${rows.length} registos disponiveis para administracao.`}

@@ -45,6 +45,15 @@ export default function UsersIndex({ users = [] }) {
       title="Utilizadores"
       subtitle="Gestao base da equipa administrativa, perfis e niveis de acesso."
       searchPlaceholder="Pesquisar utilizadores"
+      actions={[
+        <Link
+          key="create"
+          href={route("backoffice.users.create")}
+          className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
+        >
+          Novo utilizador
+        </Link>,
+      ]}
     >
       {({ searchQuery }) => {
         const filteredUsers = filterCollectionByQuery(users, searchQuery, (user) => [
@@ -55,20 +64,6 @@ export default function UsersIndex({ users = [] }) {
 
         return (
           <div className="space-y-6">
-            <PageHeader
-              eyebrow="Utilizadores"
-              title="Acessos e perfis"
-              description="Base visual para uma futura gestao de permissoes, convites e auditoria de acesso."
-              actions={[
-                <Link
-                  key="create"
-                  href={route("backoffice.users.create")}
-                  className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
-                >
-                  Novo utilizador
-                </Link>,
-              ]}
-            />
 
             <SectionCard title="Equipa administrativa">
               {users.length === 0 ? (

@@ -9,26 +9,19 @@ export default function EditCourse({ course, categories = [] }) {
 
   return (
     <BackofficeLayout
-      title="Editar curso"
-      subtitle="Atualização dos dados do curso."
-      searchPlaceholder="Pesquisar cursos"
+  title="Editar curso"
+  subtitle="Atualização dos dados do curso."
+  searchPlaceholder="Pesquisar cursos"
+  actions={[
+    <Link
+      key="back"
+      href={route("backoffice.courses")}
+      className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
     >
-      <div className="space-y-6">
-        <PageHeader
-          eyebrow="Editar Curso"
-          title={currentCourse?.title?.pt ?? currentCourse?.title?.en ?? "Editar curso"}
-          description={`Edição do registo ${currentCourse?.id ?? ""}.`}
-          actions={[
-            <Link
-              key="back"
-              href={route("backoffice.courses")}
-              className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
-            >
-              Voltar à lista de cursos
-            </Link>,
-          ]}
-        />
-
+      Voltar à lista de cursos
+    </Link>,
+  ]}
+>
         <SectionCard
           title="Formulário"
           subtitle="Edita os dados principais do curso"
@@ -39,7 +32,6 @@ export default function EditCourse({ course, categories = [] }) {
             isEdit={true}
           />
         </SectionCard>
-      </div>
     </BackofficeLayout>
   );
 }

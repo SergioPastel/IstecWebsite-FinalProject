@@ -10,6 +10,7 @@ export default function BackofficeLayout({
   title,
   subtitle,
   searchPlaceholder,
+  actions = [],
 }) {
   const { props } = usePage();  
   const [isDesktopSidebarCollapsed, setIsDesktopSidebarCollapsed] = useState(false);
@@ -56,6 +57,7 @@ export default function BackofficeLayout({
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
           user={props.user}
+          actions={actions}
         />
 
         <main className="px-4 py-6 sm:px-6 lg:px-8">

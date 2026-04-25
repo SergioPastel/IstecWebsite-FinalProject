@@ -40,6 +40,15 @@ export default function EventsIndexBack({ events }) {
         title="Eventos"
         subtitle="Coordene agenda, visibilidade e estado operacional dos eventos."
         searchPlaceholder="Pesquisar eventos"
+        actions={[
+          <Link
+            key="create"
+            href={route("events.create")}
+            className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
+          >
+            Novo evento
+          </Link>,
+        ]}
       >
         {({ searchQuery }) => {
           const filteredRows = filterCollectionByQuery(rows, searchQuery, (event) => [
@@ -52,20 +61,7 @@ export default function EventsIndexBack({ events }) {
 
           return (
             <div className="space-y-6">
-              <PageHeader
-                eyebrow="Eventos"
-                title="Gestão de eventos"
-                actions={[
-                  <Link
-                    key="create"
-                    href={route("events.create")}
-                    className="inline-flex items-center justify-center rounded-2xl bg-[var(--color-brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(12,115,183,0.28)] transition hover:bg-[var(--color-brand-secondary)]"
-                  >
-                    Novo evento
-                  </Link>,
-                ]}
-              />
-
+              
               <SectionCard
                 title="Calendario editorial"
                 subtitle={`${filteredRows.length} de ${rows.length} eventos preparados para acompanhamento.`}

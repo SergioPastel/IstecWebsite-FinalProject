@@ -8,6 +8,7 @@ export default function Topbar({
   searchQuery,
   onSearchChange,
   user,
+  actions=[],
 }) {
   const initials = getInitials(user?.name);
 
@@ -73,11 +74,12 @@ export default function Topbar({
 
           <div className="hidden items-center gap-3 md:flex">            
 
-            <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-3 py-2 shadow-sm">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--color-brand-surface-strong)] text-sm font-semibold text-[var(--color-brand-primary)]">
+            <div className="flex items-center gap-3 rounded-3xl border border-slate-200 bg-white px-4 py-2 shadow-sm transition hover:shadow-md">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--color-brand-primary)] to-[var(--color-brand-secondary)] text-sm font-bold text-white shadow">
                 {initials}
               </div>
-              <div className="text-right">
+
+              <div className="leading-tight text-left">
                 <p className="text-sm font-semibold text-slate-900">
                   {user?.name ?? "Administrador"}
                 </p>
@@ -90,27 +92,34 @@ export default function Topbar({
         </div>
 
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <label className="relative block w-full md:max-w-xl">
-            <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                className="h-5 w-5"
-              >
-                <circle cx="11" cy="11" r="6" />
-                <path d="m20 20-4.35-4.35" />
-              </svg>
-            </span>
-            <input
-              type="search"
-              placeholder={searchPlaceholder}
-              value={searchQuery}
-              onChange={(event) => onSearchChange(event.target.value)}
-              className="w-full rounded-2xl border border-[var(--color-brand-border)] bg-white py-3 pl-12 pr-4 text-sm text-slate-700 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-[var(--color-brand-secondary)] focus:ring-4 focus:ring-[rgba(45,167,223,0.18)]"
-            />
-          </label>
+  
+        {/* Pesquisa */}
+        <label className="relative block w-full md:max-w-xl">
+          <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
+              <circle cx="11" cy="11" r="6" />
+              <path d="m20 20-4.35-4.35" />
+            </svg>
+          </span>
+
+          <input
+            type="search"
+            placeholder={searchPlaceholder}
+            value={searchQuery}
+            onChange={(event) => onSearchChange(event.target.value)}
+            className="w-full rounded-2xl border border-[var(--color-brand-border)] bg-white py-3 pl-12 pr-4 text-sm text-slate-700 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-[var(--color-brand-secondary)] focus:ring-4 focus:ring-[rgba(45,167,223,0.18)]"
+          />
+        </label>
+
+        {/* Button right side */}
+        {actions.length > 0 && (
+          <div className="flex items-center justify-end gap-3 pr-6">
+            {actions.map((action, index) => (
+              <div key={index}>{action}</div>
+            ))}
+          </div>
+        )}
+      </div>
 
           <div className="flex items-center justify-between gap-3 md:hidden">
             <button
@@ -145,7 +154,6 @@ export default function Topbar({
             </div>
           </div>
         </div>
-      </div>
     </header>
   );
 }

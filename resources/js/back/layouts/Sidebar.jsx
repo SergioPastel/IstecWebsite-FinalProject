@@ -101,21 +101,22 @@ export default function Sidebar({ isOpen, isCollapsed, onClose, onToggleCollapse
           <div className={`flex ${isCollapsed ? "justify-center" : "items-start justify-between gap-3"}`}>
             <div className={isCollapsed ? "flex justify-center" : ""}>
               <div
-                className={`rounded-2xl border border-white/10 bg-white/5 ${
-                  isCollapsed ? "hidden" : "px-4 py-3"
-                }`}
-              >                
-                {!isCollapsed ? (
-                  <>
-                    <h1 className="backoffice-heading mt-3 text-2xl font-semibold tracking-tight text-white">
-                      Backoffice
-                    </h1>
-                    <p className="mt-2 text-sm leading-6 text-slate-300">
-                      Gestao institucional de cursos, conteudos e operacoes internas.
-                    </p>
-                  </>
-                ) : null}
-              </div>
+                  className={`mt-5 rounded-3xl border border-white/10 bg-white/[0.04] px-4 py-4 shadow-[0_18px_45px_rgba(0,0,0,0.35)] ${
+                    isCollapsed ? "hidden" : ""
+                  }`}
+                >
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--color-brand-secondary)]">
+                    Painel
+                  </p>
+
+                  <h1 className="mt-2 text-xl font-bold tracking-tight text-white">
+                    Backoffice
+                  </h1>
+
+                  <p className="mt-2 text-xs leading-5 text-slate-400">
+                    Gestão institucional.
+                  </p>
+                </div>
             </div>
           </div>
         </div>
@@ -161,20 +162,7 @@ export default function Sidebar({ isOpen, isCollapsed, onClose, onToggleCollapse
         </nav>
 
         <div className={`border-t border-white/10 ${isCollapsed ? "px-3 py-4" : "px-4 py-4"}`}>
-          {!isCollapsed ? (
-            <div className="mb-4 rounded-2xl bg-white/5 px-4 py-4">
-              <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
-                Sessao atual
-              </p>
-              <p className="mt-2 text-sm font-semibold text-white">
-                {props.user?.name ?? "Administrador"}
-              </p>
-              <p className="mt-1 text-xs text-slate-400">
-                {props.user?.email ?? "admin@istec-porto.pt"}
-              </p>
-            </div>
-          ) : null}
-
+         
           <Link
             href={route("logout")}
             method="post"

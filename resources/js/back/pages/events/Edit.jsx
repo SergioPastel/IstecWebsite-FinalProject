@@ -13,22 +13,16 @@ export default function EventEdit({ event, eventCategories = [] }) {
       title="Editar evento"
       subtitle="Atualização dos dados do evento."
       searchPlaceholder="Pesquisar eventos"
+      actions={[
+        <Link
+          key="back"
+          href={route("backoffice.events")}
+          className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
+        >
+          Voltar à lista de eventos
+        </Link>,
+      ]}
     >
-      <div className="space-y-6">
-        <PageHeader
-          eyebrow="Eventos"
-          title={currentEvent?.title ?? "Editar evento"}
-          description={`Edição do registo ${currentEvent?.id ?? ""}.`}
-          actions={[
-            <Link
-              key="back"
-              href={route("backoffice.events")}
-              className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-950"
-            >
-              Voltar à lista de eventos
-            </Link>,
-          ]}
-        />
 
         <SectionCard
           title="Formulário"
@@ -40,7 +34,7 @@ export default function EventEdit({ event, eventCategories = [] }) {
             eventCategories={eventCategories}
           />
         </SectionCard>
-      </div>
+      
     </BackofficeLayout>
   );
 }
