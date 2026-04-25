@@ -1,13 +1,10 @@
 import { Link } from "@inertiajs/react";
 import BackofficeLayout from "../../layouts/BackofficeLayout";
-import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
 import NewsCreateForm from "../../components/common/NewsCreateForm";
 
-
-export default function EditNews({ news }) {
+export default function EditNews({ news, categories = [] }) {
   const currentNews = news?.data ?? news ?? {};
-
   return (
     <BackofficeLayout
       title="Editar notícia"
@@ -23,17 +20,9 @@ export default function EditNews({ news }) {
         </Link>,
       ]}
     >
-
-        <SectionCard
-          title="Formulário"
-          subtitle="Edite os dados principais da notícia"
-        >
-          <NewsCreateForm
-            news={currentNews}
-            isEdit={true}
-          />
-        </SectionCard>
-      
+      <SectionCard title="Formulário" subtitle="Edite os dados principais da notícia">
+        <NewsCreateForm news={currentNews} categories={categories} isEdit={true} />
+      </SectionCard>
     </BackofficeLayout>
   );
 }

@@ -1,6 +1,5 @@
 import { Link } from "@inertiajs/react";
 import BackofficeLayout from "../../layouts/BackofficeLayout";
-import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
 import EventCreateForm from "../../components/common/EventCreateForm";
 
@@ -20,14 +19,9 @@ export default function CreateEvent({ eventCategories = [] }) {
         </Link>,
       ]}
     >
-
-    <SectionCard
-      title="Formulário"
-      subtitle="Dados principais do evento"
-    >
-      <EventCreateForm eventCategories={eventCategories} />
-    </SectionCard>
-      
+      <SectionCard title="Formulário" subtitle="Dados principais do evento">
+        <EventCreateForm eventCategories={eventCategories} />
+      </SectionCard>
     </BackofficeLayout>
   );
 }

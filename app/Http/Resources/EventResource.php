@@ -9,23 +9,23 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class EventResource extends JsonResource
 {
     public static $wrap = null;
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
+
     public function toArray(Request $request): array
     {
         $locale = app()->getLocale();
+
         return [
-            'id' => $this->id,
-            'media' => $this->media_id ? new MediaResource($this->media) : null,
-            'category' => $this->category->getTranslation('title', $locale) ?: $this->getTranslation('title', 'pt'),
-            'title' => $this->getTranslation('title', $locale) ?: $this->getTranslation('title', 'pt'),
-            'description' => $this->getTranslation('description', $locale) ?: $this->getTranslation('description', 'pt'),
-            'location' => $this->location,
-            'start_date' => $this->start_date,
-            'end_date' => $this->end_date,
+            'id'                => $this->id,
+            'event_category_id' => $this->event_category_id,
+            'media'             => $this->media_id ? new MediaResource($this->media) : null,
+            'category'          => $this->category
+                                    ? ($this->category->getTranslation('title', $locale) ?: $this->category->getTranslation('title', 'pt'))
+                                    : null,
+            'title'             => $this->getTranslation('title', $locale) ?: $this->getTranslation('title', 'pt'),
+            'description'       => $this->getTranslation('description', $locale) ?: $this->getTranslation('description', 'pt'),
+            'location'          => $this->location,
+            'start_date'        => $this->start_date,
+            'end_date'          => $this->end_date,
         ];
     }
 }

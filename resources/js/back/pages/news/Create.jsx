@@ -1,10 +1,9 @@
 import { Link } from "@inertiajs/react";
 import BackofficeLayout from "../../layouts/BackofficeLayout";
-import PageHeader from "../../components/ui/PageHeader";
 import SectionCard from "../../components/ui/SectionCard";
 import NewsCreateForm from "../../components/common/NewsCreateForm";
 
-export default function CreateNews() {
+export default function CreateNews({ categories = [] }) {
   return (
     <BackofficeLayout
       title="Nova notícia"
@@ -20,14 +19,9 @@ export default function CreateNews() {
         </Link>,
       ]}
     >
-
-    <SectionCard
-      title="Formulário"
-      subtitle="Dados principais da notícia"
-    >
-      <NewsCreateForm />
-    </SectionCard>
-    
+      <SectionCard title="Formulário" subtitle="Dados principais da notícia">
+        <NewsCreateForm categories={categories} />
+      </SectionCard>
     </BackofficeLayout>
   );
 }

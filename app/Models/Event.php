@@ -31,7 +31,8 @@ class Event extends Model
      * @var array
      */
 
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(EventCategory::class, 'event_category_id');
     }
     public $translatable = [
