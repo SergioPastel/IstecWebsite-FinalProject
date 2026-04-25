@@ -1,7 +1,7 @@
 <x-mail::message>
 
 <p style="text-align: center; margin-bottom: 20px;">
-    <img src="{{ asset('/storage/media/logo/istec-logo.png') }}" alt="Logo" style="max-height: 60px;">
+    <img src="{{ asset('/istec-logo.png') }}" alt="Logo" style="max-height: 60px;">
 </p>
 
 # 🎓 Nova Candidatura

@@ -1,7 +1,7 @@
 <x-mail::message>
 
 <p style="text-align: center; margin-bottom: 20px;">
-    <img src="{{ asset('/storage/media/logo/istec-logo.png') }}" alt="Logo" style="max-height: 60px;">
+    <img src="{{ asset('/istec-logo.png') }}" alt="Logo" style="max-height: 60px;">
 </p>
 
 @isset($application->course)
@@ -26,9 +26,9 @@ Recebemos a sua inscrição no evento **{{ $application->event->title }}**.
 A nossa equipa irá analisar a sua submissão e entraremos em contacto brevemente.
 </x-mail::panel>
 
-Obrigado pelo seu interesse! 🙌  
+Obrigado pelo seu interesse! 🙌
 
-Cumprimentos,  
+Cumprimentos,
 **Equipa Istec**
 
 </x-mail::message>

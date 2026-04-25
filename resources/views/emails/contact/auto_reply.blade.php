@@ -1,7 +1,7 @@
 <x-mail::message>
 
 <p style="text-align: center; margin-bottom: 20px;">
-    <img src="{{ asset('/storage/media/logo/istec-logo.png') }}" alt="Logo" style="max-height: 60px;">
+    <img src="{{ asset('/istec-logo.png') }}" alt="Logo" style="max-height: 60px;">
 </p>
 
 # Obrigado pelo seu contacto!
@@ -16,7 +16,7 @@ A nossa equipa irá analisar o seu pedido e responder o mais brevemente possíve
 
 Se precisar de acrescentar alguma informação, basta responder a este email.
 
-Cumprimentos,  
+Cumprimentos,
 **Equipa Istec Porto**
 
 </x-mail::message>
